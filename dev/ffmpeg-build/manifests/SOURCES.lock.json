@@ -1,0 +1,25 @@
+{
+  "ffmpeg": {
+    "tag": "n9.0.2",
+    "commit": "946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+    "repository": "https://github.com/FFmpeg/FFmpeg.git",
+    "archive": "FFmpeg-946fcce07b6dcd0331c8cc609192aeff5e1924f8.zip",
+    "archiveSha256": "8cffa6ccf78df6d39d57bd61baaf19e8bf0a7d590eef0d838de69932e8de3572",
+    "archiveURL": "https://codeload.github.com/FFmpeg/FFmpeg/zip/946fcce07b6dcd0331c8cc609192aeff5e1924f8"
+  },
+  "x264": {
+    "commit": "0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+    "repository": "https://code.videolan.org/videolan/x264.git",
+    "archive": "x264-0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee.zip",
+    "archiveSha256": "d8f276b5a7595ff9608890a32863dc51d8fd97454e908b4dd90ede8fb4b2490a",
+    "archiveURL": "https://code.videolan.org/api/v4/projects/videolan%2Fx264/repository/archive.zip?sha=0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee"
+  },
+  "zlib": {
+    "tag": "v1.3.2",
+    "commit": "da607da739fa6047df13e66a2af6b8bec7c2a498",
+    "repository": "https://github.com/madler/zlib.git",
+    "archive": "zlib-da607da739fa6047df13e66a2af6b8bec7c2a498.zip",
+    "archiveSha256": "21de001766abb1f5bfdfb3c23aa42d30a6bbd7eddd37131d5e7fe89c5ec068f8",
+    "archiveURL": "https://codeload.github.com/madler/zlib/zip/da607da739fa6047df13e66a2af6b8bec7c2a498"
+  }
+}

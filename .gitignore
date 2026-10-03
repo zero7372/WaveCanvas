@@ -10,3 +10,5 @@ dev/downloads/
 /output/
 /screenshots/
 /release/
+/dev/ffmpeg-build/workspace/
+/dev/ffmpeg-build/output/
