@@ -5,6 +5,14 @@
   "description": "WaveCanvas local audio visualizer and project editor for Windows",
   "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zero7372/WaveCanvas.git"
+  },
+  "homepage": "https://github.com/zero7372/WaveCanvas#readme",
+  "bugs": {
+    "url": "https://github.com/zero7372/WaveCanvas/issues"
+  },
   "main": "electron/main.cjs",
   "scripts": {
     "electron:dev": "node dev/tools/electron-run.cjs dev",

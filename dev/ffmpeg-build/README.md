@@ -10,7 +10,7 @@ Run from the WaveCanvas repository root using PowerShell and Python 3.10+:
 node dev/ffmpeg-build/scripts/isolated-qa.cjs
 ```
 
-The default toolchain/build workspace is `.ffmpeg-build` beside the repo, avoiding the repository's `Audio visualizer` space in MSYS2 paths. `-WorkspaceRoot H:/WaveCanvas/.ffmpeg-build` can select a short ASCII location. Bootstrap extracts the official hash-pinned base archive, installs only locked project toolchain packages, and modifies neither the host's permanent PATH nor an existing MSYS2 installation. Initial setup recorded package locks; normal reruns use the exact archives. No global security setting is changed.
+The default toolchain/build workspace is `.ffmpeg-build` beside the repo, keeping MSYS2 build paths separate from repository paths that may contain spaces. Use the scripts' `-WorkspaceRoot` option to select a short ASCII location if needed. Bootstrap extracts the official hash-pinned base archive, installs only locked project toolchain packages, and modifies neither the host's permanent PATH nor an existing MSYS2 installation. Initial setup recorded package locks; normal reruns use the exact archives. No global security setting is changed.
 
 Tracked inputs are in `manifests/`; source checkouts, downloads and outputs are ignored. Required tools are MSYS2 Bash/GCC/binutils/make/NASM/pkgconf plus host Python/PowerShell. Git/perl are part of the locked tool environment; yasm, cmake and meson are unnecessary for these recipes.
 

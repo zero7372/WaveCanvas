@@ -1,5 +1,7 @@
 # WaveCanvas 1.0.0 source preparation — BLOCKED
 
+> Historical preparation material for the superseded provider runtime. This is not the current release source guide. WaveCanvas 1.0.0 now uses the controlled FFmpeg build and a complete corresponding-source ZIP; see [the current build guide](../ffmpeg-build/README.md) and [the current GPL checklist](../../RELEASE_GPL_SOURCE_CHECKLIST.md).
+
 This material accompanies `9.0.2-essentials_build-www.gyan.dev`. It is **not complete Corresponding Source** and does not clear public distribution.
 
 The preparation archive is `WaveCanvas-1.0.0-GPL-Source-PREPARATION.zip`. The intended complete release asset is `WaveCanvas-1.0.0-GPL-Source.zip`; that name must only be used after the closure, patches and build recipe are verified. Delivery URL: `<OFFICIAL_RELEASE_URL>` — unresolved release metadata, replace before public release. No owner/repository is invented.
