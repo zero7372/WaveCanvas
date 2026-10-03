@@ -1,0 +1,48 @@
+{
+  "tolerances": [
+    {
+      "frame": "0",
+      "maximum": 0,
+      "changed": 0,
+      "ratio": 0
+    },
+    {
+      "frame": "60",
+      "maximum": 0,
+      "changed": 0,
+      "ratio": 0
+    },
+    {
+      "frame": "120",
+      "maximum": 0,
+      "changed": 0,
+      "ratio": 0
+    }
+  ],
+  "canvasTolerances": [
+    {
+      "frame": "0",
+      "maximum": 0,
+      "changed": 0,
+      "ratio": 0,
+      "pngBytesEqual": true
+    },
+    {
+      "frame": "60",
+      "maximum": 0,
+      "changed": 0,
+      "ratio": 0,
+      "pngBytesEqual": true
+    },
+    {
+      "frame": "120",
+      "maximum": 0,
+      "changed": 0,
+      "ratio": 0,
+      "pngBytesEqual": true
+    }
+  ],
+  "ssim": 1,
+  "bitIdentical": false,
+  "note": "Audio/lyric state exact; decoded Canvas and compositor use existing Phase 1 compositor tolerance. PNG byte equality retained as a diagnostic because of baseline rounding."
+}

@@ -1,0 +1,240 @@
+{
+  "tag": "packaged",
+  "checks": [
+    {
+      "pass": true,
+      "label": "contextIsolation / no Node / sandbox"
+    },
+    {
+      "pass": true,
+      "label": "Project title / no auto DevTools in start or build"
+    },
+    {
+      "pass": true,
+      "label": "Direct local file loading without server"
+    },
+    {
+      "pass": true,
+      "label": "Renderer has no Node / native execution bridge"
+    },
+    {
+      "pass": true,
+      "label": "Home visible"
+    },
+    {
+      "pass": true,
+      "label": "All template / Recent thumbnails decode locally"
+    },
+    {
+      "pass": true,
+      "label": "Local stylesheets apply"
+    },
+    {
+      "pass": true,
+      "label": "circle template opens Editor"
+    },
+    {
+      "pass": true,
+      "label": "square template opens Editor"
+    },
+    {
+      "pass": true,
+      "label": "linear template opens Editor"
+    },
+    {
+      "pass": true,
+      "label": "HTML File input imports local WAV"
+    },
+    {
+      "pass": true,
+      "label": "Web Audio playback starts"
+    },
+    {
+      "pass": true,
+      "label": "Existing analyser / FFT / bass reaction produces signal"
+    },
+    {
+      "pass": true,
+      "label": "circle renders with live audio signal"
+    },
+    {
+      "pass": true,
+      "label": "square renders with live audio signal"
+    },
+    {
+      "pass": true,
+      "label": "linear renders with live audio signal"
+    },
+    {
+      "pass": true,
+      "label": "Pause"
+    },
+    {
+      "pass": true,
+      "label": "Seek preserves decimal time"
+    },
+    {
+      "pass": true,
+      "label": "Cover import uses existing image cache"
+    },
+    {
+      "pass": true,
+      "label": "Replacing Cover revokes previous URL"
+    },
+    {
+      "pass": true,
+      "label": "Primary SRT + Secondary LRC bilingual import"
+    },
+    {
+      "pass": true,
+      "label": "Existing Lyrics renderer shows SRT text"
+    },
+    {
+      "pass": true,
+      "label": "Primary ... interlude"
+    },
+    {
+      "pass": true,
+      "label": "Primary LRC + Secondary SRT import"
+    },
+    {
+      "pass": true,
+      "label": "Waveform decodes and caches local audio"
+    },
+    {
+      "pass": true,
+      "label": "Fine adjust"
+    },
+    {
+      "pass": true,
+      "label": "Undo / Redo"
+    },
+    {
+      "pass": true,
+      "label": "Manual timestamp edit"
+    },
+    {
+      "pass": true,
+      "label": "Drag retime uses existing handler"
+    },
+    {
+      "pass": true,
+      "label": "Timing zoom / fit"
+    },
+    {
+      "pass": true,
+      "label": "Preset file import"
+    },
+    {
+      "pass": true,
+      "label": "Preset / Unicode LRC request native Chromium downloads"
+    },
+    {
+      "pass": true,
+      "label": "Factory defaults / Reset"
+    },
+    {
+      "pass": true,
+      "label": "Replacing Audio revokes previous URL"
+    },
+    {
+      "pass": true,
+      "label": "Clearing Audio revokes URL"
+    },
+    {
+      "pass": true,
+      "label": "Clearing Cover removes image source"
+    },
+    {
+      "pass": true,
+      "label": "Owned URLs remain bounded after media replacement/clear"
+    },
+    {
+      "pass": true,
+      "label": "No Renderer errors: []"
+    },
+    {
+      "pass": true,
+      "label": "Preset and LRC downloads complete"
+    },
+    {
+      "pass": true,
+      "label": "Downloaded 桌面測試.json contains valid Unicode data"
+    },
+    {
+      "pass": true,
+      "label": "Downloaded primary-timed.lrc contains valid Unicode data"
+    },
+    {
+      "pass": true,
+      "label": "On-disk WAV / PNG / LRC / SRT import via unchanged HTML file inputs"
+    },
+    {
+      "pass": true,
+      "label": "Minimize"
+    },
+    {
+      "pass": true,
+      "label": "Single instance restores and focuses first window"
+    },
+    {
+      "pass": true,
+      "label": "Maximize"
+    },
+    {
+      "pass": true,
+      "label": "Restore"
+    },
+    {
+      "pass": true,
+      "label": "Resize keeps stage 16:9 and Transport within viewport"
+    },
+    {
+      "pass": true,
+      "label": "Closing dirty primary window with discard exits process"
+    }
+  ],
+  "versions": {
+    "node": "24.21.0",
+    "acorn": "8.18.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.8",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.2",
+    "llhttp": "9.4.3",
+    "merve": "1.2.2",
+    "modules": "149",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "0.0.0",
+    "simdjson": "4.6.7",
+    "simdutf": "7.7.0",
+    "sqlite": "3.53.4",
+    "tz": "2025c",
+    "undici": "7.29.1",
+    "unicode": "17.0",
+    "uv": "1.52.1",
+    "uvwasi": "0.0.23",
+    "v8": "15.2.124.28-electron.0",
+    "zlib": "1.3.2.1-motley",
+    "zstd": "1.6.0",
+    "electron": "44.5.1",
+    "chrome": "152.0.7977.130"
+  },
+  "downloads": [
+    {
+      "name": "桌面測試.json",
+      "state": "completed"
+    },
+    {
+      "name": "primary-timed.lrc",
+      "state": "completed"
+    }
+  ]
+}

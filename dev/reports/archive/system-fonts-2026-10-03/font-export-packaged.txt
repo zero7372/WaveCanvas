@@ -1,0 +1,35 @@
+PASS Native output dialog + full UI export 0
+PASS Editor lock/playback restored 0
+PASS Synthetic frame count 0
+PASS Preferences changes leave export project snapshot unchanged
+PASS Native output dialog + full UI export 1
+PASS Editor lock/playback restored 1
+PASS Synthetic frame count 1
+PASS Identical audio / lyric state at frame 0
+PASS Canvas pixel tolerance at frame 0 (same max 1/255, <0.1% channels as full compositor)
+PASS Full compositor tolerance at frame 0 (max 1/255, <0.1% channels)
+PASS Identical audio / lyric state at frame 60
+PASS Canvas pixel tolerance at frame 60 (same max 1/255, <0.1% channels as full compositor)
+PASS Full compositor tolerance at frame 60 (max 1/255, <0.1% channels)
+PASS Identical audio / lyric state at frame 120
+PASS Canvas pixel tolerance at frame 120 (same max 1/255, <0.1% channels as full compositor)
+PASS Full compositor tolerance at frame 120 (max 1/255, <0.1% channels)
+PASS Repeated decoded video SSIM >=0.99
+PASS Successful export remembers its output directory
+PASS Canceled export to another folder preserves last successful directory
+PASS Cancel preserves an existing output target
+PASS Cancel cleans partial output after process exit
+PASS Cancel restores Editor
+PASS Missing FFmpeg error restores Editor
+PASS Full export edge duration 0.01 frame count
+PASS Full export edge duration 10 frame count
+PASS Audio decode failure restores Editor
+PASS FFmpeg non-zero failure preserves target and restores Editor
+PASS Export renderer crash leaves WaveCanvas alive and restores Editor
+PASS Export circle / Particle Style 1 / Bass Pulse
+PASS Animated circle frame evolves
+PASS Export square / Particle Style 2 / Bass Pulse
+PASS Animated square frame evolves
+PASS Export linear / Particle Style 1 / Bass Pulse
+PASS Animated linear frame evolves
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\export-packaged-1791035025671

@@ -26,7 +26,9 @@
     "build:audit": "node dev/tools/audit-electron-build.cjs",
     "repo:size": "node dev/tools/audit-repo-size.cjs",
     "options:test": "node dev/tools/options-smoke.cjs",
-    "options:test:build": "node dev/tools/options-smoke.cjs --packaged"
+    "options:test:build": "node dev/tools/options-smoke.cjs --packaged",
+    "fonts:test": "node dev/tools/fonts-smoke.cjs",
+    "fonts:test:build": "node dev/tools/fonts-smoke.cjs --packaged"
   },
   "devDependencies": {
     "electron": "44.5.1",

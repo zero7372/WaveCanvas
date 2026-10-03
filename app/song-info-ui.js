@@ -42,6 +42,7 @@
         }
         content.append(row); controls.set(key, { row, inputs, field });
     }
+    const syncFont = window.VisualizerSystemFonts.bindSelect(controls.get('fontFamily').inputs[0], () => runtime.getStandalone().text.fontFamily);
     function sync(settings) {
         for (const [key, { row, inputs, field }] of controls) {
             row.hidden = ['borderColor', 'borderWidth', 'borderBlur'].includes(key) && !settings.borderEnabled || key === 'bassStrength' && !settings.bassReaction;
@@ -50,7 +51,7 @@
                 else if (field.type === 'bool') node.checked = settings[key]; else node.value = settings[key];
             }
         }
-        controls.get('fontFamily').inputs[0].style.fontFamily = window.VisualizerSystemFonts.fontStack(settings.fontFamily);
+        syncFont();
     }
     runtime.subscribe((_, standalone) => sync(standalone.text));
     document.querySelector('#settings-groups').append(details);

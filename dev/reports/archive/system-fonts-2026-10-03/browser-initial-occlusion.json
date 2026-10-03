@@ -1,0 +1,38 @@
+[
+  {
+    "page": "browser.html",
+    "passes": 432,
+    "failures": 10,
+    "pass": false
+  },
+  {
+    "page": "repository-smoke.html",
+    "passes": 5,
+    "failures": 0,
+    "pass": false
+  },
+  {
+    "page": "factory-defaults-browser.html",
+    "passes": 31,
+    "failures": 0,
+    "pass": true
+  },
+  {
+    "page": "srt-browser.html",
+    "passes": 31,
+    "failures": 0,
+    "pass": true
+  },
+  {
+    "page": "linear-cover-browser.html",
+    "passes": 0,
+    "failures": 1,
+    "pass": false
+  },
+  {
+    "page": "templates-browser.html",
+    "passes": 61,
+    "failures": 0,
+    "pass": true
+  }
+]

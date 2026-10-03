@@ -1,0 +1,28 @@
+
+> wavecanvas@0.1.0 fonts:test
+> node dev/tools/fonts-smoke.cjs
+
+PASS Actual Local Font Access enumerates more than the old safe list
+PASS Installed family Calibri
+PASS Installed family Cambria
+PASS Installed family Consolas
+PASS Installed family Bahnschrift
+PASS Installed family Malgun Gothic
+PASS Installed family Yu Gothic
+PASS All three dropdowns share canonical choices
+PASS Enumeration leaves startup project clean
+PASS Save installed / missing / CJK families
+PASS Open project ordinary loader
+PASS Project Save/Open preserves exact family strings
+PASS Unknown project fonts displayed without dirty mutation
+PASS Preview renders saved family first with legal fallback
+PASS Export snapshot keeps missing family metadata
+PASS Dedicated export renderer retains strings and renders saved family first
+PASS Only explicit user selection changes value and marks dirty
+PASS Save changed font
+PASS Disk saves family strings, no index or font-file metadata
+PASS Chromium accepts CSS stacks including quotes / punctuation / CJK / Unicode
+PASS Bundled editor grants only local-fonts; unrelated permission stays denied
+PASS Browser real denied permission returns empty fonts and preserves unknown selection via safe fallback
+Fonts: 22 passed / 0 failed
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-development-1791035393460

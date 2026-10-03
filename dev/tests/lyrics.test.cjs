@@ -117,8 +117,8 @@ test('Lyrics schema covers all requested fields, clamps numbers and rejects unsa
     assert.equal(schema.normalize({globalOffsetMs: -99999}).globalOffsetMs, -5000);
     for (const patch of [{fontSize: NaN},{glowAttack: Infinity},{enabled:1},{glowColor:'url(x)'},[]]) assert.throws(() => schema.normalize(patch));
     for (const font of ['Microsoft JhengHei','PingFang TC','Noto Sans CJK TC','Noto Sans JP','Noto Sans','system-ui','sans-serif']) assert.ok(schema.fontStack('special_eliteregular').includes(font));
-    assert.equal(schema.normalize({fontFamily:'unsupported', secondaryFontFamily:'waltographregular'}).fontFamily, 'system-ui');
-    assert.equal(schema.normalize({secondaryFontFamily:'waltographregular'}).secondaryFontFamily, 'system-ui');
+    assert.equal(schema.normalize({fontFamily:'unsupported', secondaryFontFamily:'waltographregular'}).fontFamily, 'unsupported');
+    assert.equal(schema.normalize({secondaryFontFamily:'waltographregular'}).secondaryFontFamily, 'waltographregular');
     assert.equal(schema.properties.fontFamily.options.length, 11);
 });
 

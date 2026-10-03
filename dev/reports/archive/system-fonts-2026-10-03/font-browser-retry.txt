@@ -1,0 +1,17 @@
+
+> wavecanvas@0.1.0 browser:test
+> node dev/tools/browser-smoke.cjs
+
+FAIL browser.html 432 passed / 10 failed
+Error: Cannot find context with specified id
+    at WebSocket.<anonymous> (H:\WaveCanvas\Audio visualizer\dev\tools\browser-smoke.cjs:18:209)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:843:20)
+    at WebSocket.dispatchEvent (node:internal/event_target:776:26)
+    at fireEvent (node:internal/deps/undici/undici:13343:14)
+    at #onMessage (node:internal/deps/undici/undici:14573:9)
+    at Object.onMessage (node:internal/deps/undici/undici:14286:76)
+    at websocketMessageReceived (node:internal/deps/undici/undici:13347:15)
+    at ByteParser.run (node:internal/deps/undici/undici:13989:19)
+    at ByteParser._write (node:internal/deps/undici/undici:13883:14)
+    at writeOrBuffer (node:internal/streams/writable:570:12)
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\browser-regression-1791035105238

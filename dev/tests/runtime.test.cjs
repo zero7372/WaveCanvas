@@ -408,7 +408,7 @@ test('Song Info defaults, validation, atomic import, legacy keys and bass aliase
     runtime.updateStandalone({ text: { title: '<img src=x onerror=alert(1)>', artist: '', scale: 99, lineGap: -1, fontFamily: 'waltographregular', bassReaction: true, bassStrength: 160 } });
     assert.equal(runtime.getStandalone().text.scale, 4);
     assert.equal(runtime.getStandalone().text.lineGap, 0);
-    assert.equal(runtime.getStandalone().text.fontFamily, 'system-ui');
+    assert.equal(runtime.getStandalone().text.fontFamily, 'waltographregular');
     assert.equal(runtime.getSettings().bassshaketext.value, true);
     assert.equal(runtime.getSettings().txtbassmultiplier.value, 160);
     assert.equal(api.bassScale([1,1,1,1,1], runtime.getStandalone().text), 2.25);
@@ -424,7 +424,7 @@ test('Song Info defaults, validation, atomic import, legacy keys and bass aliase
     const old = { format: 'audio-visualizer-preset', version: 1, properties: { showclock: {value:true}, clockfont: {value:'retired invalid value'}, showtext: true, textfont: 999, backgroundsource: 4 }, standalone: { lyrics: { fontFamily: 'special_eliteregular' } } };
     presets.import(JSON.stringify(old));
     assert.equal(runtime.getStandalone().text.title, 'Song Title');
-    assert.equal(runtime.getStandalone().lyrics.fontFamily, 'system-ui');
+    assert.equal(runtime.getStandalone().lyrics.fontFamily, 'special_eliteregular');
     assert.equal(runtime.getSettings().backgroundsource.value, 1);
     assert.equal(runtime.getSettings().showclock.value, false);
     const before = JSON.stringify(runtime.getStandalone());

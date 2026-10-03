@@ -71,8 +71,9 @@ if (!locked) app.quit();
 else {
     app.on('second-instance', () => { if (mainWindow) { if (mainWindow.isMinimized()) mainWindow.restore(); mainWindow.show(); mainWindow.focus(); } });
     app.whenReady().then(async () => {
-        session.defaultSession.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
-        session.defaultSession.setPermissionCheckHandler(() => false);
+        const localFontsAllowed = (contents, permission, url) => permission === 'local-fonts' && contents === mainWindow?.webContents && contents?.getURL() === entryURL && (!url || url.split('#')[0] === entryURL);
+        session.defaultSession.setPermissionRequestHandler((contents, permission, callback, details) => callback(details?.isMainFrame !== false && localFontsAllowed(contents, permission, details?.requestingUrl)));
+        session.defaultSession.setPermissionCheckHandler((contents, permission, _origin, details) => details?.isMainFrame !== false && localFontsAllowed(contents, permission, details?.requestingUrl));
         // This local-only app has no runtime network dependency.
         session.defaultSession.webRequest.onBeforeRequest({ urls: ['http://*/*', 'https://*/*', 'ws://*/*', 'wss://*/*'] }, (_details, callback) => callback({ cancel: true }));
         await createWindow();

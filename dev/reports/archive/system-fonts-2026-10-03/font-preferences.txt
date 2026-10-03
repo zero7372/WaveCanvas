@@ -1,0 +1,34 @@
+
+> wavecanvas@0.1.0 preferences:test
+> node dev/tools/preferences-smoke.cjs
+
+PASS Default preferences / isolated userData
+PASS New name initial input focus
+PASS Blank / spaces rejected
+PASS Esc cancels New without replacing project
+PASS Later creates Untitled / path null
+PASS Enter creates trimmed named unsaved project
+PASS Autosave Off disables interval control
+PASS Preferences close discards draft
+PASS Preferences Save persists/applies without project dirty
+PASS Restore Defaults requires confirmation and remains draft
+PASS Cancel reset draft retains saved settings
+PASS First Save opens native Save As
+PASS First Save filename sanitized from display name
+PASS Save chosen filename never changes display name
+PASS Rename Esc preserves metadata
+PASS Rename dirties metadata, retains path, does not rename file
+PASS Dirty window title uses display name then asterisk
+PASS Save As succeeds
+PASS Save As defaults to sanitized name and preserves metadata
+PASS Collect succeeds
+PASS Collect folder/file sanitized; embedded display name unchanged
+PASS Recent cache prefers saved display metadata
+PASS Legacy v1 without name falls back to file basename
+PASS Legacy Save adds optional name without version bump
+PASS askName Off creates Untitled directly
+PASS Preferences persist process restart
+PASS Saved project name persists restart / Open
+PASS Restore defaults only settings, leaves project clean
+Preferences: 28 passed / 0 failed
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-development-1791034412200

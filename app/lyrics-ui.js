@@ -87,13 +87,14 @@
         if (key === 'maxWidth') row.append(element('small', 'setting-note', '64 像素安全邊界；長句自動換行，最多 3 行，必要時縮至 1–2 行並截斷。'));
         parent.append(row); controls.set(key, { inputs, definition });
     }
+    const syncFonts = ['fontFamily', 'secondaryFontFamily'].map(key => window.VisualizerSystemFonts.bindSelect(controls.get(key).inputs[0], () => runtime.getStandalone().lyrics[key]));
     function sync(settings) {
         for (const [key, { inputs, definition }] of controls) for (const input of inputs) {
             if (input.tagName === 'OUTPUT') input.textContent = settings[key].toUpperCase();
             else if (definition.type === 'bool') input.checked = settings[key]; else input.value = settings[key];
         }
         controls.get('glowColor').inputs[0].closest('.setting-row').hidden = settings.glowColorMode !== 'custom';
-        for (const key of ['fontFamily', 'secondaryFontFamily']) controls.get(key).inputs[0].style.fontFamily = window.VisualizerSystemFonts.fontStack(settings[key]);
+        for (const syncFont of syncFonts) syncFont();
     }
     runtime.subscribe((_, standalone) => sync(standalone.lyrics));
     document.querySelector('#settings-groups').append(group);

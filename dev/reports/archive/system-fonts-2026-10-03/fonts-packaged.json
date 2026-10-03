@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Actual Local Font Access enumerates more than the old safe list"
+    },
+    {
+      "pass": true,
+      "label": "Installed family Calibri"
+    },
+    {
+      "pass": true,
+      "label": "Installed family Cambria"
+    },
+    {
+      "pass": true,
+      "label": "Installed family Consolas"
+    },
+    {
+      "pass": true,
+      "label": "Installed family Bahnschrift"
+    },
+    {
+      "pass": true,
+      "label": "Installed family Malgun Gothic"
+    },
+    {
+      "pass": true,
+      "label": "Installed family Yu Gothic"
+    },
+    {
+      "pass": true,
+      "label": "All three dropdowns share canonical choices"
+    },
+    {
+      "pass": true,
+      "label": "Enumeration leaves startup project clean"
+    },
+    {
+      "pass": true,
+      "label": "Save installed / missing / CJK families"
+    },
+    {
+      "pass": true,
+      "label": "Open project ordinary loader"
+    },
+    {
+      "pass": true,
+      "label": "Project Save/Open preserves exact family strings"
+    },
+    {
+      "pass": true,
+      "label": "Unknown project fonts displayed without dirty mutation"
+    },
+    {
+      "pass": true,
+      "label": "Preview renders saved family first with legal fallback"
+    },
+    {
+      "pass": true,
+      "label": "Export snapshot keeps missing family metadata"
+    },
+    {
+      "pass": true,
+      "label": "Dedicated export renderer retains strings and renders saved family first"
+    },
+    {
+      "pass": true,
+      "label": "Only explicit user selection changes value and marks dirty"
+    },
+    {
+      "pass": true,
+      "label": "Save changed font"
+    },
+    {
+      "pass": true,
+      "label": "Disk saves family strings, no index or font-file metadata"
+    },
+    {
+      "pass": true,
+      "label": "Chromium accepts CSS stacks including quotes / punctuation / CJK / Unicode"
+    },
+    {
+      "pass": true,
+      "label": "Bundled editor grants only local-fonts; unrelated permission stays denied"
+    },
+    {
+      "pass": true,
+      "label": "Browser real denied permission returns empty fonts and preserves unknown selection via safe fallback"
+    }
+  ]
+}

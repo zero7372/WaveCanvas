@@ -1,0 +1,172 @@
+{
+  "standalone": {
+    "inputGain": 3,
+    "visualizer": {
+      "layout": "circle",
+      "squareSpectrumLayout": "symmetric",
+      "orientation": "horizontal",
+      "positionX": 50,
+      "positionY": 50,
+      "width": 900,
+      "height": 180,
+      "rotation": 0,
+      "barCount": 64,
+      "barWidth": 8,
+      "gap": 4,
+      "mirror": "none",
+      "reverse": false,
+      "direction": "outward",
+      "amplitudeDirection": "positive",
+      "anchor": "center",
+      "squareSize": 256,
+      "coverShape": "square",
+      "coverX": 50,
+      "coverY": 50,
+      "coverSize": 30,
+      "coverRotationSpeed": 0
+    },
+    "lyrics": {
+      "enabled": true,
+      "fontFamily": "Some Weird Font",
+      "fontSize": 48,
+      "fontWeight": 600,
+      "currentColor": "#ffffff",
+      "inactiveColor": "#c3ccd8",
+      "inactiveOpacity": 0.58,
+      "positionX": 50,
+      "positionY": 75,
+      "maxWidth": 1100,
+      "lineSpacing": 30,
+      "textAlign": "center",
+      "showPrevious": true,
+      "showNext": true,
+      "transitionDuration": 650,
+      "transitionOvershoot": 4,
+      "inactiveBlur": 0.5,
+      "glowEnabled": true,
+      "glowColorMode": "text",
+      "glowColor": "#92cfff",
+      "glowBaseOpacity": 0.24,
+      "glowMaxOpacity": 0.56,
+      "glowBlur": 18,
+      "glowSpread": 1.025,
+      "glowBassSensitivity": 0.5,
+      "glowAttack": 90,
+      "glowRelease": 450,
+      "globalOffsetMs": 0,
+      "secondaryEnabled": true,
+      "secondaryFontFamily": "思源黑體 TC",
+      "secondaryFontSizeRatio": 0.65,
+      "secondaryFontWeight": 400,
+      "secondaryColor": "#d7dfeb",
+      "secondaryOpacity": 0.7,
+      "secondaryGap": 8,
+      "secondaryPosition": "below",
+      "mergeToleranceMs": 100,
+      "secondaryOffsetMs": 0
+    },
+    "background": {
+      "enabled": true,
+      "mode": "infinity",
+      "baseScale": 1.08,
+      "driftAmount": 18,
+      "driftSpeed": 1,
+      "bassScaleAmount": 0.035,
+      "bassAttack": 140,
+      "bassRelease": 850,
+      "offsetX": 0,
+      "offsetY": 0,
+      "opacity": 1,
+      "blur": 0,
+      "backingColor": "#000000"
+    },
+    "text": {
+      "enabled": true,
+      "title": "Song Title",
+      "artist": "Artist",
+      "fontFamily": "Bahnschrift",
+      "alignment": "center",
+      "positionX": 50,
+      "positionY": 78,
+      "scale": 1,
+      "lineGap": 10,
+      "titleSizeRatio": 1,
+      "artistSizeRatio": 0.65,
+      "color": "#ffffff",
+      "borderEnabled": true,
+      "borderColor": "#000000",
+      "borderWidth": 1,
+      "borderBlur": 0,
+      "bassReaction": false,
+      "bassStrength": 80
+    }
+  },
+  "exported": {
+    "text": "Bahnschrift",
+    "primary": "Some Weird Font",
+    "secondary": "思源黑體 TC",
+    "css": "\"Some Weird Font\", \"Microsoft JhengHei\", \"PingFang TC\", \"Noto Sans CJK TC\", \"Noto Sans JP\", system-ui, sans-serif"
+  },
+  "css": [
+    {
+      "name": "Arial",
+      "valid": true
+    },
+    {
+      "name": "Bahnschrift",
+      "valid": true
+    },
+    {
+      "name": "Calibri",
+      "valid": true
+    },
+    {
+      "name": "Cambria",
+      "valid": true
+    },
+    {
+      "name": "Consolas",
+      "valid": true
+    },
+    {
+      "name": "Microsoft JhengHei UI",
+      "valid": true
+    },
+    {
+      "name": "Yu Gothic UI",
+      "valid": true
+    },
+    {
+      "name": "思源黑體 TC",
+      "valid": true
+    },
+    {
+      "name": "family with spaces",
+      "valid": true
+    },
+    {
+      "name": "Unicode 😀",
+      "valid": true
+    },
+    {
+      "name": "A \"quoted\" \\ family",
+      "valid": true
+    },
+    {
+      "name": "punctuation, ; } family",
+      "valid": true
+    }
+  ],
+  "browser": {
+    "permission": "denied",
+    "state": {
+      "status": "empty",
+      "familyCount": 11,
+      "installedFamilyCount": 0,
+      "error": null
+    },
+    "selection": "Some Weird Font",
+    "options": 12,
+    "desktop": false
+  }
+}

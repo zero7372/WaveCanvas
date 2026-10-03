@@ -33,7 +33,7 @@ async function run(){
  const geometry=await r('(()=>{const ids=["#media-panel","#settings-panel","#transport","#preferences-dialog"];return ids.map(id=>{const e=document.querySelector(id),b=e.getBoundingClientRect();return {id,w:b.width,h:b.height,x:b.x,y:b.y,right:b.right,bottom:b.bottom,scroll:e.scrollHeight,client:e.clientHeight};});})()');
  check(geometry.every(x=>x.w>0&&x.h>0&&x.x>=-1&&x.y>=-1&&x.right<=1561&&x.bottom<=961),'Chrome and Preferences usable at '+scale);
  await m('projectQA.window.webContents.capturePage().then(image=>process.getBuiltinModule("fs").writeFileSync('+JSON.stringify(path.join(artifacts,'options-scale-'+scale+'.png'))+',image.toPNG()))');
- await r('document.querySelector("#preferences-dialog").close();true');
+ await r('document.querySelector("#preferences-dialog").close();true');await until('!document.querySelector("#preferences-dialog")');
  }
  }
  await r('WaveCanvasPreferences.update({general:{confirmUnsavedClose:false},project:{askNameOnCreate:false}})');await r('VisualizerRuntime.updateStandalone({inputGain:2});true');
