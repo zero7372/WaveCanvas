@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><title>Square 對稱結構比較</title>
+<style>body{margin:0;padding:28px;background:#10141d;color:#e8edf7;font:16px system-ui}h1{font-size:24px}p{color:#a8b4c8}main{display:flex;gap:24px}section{flex:1;min-width:0}canvas{width:100%;background:#080d16;border:1px solid #293347;border-radius:8px}h2{font-size:18px}</style>
+<h1>Square 對稱結構比較</h1><p>兩側使用完全相同的合成 processed audioSample（64 頻帶）、64 bars、向外生長；不修改 FFT 或音訊來源。</p>
+<main><section><h2>修正前：四邊分配不同頻帶</h2><canvas id="before" width="1920" height="1080"></canvas></section><section><h2>修正後：四邊共用頻帶、每邊中心鏡像</h2><canvas id="after" width="1920" height="1080"></canvas></section></main>
+<p>保留 bass spacing、rotation 與 inward；角落留白，對稱 bars 共用顏色。此頁為靜態結構驗證，不代表音訊播放測試。</p>
+<script src="../../app/layout-schema.js"></script>
+<script src="square-visual.js"></script>
+<script src="artifacts/square-geometry-before.js"></script>
+<script>window.SquareBeforeRenderer = window.VisualizerGeometry;</script>
+<script src="../../app/visualizer-geometry.js"></script>
+<script>window.drawSquareComparison();</script>
+</html>

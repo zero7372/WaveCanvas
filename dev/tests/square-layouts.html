@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><title>Square Spectrum Layout 驗證</title>
+<style>body{margin:0;padding:24px;background:#10141d;color:#e8edf7;font:15px system-ui}h1{font-size:24px}p{color:#a8b4c8;line-height:1.7}main{display:flex;gap:18px}section{flex:1;min-width:0}canvas{width:100%;background:#080d16;border:1px solid #293347;border-radius:8px}h2{font-size:17px}.bass{color:#ffb45b}</style>
+<h1>Square Spectrum Layout</h1><p>相同的合成 processed audioSample、64 bars、向外生長。<span class="bass">暖色＝低頻</span>；冷色＝較高頻。音訊來源與 FFT 不變。</p>
+<main>
+<section><h2>Symmetric · 對稱</h2><canvas id="symmetric" width="1920" height="1080"></canvas><p>四邊共享頻譜；每邊中央為低頻。</p></section>
+<section><h2>Top Bass Mirror · 頂邊低頻鏡像</h2><canvas id="topBassMirror" width="1920" height="1080"></canvas><p>頂邊中央為唯一低頻重心；左右路徑沿側邊延續至下邊中央。</p></section>
+<section><h2>Folded Diagonal · 對角折疊</h2><canvas id="foldedDiagonal" width="1920" height="1080"></canvas><p>右上／左下為低頻折點；兩組相鄰邊形成對角對稱。</p></section>
+</main><p>靜態 geometry 驗證：非音訊播放或效能量測。</p>
+<script src="../../app/layout-schema.js"></script><script src="square-layouts.js"></script><script src="../../app/visualizer-geometry.js"></script>
+</html>

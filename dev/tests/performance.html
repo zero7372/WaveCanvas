@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>WaveCanvas Performance Lab</title>
+<style>body{margin:12px;background:#10151d;color:#dbe4ef;font:13px system-ui}button,input{margin:5px;padding:6px}iframe{border:1px solid #394557;width:960px;height:640px;max-width:100%}pre{white-space:pre-wrap}table{border-collapse:collapse}td,th{padding:6px;border:1px solid #394557}</style>
+<h1>WaveCanvas Performance Lab</h1><p>Controlled synthetic media / browser RAF cadence. These results are not a GPU throughput certification. Main Canvas stays 1920×1080.</p>
+<label>Seconds per scenario <input id="seconds" type="number" min="3" max="120" value="8"></label>
+<button id="run" disabled>Run A–E benchmark</button><button id="micro" disabled>Waveform redraw / 3–10–60 min build</button><button id="cycles" disabled>Lifecycle / DPR checks</button>
+<button id="geometry" disabled>Geometry / Canvas detail</button><button id="trace" disabled>120s Full + Timing soak / trace</button>
+<button id="background" disabled>Background modes benchmark</button>
+<p id="status">Loading fixture…</p><iframe id="app" src="../../app/index.html?profile=1" title="Performance fixture"></iframe><pre id="results">Ready</pre>
+<script src="performance-browser.js"></script>

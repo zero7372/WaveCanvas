@@ -1,0 +1,202 @@
+<!-- MIT License
+
+Copyright (c) [2017] [Karteek Suryadevara||V3ng3nc3]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+	<meta charset="UTF-8">
+	<title>WaveCanvas</title>
+	<style type="text/css">
+		html, body {
+			margin: 0px;
+			overflow: hidden;
+			height: 100%;
+		}
+		#bgimg{
+			margin: 0px;
+			padding: 0px;
+			z-index: -3;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			height: 100%;
+			width: 100%;
+		}
+		canvas{
+			z-index: 10;
+			top: 0px;
+			left: 0px;
+			height: 100%;
+			width: 100%;
+			filter: blur(0.0px);
+		}
+		#overlay{
+			z-index:15;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+<link rel="stylesheet" href="standalone.css">
+<link rel="stylesheet" href="lyrics.css">
+<link rel="stylesheet" href="song-info.css">
+<link rel="stylesheet" href="timing-editor.css">
+</head>
+<body>
+
+<header id="standalone-chrome" hidden>
+  <div class="app-toolbar">
+    <button id="home-button" class="brand" title="返回 Home，保留目前工作狀態"><span class="wave-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>WaveCanvas</button>
+    <nav class="app-menus" aria-label="主選單">
+      <details class="app-menu"><summary>File</summary><div><button data-command="open-audio">開啟音訊…</button><button data-command="open-cover">開啟封面…</button><button data-command="home">返回 Home</button></div></details>
+      <details class="app-menu"><summary>Project</summary><div><button data-command="editor">開啟編輯器</button><button disabled title="Project Save / Load 尚未提供">開啟／儲存專案 · 尚未提供</button></div></details>
+      <details class="app-menu"><summary>Preset</summary><div><button data-command="preset-import">載入預設組…</button><button data-command="preset-export">儲存預設組…</button><button data-command="preset-reset">恢復預設值</button></div></details>
+      <details class="app-menu"><summary>View</summary><div><button data-command="media-toggle">切換素材面板</button><button data-command="settings-toggle">切換設定面板</button><button data-command="timing-toggle">切換 Lyrics Timing 校時工具</button></div></details>
+      <details class="app-menu"><summary>Help</summary><div><p>WaveCanvas<br>本地音樂視覺創作工具。<br>專案管理需使用 Desktop App；影片輸出需使用 Desktop App。</p><a href="../README.md" target="_blank" rel="noopener">使用說明 ↗</a></div></details>
+    </nav>
+    <div class="toolbar-actions"><button id="open-media" title="開啟本地音訊">Open</button><button disabled title="專案儲存尚未提供">Save Project</button><button disabled title="影片輸出尚未提供">Export</button></div>
+  </div>
+</header>
+<section id="home-view" hidden aria-label="WaveCanvas 歡迎頁">
+  <div class="home-actions"><p class="eyebrow">開始創作</p><h1>你的下一個聲音畫面。</h1>
+    <button id="new-project" class="home-primary">＋ New Project <small>進入編輯器</small></button>
+    <button disabled title="Project Load 尚未提供">Open Project <small>尚未提供</small></button>
+    <button id="explore-templates" aria-controls="template-gallery">選擇內建模板 <small>從三種視覺基準開始</small></button>
+    <section class="recent-projects"><h2>Recent Projects</h2><p>目前沒有近期專案。專案儲存功能尚未提供。</p></section>
+  </div>
+  <section id="template-gallery" tabindex="-1" aria-labelledby="template-heading"><header class="template-heading"><p class="eyebrow">BUILT-IN TEMPLATES</p><h2 id="template-heading">選擇你的視覺起點</h2><p>套用排列的原廠視覺基準。音訊、封面與歌詞由你選取；已載入素材會保留。</p></header><div id="template-cards"></div></section>
+</section>
+<div id="editor-view">
+<div class="editor-strip"><span>EDITOR <small>本機工作階段</small></span><div><button id="media-toggle" aria-controls="media-panel" aria-expanded="true" title="切換素材面板">素材</button><button id="settings-toggle" aria-controls="settings-panel" aria-expanded="false" title="切換設定面板">設定</button></div></div>
+<div id="workspace">
+<aside id="media-panel" aria-label="素材面板"><div class="panel-header"><h2>Media</h2><button id="media-close" title="收合素材面板" aria-label="收合素材面板">‹</button></div><div class="media-scroll">
+  <article class="media-item" data-media="audio"><header><span aria-hidden="true">♫</span><h3>Audio</h3></header><strong id="audio-name">尚未載入音訊</strong><small id="audio-meta">WAV / MP3 / FLAC</small><div id="local-audio-panel" hidden><label for="audio-file" class="sr-only">音訊檔案</label><input id="audio-file" type="file" accept=".wav,.mp3,.flac,audio/*" hidden><span id="audio-status" role="status">選擇本地音訊以開始預覽。</span></div><footer><button data-command="open-audio">選取／替換</button><button id="audio-clear">清除</button></footer></article>
+  <article class="media-item" data-media="cover"><header><span aria-hidden="true">▧</span><h3>Cover</h3></header><strong id="cover-name">尚未載入封面</strong><small id="cover-meta">PNG / JPG / WEBP</small><div id="cover-controls"></div><span id="cover-status" role="status"></span><footer><button id="cover-open">選取／替換</button></footer></article>
+  <article class="media-item" data-media="primary"><header><span aria-hidden="true">≡</span><h3>Primary Lyrics</h3></header><strong id="primary-name">尚未載入主要歌詞</strong><small id="primary-meta">LRC / SRT · 可含雙語</small><div id="primary-controls"></div><footer><button data-command="open-primary">選取／替換</button></footer></article>
+  <article class="media-item" data-media="secondary"><header><span aria-hidden="true">≡</span><h3>Secondary Lyrics</h3></header><strong id="secondary-name">尚未載入次要歌詞</strong><small id="secondary-meta">LRC / SRT · 選用，依時間戳配對</small><div id="secondary-controls"></div><footer><button data-command="open-secondary">選取／替換</button></footer></article>
+</div></aside>
+<section id="preview-region" aria-label="預覽工作區"><div class="preview-heading"><span>PREVIEW</span><small>1920 × 1080 · 16:9</small></div><div id="preview-container">
+<main id="stage" aria-label="可視化預覽">
+	<div id= "bgimg"></div>
+	<canvas id ="canvas"></canvas>
+	<div id ="overlay"></div>
+	<section id="song-info-layer" aria-label="歌曲資訊" hidden><div id="song-info-content"><div id="song-info-title"></div><div id="song-info-artist"></div></div></section>
+	<section id="lyrics-layer" aria-label="歌詞" hidden><div id="lyrics-stack"></div></section>
+</main>
+</div><div class="preview-caption"><span>本地預覽</span><span>Canonical 1920 × 1080</span></div></section>
+<aside id="settings-panel" aria-label="可視化設定" hidden>
+  <div class="panel-header"><div><h2>Inspector</h2><small>即時視覺屬性</small></div><button id="settings-close" type="button" aria-label="關閉設定">關閉</button></div>
+  <div id="settings-tabs" role="tablist" aria-label="設定分類"></div>
+  <div class="panel-scroll">
+    <div class="preset-tools">
+      <label for="preset-name">預設組名稱</label><input id="preset-name" type="text" value="未命名" maxlength="200">
+      <div class="preset-actions"><button id="export-preset" type="button">匯出預設組</button><button id="import-preset-button" type="button">匯入預設組</button><button id="reset-defaults" type="button">恢復預設值</button></div>
+      <a id="preset-download" class="preset-download" hidden>下載預設組 JSON</a>
+      <details id="preset-json-fallback" hidden><summary>檢視／複製 JSON</summary><textarea id="preset-json" aria-label="預設組 JSON" readonly></textarea><button id="copy-preset" type="button">複製 JSON</button></details>
+      <input id="import-preset" type="file" accept=".json,application/json" hidden>
+      <p class="preset-help">保存全部視覺設定。音訊與圖片需另行選取。</p>
+    </div>
+    <p id="settings-status" role="status">設定會即時套用至預覽。</p>
+    <div id="settings-groups"></div>
+  </div>
+</aside>
+</div>
+<div id="transport" aria-label="播放控制"><audio id="local-audio" preload="metadata" hidden></audio>
+<button id="rewind" title="回到音訊起點" aria-label="回到音訊起點">↤</button><button id="play-pause" class="play-button" title="播放／暫停" aria-label="播放">▶</button><output id="current-time">00:00</output><label for="transport-seek" class="sr-only">播放位置</label><input id="transport-seek" type="range" min="0" max="1" step="0.01" value="0"><output id="duration">00:00</output><label for="transport-volume" title="播放音量">音量</label><input id="transport-volume" type="range" min="0" max="1" step="0.01" value="1"><button id="preview-fit" title="預覽已等比例 Fit">Fit</button><button id="preview-fullscreen" title="全螢幕預覽">全螢幕</button></div>
+<details id="future-timing"><summary>Lyrics Timing <small>逐行歌詞校時 · Raw timestamps</small></summary>
+<div class="timing-editor" id="timing-editor" tabindex="-1" aria-label="歌詞校時編輯器">
+  <div class="timing-toolbar">
+    <button id="timing-zoom-out" title="縮小時間軸">−</button><button id="timing-zoom-in" title="放大時間軸">＋</button><button id="timing-fit">Fit Song</button>
+    <label for="timing-snap">Snap</label><select id="timing-snap"><option value="0">Off</option><option value="10" selected>10 ms</option><option value="50">50 ms</option><option value="100">100 ms</option></select>
+    <label class="timing-follow"><input id="timing-follow" type="checkbox" checked>跟隨播放頭</label>
+    <button id="timing-undo" title="復原校時 · Ctrl+Z">復原</button><button id="timing-redo" title="重做校時 · Ctrl+Y">重做</button>
+    <button id="timing-export-primary">匯出 Primary LRC</button><button id="timing-export-secondary">匯出 Secondary LRC</button>
+    <a id="timing-download-primary" hidden>下載 Primary</a><a id="timing-download-secondary" hidden>下載 Secondary</a>
+  </div>
+  <div class="timing-grid">
+    <div class="timing-labels" aria-hidden="true"><div>時間／音訊</div><div>Primary</div><div>Secondary</div></div>
+    <div id="timing-scroll" tabindex="0" aria-label="歌詞時間軸；Ctrl 加滾輪縮放，Alt 加滾輪水平捲動">
+      <div id="timing-content"><canvas id="timing-waveform" aria-label="音訊波形與時間刻度"></canvas><div id="timing-primary" class="timing-track"></div><div id="timing-secondary" class="timing-track"></div><div id="timing-playhead" role="slider" tabindex="0" aria-label="播放頭" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><i></i></div></div>
+    </div>
+  </div>
+  <div class="timing-selection">
+    <label for="timing-time">Raw 時間</label><input id="timing-time" type="text" placeholder="mm:ss.xxx" inputmode="decimal" disabled>
+    <button data-timing-adjust="-100">−100 ms</button><button data-timing-adjust="-10">−10 ms</button><button data-timing-adjust="10">＋10 ms</button><button data-timing-adjust="100">＋100 ms</button><button id="timing-seek-selected">跳至此句</button>
+    <output id="timing-selected-text">選取一個歌詞事件</output>
+  </div>
+  <div class="timing-info"><output id="timing-offsets"></output><span id="timing-status" role="status" aria-live="polite">尚未載入音訊，仍可校時 LRC。</span></div>
+</div></details>
+</div>
+<div id="shell-status" role="status" aria-live="polite"></div>
+	<script src="performance-profile.js"></script>
+	<script src="property-schema.js"></script>
+	<script src="layout-schema.js"></script>
+	<script src="system-fonts.js"></script>
+	<script src="property-compatibility.js"></script>
+	<script src="song-info-schema.js"></script>
+	<script src="lyrics-schema.js"></script>
+    <script src="background-schema.js"></script>
+ 	<script src="inspector-policy.js"></script>
+    <script src="factory-defaults-data.js"></script>
+    <script src="factory-layout-defaults.js"></script>
+ 	<script src="runtime-adapter.js"></script>
+	<script src="preview-stage.js"></script>
+	<script src="audio-adapter.js"></script>
+	<script src="image-cache.js"></script>
+	<script src="linear-cover.js"></script>
+	<script src="visualizer-geometry.js"></script>
+	<script>window.WaveCanvasPerf?.wrapExports();</script>
+	<script type="text/javascript" src = "main.js"></script>
+	<script src="local-audio.js"></script>
+	<script src="local-files.js"></script>
+	<script src="presets.js"></script>
+	<script src="ui-zh-tw.js"></script>
+	<script src="settings-ui.js"></script>
+	<script src="song-info-stage.js"></script>
+	<script src="song-info-ui.js"></script>
+	<script src="layout-ui.js"></script>
+	<script src="lrc-parser.js"></script>
+    <script src="srt-parser.js"></script>
+    <script src="lyrics-import.js"></script>
+    <script src="timing-model.js"></script>
+	<script src="lyrics-runtime.js"></script>
+	<script src="lyrics-stage.js"></script>
+	<script src="lyrics-ui.js"></script>
+    <script src="background-motion.js"></script>
+<script src="background-stage.js"></script>
+<script src="background-ui.js"></script>
+    <script src="wavecanvas-shell.js"></script>
+    <script src="builtin-templates.js"></script>
+    <script src="template-selection-ui.js"></script>
+    <script src="inspector-ui.js"></script>
+    <script src="restore-default-ui.js"></script>
+    <script src="waveform-cache.js"></script>
+    <script>window.WaveCanvasPerf?.wrapExports();</script>
+    <script src="timing-editor.js"></script>
+    <script src="project-model.js"></script>
+    <script src="project-serializer.js"></script>
+    <script src="project-controller.js"></script>
+    <script src="project-ui.js"></script>
+    <script src="export-ui.js"></script>
+</body>
+</html>

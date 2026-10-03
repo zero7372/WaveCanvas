@@ -1,0 +1,19 @@
+#lyrics-layer { position: absolute; inset: 0; z-index: 20; pointer-events: none; overflow: hidden; }
+#lyrics-stack { position: absolute; font-family: system-ui, sans-serif; line-height: 1.18; }
+.lyric-line { position: absolute; top: 0; left: 0; width: 100%; transform-origin: center; opacity: 0; }
+.lyric-content { display: flex; flex-direction: column; gap: var(--lyric-secondary-gap, 8px); }
+.lyric-primary { position: relative; }
+.lyric-text, .lyric-glow, .lyric-secondary { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: var(--lyric-wrap-lines, 3); overflow: hidden; overflow-wrap: anywhere; white-space: pre-wrap; }
+.lyric-secondary { font-family: var(--lyric-secondary-font); font-size: var(--lyric-secondary-size); font-weight: var(--lyric-secondary-weight); color: var(--lyric-secondary-color); opacity: var(--lyric-secondary-opacity); order: var(--lyric-secondary-order, 1); }
+.lyric-text { position: relative; z-index: 1; color: var(--lyric-inactive-color); font-weight: 400; }
+.lyric-glow { position: absolute; inset: 0; z-index: 0; color: var(--lyric-glow-color); font-weight: var(--lyric-weight); opacity: 0; filter: blur(var(--lyric-glow-blur)); transform: scale(var(--lyric-glow-scale)); transform-origin: inherit; }
+.lyric-line[data-focus=current] .lyric-text { color: var(--lyric-current-color); font-weight: var(--lyric-weight); }
+.lyric-line[data-focus=current] .lyric-text { text-shadow: 0 0 var(--lyric-glow-core-radius, 0px) var(--lyric-glow-core-color, transparent); }
+.lyric-line[data-focus=current] .lyric-glow { opacity: var(--lyric-glow-opacity); }
+.interlude-dots { display: flex; justify-content: var(--lyric-dot-align, center); gap: 0.35em; line-height: 1.18; color: var(--lyric-inactive-color); font-weight: 400; }
+.interlude-dot { display: inline-block; opacity: 0.65; transform-origin: center; }
+.lyric-line[data-focus=current] .interlude-dots { color: var(--lyric-current-color); }
+.lyrics-controls legend { font-size: 12px; color: var(--muted); padding: 0 8px; }
+.lyrics-controls fieldset { border: 1px solid var(--line); border-radius: 6px; margin: 12px 0; padding: 6px 10px; }
+.lyrics-file-status { color: var(--muted); display: block; overflow-wrap: anywhere; font-size: 11px; line-height: 1.6; margin-top: 8px; }
+.lyrics-file-status[data-error=true] { color: #ff9b91; }

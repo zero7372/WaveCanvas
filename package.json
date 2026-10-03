@@ -1,0 +1,64 @@
+{
+  "name": "wavecanvas",
+  "productName": "WaveCanvas",
+  "version": "0.1.0",
+  "description": "WaveCanvas local audio visualizer — Windows development build",
+  "license": "MIT",
+  "private": true,
+  "main": "electron/main.cjs",
+  "scripts": {
+    "electron:dev": "node dev/tools/electron-run.cjs dev",
+    "electron:start": "node dev/tools/electron-run.cjs start",
+    "electron:build": "node dev/tools/electron-run.cjs build",
+    "postelectron:build": "node dev/tools/audit-electron-build.cjs",
+    "electron:test": "node dev/tools/electron-smoke.cjs",
+    "electron:test:build": "node dev/tools/electron-smoke.cjs --packaged",
+    "project:test": "node dev/tools/project-smoke.cjs",
+    "project:test:build": "node dev/tools/project-smoke.cjs --packaged",
+    "test": "node --test dev/tests/*.test.cjs",
+    "browser:start": "node dev/tools/serve.cjs",
+    "export:test": "node dev/tools/export-qa.cjs",
+    "export:test:real": "node dev/tools/export-smoke.cjs --full",
+    "export:test:build": "node dev/tools/export-smoke.cjs --packaged"
+  },
+  "devDependencies": {
+    "electron": "44.5.1",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.wavecanvas.desktop",
+    "productName": "WaveCanvas",
+    "directories": {
+      "output": "dist"
+    },
+    "asar": true,
+    "electronDist": "node_modules/electron/dist",
+    "afterPack": "dev/tools/after-electron-pack.cjs",
+    "files": [
+      "app/**/*",
+      "electron/**/*",
+      "package.json",
+      "License.txt",
+      "README.md"
+    ],
+    "win": {
+      "target": "dir",
+      "icon": "app/assets/wavecanvas.png",
+      "executableName": "WaveCanvas"
+    },
+    "npmRebuild": false,
+    "extraResources": [
+      {
+        "from": "vendor/ffmpeg",
+        "to": "ffmpeg",
+        "filter": [
+          "ffmpeg.exe",
+          "ffprobe.exe",
+          "LICENSE",
+          "README.txt",
+          "BUILD.json"
+        ]
+      }
+    ]
+  }
+}

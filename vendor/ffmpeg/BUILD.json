@@ -1,0 +1,12 @@
+{
+  "source": "https://github.com/GyanD/codexffmpeg/releases/tag/9.0.2",
+  "version": "9.0.2-essentials_build-www.gyan.dev",
+  "license": "GPL-3.0-or-later",
+  "gpl": true,
+  "libx264": true,
+  "releaseSafe": false,
+  "sha256": {
+    "ffmpeg.exe": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
+    "ffprobe.exe": "f0d36ecbbdd3bcfac3efa078c96c7271c2e68b3810595552ac3b7f17e9a65c52"
+  }
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>歌詞顯示行為驗證</title>
+<style>
+body { margin:16px; background:#0b1018; color:#e6edf5; font:14px system-ui; }
+h1 { font-size:18px; } .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+h2 { font-size:14px; } iframe { width:100%; aspect-ratio:16/9; border:1px solid #283442; }
+</style>
+<h1>歌詞固定 UX · 1920×1080 Stage</h1>
+<div class="grid">
+<article><h2>PRE_LYRICS · 第一個時間戳前完全隱藏</h2><iframe data-time="0"></iframe></article>
+<article><h2>FIRST · Current 與 Next 同時存在</h2><iframe data-time="1.1"></iframe></article>
+<article><h2>INTERLUDE · 三點共用一個 lyric item</h2><iframe data-time="4.1"></iframe></article>
+<article><h2>ACTIVE · 雙語仍一起移動</h2><iframe data-time="9.1"></iframe></article>
+</div>
+<script>
+(async () => {
+    const html=await (await fetch('../../app/index.html')).text();
+    for (const frame of document.querySelectorAll('iframe')) {
+        await new Promise(resolve=> { frame.onload=resolve; frame.srcdoc=html.replace('<head>','<head><base href="../../app/"><style>#standalone-chrome{display:none!important}#stage canvas{visibility:hidden!important}</style>'); });
+        const app=frame.contentWindow;
+        app.VisualizerRuntime.updateProperties({circleopacity:{value:0},backgroundcolor:{value:'0.025 0.04 0.065'}});
+        app.VisualizerRuntime.updateStandalone({lyrics:{fontSize:64,positionY:50}});
+        app.document.querySelector('#local-audio').currentTime=Number(frame.dataset.time);
+        app.VisualizerLyrics.load('[00:01]Open the gate\n[00:01]敞開大門\n[00:03] ... \n[00:03]間奏不顯示次要句\n[00:09]Let heaven witness\n[00:09]讓天堂見證\n[00:12]The night remembers\n[00:12]夜色仍然記得');
+    }
+})();
+</script>

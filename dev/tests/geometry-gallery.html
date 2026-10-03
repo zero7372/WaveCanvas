@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Geometry visual review</title>
+<style>
+body { margin: 16px; color: #e6edf5; background: #0b1018; font: 13px system-ui; }
+h1 { font-size: 18px; margin: 0 0 6px; } p { color: #a4b3c4; margin: 0 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+article { min-width: 0; } h2 { font-size: 13px; margin: 0 0 6px; }
+iframe { border: 1px solid #283442; width: 100%; aspect-ratio: 16/9; display: block; }
+</style>
+<h1>16:9 Geometry Review</h1>
+<p>合成頻譜測試畫面 · 共用原 audio listener · 非音訊檔播放</p>
+<div class="grid">
+<article><h2>Radial Circle · original renderer</h2><iframe data-layout="circle"></iframe></article>
+<article><h2>Radial Square · rotation / outward</h2><iframe data-layout="square"></iframe></article>
+<article><h2>Linear Horizontal · center mirror</h2><iframe data-layout="linear" data-orientation="horizontal"></iframe></article>
+<article><h2>Linear Vertical · dual opposite</h2><iframe data-layout="linear" data-orientation="vertical"></iframe></article>
+</div>
+<script>
+(async () => {
+    const html = await (await fetch('../../app/index.html')).text();
+    for (const frame of document.querySelectorAll('iframe')) {
+        await new Promise(resolve => {
+            frame.onload = resolve;
+            frame.srcdoc = html.replace('<head>', '<head><base href="../../app/"><style>#standalone-chrome{display:none!important}</style>');
+        });
+        const app = frame.contentWindow;
+        app.VisualizerRuntime.updateProperties({ circleradius: { value: 130 }, barheight: { value: 200 }, barwidth: { value: 5 }, barcolortype: { value: 2 } });
+        app.VisualizerRuntime.updateStandalone({ visualizer: {
+            layout: frame.dataset.layout, orientation: frame.dataset.orientation || 'horizontal',
+            width: frame.dataset.orientation === 'vertical' ? 190 : 1280,
+            height: frame.dataset.orientation === 'vertical' ? 700 : 220,
+            squareSize: 280, rotation: frame.dataset.layout === 'square' ? 20 : 0,
+            mirror: frame.dataset.orientation === 'vertical' ? 'dual' : frame.dataset.layout === 'linear' ? 'center' : 'none'
+        } });
+        let phase = 0;
+        const timer = setInterval(() => {
+            phase += .07;
+            const samples = Array.from({ length: 128 }, (_, i) => .10 + .38 * Math.pow(Math.sin(i * .04 + phase), 2));
+            app.wallpaperAudioListener(samples);
+        }, 33);
+        window.addEventListener('pagehide', () => clearInterval(timer), { once: true });
+    }
+})();
+</script>

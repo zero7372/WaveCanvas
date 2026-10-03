@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Lyrics Stage Review</title>
+<style>
+body { margin: 16px; color: #e6edf5; background: #0b1018; font: 13px system-ui; }
+h1 { font-size: 18px; margin: 0 0 6px; } p { color: #a4b3c4; margin: 0 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+article { min-width: 0; } h2 { font-size: 13px; margin: 0 0 6px; }
+iframe { border: 1px solid #283442; width: 100%; aspect-ratio: 16/9; display: block; }
+</style>
+<h1>Lyrics Stage · Primary / Secondary</h1>
+<p>靜態排版測試 · 共用 canonical stage · 無音訊播放</p>
+<div class="grid">
+<article><h2>Primary + Secondary · below</h2><iframe data-mode="below"></iframe></article>
+<article><h2>日本語 + 中文 · above</h2><iframe data-mode="above"></iframe></article>
+<article><h2>Long Primary + Secondary · safe wrapping</h2><iframe data-mode="long"></iframe></article>
+<article><h2>Primary only · context stack</h2><iframe data-mode="single"></iframe></article>
+</div>
+<script>
+(async () => {
+    const html = await (await fetch('../../app/index.html')).text();
+    for (const frame of document.querySelectorAll('iframe')) {
+        await new Promise(resolve => {
+            frame.onload = resolve;
+            frame.srcdoc = html.replace('<head>', '<head><base href="../../app/"><style>#standalone-chrome{display:none!important}</style>');
+        });
+        const app = frame.contentWindow;
+        app.VisualizerRuntime.updateProperties({ circleopacity: { value: 0 }, backgroundcolor: { value: '0.025 0.04 0.065' } });
+        app.VisualizerRuntime.updateStandalone({ lyrics: { positionY: 50, fontSize: 64, maxWidth: 1350,
+            secondaryPosition: frame.dataset.mode === 'above' ? 'above' : 'below', secondaryColor: '#b1d4e9', glowColorMode: 'custom', glowColor: '#83bcf2' } });
+        let text;
+        if (frame.dataset.mode === 'above') text = '[00:00]夜が明ける前に\n[00:00]在黎明到來之前\n[00:01]星の向こうへ歩いてゆく\n[00:01]朝著星辰的彼方前行\n[00:02]記憶は消えない\n[00:02]記憶不會消逝';
+        else if (frame.dataset.mode === 'long') text = '[00:00]The night remembers\n[00:00]夜色仍然記得\n[00:01]Let the silence carry every forgotten promise across the mountains and into the light\n[00:01]讓寂靜承載每個被遺忘的約定，越過群山，走向光明\n[00:02]We will find our way\n[00:02]我們終將找到方向';
+        else if (frame.dataset.mode === 'single') text = '[00:00]The night remembers\n[00:01]Open the gate\n[00:02]Let heaven witness';
+        else text = '[00:00]The night remembers\n[00:00]夜色仍然記得\n[00:01]Open the gate\n[00:01]敞開大門\n[00:02]Let heaven witness\n[00:02]讓天堂見證';
+        app.document.querySelector('#local-audio').currentTime = 1;
+        app.VisualizerLyrics.load(text, 'review.lrc');
+    }
+})();
+</script>

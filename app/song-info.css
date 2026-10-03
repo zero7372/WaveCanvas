@@ -1,0 +1,5 @@
+#song-info-layer { position: absolute; inset: 0; z-index: 18; pointer-events: none; overflow: hidden; }
+#song-info-content { position: absolute; display: flex; flex-direction: column; width: max-content; max-width: 1792px; line-height: 1.2; }
+#song-info-title, #song-info-artist { overflow-wrap: anywhere; white-space: pre-wrap; paint-order: stroke fill; }
+#song-info-title { font-weight: 700; }
+#song-info-artist { font-weight: 400; }

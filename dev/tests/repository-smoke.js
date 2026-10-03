@@ -1,0 +1,43 @@
+document.querySelector('#run').addEventListener('click', async function () {
+    this.disabled = true;
+    const frame = document.querySelector('#app'), output = document.querySelector('#results');
+    let passes = 0, failures = 0;
+    const check = (ok, message) => { output.textContent += '\n' + (ok ? 'PASS ' : 'FAIL ') + message; ok ? passes++ : failures++; };
+    output.textContent = 'Running';
+    try {
+        const response = await fetch('/');
+        check(response.ok && response.url.endsWith('/app/index.html'), 'Root server redirects to canonical app/index.html');
+        await new Promise(resolve => { frame.onload = resolve; frame.src = '../../app/index.html'; });
+        const app = frame.contentWindow, doc = app.document, errors = [];
+        app.addEventListener('error', event => errors.push(event.message));
+        app.addEventListener('unhandledrejection', event => errors.push(String(event.reason)));
+        const references = [...doc.querySelectorAll('script[src],link[rel=stylesheet]')];
+        const statuses = await Promise.all(references.map(async element => { const result = await fetch(element.src || element.href); return result.ok; }));
+        check(statuses.every(Boolean), 'All ' + references.length + ' app script/CSS paths return HTTP 200');
+        check(Boolean(app.VisualizerRuntime && app.VisualizerLyrics && app.VisualizerTimingEditor && app.WaveCanvasShell), 'Runtime, Lyrics, Timing and Shell initialize');
+        check(getComputedStyle(doc.querySelector('#workspace')).display === 'flex', 'Standalone CSS applies');
+        check(app.WaveCanvasShell.getView() === 'HOME', 'Home opens normally');
+        const images = [...doc.querySelectorAll('#home-view img')];
+        await Promise.all(images.map(image => image.decode().catch(() => {})));
+        check(images.length === 3 && images.every(image => image.naturalWidth > 0), 'All three template thumbnails load');
+        check((await fetch(new URL(doc.querySelector('a[href="../README.md"]').getAttribute('href'), doc.baseURI))).ok, 'Help resolves root README');
+        doc.querySelector('#new-project').click();
+        check(app.WaveCanvasShell.getView() === 'EDITOR' && !doc.querySelector('#editor-view').hidden, 'Home enters Editor');
+        check(doc.querySelector('#audio-file').type === 'file' && doc.querySelector('#audio-file').accept.includes('audio'), 'Audio import UI remains available');
+        const rate = 8000, samples = rate, bytes = new ArrayBuffer(44 + samples * 2), view = new DataView(bytes);
+        const text = (offset, value) => [...value].forEach((character, index) => view.setUint8(offset + index, character.charCodeAt(0)));
+        text(0, 'RIFF'); view.setUint32(4, 36 + samples * 2, true); text(8, 'WAVE'); text(12, 'fmt '); view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true); view.setUint16(22, 1, true); view.setUint32(24, rate, true); view.setUint32(28, rate * 2, true);
+        view.setUint16(32, 2, true); view.setUint16(34, 16, true); text(36, 'data'); view.setUint32(40, samples * 2, true);
+        const transfer = new app.DataTransfer(); transfer.items.add(new app.File([bytes], 'repository-smoke.wav', { type: 'audio/wav' }));
+        const input = doc.querySelector('#audio-file'); input.files = transfer.files; input.dispatchEvent(new app.Event('change'));
+        const audio = doc.querySelector('#local-audio'), deadline = performance.now() + 5000;
+        while (audio.readyState < 2 && performance.now() < deadline) await new Promise(resolve => setTimeout(resolve, 40));
+        check(audio.readyState >= 2 && Math.abs(audio.duration - 1) < .01, 'Synthetic WAV imports through existing audio handler');
+        check(doc.querySelector('#audio-name').textContent.includes('repository-smoke.wav'), 'Media displays imported audio filename');
+        doc.querySelector('#home-button').click(); check(app.WaveCanvasShell.getView() === 'HOME', 'Editor returns to Home');
+        doc.querySelector('#new-project').click(); check(audio.readyState >= 2, 'Reenter Editor retains imported media');
+        check(errors.length === 0, 'No error/unhandled rejection: ' + JSON.stringify(errors));
+    } catch (error) { check(false, error.stack || error.message); }
+    output.textContent += '\nDONE ' + passes + ' passed / ' + failures + ' failed'; this.disabled = false;
+});
