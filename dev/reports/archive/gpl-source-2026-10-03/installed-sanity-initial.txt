@@ -1,0 +1,25 @@
+PASS No running WaveCanvas process before installer
+PASS Updated license-only installer completes per-user install
+PASS Existing normal user business files unchanged
+PASS Installed license identity WaveCanvas-LICENSE.txt
+PASS Installed license identity THIRD_PARTY_NOTICES.md
+PASS Installed license identity FFmpeg/LICENSE
+PASS Installed license identity FFmpeg/PROVIDER-README.txt
+PASS Installed license identity FFmpeg/SOURCE_INFO.txt
+PASS Installed license identity FFmpeg/BUILD_INFO.json
+PASS Installed license identity FFmpeg/SHA256.txt
+PASS Installed license identity FFmpeg/SOURCE_MANIFEST.json
+PASS Installed license identity FFmpeg/BUILD_CONFIG.txt
+PASS Installed license identity FFmpeg/DEPENDENCIES.json
+PASS Installed license identity FFmpeg/dependencies/x264-COPYING
+PASS Installed license identity FFmpeg/dependencies/rubberband-COPYING
+PASS Installed license identity FFmpeg/dependencies/vidstab-COPYING.LESSER
+PASS Installed license identity FFmpeg/dependencies/vidstab-LICENSE
+PASS Installed license identity FFmpeg/dependencies/vidstab-RELICENSE.md
+PASS Installed license identity FFmpeg/dependencies/avisynth-LICENSE.rst
+PASS Installed license identity FFmpeg/dependencies/xvid-LICENSE
+PASS Installed binary unchanged ffmpeg.exe
+PASS Installed binary unchanged ffprobe.exe
+PASS Installed app remains unsigned
+PASS Quoted project association unchanged
+FAIL Single Installed Apps version 1.0.0

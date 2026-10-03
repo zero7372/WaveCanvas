@@ -1,13 +1,16 @@
-WaveCanvas bundled FFmpeg corresponding-source delivery status: BLOCKED
+WaveCanvas 1.0.0 bundled FFmpeg source status: BLOCKED
 Binary: 9.0.2-essentials_build-www.gyan.dev
-Provider: https://github.com/GyanD/codexffmpeg/releases/tag/9.0.2
-FFmpeg revision: 946fcce07b6dcd0331c8cc609192aeff5e1924f8
-Upstream exact-revision source: https://github.com/FFmpeg/FFmpeg/archive/946fcce07b6dcd0331c8cc609192aeff5e1924f8.tar.gz
-This upstream archive alone is NOT the complete corresponding source of the static executables.
-Build configuration and reported dependency versions: PROVIDER-README.txt (unmodified provider material).
-Binary identities: SHA256.txt; BUILD_INFO.json. GPL text: LICENSE.
-Patches: UNKNOWN, not assumed none. Dependency exact source closure: UNKNOWN.
-Matching build/install scripts and recipes: NOT DELIVERED.
-Source delivery strategy: a separate source attachment alongside installer at the SAME fixed release download entry (GPLv3 section 6(d)), with exact revision manifest and SHA256. No public release endpoint exists yet. SOURCE_MANIFEST.json records requirements; it is not a source archive or written offer.
-Before public distribution obtain provider exact dependency locks, source archives, patches and build scripts; assemble and hash complete source attachment; verify free access and correspondence. If matching materials cannot be obtained, a separately approved reproducible FFmpeg rebuild is needed. Do not substitute approximate sources for these binaries.
-No source archive generated in this RC; publicReleaseReady=false.
+Binary identities: SHA256.txt and SOURCE_MANIFEST.json
+FFmpeg upstream commit: 946fcce07b6dcd0331c8cc609192aeff5e1924f8
+x264 upstream commit: 0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee (binary/SEI r3223 0480cb0)
+Complete source asset planned: WaveCanvas-1.0.0-GPL-Source.zip
+Preparation-only asset: WaveCanvas-1.0.0-GPL-Source-PREPARATION.zip — NOT complete Corresponding Source.
+Release location: <OFFICIAL_RELEASE_URL> — unresolved metadata; must be replaced before public release.
+Direct free source delivery beside installer is planned; no written offer is made.
+Full configuration: BUILD_CONFIG.txt. External inventory: DEPENDENCIES.json.
+Selected dependency licenses in dependencies/; complete exact-source notice closure remains BLOCKED.
+Provider patches, transitive dependencies and matching build recipe remain UNKNOWN / NOT DELIVERED.
+Upstream snapshots and version mappings do not establish pristine provider source state.
+No WaveCanvas patches applied to acquired snapshots; provider patches are not assumed absent.
+Do not distribute this RC publicly until complete source delivery and release metadata pass all gates.
+publicReleaseReady=false; signed=false (separate signing status).

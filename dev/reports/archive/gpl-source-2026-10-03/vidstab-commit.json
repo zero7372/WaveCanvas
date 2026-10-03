@@ -1,0 +1,197 @@
+{
+  "sha": "e2445c4081658318223762a696eb1c645c2d7168",
+  "node_id": "C_kwDOACtusNoAKGUyNDQ1YzQwODE2NTgzMTgyMjM3NjJhNjk2ZWIxYzY0NWMyZDcxNjg",
+  "commit": {
+    "author": {
+      "name": "Georg Martius",
+      "email": "georg.martius@web.de",
+      "date": "2026-08-14T20:12:27Z"
+    },
+    "committer": {
+      "name": "Georg Martius",
+      "email": "georg.martius@web.de",
+      "date": "2026-08-14T20:12:27Z"
+    },
+    "message": "build: compile the library and the tests without warnings\n\ngcc and clang each had something to say about the library and the test\nbuild; none of it was a real bug, but warnings that are always there are\nwarnings nobody reads.\n\n  - LensFwd.rf was only filled on the rotational path, and gcc could not\n    see that lensFwdApply reads it only there.  Fill it with the identity\n    either way -- once per Gauss-Newton iteration, not per point.\n  - vsLensUndistortPoint/vsLensDistortPoint returned VS_ERROR without\n    writing their outputs.  Callers check the return code, but after\n    inlining gcc still saw an indeterminate value at -O3 (bench/build.sh).\n    Write the point through unchanged on the failure path.\n  - The SSE2-only timing variables in test_contrast.c/test_compareimg.c\n    now live under the same #ifdef as their uses; test_motiondetect.c's\n    loglevel likewise moves under USE_OMP.  test_transform_baseline.c had\n    a genuinely dead packedTol.\n  - isnan() in test_lensdistortion.c proved nothing: the tests are built\n    with -ffast-math, under which it may fold to 0.  A range check is\n    still evaluated, and a NaN fails it.\n\nAlso stop the intentional error output from reading like a failing test.\ntest_vsvector_bounds mutes vs_log_level around the ~1000 calls it expects\nto be rejected (with a comment on when to un-mute it); test_frameinfo and\ntest_serialize_robust keep their handful of Error: lines visible -- muting\nthere could hide an unexpected one -- but say up front that they are the\nexpected result.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>",
+    "tree": {
+      "sha": "c27371dbcb97964b9920351bfbe6a45402ac8ed6",
+      "url": "https://api.github.com/repos/georgmartius/vid.stab/git/trees/c27371dbcb97964b9920351bfbe6a45402ac8ed6"
+    },
+    "url": "https://api.github.com/repos/georgmartius/vid.stab/git/commits/e2445c4081658318223762a696eb1c645c2d7168",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/georgmartius/vid.stab/commits/e2445c4081658318223762a696eb1c645c2d7168",
+  "html_url": "https://github.com/georgmartius/vid.stab/commit/e2445c4081658318223762a696eb1c645c2d7168",
+  "comments_url": "https://api.github.com/repos/georgmartius/vid.stab/commits/e2445c4081658318223762a696eb1c645c2d7168/comments",
+  "author": {
+    "login": "georgmartius",
+    "id": 1215328,
+    "node_id": "MDQ6VXNlcjEyMTUzMjg=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/1215328?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/georgmartius",
+    "html_url": "https://github.com/georgmartius",
+    "followers_url": "https://api.github.com/users/georgmartius/followers",
+    "following_url": "https://api.github.com/users/georgmartius/following{/other_user}",
+    "gists_url": "https://api.github.com/users/georgmartius/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/georgmartius/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/georgmartius/subscriptions",
+    "organizations_url": "https://api.github.com/users/georgmartius/orgs",
+    "repos_url": "https://api.github.com/users/georgmartius/repos",
+    "events_url": "https://api.github.com/users/georgmartius/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/georgmartius/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "georgmartius",
+    "id": 1215328,
+    "node_id": "MDQ6VXNlcjEyMTUzMjg=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/1215328?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/georgmartius",
+    "html_url": "https://github.com/georgmartius",
+    "followers_url": "https://api.github.com/users/georgmartius/followers",
+    "following_url": "https://api.github.com/users/georgmartius/following{/other_user}",
+    "gists_url": "https://api.github.com/users/georgmartius/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/georgmartius/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/georgmartius/subscriptions",
+    "organizations_url": "https://api.github.com/users/georgmartius/orgs",
+    "repos_url": "https://api.github.com/users/georgmartius/repos",
+    "events_url": "https://api.github.com/users/georgmartius/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/georgmartius/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "7a64267250384b8b9563e5efc5bac7b3aec8db86",
+      "url": "https://api.github.com/repos/georgmartius/vid.stab/commits/7a64267250384b8b9563e5efc5bac7b3aec8db86",
+      "html_url": "https://github.com/georgmartius/vid.stab/commit/7a64267250384b8b9563e5efc5bac7b3aec8db86"
+    }
+  ],
+  "stats": {
+    "total": 50,
+    "additions": 41,
+    "deletions": 9
+  },
+  "files": [
+    {
+      "sha": "3a1f668c5f72ec0edeca69c0df155dcb12c07757",
+      "filename": "src/lensdistortion.c",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 3,
+      "changes": 15,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/src%2Flensdistortion.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/src%2Flensdistortion.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/src%2Flensdistortion.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -51,8 +51,12 @@ int vsLensUndistortPoint(const VSLensDistortion* ld,\n   /* squared radius in units of rho */\n   double r2 = (dx*dx + dy*dy) / (ld->rho * ld->rho);\n   double denom = 1.0 + ld->k * r2;\n-  /* only reachable for pincushion strong enough to fold the plane onto itself */\n-  if(denom <= 0) return VS_ERROR;\n+  /* only reachable for pincushion strong enough to fold the plane onto itself.\n+     The outputs are still written (with the point left where it was) so that\n+     callers never inherit an indeterminate value from a failed call -- they\n+     are expected to check the return code, but a defined output also keeps\n+     -Wmaybe-uninitialized quiet once this gets inlined. */\n+  if(denom <= 0){ *xo = xi; *yo = yi; return VS_ERROR; }\n   *xo = ld->cx + dx/denom;\n   *yo = ld->cy + dy/denom;\n   return VS_OK;\n@@ -65,7 +69,8 @@ int vsLensDistortPoint(const VSLensDistortion* ld,\n   double r2 = (dx*dx + dy*dy) / (ld->rho * ld->rho);\n   double disc = 1.0 - 4.0 * ld->k * r2;\n   double scale;\n-  if(disc < 0) return VS_ERROR;\n+  /* outputs written on the failure path too, as in vsLensUndistortPoint */\n+  if(disc < 0){ *xo = xi; *yo = yi; return VS_ERROR; }\n   /* Rationalised root of k*r_u*r_d^2 - r_d + r_u = 0.  Written as\n      2/(1+sqrt(disc)) rather than (1-sqrt(disc))/(2*k*r_u^2) so that it stays\n      accurate for small k and is exactly 1 at k=0, with no special case. */\n@@ -148,8 +153,12 @@ typedef struct {\n \n static void lensFwdInit(LensFwd* w, double f, double tx, double ty,\n                         double c, double s){\n+  int i;\n   w->f = f; w->c = c; w->s = s; w->tx = tx; w->ty = ty;\n   w->z = 1.0;\n+  /* identity by default: lensFwdApply reads rf only when f > 0, but filling it\n+     in either way keeps the struct fully defined (and the compiler quiet) */\n+  for(i=0; i<9; i++) w->rf[i] = (i%4 == 0) ? 1.0 : 0.0;\n   if(f > 0.0){\n     double b[9];\n     w->z = sqrt(c*c + s*s);"
+    },
+    {
+      "sha": "001154ea64bea8e90d865f81e5f5f349fd403555",
+      "filename": "tests/test_compareimg.c",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1,
+      "changes": 6,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_compareimg.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_compareimg.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_compareimg.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -96,8 +96,12 @@ void test_compareImg_performance(const TestData* testdata){\n   /* Sized from the macro rather than from numruns: the latter makes these\n      variable length arrays, which MSVC does not implement. */\n   int diffsC[NUMCMP];\n+#if defined(USE_SSE2) || defined(USE_SSE2_ASM)\n+  /* only the vectorised builds have a second implementation to time */\n   int diffsO[NUMCMP];\n-  int timeC, timeO;\n+  int timeO;\n+#endif\n+  int timeC;\n   timeC=runcompare(compareSubImg_thr, testdata->frames[0], testdata->frames[1],\n                    f, testdata->fi, diffsC, 0, numruns);\n   fprintf(stderr,\"***C        time for %i runs: %i ms ****\\n\", numruns, timeC);"
+    },
+    {
+      "sha": "f27c7d43a65354165ee33379dd76f45f24360fbc",
+      "filename": "tests/test_contrast.c",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 2,
+      "changes": 7,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_contrast.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_contrast.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_contrast.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -13,8 +13,7 @@ void test_contrastImg(const TestData* testdata){\n   /* Sized from the macro rather than from numruns: the latter makes these\n      variable length arrays, which MSVC does not implement. */\n   double contrastC[NUMCNTR];\n-  double contrastOpt[NUMCNTR];\n-  int timeC, timeOpt;\n+  int timeC;\n   fprintf(stderr,\"********** Michelson Contrast (with SSE2):\\n\");\n   {\n     int start = timeOfDayinMS();\n@@ -25,8 +24,12 @@ void test_contrastImg(const TestData* testdata){\n     int end = timeOfDayinMS();\n     timeC=end-start;\n     fprintf(stderr,\"***C    time for %i runs: %i ms ****\\n\", numruns, timeC);\n+    fprintf(stderr,\"***C    contrast: %3.2f ****\\n\", contrastC[0]);\n   }\n #ifdef USE_SSE2\n+  /* only the SSE2 build has anything to compare the C results against */\n+  double contrastOpt[NUMCNTR];\n+  int timeOpt;\n   {\n     int start = timeOfDayinMS();\n     for(i=0; i<numruns; i++){"
+    },
+    {
+      "sha": "4000d414eafdfac07488431d774988e947e9a943",
+      "filename": "tests/test_frameinfo.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_frameinfo.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_frameinfo.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_frameinfo.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -40,6 +40,8 @@ void test_frameinfo(void){\n   fprintf(stderr,\"********** frameinfo dimension validation:\\n\");\n \n   fprintf(stderr,\"* subsampled formats must reject incompatible dimensions\\n\");\n+  fprintf(stderr,\"  (the library's \\\"Error: invalid frame dimensions\\\" lines\"\n+                 \" below are the expected result)\\n\");\n   // this is issue #43: odd height with 4:2:0\n   test_bool(vsFrameInfoInit(&fi, 640, 481, PF_YUV420P) == 0);\n   test_bool(vsFrameInfoInit(&fi, 641, 480, PF_YUV420P) == 0);"
+    },
+    {
+      "sha": "213bdc200b567b17534ff2431a1be1e522a5f67c",
+      "filename": "tests/test_lensdistortion.c",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1,
+      "changes": 5,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_lensdistortion.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_lensdistortion.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_lensdistortion.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -89,7 +89,10 @@ static void test_lensdistortion_domain(void){\n     VSLensDistortion ld = vsLensDistortionInit(&fi, -0.9);\n     double r = 0.999*ld.rho;\n     test_bool(vsLensDistortPoint(&ld, ld.cx + r, ld.cy, &ux, &uy) == VS_OK);\n-    test_bool(!isnan(ux) && !isnan(uy));\n+    /* A range check, not isnan(): the library is built with -ffast-math, under\n+       which isnan() is allowed to fold to 0 and prove nothing.  A comparison\n+       is still evaluated, and a NaN would fail it. */\n+    test_bool(fabs(ux - ld.cx) <= 2.0*ld.rho && fabs(uy - ld.cy) <= 2.0*ld.rho);\n   }\n }\n "
+    },
+    {
+      "sha": "add627d8e6e8d8ad8a4ab732c465df4555c208a5",
+      "filename": "tests/test_motiondetect.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_motiondetect.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_motiondetect.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_motiondetect.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -9,8 +9,9 @@ void test_motionDetect(TestData* testdata){\n   fprintf(stderr,\"MotionDetect:\\n\");\n   int threads=1;\n   int single_time=0;\n-  int loglevel=vs_log_level;\n #ifdef USE_OMP\n+  /* only the thread sweep mutes the log, so only it needs the old level */\n+  int loglevel=vs_log_level;\n   int numthreads=omp_get_max_threads();\n   for(threads = 1; threads <= numthreads; threads++){\n #endif"
+    },
+    {
+      "sha": "64e515f40e0b4d3c02c2f4af563f168f801e2080",
+      "filename": "tests/test_serialize_robust.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_serialize_robust.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_serialize_robust.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_serialize_robust.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -99,6 +99,8 @@ int test_serialize_robust(){\n   sr_free_mlms(&mlms);\n   fclose(f);\n   fprintf(stderr,\"** binary file round trip OKAY\\n\");\n+  fprintf(stderr,\"** the deliberately damaged files below make the library log\"\n+                 \" \\\"Error: ...\\\": that is what is being tested\\n\");\n \n   /* ---- 2. truncation at the first 0x1A (Ctrl-Z), as an MSVCRT text-mode\n        handle would do: must not produce bogus (null) localmotions ---- */"
+    },
+    {
+      "sha": "56c34776b48f1ae0a094351342a71a62ed6053ba",
+      "filename": "tests/test_transform_baseline.c",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 1,
+      "changes": 1,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_transform_baseline.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_transform_baseline.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_transform_baseline.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -251,7 +251,6 @@ void test_transform_baseline(void){\n       VSFrame planarFixed, planarFloat, packedFixed, packedFloat;\n       uint32_t gf, pf;\n       TBDiff dPlanar, dPacked;\n-      double packedTol;\n \n       vsFrameAllocate(&planarFixed, &fi);\n       vsFrameAllocate(&planarFloat, &fi);"
+    },
+    {
+      "sha": "0e91fdf70c11749da067223c309a7954d13bd852",
+      "filename": "tests/test_vsvector.c",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 0,
+      "changes": 9,
+      "blob_url": "https://github.com/georgmartius/vid.stab/blob/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_vsvector.c",
+      "raw_url": "https://github.com/georgmartius/vid.stab/raw/e2445c4081658318223762a696eb1c645c2d7168/tests%2Ftest_vsvector.c",
+      "contents_url": "https://api.github.com/repos/georgmartius/vid.stab/contents/tests%2Ftest_vsvector.c?ref=e2445c4081658318223762a696eb1c645c2d7168",
+      "patch": "@@ -18,6 +18,14 @@ int test_vsvector_bounds(){\n   VSVector v;\n   int payload = 42;\n   void* old;\n+  /* Every rejected call below logs \"Error: ...\" from the library -- that IS the\n+     behaviour under test, so the log is muted here rather than left to look\n+     like a failing test.  Raise it again (or just delete these two lines) when\n+     one of the test_bool()s below fails and the message would help. */\n+  int logLevelSaved = vs_log_level;\n+  fprintf(stderr,\"** library error logging muted: the calls below are\"\n+                 \" SUPPOSED to be rejected\\n\");\n+  vs_log_level = -1;\n \n   /* ---- 1. an implausible position is rejected, not turned into an\n        allocation. INT_MAX-1 is what a corrupt frame index in a .trf can\n@@ -68,5 +76,6 @@ int test_vsvector_bounds(){\n     fprintf(stderr,\"** set_dup rejects without leaking OKAY\\n\\n\");\n   }\n \n+  vs_log_level = logLevelSaved;\n   return 1;\n }"
+    }
+  ]
+}

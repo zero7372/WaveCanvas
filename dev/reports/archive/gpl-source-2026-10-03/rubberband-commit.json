@@ -1,0 +1,101 @@
+{
+  "sha": "1d95888bec3ae0a17c0c4af791810d5a63f6bc35",
+  "node_id": "C_kwDOAwpSQdoAKDFkOTU4ODhiZWMzYWUwYTE3YzBjNGFmNzkxODEwZDVhNjNmNmJjMzU",
+  "commit": {
+    "author": {
+      "name": "Chris Cannam",
+      "email": "cannam@all-day-breakfast.com",
+      "date": "2024-10-25T16:26:08Z"
+    },
+    "committer": {
+      "name": "Chris Cannam",
+      "email": "cannam@all-day-breakfast.com",
+      "date": "2024-10-25T16:26:08Z"
+    },
+    "message": "Versions",
+    "tree": {
+      "sha": "66d0698fb6fa8c270854fe362dc01286eca7f255",
+      "url": "https://api.github.com/repos/breakfastquay/rubberband/git/trees/66d0698fb6fa8c270854fe362dc01286eca7f255"
+    },
+    "url": "https://api.github.com/repos/breakfastquay/rubberband/git/commits/1d95888bec3ae0a17c0c4af791810d5a63f6bc35",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/breakfastquay/rubberband/commits/1d95888bec3ae0a17c0c4af791810d5a63f6bc35",
+  "html_url": "https://github.com/breakfastquay/rubberband/commit/1d95888bec3ae0a17c0c4af791810d5a63f6bc35",
+  "comments_url": "https://api.github.com/repos/breakfastquay/rubberband/commits/1d95888bec3ae0a17c0c4af791810d5a63f6bc35/comments",
+  "author": {
+    "login": "cannam",
+    "id": 104933,
+    "node_id": "MDQ6VXNlcjEwNDkzMw==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/104933?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/cannam",
+    "html_url": "https://github.com/cannam",
+    "followers_url": "https://api.github.com/users/cannam/followers",
+    "following_url": "https://api.github.com/users/cannam/following{/other_user}",
+    "gists_url": "https://api.github.com/users/cannam/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/cannam/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/cannam/subscriptions",
+    "organizations_url": "https://api.github.com/users/cannam/orgs",
+    "repos_url": "https://api.github.com/users/cannam/repos",
+    "events_url": "https://api.github.com/users/cannam/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/cannam/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "cannam",
+    "id": 104933,
+    "node_id": "MDQ6VXNlcjEwNDkzMw==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/104933?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/cannam",
+    "html_url": "https://github.com/cannam",
+    "followers_url": "https://api.github.com/users/cannam/followers",
+    "following_url": "https://api.github.com/users/cannam/following{/other_user}",
+    "gists_url": "https://api.github.com/users/cannam/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/cannam/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/cannam/subscriptions",
+    "organizations_url": "https://api.github.com/users/cannam/orgs",
+    "repos_url": "https://api.github.com/users/cannam/repos",
+    "events_url": "https://api.github.com/users/cannam/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/cannam/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "8c4dc5cbb01955fcefbd2c9da61444b821d5d699",
+      "url": "https://api.github.com/repos/breakfastquay/rubberband/commits/8c4dc5cbb01955fcefbd2c9da61444b821d5d699",
+      "html_url": "https://github.com/breakfastquay/rubberband/commit/8c4dc5cbb01955fcefbd2c9da61444b821d5d699"
+    }
+  ],
+  "stats": {
+    "total": 20,
+    "additions": 10,
+    "deletions": 10
+  },
+  "files": [
+    {
+      "sha": "6128c769e01fd8d39f75a68a30367f950c78206b",
+      "filename": "ladspa-lv2/rubberband.lv2/lv2-rubberband.ttl",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 10,
+      "changes": 20,
+      "blob_url": "https://github.com/breakfastquay/rubberband/blob/1d95888bec3ae0a17c0c4af791810d5a63f6bc35/ladspa-lv2%2Frubberband.lv2%2Flv2-rubberband.ttl",
+      "raw_url": "https://github.com/breakfastquay/rubberband/raw/1d95888bec3ae0a17c0c4af791810d5a63f6bc35/ladspa-lv2%2Frubberband.lv2%2Flv2-rubberband.ttl",
+      "contents_url": "https://api.github.com/repos/breakfastquay/rubberband/contents/ladspa-lv2%2Frubberband.lv2%2Flv2-rubberband.ttl?ref=1d95888bec3ae0a17c0c4af791810d5a63f6bc35",
+      "patch": "@@ -134,8 +134,8 @@ rubberband:mono\n         doap:developer :maker ;\n         doap:maintainer :maker ;\n         # Minor version will be 2x the Rubber Band API minor version\n-        lv2:minorVersion 4 ;\n-        lv2:microVersion 2 ;\n+        lv2:minorVersion 6 ;\n+        lv2:microVersion 1 ;\n         lv2:optionalFeature lv2:hardRTCapable ;\n \tpg:mainInput rubberband:mono_in_group ;\n \tpg:mainOutput rubberband:mono_out_group ;\n@@ -172,8 +172,8 @@ rubberband:r3mono\n         doap:developer :maker ;\n         doap:maintainer :maker ;\n         # Minor version will be 2x the Rubber Band API minor version\n-        lv2:minorVersion 4 ;\n-        lv2:microVersion 2 ;\n+        lv2:minorVersion 6 ;\n+        lv2:microVersion 1 ;\n         lv2:optionalFeature lv2:hardRTCapable ;\n \tpg:mainInput rubberband:mono_in_group ;\n \tpg:mainOutput rubberband:mono_out_group ;\n@@ -209,7 +209,7 @@ rubberband:livemono\n         doap:developer :maker ;\n         doap:maintainer :maker ;\n         # Minor version will be 2x the Rubber Band API minor version\n-        lv2:minorVersion 4 ;\n+        lv2:minorVersion 6 ;\n         lv2:microVersion 1 ;\n         lv2:optionalFeature lv2:hardRTCapable ;\n \tpg:mainInput rubberband:mono_in_group ;\n@@ -246,8 +246,8 @@ rubberband:stereo\n         doap:developer :maker ;\n         doap:maintainer :maker ;\n         # Minor version will be 2x the Rubber Band API minor version\n-        lv2:minorVersion 4 ;\n-        lv2:microVersion 2 ;\n+        lv2:minorVersion 6 ;\n+        lv2:microVersion 1 ;\n         lv2:optionalFeature lv2:hardRTCapable ;\n \tpg:mainInput rubberband:stereo_in_group ;\n \tpg:mainOutput rubberband:stereo_out_group ;\n@@ -299,8 +299,8 @@ rubberband:r3stereo\n         doap:developer :maker ;\n         doap:maintainer :maker ;\n         # Minor version will be 2x the Rubber Band API minor version\n-        lv2:minorVersion 4 ;\n-        lv2:microVersion 2 ;\n+        lv2:minorVersion 6 ;\n+        lv2:microVersion 1 ;\n         lv2:optionalFeature lv2:hardRTCapable ;\n \tpg:mainInput rubberband:stereo_in_group ;\n \tpg:mainOutput rubberband:stereo_out_group ;\n@@ -351,7 +351,7 @@ rubberband:livestereo\n         doap:developer :maker ;\n         doap:maintainer :maker ;\n         # Minor version will be 2x the Rubber Band API minor version\n-        lv2:minorVersion 4 ;\n+        lv2:minorVersion 6 ;\n         lv2:microVersion 1 ;\n         lv2:optionalFeature lv2:hardRTCapable ;\n \tpg:mainInput rubberband:stereo_in_group ;"
+    }
+  ]
+}

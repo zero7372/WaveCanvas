@@ -1,0 +1,138 @@
+
+> wavecanvas@1.0.0 release:check
+> node dev/tools/release-check.cjs --public
+
+PASS Canonical version and product identity
+PASS Seven-size Windows ICO
+PASS ICO dimensions
+PASS vendor/ffmpeg/ffmpeg.exe pinned hash
+PASS release/win-unpacked/resources/ffmpeg/ffmpeg.exe pinned hash
+PASS vendor/ffmpeg/ffprobe.exe pinned hash
+PASS release/win-unpacked/resources/ffmpeg/ffprobe.exe pinned hash
+PASS Installer license allowlist matches audit
+PASS Packaged license WaveCanvas-LICENSE.txt
+PASS Packaged license THIRD_PARTY_NOTICES.md
+PASS Packaged license FFmpeg/LICENSE
+PASS Packaged license FFmpeg/PROVIDER-README.txt
+PASS Packaged license FFmpeg/SOURCE_INFO.txt
+PASS Packaged license FFmpeg/BUILD_INFO.json
+PASS Packaged license FFmpeg/SHA256.txt
+PASS Packaged license FFmpeg/SOURCE_MANIFEST.json
+PASS Packaged license FFmpeg/BUILD_CONFIG.txt
+PASS Packaged license FFmpeg/DEPENDENCIES.json
+PASS Packaged license FFmpeg/dependencies/x264-COPYING
+PASS Packaged license FFmpeg/dependencies/rubberband-COPYING
+PASS Packaged license FFmpeg/dependencies/vidstab-COPYING.LESSER
+PASS Packaged license FFmpeg/dependencies/vidstab-LICENSE
+PASS Packaged license FFmpeg/dependencies/vidstab-RELICENSE.md
+PASS Packaged license FFmpeg/dependencies/avisynth-LICENSE.rst
+PASS Packaged license FFmpeg/dependencies/xvid-LICENSE
+PASS NSIS installer present
+PASS Packaged app / electron sources match current frozen core and release implementation
+PASS Release hash WaveCanvas-Setup-1.0.0.exe
+PASS Release hash win-unpacked/WaveCanvas.exe
+PASS Release hash win-unpacked/resources/ffmpeg/ffmpeg.exe
+PASS Release hash win-unpacked/resources/ffmpeg/ffprobe.exe
+PASS Release hash licenses/WaveCanvas-LICENSE.txt
+PASS Release hash licenses/THIRD_PARTY_NOTICES.md
+PASS Release hash licenses/FFmpeg/LICENSE
+PASS Release hash licenses/FFmpeg/PROVIDER-README.txt
+PASS Release hash licenses/FFmpeg/SOURCE_INFO.txt
+PASS Release hash licenses/FFmpeg/BUILD_INFO.json
+PASS Release hash licenses/FFmpeg/SHA256.txt
+PASS Release hash licenses/FFmpeg/SOURCE_MANIFEST.json
+PASS Release hash licenses/FFmpeg/BUILD_CONFIG.txt
+PASS Release hash licenses/FFmpeg/DEPENDENCIES.json
+PASS Release hash licenses/FFmpeg/dependencies/x264-COPYING
+PASS Release hash licenses/FFmpeg/dependencies/rubberband-COPYING
+PASS Release hash licenses/FFmpeg/dependencies/vidstab-COPYING.LESSER
+PASS Release hash licenses/FFmpeg/dependencies/vidstab-LICENSE
+PASS Release hash licenses/FFmpeg/dependencies/vidstab-RELICENSE.md
+PASS Release hash licenses/FFmpeg/dependencies/avisynth-LICENSE.rst
+PASS Release hash licenses/FFmpeg/dependencies/xvid-LICENSE
+PASS Release hash source-info/SOURCE_MANIFEST.json
+PASS Release hash THIRD_PARTY_NOTICES.md
+PASS Release hash RELEASE-CHECKLIST.md
+PASS Release hash RELEASE_GPL_SOURCE_CHECKLIST.md
+PASS Release hash RELEASE-NOTES-1.0.0.md
+PASS Release hash WaveCanvas-1.0.0-GPL-Source-PREPARATION.zip
+PASS Release hash gpl-source/ARTIFACT.json
+Package allowlist passed: 94 entries; 570.25 MiB; no dev/ or node_modules.
+PASS Release document matches THIRD_PARTY_NOTICES.md
+PASS Release document matches RELEASE-CHECKLIST.md
+PASS Release document matches RELEASE_GPL_SOURCE_CHECKLIST.md
+PASS Release document matches RELEASE-NOTES-1.0.0.md
+PASS Release source manifest matches installed resource
+PASS Preparation artifact is not mislabeled complete source
+PASS Preparation source ZIP hash
+PASS Preparation source manifest binding
+PASS Preparation ZIP is listed in release hashes
+Technical release health PASS; signed=false; GPL source gate=BLOCKED; publicReleaseReady=false.
+Public release blocked:
+Source manifest status is not PASS
+staticClosureStatus is not PASS
+licenseClosureStatus is not PASS
+deliveryStatus is not PASS
+Matching provider build recipe absent
+Provider patch provenance unverified
+cairo exact source / patches / license or justified exclusion incomplete
+fontconfig exact source / patches / license or justified exclusion incomplete
+iconv exact source / patches / license or justified exclusion incomplete
+gnutls exact source / patches / license or justified exclusion incomplete
+libxml2 exact source / patches / license or justified exclusion incomplete
+gmp exact source / patches / license or justified exclusion incomplete
+bzlib exact source / patches / license or justified exclusion incomplete
+lzma exact source / patches / license or justified exclusion incomplete
+zlib exact source / patches / license or justified exclusion incomplete
+libsrt exact source / patches / license or justified exclusion incomplete
+libssh exact source / patches / license or justified exclusion incomplete
+libzmq exact source / patches / license or justified exclusion incomplete
+avisynth exact source / patches / license or justified exclusion incomplete
+sdl2 exact source / patches / license or justified exclusion incomplete
+libwebp exact source / patches / license or justified exclusion incomplete
+libx264 exact source / patches / license or justified exclusion incomplete
+libx265 exact source / patches / license or justified exclusion incomplete
+libxvid exact source / patches / license or justified exclusion incomplete
+libaom exact source / patches / license or justified exclusion incomplete
+libopenjpeg exact source / patches / license or justified exclusion incomplete
+libvpx exact source / patches / license or justified exclusion incomplete
+mediafoundation exact source / patches / license or justified exclusion incomplete
+libass exact source / patches / license or justified exclusion incomplete
+libfreetype exact source / patches / license or justified exclusion incomplete
+libfribidi exact source / patches / license or justified exclusion incomplete
+libharfbuzz exact source / patches / license or justified exclusion incomplete
+libvidstab exact source / patches / license or justified exclusion incomplete
+libvmaf exact source / patches / license or justified exclusion incomplete
+libzimg exact source / patches / license or justified exclusion incomplete
+amf exact source / patches / license or justified exclusion incomplete
+cuda-llvm exact source / patches / license or justified exclusion incomplete
+cuvid exact source / patches / license or justified exclusion incomplete
+dxva2 exact source / patches / license or justified exclusion incomplete
+d3d11va exact source / patches / license or justified exclusion incomplete
+d3d12va exact source / patches / license or justified exclusion incomplete
+ffnvcodec exact source / patches / license or justified exclusion incomplete
+libvpl exact source / patches / license or justified exclusion incomplete
+nvdec exact source / patches / license or justified exclusion incomplete
+nvenc exact source / patches / license or justified exclusion incomplete
+vaapi exact source / patches / license or justified exclusion incomplete
+openal exact source / patches / license or justified exclusion incomplete
+libgme exact source / patches / license or justified exclusion incomplete
+libopenmpt exact source / patches / license or justified exclusion incomplete
+libopencore-amrwb exact source / patches / license or justified exclusion incomplete
+libmp3lame exact source / patches / license or justified exclusion incomplete
+libtheora exact source / patches / license or justified exclusion incomplete
+libvo-amrwbenc exact source / patches / license or justified exclusion incomplete
+libgsm exact source / patches / license or justified exclusion incomplete
+libopencore-amrnb exact source / patches / license or justified exclusion incomplete
+libopus exact source / patches / license or justified exclusion incomplete
+libspeex exact source / patches / license or justified exclusion incomplete
+libvorbis exact source / patches / license or justified exclusion incomplete
+librubberband exact source / patches / license or justified exclusion incomplete
+Source delivery URL unresolved
+Complete source artifact not declared
+Complete source ZIP missing
+GPL checklist has unfinished requirements
+THIRD_PARTY_NOTICES.md contains unresolved release/source metadata
+THIRD_PARTY_NOTICES.md lacks exact artifact / delivery URL
+win-unpacked/resources/licenses/FFmpeg/SOURCE_INFO.txt contains unresolved release/source metadata
+win-unpacked/resources/licenses/FFmpeg/SOURCE_INFO.txt lacks exact artifact / delivery URL

@@ -1,0 +1,209 @@
+{
+  "sha": "946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+  "node_id": "C_kwDOABiiStoAKDk0NmZjY2UwN2I2ZGNkMDMzMWM4Y2M2MDkxOTJhZWZmNWUxOTI0Zjg",
+  "commit": {
+    "author": {
+      "name": "Michael Niedermayer",
+      "email": "michael@niedermayer.cc",
+      "date": "2026-09-17T00:17:15Z"
+    },
+    "committer": {
+      "name": "Michael Niedermayer",
+      "email": "michael@niedermayer.cc",
+      "date": "2026-09-17T23:19:50Z"
+    },
+    "message": "Update for 9.0.2\n\nSigned-off-by: Michael Niedermayer <michael@niedermayer.cc>",
+    "tree": {
+      "sha": "f314f188666de54687c464fc975e5ee43fae26e1",
+      "url": "https://api.github.com/repos/FFmpeg/FFmpeg/git/trees/f314f188666de54687c464fc975e5ee43fae26e1"
+    },
+    "url": "https://api.github.com/repos/FFmpeg/FFmpeg/git/commits/946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/FFmpeg/FFmpeg/commits/946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+  "html_url": "https://github.com/FFmpeg/FFmpeg/commit/946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+  "comments_url": "https://api.github.com/repos/FFmpeg/FFmpeg/commits/946fcce07b6dcd0331c8cc609192aeff5e1924f8/comments",
+  "author": {
+    "login": "michaelni",
+    "id": 729390,
+    "node_id": "MDQ6VXNlcjcyOTM5MA==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/729390?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/michaelni",
+    "html_url": "https://github.com/michaelni",
+    "followers_url": "https://api.github.com/users/michaelni/followers",
+    "following_url": "https://api.github.com/users/michaelni/following{/other_user}",
+    "gists_url": "https://api.github.com/users/michaelni/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/michaelni/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/michaelni/subscriptions",
+    "organizations_url": "https://api.github.com/users/michaelni/orgs",
+    "repos_url": "https://api.github.com/users/michaelni/repos",
+    "events_url": "https://api.github.com/users/michaelni/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/michaelni/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "michaelni",
+    "id": 729390,
+    "node_id": "MDQ6VXNlcjcyOTM5MA==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/729390?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/michaelni",
+    "html_url": "https://github.com/michaelni",
+    "followers_url": "https://api.github.com/users/michaelni/followers",
+    "following_url": "https://api.github.com/users/michaelni/following{/other_user}",
+    "gists_url": "https://api.github.com/users/michaelni/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/michaelni/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/michaelni/subscriptions",
+    "organizations_url": "https://api.github.com/users/michaelni/orgs",
+    "repos_url": "https://api.github.com/users/michaelni/repos",
+    "events_url": "https://api.github.com/users/michaelni/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/michaelni/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "889497c96370751aeebc61223e393b243947fb4c",
+      "url": "https://api.github.com/repos/FFmpeg/FFmpeg/commits/889497c96370751aeebc61223e393b243947fb4c",
+      "html_url": "https://github.com/FFmpeg/FFmpeg/commit/889497c96370751aeebc61223e393b243947fb4c"
+    }
+  ],
+  "stats": {
+    "total": 105,
+    "additions": 96,
+    "deletions": 9
+  },
+  "files": [
+    {
+      "sha": "0e47863e90e19d4f6ec5b8973da787c2aefd551d",
+      "filename": "Changelog",
+      "status": "modified",
+      "additions": 87,
+      "deletions": 0,
+      "changes": 87,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/Changelog",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/Changelog",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/Changelog?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -1,6 +1,93 @@\n Entries are sorted chronologically from oldest to youngest within each release,\n releases are sorted from youngest to oldest.\n \n+version 9.0.2:\n+ Update for 9.0.2\n+ avcodec/ppc/vp8dsp: store the 16 pixel wide rows at any alignment\n+ avfilter/vf_decimate: reject blocks smaller than one chroma sample\n+ avformat/genh: check for unsupported interlaved size 1 typ1 THP\n+ lavc/vvc: Prevent OOB write in sh_entry_points\n+ avcodec/vulkan_hevc: bound the per category reference counts in vk_hevc_start_frame\n+ avcodec/vulkan_hevc: bound the reference count in vk_hevc_start_frame\n+ avformat/pdvenc: add the AVClass pointer to PDVMuxContext\n+ avcodec/fflcms2: fix memory leak after cmsDeleteContext(NULL)\n+ avcodec/cbs_h266_syntax_template: fix ph_recovery_poc_cnt range\n+ avformat/http: free cookie parameters on parse failure\n+ avutil/opt: fix av_opt_is_set_to_default() on default-NAN options\n+ fftools: reject negative -t durations\n+ avcodec/hevc: don't error out on remaining slices of a skipped picture\n+ avcodec/vvc: Skip over the current picture in find_ref_idx\n+ avcodec/mips/vc1dsp_msa: Fix mspel functions\n+ avcodec/mips/hevcpred_msa: Fix compilation\n+ avcodec/vc1_block: don't drop the last macroblock when 1 bit remains\n+ avcodec/dovi_rpudec: strip zero padding\n+ avformat/dashdec: check fragment_timescale before division in refresh_manifest\n+ avutil/encryption_info: reject init info with zero-sized key IDs\n+ avformat/genh: check thp extradata read and allocation\n+ avformat/oggdec: check for integer overflow in buf_realloc\n+ vulkan_av1: fix out-of-bounds write of tile_sizes\n+ avcodec/cfhd: reject header tags after the frame buffer was allocated\n+ avcodec/cfhd: check the channel number after every tag\n+ avcodec/cfhd: reset the allocated band sizes when freeing the buffers\n+ avcodec/cook: require the channel mask to cover every subpacket channel\n+ avcodec/dvdsubenc: account for the byte alignment of each RLE line\n+ avfilter/vf_colorconstancy: free only allocated buffers on setup failure\n+ avcodec/hap: do not hide the failure of the chunk table allocation\n+ avformat/mov: Allocate the array without clearing before read\n+ avformat/mov: do not zero a key string before reading it\n+ avformat/mov: bound the keys atom entry count by the atom size\n+ avcodec/vvc/dec: compare the CTU area in ibc_tl_init()\n+ avcodec/vvc/dec: free the tabs when pic_arrays_init() fails\n+ avcodec/vvc/thread: clear fc->ft when the frame thread is freed\n+ avfilter/vf_uspp: Fix qpcount\n+ avcodec/codec_internal: clarify docs for FF_CODEC_CAP_SKIP_FRAME_FILL_PARAM\n+ avfilter/f_metadata: avoid overread on long formatted output\n+ avformat/tls_mbedtls: set the expected hostname for numeric hosts\n+ libswscale/ppc/yuv2rgb_altivec: Fix heap buffer overflow in yuv2packedX\n+ swscale/ops_dispatch: account for the vertical filter taps in the tail copy\n+ swscale/ops_dispatch: pass the line strides to copy_lines() as ptrdiff_t\n+ swscale/uops: pad the horizontal filter weights to whole blocks\n+ avcodec/apac: reset bitstream_index unconditionally to avoid integer overflow\n+ avcodec/vorbisenc: dont assert on non finite input\n+ avcodec/rv34: do not copy an unused reference line in the edge emulation\n+ avcodec/rv34: do not await a negative reference-frame row\n+ avcodec/vp9: unref next_refs in vp9_decode_flush\n+ avcodec/vp8: do not await a negative reference-frame row\n+ avformat/vpk: Check the channel count before dividing in the last block\n+ avformat: Restore the container channel layout after a failed decoder open\n+ avcodec/dcadec: ignore reserved speaker positions in coded channel order\n+ avformat/matroskaenc: reserve space for BlockAdditionMapping even if Matroska muxer isn't enabled\n+ (fforge/pr/24457) ffmpeg: fix matching of non-apic stream specifiers\n+ avformat/cbs: move AV1 feature definition to their own header\n+ (fforge/pr/24399) avcodec/bsf/dca_core: clear profile value on init()\n+ avformat/sierravmd: require a 6bit palette in the probe\n+ libswscale: use unaligned read/write macros in planarCopyWrapper\n+ avformat/binka: reject truncated packet reads\n+ avfilter/acrossover: reject non-finite parameters\n+ avfilter/aiir: reject non-finite parameters\n+ avfilter/firequalizer: reject overflowing delays\n+ avcodec/wavpackenc: handle INT32_MIN samples\n+ avfilter/aecho: reject non-finite delays and decays\n+ libswresample/aarch64: Fix sign extension in audio conversion\n+ avcodec/audiotoolbox: use 64-bit channel masks\n+ avfilter/aarch64/vf_bwdif_init: Fix stride bound check\n+ avformat/dashenc: free http options on avio_open_dyn_buf failure\n+ avcodec/bmp: fix misaligned read in 16-bit decoding\n+ avcodec/huffyuv: seed the median predictor endian independently\n+ avformat/wvdec: convert flags to defines\n+ (fforge/pr/24299) avformat/iamf_writer: don't discard skip samples signaled through side data for Opus\n+ (fforge/pr/24295) avformat/movenc: fix crash when flushing a fragment with no data\n+ swscale/loongarch: fix buffer underflow in yuv2plane1_8_lsx/lasx\n+ (fforge/pr/24279) avcodec/h264_direct: do not read the other field's rows of colocated mb_type\n+ avcodec/h264_slice: clear the ER picture when starting a second field\n+ Revert \"fftools/ffmpeg_sched: allow throttling decoder outputs\"\n+ avcodec/libdav1d: fix leak of frames on failure\n+ avcodec/mips/cabac: Fix building on OpenBSD/mips64\n+ avcodec/pthread_frame: sync decoded side data to all worker threads\n+ (fforge/pr/24146) avcodec/h264_direct: await both fields of a colocated field pair\n+ avcodec/h264_direct: move check before loading things\n+\n+\n version 9.0.1:\n  Bump for 9.0.1\n  avcodec/lcldec: clear what the multithread chunks leave undecoded"
+    },
+    {
+      "sha": "3beeadd423d3f1837a04deb762cdeaeb4ca7b781",
+      "filename": "RELEASE",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/RELEASE",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/RELEASE",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/RELEASE?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -1 +1 @@\n-9.0.1\n+9.0.2"
+    },
+    {
+      "sha": "7f29e22d02706bf12b3b897684139d30eb83ce46",
+      "filename": "doc/Doxyfile",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/doc%2FDoxyfile",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/doc%2FDoxyfile",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/doc%2FDoxyfile?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -38,7 +38,7 @@ PROJECT_NAME           = FFmpeg\n # could be handy for archiving the generated documentation or if some version\n # control system is used.\n \n-PROJECT_NUMBER         = 9.0.1\n+PROJECT_NUMBER         = 9.0.2\n \n # Using the PROJECT_BRIEF tag one can provide an optional one line description\n # for a project that appears at the top of each page and should give viewer a"
+    },
+    {
+      "sha": "4da6a5992d1ed956203a42c019a77b01c7d616f9",
+      "filename": "libavcodec/version.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavcodec%2Fversion.h",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavcodec%2Fversion.h",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/libavcodec%2Fversion.h?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -30,7 +30,7 @@\n #include \"version_major.h\"\n \n #define LIBAVCODEC_VERSION_MINOR   1\n-#define LIBAVCODEC_VERSION_MICRO 101\n+#define LIBAVCODEC_VERSION_MICRO 102\n \n #define LIBAVCODEC_VERSION_INT  AV_VERSION_INT(LIBAVCODEC_VERSION_MAJOR, \\\n                                                LIBAVCODEC_VERSION_MINOR, \\"
+    },
+    {
+      "sha": "7885f2900016bf08ba015fa1a21f9f9afefb9466",
+      "filename": "libavdevice/version.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavdevice%2Fversion.h",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavdevice%2Fversion.h",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/libavdevice%2Fversion.h?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -30,7 +30,7 @@\n #include \"version_major.h\"\n \n #define LIBAVDEVICE_VERSION_MINOR   1\n-#define LIBAVDEVICE_VERSION_MICRO 101\n+#define LIBAVDEVICE_VERSION_MICRO 102\n \n #define LIBAVDEVICE_VERSION_INT AV_VERSION_INT(LIBAVDEVICE_VERSION_MAJOR, \\\n                                                LIBAVDEVICE_VERSION_MINOR, \\"
+    },
+    {
+      "sha": "da3499c38000950a5f377611a9aa4ff9e1d39bf4",
+      "filename": "libavfilter/version.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavfilter%2Fversion.h",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavfilter%2Fversion.h",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/libavfilter%2Fversion.h?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -32,7 +32,7 @@\n #include \"version_major.h\"\n \n #define LIBAVFILTER_VERSION_MINOR   1\n-#define LIBAVFILTER_VERSION_MICRO 101\n+#define LIBAVFILTER_VERSION_MICRO 102\n \n \n #define LIBAVFILTER_VERSION_INT AV_VERSION_INT(LIBAVFILTER_VERSION_MAJOR, \\"
+    },
+    {
+      "sha": "b3c03a373b83bd8152b03c77bc593397782f0ebd",
+      "filename": "libavformat/version.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavformat%2Fversion.h",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavformat%2Fversion.h",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/libavformat%2Fversion.h?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -32,7 +32,7 @@\n #include \"version_major.h\"\n \n #define LIBAVFORMAT_VERSION_MINOR   1\n-#define LIBAVFORMAT_VERSION_MICRO 101\n+#define LIBAVFORMAT_VERSION_MICRO 102\n \n #define LIBAVFORMAT_VERSION_INT AV_VERSION_INT(LIBAVFORMAT_VERSION_MAJOR, \\\n                                                LIBAVFORMAT_VERSION_MINOR, \\"
+    },
+    {
+      "sha": "8708f4d53f81cac39d6eb32db6a14cc04d62a40a",
+      "filename": "libavutil/version.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavutil%2Fversion.h",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libavutil%2Fversion.h",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/libavutil%2Fversion.h?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -80,7 +80,7 @@\n \n #define LIBAVUTIL_VERSION_MAJOR  61\n #define LIBAVUTIL_VERSION_MINOR   1\n-#define LIBAVUTIL_VERSION_MICRO 101\n+#define LIBAVUTIL_VERSION_MICRO 102\n \n #define LIBAVUTIL_VERSION_INT   AV_VERSION_INT(LIBAVUTIL_VERSION_MAJOR, \\\n                                                LIBAVUTIL_VERSION_MINOR, \\"
+    },
+    {
+      "sha": "67f5de98cf00ce71f45f34790818a9c85dafd91a",
+      "filename": "libswresample/version.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libswresample%2Fversion.h",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libswresample%2Fversion.h",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/libswresample%2Fversion.h?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -31,7 +31,7 @@\n #include \"version_major.h\"\n \n #define LIBSWRESAMPLE_VERSION_MINOR   1\n-#define LIBSWRESAMPLE_VERSION_MICRO 101\n+#define LIBSWRESAMPLE_VERSION_MICRO 102\n \n #define LIBSWRESAMPLE_VERSION_INT  AV_VERSION_INT(LIBSWRESAMPLE_VERSION_MAJOR, \\\n                                                   LIBSWRESAMPLE_VERSION_MINOR, \\"
+    },
+    {
+      "sha": "fe56c60566eaf162d56bca0fc4c5e4a58512c21a",
+      "filename": "libswscale/version.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/FFmpeg/FFmpeg/blob/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libswscale%2Fversion.h",
+      "raw_url": "https://github.com/FFmpeg/FFmpeg/raw/946fcce07b6dcd0331c8cc609192aeff5e1924f8/libswscale%2Fversion.h",
+      "contents_url": "https://api.github.com/repos/FFmpeg/FFmpeg/contents/libswscale%2Fversion.h?ref=946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "patch": "@@ -29,7 +29,7 @@\n #include \"version_major.h\"\n \n #define LIBSWSCALE_VERSION_MINOR   1\n-#define LIBSWSCALE_VERSION_MICRO 101\n+#define LIBSWSCALE_VERSION_MICRO 102\n \n #define LIBSWSCALE_VERSION_INT  AV_VERSION_INT(LIBSWSCALE_VERSION_MAJOR, \\\n                                                LIBSWSCALE_VERSION_MINOR, \\"
+    }
+  ]
+}

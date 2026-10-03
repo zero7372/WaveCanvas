@@ -1,2 +1,8 @@
 # Keep the upstream provider notice unchanged, including its original whitespace.
 licenses/FFmpeg/PROVIDER-README.txt -whitespace
+licenses/FFmpeg/dependencies/* -text -whitespace
+licenses/FFmpeg/BUILD_CONFIG.txt -text -whitespace
+dev/release-source/* text eol=lf
+dev/release-source/ARTIFACT.json -text -whitespace
+dev/reports/archive/gpl-source-2026-10-03/* -text -whitespace
+licenses/FFmpeg/dependencies/avisynth-LICENSE.rst conflict-marker-size=32

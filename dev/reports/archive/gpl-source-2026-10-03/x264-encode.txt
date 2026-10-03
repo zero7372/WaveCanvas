@@ -1,0 +1,26 @@
+Input #0, lavfi, from 'color=size=64x64:rate=1':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 64x64 [SAR 1:1 DAR 1:1], 1 fps, 1 tbr, 1 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0000022660f836c0] using SAR=1/1
+[libx264 @ 0000022660f836c0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 0000022660f836c0] profile High, level 1.0, 4:2:0, 8-bit
+Output #0, h264, to 'dev/reports/archive/gpl-source-2026-10-03/x264-proof.h264':
+  Metadata:
+    encoder         : Lavf63.1.102
+  Stream #0:0: Video: h264, yuv420p(tv, progressive), 64x64 [SAR 1:1 DAR 1:1], q=2-31, 1 fps, 1 tbn
+    Metadata:
+      encoder         : Lavc63.1.102 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[out#0/h264 @ 0000022660f63280] video:1KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.000000%
+frame=    1 fps=0.0 q=17.0 Lsize=       1KiB time=00:00:01.00 bitrate=   6.1kbits/s speed= 294x elapsed=0:00:00.00    
+[libx264 @ 0000022660f836c0] frame I:1     Avg QP: 2.00  size:   763
+[libx264 @ 0000022660f836c0] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 0000022660f836c0] 8x8 transform intra:0.0%
+[libx264 @ 0000022660f836c0] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0%
+[libx264 @ 0000022660f836c0] i16 v,h,dc,p: 75%  0% 25%  0%
+[libx264 @ 0000022660f836c0] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 0000022660f836c0] kb/s:6.10

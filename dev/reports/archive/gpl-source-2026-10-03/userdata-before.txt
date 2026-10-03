@@ -1,0 +1,1 @@
+[{"path":"C:\\Users\\peter\\AppData\\Roaming\\WaveCanvas\\application-state.json","hash":"0D2E56899B3E9C3C20E1718B1B17860843142E4679B452C8BFC1434C9FEB0B32"},{"path":"C:\\Users\\peter\\AppData\\Roaming\\WaveCanvas\\recent-projects.json","hash":"D4A10B2C505957327F6259D6E1E74BB4E1B23955735E2E36FF69D96AED7C63BA"}]

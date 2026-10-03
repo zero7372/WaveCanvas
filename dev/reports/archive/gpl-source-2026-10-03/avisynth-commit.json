@@ -1,0 +1,101 @@
+{
+  "sha": "5c82777b374bdef16e13007a11e77d735ac1e4eb",
+  "node_id": "C_kwDOAMQRINoAKDVjODI3NzdiMzc0YmRlZjE2ZTEzMDA3YTExZTc3ZDczNWFjMWU0ZWI",
+  "commit": {
+    "author": {
+      "name": "Ferenc Pintér",
+      "email": "pinterfer@gmail.com",
+      "date": "2026-08-28T08:48:31Z"
+    },
+    "committer": {
+      "name": "Ferenc Pintér",
+      "email": "pinterfer@gmail.com",
+      "date": "2026-08-28T08:48:31Z"
+    },
+    "message": "Fix: add filters/*.hpp to Files.cmake since layer.hpp was invisible to the VS IDE",
+    "tree": {
+      "sha": "150720b2571ed4657278afb8bc311b543d3f4f52",
+      "url": "https://api.github.com/repos/AviSynth/AviSynthPlus/git/trees/150720b2571ed4657278afb8bc311b543d3f4f52"
+    },
+    "url": "https://api.github.com/repos/AviSynth/AviSynthPlus/git/commits/5c82777b374bdef16e13007a11e77d735ac1e4eb",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/AviSynth/AviSynthPlus/commits/5c82777b374bdef16e13007a11e77d735ac1e4eb",
+  "html_url": "https://github.com/AviSynth/AviSynthPlus/commit/5c82777b374bdef16e13007a11e77d735ac1e4eb",
+  "comments_url": "https://api.github.com/repos/AviSynth/AviSynthPlus/commits/5c82777b374bdef16e13007a11e77d735ac1e4eb/comments",
+  "author": {
+    "login": "pinterf",
+    "id": 6673201,
+    "node_id": "MDQ6VXNlcjY2NzMyMDE=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/6673201?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pinterf",
+    "html_url": "https://github.com/pinterf",
+    "followers_url": "https://api.github.com/users/pinterf/followers",
+    "following_url": "https://api.github.com/users/pinterf/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pinterf/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pinterf/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pinterf/subscriptions",
+    "organizations_url": "https://api.github.com/users/pinterf/orgs",
+    "repos_url": "https://api.github.com/users/pinterf/repos",
+    "events_url": "https://api.github.com/users/pinterf/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pinterf/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "pinterf",
+    "id": 6673201,
+    "node_id": "MDQ6VXNlcjY2NzMyMDE=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/6673201?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pinterf",
+    "html_url": "https://github.com/pinterf",
+    "followers_url": "https://api.github.com/users/pinterf/followers",
+    "following_url": "https://api.github.com/users/pinterf/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pinterf/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pinterf/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pinterf/subscriptions",
+    "organizations_url": "https://api.github.com/users/pinterf/orgs",
+    "repos_url": "https://api.github.com/users/pinterf/repos",
+    "events_url": "https://api.github.com/users/pinterf/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pinterf/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "80da03a5ee437c2b103dbebc9fab43480a9d97c6",
+      "url": "https://api.github.com/repos/AviSynth/AviSynthPlus/commits/80da03a5ee437c2b103dbebc9fab43480a9d97c6",
+      "html_url": "https://github.com/AviSynth/AviSynthPlus/commit/80da03a5ee437c2b103dbebc9fab43480a9d97c6"
+    }
+  ],
+  "stats": {
+    "total": 1,
+    "additions": 1,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "f8f3cf1fb250475cab74cf9d1d085db2947ef48a",
+      "filename": "avs_core/Files.cmake",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/AviSynth/AviSynthPlus/blob/5c82777b374bdef16e13007a11e77d735ac1e4eb/avs_core%2FFiles.cmake",
+      "raw_url": "https://github.com/AviSynth/AviSynthPlus/raw/5c82777b374bdef16e13007a11e77d735ac1e4eb/avs_core%2FFiles.cmake",
+      "contents_url": "https://api.github.com/repos/AviSynth/AviSynthPlus/contents/avs_core%2FFiles.cmake?ref=5c82777b374bdef16e13007a11e77d735ac1e4eb",
+      "patch": "@@ -24,6 +24,7 @@ FILE(GLOB AvsCore_Sources RELATIVE \"${CMAKE_CURRENT_SOURCE_DIR}\"\n   \"filters/*.c\"\n   \"filters/*.cpp\"\n   \"filters/*.h\"\n+  \"filters/*.hpp\"\n \n   \"filters/conditional/*.c\"\n   \"filters/conditional/*.cpp\""
+    }
+  ]
+}

@@ -8,7 +8,7 @@ assert.deepEqual(unexpected,[],'Unexpected package content');
 for(const file of ['app/index.html','electron/main.cjs','electron/preload.cjs','app/assets/templates/builtin_circle_default.png','app/assets/templates/builtin_square_default.png','app/assets/templates/builtin_linear_default.png','app/assets/wavecanvas.png','License.txt']) assert.ok(entries.includes(file),file);
 const pkg=JSON.parse(asar.extractFile(archive,'package.json'));assert.equal(pkg.productName,'WaveCanvas');assert.equal(pkg.devDependencies,undefined);
 assert.equal(pkg.version,require('../../package.json').version,'Packaged canonical version');
-const licenseFiles=['FFmpeg/BUILD_INFO.json','FFmpeg/LICENSE','FFmpeg/PROVIDER-README.txt','FFmpeg/SHA256.txt','FFmpeg/SOURCE_INFO.txt','FFmpeg/SOURCE_MANIFEST.json','THIRD_PARTY_NOTICES.md','WaveCanvas-LICENSE.txt'];
+const licenseFiles=require('./license-resources.cjs');
 function relativeFiles(dir,prefix=''){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(item=>item.isDirectory()?relativeFiles(path.join(dir,item.name),prefix+item.name+'/'):[prefix+item.name]);}
 assert.deepEqual(relativeFiles(path.join(directory,'resources/licenses')).sort(),licenseFiles.sort(),'License resource allowlist');
 for(const file of ['LICENSE.electron.txt','LICENSES.chromium.html'])assert.ok(fs.statSync(path.join(directory,file)).size>0,'Electron/Chromium notice '+file);

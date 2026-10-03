@@ -1,0 +1,35 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "id": "vidstab",
+      "revision": "e2445c4081658318223762a696eb1c645c2d7168",
+      "url": "https://codeload.github.com/georgmartius/vid.stab/zip/e2445c4081658318223762a696eb1c645c2d7168",
+      "file": "vidstab-e2445c4081658318223762a696eb1c645c2d7168.zip",
+      "bytes": 407743,
+      "sha256": "8096e3a00e650f19110e15b9ddd4a606a8797082e8d014a11754c4845639278a"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "id": "rubberband",
+      "revision": "1d95888bec3ae0a17c0c4af791810d5a63f6bc35",
+      "url": "https://codeload.github.com/breakfastquay/rubberband/zip/1d95888bec3ae0a17c0c4af791810d5a63f6bc35",
+      "file": "rubberband-1d95888bec3ae0a17c0c4af791810d5a63f6bc35.zip",
+      "bytes": 422463,
+      "sha256": "19ad83ba3d2e80ec910a1db309ea8c036073ef9b398654aa5e7e5c778eea3193"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "id": "avisynth",
+      "revision": "5c82777b374bdef16e13007a11e77d735ac1e4eb",
+      "url": "https://codeload.github.com/AviSynth/AviSynthPlus/zip/5c82777b374bdef16e13007a11e77d735ac1e4eb",
+      "file": "avisynth-5c82777b374bdef16e13007a11e77d735ac1e4eb.zip",
+      "bytes": 11452461,
+      "sha256": "a701558a30f23ff139338163e7bd94687471f267f45056957e51d492fd6b648f"
+    }
+  }
+]

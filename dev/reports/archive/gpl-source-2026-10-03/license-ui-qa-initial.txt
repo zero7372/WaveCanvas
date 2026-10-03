@@ -1,0 +1,3 @@
+PASS Installed release API exposes canonical version / source info
+PASS Installed source info states exact asset names, unresolved URL and blocked status
+PASS Installed Open Source Licenses UI displays updated notices

@@ -1,0 +1,11 @@
+✔ current RC cannot be publicly ready with the preparation archive (4.0289ms)
+✔ flipping manifest status alone never clears source, recipe, notices or URL gates (11.3387ms)
+✔ missing materials fail closed (0.7123ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 79.4956

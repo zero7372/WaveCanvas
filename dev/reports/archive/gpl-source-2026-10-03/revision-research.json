@@ -1,0 +1,17 @@
+[
+  {
+    "url": "https://api.github.com/repos/FFmpeg/FFmpeg/git/ref/tags/n9.0.2",
+    "status": 200,
+    "body": "{\"ref\":\"refs/tags/n9.0.2\",\"node_id\":\"MDM6UmVmMTYxNDQxMDpyZWZzL3RhZ3MvbjkuMC4y\",\"url\":\"https://api.github.com/repos/FFmpeg/FFmpeg/git/refs/tags/n9.0.2\",\"object\":{\"sha\":\"ce8f11b9fac4cd7ccfb41ca7c01bc17f5cda8cc3\",\"type\":\"tag\",\"url\":\"https://api.github.com/repos/FFmpeg/FFmpeg/git/tags/ce8f11b9fac4cd7ccfb41ca7c01bc17f5cda8cc3\"}}"
+  },
+  {
+    "url": "https://api.bitbucket.org/2.0/repositories/multicoreware/x265_git/commit/116b875",
+    "status": 404,
+    "body": "{\"type\": \"error\", \"error\": {\"message\": \"Commit not found\", \"data\": {\"shas\": [\"116b875\"]}}, \"data\": {\"shas\": [\"116b875\"]}}"
+  },
+  {
+    "url": "https://code.videolan.org/api/v4/projects/videolan%2Fx265/repository/commits/116b875",
+    "status": 404,
+    "body": "{\"message\":\"404 Project Not Found\"}"
+  }
+]

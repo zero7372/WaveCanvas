@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Installed release API exposes canonical version / source info"
+    },
+    {
+      "pass": true,
+      "label": "Installed source info states exact asset names, unresolved URL and blocked status"
+    },
+    {
+      "pass": false,
+      "label": "Installed Open Source Licenses UI displays updated notices"
+    }
+  ]
+}
