@@ -1,0 +1,38 @@
+{
+  "mode": "Uninstall",
+  "installPath": "D:\\應用程式\\WaveCanvas 測試",
+  "checks": [
+    {
+      "pass": true,
+      "label": "App closed before installer QA"
+    },
+    {
+      "pass": true,
+      "label": "Uninstall process succeeds"
+    },
+    {
+      "pass": true,
+      "label": "Uninstall removes app binaries"
+    },
+    {
+      "pass": true,
+      "label": "Uninstall removes Installed Apps entry"
+    },
+    {
+      "pass": true,
+      "label": "Uninstall removes app association"
+    },
+    {
+      "pass": true,
+      "label": "Uninstall removes only app shortcuts"
+    },
+    {
+      "pass": true,
+      "label": "Operation preserves userData and real projects/media"
+    },
+    {
+      "pass": true,
+      "label": "Normal business files match pre-task baseline"
+    }
+  ]
+}

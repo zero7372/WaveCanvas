@@ -1,0 +1,38 @@
+﻿{
+    "mode":  "Uninstall",
+    "installPath":  "C:\\Users\\peter\\AppData\\Local\\Programs\\WaveCanvas",
+    "checks":  [
+                   {
+                       "pass":  true,
+                       "label":  "App closed before installer QA"
+                   },
+                   {
+                       "pass":  true,
+                       "label":  "Uninstall process succeeds"
+                   },
+                   {
+                       "pass":  true,
+                       "label":  "Uninstall removes app binaries"
+                   },
+                   {
+                       "pass":  true,
+                       "label":  "Uninstall removes Installed Apps entry"
+                   },
+                   {
+                       "pass":  true,
+                       "label":  "Uninstall removes app association"
+                   },
+                   {
+                       "pass":  true,
+                       "label":  "Uninstall removes only app shortcuts"
+                   },
+                   {
+                       "pass":  true,
+                       "label":  "Operation preserves userData and real projects/media"
+                   },
+                   {
+                       "pass":  false,
+                       "label":  "Normal business files match pre-task baseline"
+                   }
+               ]
+}

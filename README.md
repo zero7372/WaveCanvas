@@ -12,6 +12,8 @@ WaveCanvas 是本地音樂視覺創作工具，正式入口為 Electron desktop 
 
 WaveCanvas **1.0.0 Unsigned Release Candidate**。Installer 位於 `release/WaveCanvas-Setup-1.0.0.exe`，per-user 安裝於 Windows 使用者 Programs 目錄，建立 Start Menu 與 Desktop shortcuts。解除安裝保留 AppData settings、Recent、window state、backups、projects 和 external media。
 
+Windows Setup Wizard 可選安裝位置（含非 C 槽），installer 支援 English / Traditional Chinese；WaveCanvas application UI 保持既有內容，本輪不加入 App i18n。使用現有 repository MIT license，桌面捷徑預設勾選且可取消，Start Menu 與 `.waveproj` 關聯固定建立。
+
 雙擊 `.waveproj` 可冷啟動或交給既有 instance；未儲存修改使用 Save / Don't Save / Cancel。Help 提供 About 與 Open Source Licenses；安裝目錄 resources/licenses 附原始 MIT attribution、GPL 全文、FFmpeg build/source/hash 資料。
 
 **artifactReady=true；publicReleaseReady=true；published=false**：WaveCanvas controlled FFmpeg 的完整 source ZIP 與 installer 同目錄提供；發布时需一同交付。官方發布網址尚未決定；code signing 尚未配置。Unknown Publisher 是 unsigned build 的預期狀態；不需停用 Windows security protections。詳見 [GPL checklist](RELEASE_GPL_SOURCE_CHECKLIST.md)、[release checklist](RELEASE-CHECKLIST.md)、[release notes](RELEASE-NOTES-1.0.0.md)。

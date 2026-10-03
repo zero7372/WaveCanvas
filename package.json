@@ -113,15 +113,22 @@
       "oneClick": false,
       "perMachine": false,
       "allowElevation": false,
-      "allowToChangeInstallationDirectory": false,
-      "createDesktopShortcut": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": false,
       "createStartMenuShortcut": true,
       "shortcutName": "WaveCanvas",
       "deleteAppDataOnUninstall": false,
-      "runAfterFinish": false,
+      "runAfterFinish": true,
       "artifactName": "WaveCanvas-Setup-${version}.${ext}",
       "include": "dev/installer.nsh",
-      "packElevateHelper": false
+      "packElevateHelper": false,
+      "license": "License.txt",
+      "installerLanguages": [
+        "en_US",
+        "zh_TW"
+      ],
+      "displayLanguageSelector": true,
+      "unicode": true
     },
     "fileAssociations": [
       {

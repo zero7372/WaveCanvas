@@ -1,0 +1,178 @@
+{
+  "mode": "Verify",
+  "installPath": "C:\\Users\\peter\\AppData\\Local\\Programs\\WaveCanvas",
+  "checks": [
+    {
+      "pass": true,
+      "label": "App closed before installer QA"
+    },
+    {
+      "pass": true,
+      "label": "Installed identity WaveCanvas.exe"
+    },
+    {
+      "pass": true,
+      "label": "Installed identity resources/app.asar"
+    },
+    {
+      "pass": true,
+      "label": "Installed identity resources/ffmpeg/ffmpeg.exe"
+    },
+    {
+      "pass": true,
+      "label": "Installed identity resources/ffmpeg/ffprobe.exe"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/BUILD_CONFIG.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/BUILD_INFO.json"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/DEPENDENCIES.json"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/LICENSE"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/PROVIDER-README.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/SHA256.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/SOURCE_INFO.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/SOURCE_MANIFEST.json"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/VERSION.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/dependencies/ffmpeg-COPYING.GPLv2"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/dependencies/ffmpeg-COPYING.GPLv3"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/dependencies/ffmpeg-COPYING.LGPLv2.1"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/dependencies/ffmpeg-COPYING.LGPLv3"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/dependencies/ffmpeg-LICENSE.md"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/dependencies/x264-COPYING"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/dependencies/zlib-LICENSE"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/crt-COPYING"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/crt-COPYING.MinGW-w64-runtime.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/crt-COPYING.MinGW-w64.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/headers-COPYING"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/headers-COPYING.MinGW-w64-runtime.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/headers-COPYING.MinGW-w64.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/headers-ddk-readme.txt"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/libatomic-COPYING.RUNTIME"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/libatomic-COPYING3"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/libgcc-COPYING.RUNTIME"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/libgcc-COPYING3"
+    },
+    {
+      "pass": true,
+      "label": "Installed license FFmpeg/toolchain/winpthreads-COPYING"
+    },
+    {
+      "pass": true,
+      "label": "Installed license THIRD_PARTY_NOTICES.md"
+    },
+    {
+      "pass": true,
+      "label": "Installed license WaveCanvas-LICENSE.txt"
+    },
+    {
+      "pass": true,
+      "label": "Single unchanged app GUID / version"
+    },
+    {
+      "pass": true,
+      "label": "Association quotes executable and project"
+    },
+    {
+      "pass": true,
+      "label": "Start Menu shortcut exists"
+    },
+    {
+      "pass": true,
+      "label": "Desktop shortcut matches selected task"
+    },
+    {
+      "pass": true,
+      "label": "Start Menu points to selected install location"
+    },
+    {
+      "pass": true,
+      "label": "App remains unsigned"
+    },
+    {
+      "pass": true,
+      "label": "Operation preserves userData and real projects/media"
+    },
+    {
+      "pass": true,
+      "label": "Normal business files match pre-task baseline"
+    }
+  ]
+}

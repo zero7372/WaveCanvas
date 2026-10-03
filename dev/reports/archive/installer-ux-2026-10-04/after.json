@@ -1,0 +1,26 @@
+{
+  "release/WaveCanvas-Setup-1.0.0.exe": {
+    "bytes": 133475923,
+    "sha256": "0790f86e5e499ab6f43331d1d75d0429b4256615aa9945844cc93e33664862dd"
+  },
+  "release/win-unpacked/WaveCanvas.exe": {
+    "bytes": 245726720,
+    "sha256": "bf952b436575d37125340246d8fc70749278750c048022e200e8283d39ffa553"
+  },
+  "release/win-unpacked/resources/app.asar": {
+    "bytes": 2123678,
+    "sha256": "6eab939bd6ab39ccc4da321cb68640d2a8253bdbffc74d15e600765b93b75be1"
+  },
+  "vendor/ffmpeg/ffmpeg.exe": {
+    "bytes": 32895488,
+    "sha256": "31d7c4ea1a71e50cef1132782779742f3f4aae53015e2c0765db3b303ea81d13"
+  },
+  "vendor/ffmpeg/ffprobe.exe": {
+    "bytes": 32694272,
+    "sha256": "95184847a8d81488180abc16178b52d12a93acb437f30d55a161b9dbfc8359d6"
+  },
+  "release/WaveCanvas-1.0.0-GPL-Source.zip": {
+    "bytes": 52352069,
+    "sha256": "e33292b8e4dc2a8218aaf4289434fb0c8d3aa2c7d816c96bad1731e9bbb9b255"
+  }
+}

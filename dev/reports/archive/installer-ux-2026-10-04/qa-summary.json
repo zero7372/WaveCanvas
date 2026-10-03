@@ -1,0 +1,10 @@
+{
+  "installerUxReady": true,
+  "finalEvidenceFiles": 15,
+  "checks": 340,
+  "allFinalChecksPass": true,
+  "appSourceUnchanged": true,
+  "applicationEnglishOnly": false,
+  "applicationEnglishOnlyReason": "Frozen baseline already contains Chinese and English strings; no application translation or locale setting was added.",
+  "finalInstallPath": "C:\\Users\\peter\\AppData\\Local\\Programs\\WaveCanvas"
+}

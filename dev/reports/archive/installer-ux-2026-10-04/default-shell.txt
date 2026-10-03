@@ -1,0 +1,13 @@
+PASS Installed app saves Unicode project
+PASS Actual installed association quotes executable and project
+PASS Shell running Cancel preserves edits with confirmUnsavedClose Off
+PASS Shell running Save writes edits before normal loader opens target
+PASS Shell running Discard opens target
+PASS Actual Windows shell cold open loads Unicode / spaces via formal pipeline
+PASS Shell loader restores installed font family
+PASS Shell open updates Recent Projects
+PASS Packaged canonical About version and narrow license resources
+PASS Help Open Source Licenses UI opens with GPL/source status
+PASS Windows shell long path >260 / Unicode / emoji opens where host supports it
+PRESERVATION_PROFILE=H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-packaged-1791051701329\shell-profile
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-packaged-1791051701329

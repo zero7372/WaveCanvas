@@ -1,0 +1,27 @@
+{
+  "result": {
+    "output": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\export-packaged-1791051417392\\real-short.mp4",
+    "duration": 60.18610416666667,
+    "exportedDuration": 5,
+    "frames": 300,
+    "averageCaptureMs": 19.379622000000012,
+    "slowestCaptureMs": 158.47340000000008,
+    "analysisMs": 921.6000000014901,
+    "cacheBytes": 925184,
+    "encodingMs": 6845.9669,
+    "renderingMs": 6427.8684,
+    "encoderDrainMs": 418.10239999999976,
+    "peakWorkingSetBytes": 997769216,
+    "totalMs": 8044.840899999999,
+    "droppedFrames": 0,
+    "peakQueueDepth": 1,
+    "rawFrameHashes": {
+      "0": "44fb3f3ac79eaa4256ca144d6baf037892df245634e68c99182a78bc6a9140e5",
+      "60": "fae4df79ad6e992a795352346330178e140f3a7eed924546f7e9f4a6197be264",
+      "120": "1c8bd2e9aa4c573ccd0836103a1b142d51c1832c1b97b1b9529e14b9c78b374d"
+    },
+    "allFrameHashes": [],
+    "diagnosticStates": {},
+    "bytes": 2182951
+  }
+}

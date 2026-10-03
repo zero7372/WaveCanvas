@@ -2,7 +2,9 @@
 // Test-only Main inspector harness. Dialog responses are controlled; no test hooks ship in app/.
 const fs = require('node:fs/promises'), path = require('node:path'), net = require('node:net'), { spawn } = require('node:child_process');
 const root = path.resolve(__dirname, '../..'), packaged = process.argv.includes('--packaged');
-const testFFmpeg = process.env.WAVECANVAS_TEST_FFMPEG || path.join(root,'vendor/ffmpeg/ffmpeg.exe');
+const testFFmpeg = process.env.WAVECANVAS_TEST_FFMPEG || (packaged && process.env.WAVECANVAS_QA_EXE
+ ? path.join(path.dirname(process.env.WAVECANVAS_QA_EXE),'resources/ffmpeg/ffmpeg.exe')
+ : path.join(root,'vendor/ffmpeg/ffmpeg.exe'));
 const testFFprobe = path.join(path.dirname(testFFmpeg),'ffprobe.exe');
 const artifacts = path.join(root, 'dev/tests/artifacts/export-' + (packaged ? 'packaged' : 'development') + '-' + Date.now());
 process.env.ELECTRON_CACHE = path.join(root, '.electron-cache'); process.env.electron_config_cache = process.env.ELECTRON_CACHE;
