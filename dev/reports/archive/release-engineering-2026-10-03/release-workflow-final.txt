@@ -1,0 +1,12 @@
+PASS Installed New -> named project
+PASS Import five media slots -> installed font / timing / layout -> Save
+PASS Saved writer version uses canonical package metadata
+PASS Close -> shell-argv reopen preserves complete canonical project state
+PASS Collect named project with installed font
+PASS Moved collected folder resolves all relative media
+PASS Collect stores family string only and copies no font files
+PASS Installed autosave preserves rolling ten backups
+PASS Same reopened / collected workflow exports 300 frames
+PASS Installed ffprobe validates H.264 1080p60 / AAC / frame count / AV sync <25ms
+PRESERVATION_PROFILE=H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-packaged-1791038335095\workflow-profile
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-packaged-1791038335095

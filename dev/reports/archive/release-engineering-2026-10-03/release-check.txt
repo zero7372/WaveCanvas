@@ -1,0 +1,38 @@
+
+> wavecanvas@1.0.0 release:check
+> node dev/tools/release-check.cjs
+
+PASS Canonical version and product identity
+PASS Seven-size Windows ICO
+PASS ICO dimensions
+PASS vendor/ffmpeg/ffmpeg.exe pinned hash
+PASS release/win-unpacked/resources/ffmpeg/ffmpeg.exe pinned hash
+PASS vendor/ffmpeg/ffprobe.exe pinned hash
+PASS release/win-unpacked/resources/ffmpeg/ffprobe.exe pinned hash
+PASS Packaged license WaveCanvas-LICENSE.txt
+PASS Packaged license THIRD_PARTY_NOTICES.md
+PASS Packaged license FFmpeg/LICENSE
+PASS Packaged license FFmpeg/SOURCE_INFO.txt
+PASS Packaged license FFmpeg/BUILD_INFO.json
+PASS Packaged license FFmpeg/SHA256.txt
+PASS Packaged license FFmpeg/SOURCE_MANIFEST.json
+PASS NSIS installer present
+PASS Packaged app / electron sources match current frozen core and release implementation
+PASS Release hash WaveCanvas-Setup-1.0.0.exe
+PASS Release hash win-unpacked/WaveCanvas.exe
+PASS Release hash win-unpacked/resources/ffmpeg/ffmpeg.exe
+PASS Release hash win-unpacked/resources/ffmpeg/ffprobe.exe
+PASS Release hash licenses/WaveCanvas-LICENSE.txt
+PASS Release hash licenses/THIRD_PARTY_NOTICES.md
+PASS Release hash licenses/FFmpeg/LICENSE
+PASS Release hash licenses/FFmpeg/SOURCE_INFO.txt
+PASS Release hash licenses/FFmpeg/BUILD_INFO.json
+PASS Release hash licenses/FFmpeg/SHA256.txt
+PASS Release hash licenses/FFmpeg/SOURCE_MANIFEST.json
+PASS Release hash source-info/SOURCE_MANIFEST.json
+PASS Release hash THIRD_PARTY_NOTICES.md
+PASS Release hash RELEASE-CHECKLIST.md
+PASS Release hash RELEASE_GPL_SOURCE_CHECKLIST.md
+PASS Release hash RELEASE-NOTES-1.0.0.md
+Package allowlist passed: 94 entries; 570.07 MiB; no dev/ or node_modules.
+Release health passed. Unsigned RC; GPL source delivery BLOCKED; publicReleaseReady=false.

@@ -7,6 +7,10 @@ const entry = path.join(root, 'app', 'index.html');
 const entryURL = pathToFileURL(entry).href;
 const dev = !app.isPackaged && process.argv.includes('--dev');
 let mainWindow = null, failing = false;
+const { projectArgument } = require('./external-project.cjs');
+const externalProjects = [];
+const initialProject = projectArgument(process.argv.slice(1));
+if (initialProject) externalProjects.push(initialProject);
 app.setName('WaveCanvas');
 app.setAppUserModelId('com.wavecanvas.desktop');
 function fatal(label, error) {
@@ -36,6 +40,8 @@ async function createWindow() {
     window.waveCanvasApplicationState = () => { const directory = app.getPath('userData'); if (directory !== stateDirectory) { stateDirectory = directory; stateStore = stateModule.create(directory); } return stateStore; };
     require('./project-ipc.cjs').install(window);
     require('./settings-ipc.cjs').install(window);
+    require('./release-ipc.cjs').install(window);
+    for (const file of externalProjects.splice(0)) window.waveCanvasQueueExternalProject(file);
     window.waveCanvasSaveWindowState = async () => {
         try { if ((await window.waveCanvasSettings().get()).general.rememberWindowBounds && !window.isDestroyed()) await window.waveCanvasApplicationState().update({ window: { ...window.getNormalBounds(), maximized: window.isMaximized() } }); }
         catch (error) { console.error('Window state:', error.message); }
@@ -69,7 +75,11 @@ async function createWindow() {
 const locked = app.requestSingleInstanceLock();
 if (!locked) app.quit();
 else {
-    app.on('second-instance', () => { if (mainWindow) { if (mainWindow.isMinimized()) mainWindow.restore(); mainWindow.show(); mainWindow.focus(); } });
+    app.on('second-instance', (_event, argv) => {
+        const file = projectArgument(argv.slice(1));
+        if (file) { if (mainWindow) mainWindow.waveCanvasQueueExternalProject(file); else externalProjects.push(file); }
+        if (mainWindow) { if (mainWindow.isMinimized()) mainWindow.restore(); mainWindow.show(); mainWindow.focus(); }
+    });
     app.whenReady().then(async () => {
         const localFontsAllowed = (contents, permission, url) => permission === 'local-fonts' && contents === mainWindow?.webContents && contents?.getURL() === entryURL && (!url || url.split('#')[0] === entryURL);
         session.defaultSession.setPermissionRequestHandler((contents, permission, callback, details) => callback(details?.isMainFrame !== false && localFontsAllowed(contents, permission, details?.requestingUrl)));

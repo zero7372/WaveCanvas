@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Installed New -> named project"
+    },
+    {
+      "pass": true,
+      "label": "Import five media slots -> installed font / timing / layout -> Save"
+    },
+    {
+      "pass": true,
+      "label": "Saved writer version uses canonical package metadata"
+    },
+    {
+      "pass": true,
+      "label": "Close -> shell-argv reopen preserves complete canonical project state"
+    },
+    {
+      "pass": true,
+      "label": "Collect named project with installed font"
+    },
+    {
+      "pass": true,
+      "label": "Moved collected folder resolves all relative media"
+    },
+    {
+      "pass": true,
+      "label": "Collect stores family string only and copies no font files"
+    },
+    {
+      "pass": true,
+      "label": "Installed autosave preserves rolling ten backups"
+    },
+    {
+      "pass": true,
+      "label": "Same reopened / collected workflow exports 300 frames"
+    },
+    {
+      "pass": true,
+      "label": "Installed ffprobe validates H.264 1080p60 / AAC / frame count / AV sync <25ms"
+    }
+  ]
+}

@@ -9,7 +9,7 @@ const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function freePort(){const server=net.createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const port=server.address().port;await new Promise(resolve=>server.close(resolve));return port;}
 async function run(){
  const profile=path.join(artifacts,'profile-'+Date.now());fs.mkdirSync(profile);
- const port=await freePort(),exe=packaged?path.join(root,'dist/win-unpacked/WaveCanvas.exe'):require('electron');
+ const port=await freePort(),exe=packaged?(process.env.WAVECANVAS_QA_EXE || path.join(root, 'dist/win-unpacked/WaveCanvas.exe')):require('electron');
  const args=packaged?[]:['.',...(devToolsMode?['--dev']:[])],env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
  const child=spawn(exe,['--inspect=127.0.0.1:'+port,'--user-data-dir='+profile,...args],{cwd:root,env,windowsHide:false});let output='',exited=false;
  child.stdout.on('data',data=>output+=data);child.stderr.on('data',data=>output+=data);child.on('exit',()=>exited=true);
@@ -21,7 +21,7 @@ async function run(){
   socket=new WebSocket(target.webSocketDebuggerUrl);await new Promise((resolve,reject)=>{socket.addEventListener('open',resolve,{once:true});socket.addEventListener('error',reject,{once:true});});
   socket.addEventListener('message',event=>{const message=JSON.parse(event.data);if(pending.has(message.id)){const item=pending.get(message.id);pending.delete(message.id);message.error?item.reject(Error(message.error.message)):item.resolve(message.result);}});
   async function evaluate(expression){const id=++serial;const response=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(id);reject(Error('Inspector evaluation timeout'));},30000);pending.set(id,{resolve:value=>{clearTimeout(timer);resolve(value);},reject:error=>{clearTimeout(timer);reject(error);}});socket.send(JSON.stringify({id,method:'Runtime.evaluate',params:{expression,awaitPromise:true,returnByValue:true}}));});if(response.exceptionDetails)throw Error(response.exceptionDetails.exception?.description||JSON.stringify(response.exceptionDetails));return response.result?.value;}
-  const mainFile=packaged?path.join(root,'dist/win-unpacked/resources/app.asar/electron/main.cjs'):path.join(root,'electron/main.cjs');
+  const mainFile=packaged?path.join(path.dirname(process.env.WAVECANVAS_QA_EXE || path.join(root, 'dist/win-unpacked/WaveCanvas.exe')), 'resources/app.asar/electron/main.cjs'):path.join(root,'electron/main.cjs');
   await evaluate(`globalThis.wcQA={electron:process.getBuiltinModule('module').createRequire(${JSON.stringify(mainFile)})('electron'),downloads:[]};wcQA.electron.app.setPath('userData',${JSON.stringify(profile)}); 'ready'`);
   await evaluate(`(async()=>{for(let i=0;i<150;i++){const w=wcQA.electron.BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('index.html'));if(w&&!w.webContents.isLoading()){wcQA.window=w;return true;}await new Promise(r=>setTimeout(r,50));}throw Error('Window did not load');})()`);
   await evaluate(`(async()=>{for(let i=0;i<150;i++){if(wcQA.window.isVisible() && (!${devToolsMode} || wcQA.window.webContents.isDevToolsOpened()))return true;await new Promise(r=>setTimeout(r,50));}throw Error('Window / DevTools visibility: '+JSON.stringify({visible:wcQA.window.isVisible(),devTools:wcQA.window.webContents.isDevToolsOpened(),argv:process.argv,title:wcQA.window.getTitle()}));})()`);

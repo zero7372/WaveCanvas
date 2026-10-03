@@ -1,8 +1,8 @@
 {
   "name": "wavecanvas",
   "productName": "WaveCanvas",
-  "version": "0.1.0",
-  "description": "WaveCanvas local audio visualizer — Windows development build",
+  "version": "1.0.0",
+  "description": "WaveCanvas local audio visualizer and project editor for Windows",
   "license": "MIT",
   "private": true,
   "main": "electron/main.cjs",
@@ -28,7 +28,10 @@
     "options:test": "node dev/tools/options-smoke.cjs",
     "options:test:build": "node dev/tools/options-smoke.cjs --packaged",
     "fonts:test": "node dev/tools/fonts-smoke.cjs",
-    "fonts:test:build": "node dev/tools/fonts-smoke.cjs --packaged"
+    "fonts:test:build": "node dev/tools/fonts-smoke.cjs --packaged",
+    "release:build": "node dev/tools/electron-run.cjs release",
+    "release:check": "node dev/tools/release-check.cjs",
+    "postrelease:build": "node dev/tools/release-check.cjs --generate"
   },
   "devDependencies": {
     "electron": "44.5.1",
@@ -52,7 +55,7 @@
     ],
     "win": {
       "target": "dir",
-      "icon": "app/assets/wavecanvas.png",
+      "icon": "app/assets/wavecanvas.ico",
       "executableName": "WaveCanvas"
     },
     "npmRebuild": false,
@@ -67,7 +70,45 @@
           "README.txt",
           "BUILD.json"
         ]
+      },
+      {
+        "from": "licenses",
+        "to": "licenses",
+        "filter": [
+          "WaveCanvas-LICENSE.txt",
+          "THIRD_PARTY_NOTICES.md",
+          "FFmpeg/LICENSE",
+          "FFmpeg/PROVIDER-README.txt",
+          "FFmpeg/SOURCE_INFO.txt",
+          "FFmpeg/BUILD_INFO.json",
+          "FFmpeg/SHA256.txt",
+          "FFmpeg/SOURCE_MANIFEST.json"
+        ]
+      }
+    ],
+    "copyright": "WaveCanvas contributors; original attribution in License.txt",
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "WaveCanvas",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": false,
+      "artifactName": "WaveCanvas-Setup-${version}.${ext}",
+      "include": "dev/installer.nsh",
+      "packElevateHelper": false
+    },
+    "fileAssociations": [
+      {
+        "ext": "waveproj",
+        "name": "WaveCanvas.Project",
+        "description": "WaveCanvas Project",
+        "role": "Editor"
       }
     ]
-  }
+  },
+  "author": "WaveCanvas contributors"
 }

@@ -1,0 +1,38 @@
+[
+  {
+    "suite": "project-smoke",
+    "exitCode": 0
+  },
+  {
+    "suite": "preferences-smoke",
+    "exitCode": 0
+  },
+  {
+    "suite": "options-smoke",
+    "exitCode": 0
+  },
+  {
+    "suite": "fonts-smoke",
+    "exitCode": 0
+  },
+  {
+    "suite": "electron-smoke",
+    "exitCode": 0
+  },
+  {
+    "suite": "export-qa",
+    "exitCode": 0
+  },
+  {
+    "suite": "export-smoke",
+    "exitCode": 0
+  },
+  {
+    "suite": "full-export",
+    "exitCode": 0
+  },
+  {
+    "suite": "browser",
+    "exitCode": 1
+  }
+]

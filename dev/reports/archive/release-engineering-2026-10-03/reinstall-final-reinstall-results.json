@@ -1,0 +1,20 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Actual Start Menu shortcut launches installed app"
+    },
+    {
+      "pass": true,
+      "label": "Reinstall loads all preserved preference groups"
+    },
+    {
+      "pass": true,
+      "label": "Reinstall preserves Recent Projects"
+    },
+    {
+      "pass": true,
+      "label": "Reinstalled font enumeration available"
+    }
+  ]
+}

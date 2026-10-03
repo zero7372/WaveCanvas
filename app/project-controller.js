@@ -8,12 +8,14 @@
     const observedImages = new Map([['cover', window.VisualizerFiles.getFile('logoimage')], ['background', window.VisualizerFiles.getFile('backgroundimage')]]);
     let metadata, media, missingMedia = {}, projectPath = null, lastSavedHash = '', dirty = false, saving = false, restoring = false, failure = '', busy = false;
     let checkTimer = null, tracking = Promise.resolve();
+    let applicationVersion = '';
     function initialize(name = 'Untitled') {
-        metadata = { projectId: crypto.randomUUID(), name, appVersion: '0.1.0', createdAt: new Date().toISOString(), modifiedAt: null };
+        metadata = { projectId: crypto.randomUUID(), name, appVersion: applicationVersion, createdAt: new Date().toISOString(), modifiedAt: null };
         media = Object.fromEntries(model.slots.map(slot => [slot, null]));
         missingMedia = {};
     }
     initialize();
+    const applicationInfo = window.waveCanvas.release?.info().then(info => { applicationVersion = info.version; metadata.appVersion = info.version; });
     function state() { return { name: metadata.name, projectName: metadata.name, projectPath, dirty, saving, failure, busy, missingMedia: { ...missingMedia } }; }
     function notify() {
         for (const callback of listeners) callback(state());
@@ -72,10 +74,12 @@
         return answer === 1 || answer === 0 && await save('save');
     }
     async function save(kind = 'save') {
+        await applicationInfo;
         await tracking; check();
         if (saving || restoring) return false;
         if (kind === 'autosave' && (!preferences.get().project.autosaveEnabled || !projectPath || !dirty)) return false;
         const value = snapshot(), before = hash(value);
+        if (applicationVersion) value.appVersion = applicationVersion;
         if (kind === 'autosave' && before === lastSavedHash) { dirty = false; notify(); return false; }
         for (const [slot, file] of [['audio', window.VisualizerLocalAudio.getFile()], ['cover', window.VisualizerFiles.getFile('logoimage')], ['background', window.VisualizerFiles.getFile('backgroundimage')]]) {
             if (file && !media[slot]) throw new Error('無法取得 ' + slot + ' 的本地路徑；請用桌面檔案選擇器重新匯入。');
@@ -84,7 +88,7 @@
         try {
             const result = await api.save(value, kind);
             if (!result) return false;
-            projectPath = result.path; metadata = { ...metadata, modifiedAt: result.project.modifiedAt };
+            projectPath = result.path; metadata = { ...metadata, appVersion: result.project.appVersion, modifiedAt: result.project.modifiedAt };
             for (const slot of model.slots) if (media[slot] === value.state.media[slot]) media[slot] = result.project.state.media[slot];
             lastSavedHash = hash(result.project); check(); window.dispatchEvent(new Event('wavecanvas-recent-change')); return !dirty;
         } catch (error) { failure = (kind === 'autosave' ? '自動儲存失敗：' : '儲存失敗：') + error.message; dirty = true; console.error(failure); return false; }
@@ -159,6 +163,7 @@
     }
     async function open(recentPath) { return operation(async () => { if (!await guard()) return false; const result = await api.open(recentPath); if (!result) return false; await restore(result); return true; }); }
     async function newProject() { return operation(async () => {
+        await applicationInfo;
         await preferences.ready;
         const name = preferences.get().project.askNameOnCreate ? await window.WaveCanvasProjectNameDialog.show('new') : 'Untitled';
         if (name === null) return false;
@@ -194,7 +199,24 @@
     window.WaveCanvasProject = Object.freeze({ getState: state, snapshot, markProjectDirty, check, open, newProject, collect, rename,
         save: kind => operation(() => save(kind)), autosave: () => operation(() => save('autosave')),
         subscribe(callback) { listeners.add(callback); callback(state()); return () => listeners.delete(callback); } });
+    // Serialize shell requests behind startup and ongoing operations; retain the normal dirty guard.
+    let externalQueue = Promise.resolve(), startupComplete = false;
+    async function drainExternal() {
+        let handled = false, token;
+        while ((token = await api.takeExternal())) {
+            handled = true;
+            while (busy || saving) await new Promise(resolve => setTimeout(resolve, 50));
+            await operation(async () => {
+                try { if (!await guard()) return false; const loaded = await api.openExternal(token); await restore(loaded); return true; }
+                finally { await api.discardExternal(token); }
+            });
+        }
+        return handled;
+    }
+    api.onExternalRequested(() => { if (startupComplete) externalQueue = externalQueue.then(drainExternal).catch(error => console.error('External open:', error)); });
     preferences.ready.then(async () => {
+        if (await drainExternal()) { startupComplete = true; return; }
+        startupComplete = true;
         if (preferences.get().general.startupMode !== 'reopen-last') return;
         await operation(async () => {
             try { const last = (await api.getRecent())[0]; if (!last || last.missing) return false; const result = await api.open(last.path); if (!result) return false; await restore(result, false); return true; }

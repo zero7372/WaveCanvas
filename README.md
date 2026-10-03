@@ -6,7 +6,19 @@ WaveCanvas 是本地音樂視覺創作工具，正式入口為 Electron desktop 
 
 已完成：Electron desktop app、`.waveproj` Project System v1、autosave／10 份 backup、Collect Project、Recent Projects、Preferences v1，以及 deterministic 1080p60 H.264／AAC export。正式 encoder 是 CPU `libx264 medium / CRF 18`，capture 已採 Phase 2A optimized offscreen pipeline。
 
-本 repo 尚未提供 Installer、File Association、正式 NVENC、HEVC／AV1、4K、Plugin System、Account／Cloud Sync 或 Auto Update。
+已建立 NSIS per-user Installer 與 `.waveproj` File Association。未提供正式 NVENC、HEVC／AV1、4K、Plugin System、Account／Cloud Sync 或 Auto Update。
+
+## Install / Release status
+
+WaveCanvas **1.0.0 Unsigned Release Candidate**。Installer 位於 `release/WaveCanvas-Setup-1.0.0.exe`，per-user 安裝於 Windows 使用者 Programs 目錄，建立 Start Menu 與 Desktop shortcuts。解除安裝保留 AppData settings、Recent、window state、backups、projects 和 external media。
+
+雙擊 `.waveproj` 可冷啟動或交給既有 instance；未儲存修改使用 Save / Don't Save / Cancel。Help 提供 About 與 Open Source Licenses；安裝目錄 resources/licenses 附原始 MIT attribution、GPL 全文、FFmpeg build/source/hash 資料。
+
+**publicReleaseReady=false**：GPL static FFmpeg 的完整 corresponding source、patches、recipes 與固定 source release attachment 尚未交付；code signing 尚未配置。此 RC 僅供內部驗證。Unknown Publisher 是 unsigned build 的預期狀態；不需停用 Windows security protections。詳見 [GPL checklist](RELEASE_GPL_SOURCE_CHECKLIST.md)、[release checklist](RELEASE-CHECKLIST.md)、[release notes](RELEASE-NOTES-1.0.0.md)。
+
+Build from source: `npm ci` → `npm run release:build` → `node dev/tools/release-check.cjs --generate` → `npm run release:check`。package.json 是 version 單一來源；release/ 可重建，不提交大型 binary。原有 developer / maintenance 工作流程保留。
+
+Limitations: Windows x64、unsigned、fixed 1080p60 CPU H.264/AAC；Chromium-visible fonts 不保證等同完整 Windows GDI collection；Collect 不嵌入字體。Browser 保留 589 PASS / 10 known FAIL baseline。
 
 ## Development Setup
 
@@ -131,8 +143,8 @@ Main 使用 `app.getPath('userData')/settings.json`，獨立 `wavecanvas-setting
 
 ## Release Preparation Notes
 
-目前 bundled FFmpeg 是 **GPL build**（見 vendor/ffmpeg/BUILD.json、LICENSE、README provenance與hashes）。Development build 可用；公開 redistribution 前仍需完成 release licensing compliance，不宣稱 release-safe。
+目前 bundled FFmpeg 是 **GPL build**（見 vendor/ffmpeg/BUILD.json、LICENSE、README provenance與hashes）。Unsigned RC 供內部驗證；公開 redistribution 前仍需完成 release licensing compliance，不宣稱 release-safe。
 
-發布策略、source delivery gates 與 encoder 相容性評估見 [FFmpeg distribution/licensing audit](dev/reports/FFMPEG-DISTRIBUTION-LICENSING-AUDIT.md)；[Third-party notices](THIRD_PARTY_NOTICES.md) 目前是未完成、尚未打包的 release draft。
+發布策略、source delivery gates 與 encoder 相容性評估見 [FFmpeg distribution/licensing audit](dev/reports/FFMPEG-DISTRIBUTION-LICENSING-AUDIT.md)；[Third-party notices](THIRD_PARTY_NOTICES.md) 與 licenses/ 已打包，完整 dependency notices 與 corresponding-source delivery 仍 BLOCKED。
 
-Installer、code signing、File Association、licensing remediation 等 release engineering 是後續独立工作，本輪不實作。NVENC／HEVC／AV1／4K亦未正式整合。
+Release Engineering v1 已提供 Installer、File Association 與 licensing UI / resources；code signing 未配置，source delivery gate 未完成。NVENC／HEVC／AV1／4K未正式整合。

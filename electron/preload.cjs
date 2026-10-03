@@ -9,12 +9,17 @@ const settingsInvoke = async (name, ...args) => {
     const result = await ipcRenderer.invoke('wavecanvas-settings:' + name, ...args);
     if (!result.ok) throw new Error(result.error); return result.value;
 };
-contextBridge.exposeInMainWorld('waveCanvas', { settings: {
+contextBridge.exposeInMainWorld('waveCanvas', { release: {
+    info: () => ipcRenderer.invoke('wavecanvas-release:info'),
+    read: () => ipcRenderer.invoke('wavecanvas-release:read'), openLicenses: () => ipcRenderer.invoke('wavecanvas-release:openLicenses')
+}, settings: {
     get: () => settingsInvoke('get'), update: (changes, restoringDefaults = false) => settingsInvoke('update', changes, restoringDefaults), reset: () => settingsInvoke('reset'),
     chooseDirectory: () => settingsInvoke('chooseDirectory'), openDataFolder: () => settingsInvoke('openDataFolder'),
     onChanged(callback) { const listener = (_event, value) => callback(value); ipcRenderer.on('wavecanvas-settings:changed', listener); return () => ipcRenderer.removeListener('wavecanvas-settings:changed', listener); }
 }, project: {
     open: recentPath => invoke('open', recentPath),
+    takeExternal: () => invoke('takeExternal'), openExternal: token => invoke('openExternal', token), discardExternal: token => invoke('discardExternal', token),
+    onExternalRequested(callback) { const listener = () => callback(); ipcRenderer.on('wavecanvas-project:externalRequested', listener); return () => ipcRenderer.removeListener('wavecanvas-project:externalRequested', listener); },
     save: (project, kind = 'save') => invoke('save', project, kind),
     collect: project => invoke('collect', project),
     readMedia: (token, slot) => invoke('readMedia', token, slot),

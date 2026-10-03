@@ -60,7 +60,7 @@ test('Controller owns one configurable scheduler across New/Open, no unsaved wri
     const createScheduler = app.WaveCanvasAutosaveScheduler;
     app.WaveCanvasAutosaveScheduler = callback => createScheduler(callback, app);
     const incoming = project(app);
-    app.waveCanvas = { project: { status: async () => {}, confirmUnsaved: async () => 1, onCloseRequested: () => () => {}, newProject: async () => {},
+    app.waveCanvas = { project: { status: async () => {}, confirmUnsaved: async () => 1, onCloseRequested: () => () => {}, onExternalRequested: () => () => {}, takeExternal: async () => null, newProject: async () => {},
         save: async (value, kind) => { writes.push(kind); return { path: 'C:/saved.waveproj', project: value }; },
         open: async () => ({ project: incoming, path: 'C:/saved.waveproj', media: {}, token: 'test' }), activate: async () => {} } };
     vm.runInContext(require('node:fs').readFileSync(path.join(appRoot, 'project-controller.js'), 'utf8'), app);

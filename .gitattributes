@@ -1,0 +1,2 @@
+# Keep the upstream provider notice unchanged, including its original whitespace.
+licenses/FFmpeg/PROVIDER-README.txt -whitespace

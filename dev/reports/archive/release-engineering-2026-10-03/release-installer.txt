@@ -1,0 +1,16 @@
+PASS Uninstaller exits successfully
+PASS Uninstall removes application executable
+PASS Uninstall removes Start Menu / Desktop shortcuts
+PASS Uninstall removes Installed Apps entry
+PASS Uninstall removes registered file association
+PASS Uninstall preserves original AppData, isolated business data / ten backups and project / media hashes
+PASS Internal RC install preserves data
+PASS Upgrade uses same GUID / appId and does not duplicate installation
+PASS Upgrade preserves business data and projects
+PASS Uninstaller exits successfully
+PASS Uninstall removes application executable
+PASS Uninstall removes Start Menu / Desktop shortcuts
+PASS Uninstall removes Installed Apps entry
+PASS Uninstall removes registered file association
+PASS Final uninstall preserves settings, recents, remembered state, backups, projects and media
+PASS Reinstall preserves all recorded business hashes

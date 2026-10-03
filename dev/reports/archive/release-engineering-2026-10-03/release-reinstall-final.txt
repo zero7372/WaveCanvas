@@ -1,0 +1,5 @@
+PASS Actual Start Menu shortcut launches installed app
+PASS Reinstall loads all preserved preference groups
+PASS Reinstall preserves Recent Projects
+PASS Reinstalled font enumeration available
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-packaged-1791038567123

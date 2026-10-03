@@ -1,0 +1,12 @@
+[
+  {
+    "file": "H:\\WaveCanvas\\Audio visualizer\\release\\WaveCanvas-Setup-1.0.0.exe",
+    "status": "NotSigned",
+    "signer": null
+  },
+  {
+    "file": "C:\\Users\\peter\\AppData\\Local\\Programs\\WaveCanvas\\WaveCanvas.exe",
+    "status": "NotSigned",
+    "signer": null
+  }
+]

@@ -1,0 +1,63 @@
+Running
+PASS Home displays built-in selection immediately
+PASS Three cards are generated from definitions
+PASS Circle thumbnail resolves
+PASS Circle exact supplied copy
+PASS Circle launcher label
+PASS Square thumbnail resolves
+PASS Square exact supplied copy
+PASS Square launcher label
+PASS Linear thumbnail resolves
+PASS Linear exact supplied copy
+PASS Linear launcher label
+PASS Null previewVideo renders no video element
+PASS Desktop card buttons align in one row
+PASS Home 1280px: no horizontal overflow
+PASS Home 1280px: all cards contained
+PASS Home 1280px: consistent thumbnail ratio
+PASS Home 980px: no horizontal overflow
+PASS Home 980px: all cards contained
+PASS Home 980px: consistent thumbnail ratio
+PASS Home 720px: no horizontal overflow
+PASS Home 720px: all cards contained
+PASS Home 720px: consistent thumbnail ratio
+PASS Home 420px: no horizontal overflow
+PASS Home 420px: all cards contained
+PASS Home 420px: consistent thumbnail ratio
+PASS Circle button enters Editor
+PASS Circle button applies exact target factory geometry
+PASS Circle works without importing media
+PASS Square button enters Editor
+PASS Square button applies exact target factory geometry
+PASS Square works without importing media
+PASS Linear button enters Editor
+PASS Linear button applies exact target factory geometry
+PASS Linear works without importing media
+PASS cover action order: select then clear
+PASS cover actions stack vertically
+PASS cover uses subdued red danger style
+PASS primary action order: select then clear
+PASS primary actions stack vertically
+PASS primary uses subdued red danger style
+PASS secondary action order: select then clear
+PASS secondary actions stack vertically
+PASS secondary uses subdued red danger style
+PASS Circle retains loaded audio, Cover and background URLs
+PASS Circle retains both loaded LRCs
+PASS Circle preserves audio/Lyrics settings and song content
+PASS Square retains loaded audio, Cover and background URLs
+PASS Square retains both loaded LRCs
+PASS Square preserves audio/Lyrics settings and song content
+PASS Linear retains loaded audio, Cover and background URLs
+PASS Linear retains both loaded LRCs
+PASS Linear preserves audio/Lyrics settings and song content
+PASS Preset roundtrip remains intact after template launch
+PASS Cover clear works through original handler
+PASS Secondary clear keeps Primary LRC
+PASS Primary clear works through original handler
+PASS All clear actions execute without confirmation dialogs
+PASS Editor 1280px retains canonical 16:9 Stage
+PASS Editor 720px retains canonical 16:9 Stage
+PASS Editor 420px retains canonical 16:9 Stage
+PASS No browser errors or unhandled promises: []
+DONE 61 passed / 0 failed

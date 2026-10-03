@@ -1,0 +1,33 @@
+Running
+PASS Factory module and runtime boot without errors
+PASS New editor initializes supplied Circle factory values
+PASS Shared Input Gain uses supplied 3x factory value
+PASS Every numeric settings pair has exactly one compact restore button (87)
+PASS Restore controls have Chinese tooltips and accessible labels
+PASS Non-numeric controls do not have restore buttons
+PASS Circle factory-equal values start dimmed/disabled
+PASS Numeric input goes through runtime and enables restore
+PASS Square first-use mapping and rotation match supplied JSON
+PASS Linear factory position and size match supplied JSON
+PASS Linear Circle artwork and zero RPM are exact factory values
+PASS coverX restore activates after edit
+PASS coverX restores only itself and updates indicator
+PASS coverY restore activates after edit
+PASS coverY restores only itself and updates indicator
+PASS coverSize restore activates after edit
+PASS coverSize restores only itself and updates indicator
+PASS coverRotationSpeed restore activates after edit
+PASS coverRotationSpeed restores only itself and updates indicator
+PASS Circle edit survives Square/Linear roundtrip
+PASS Circle context restore returns to 160 and syncs both inputs
+PASS Square edits survive layout roundtrip
+PASS Linear edits survive layout roundtrip
+PASS Preset value is runtime-only; single restore returns to factory
+PASS Preset import leaves factory snapshot unchanged
+PASS Float tolerance avoids false dirty indicators
+PASS Global reset stays Linear and applies complete Linear factory snapshot
+PASS Reset status reports the actual official Input Gain
+PASS Old partial Square preset falls back to new official Square defaults
+PASS Corrupted preset does not change runtime
+PASS All three render paths execute without browser errors
+DONE 31 passed / 0 failed

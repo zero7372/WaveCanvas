@@ -13,6 +13,11 @@ function install(window) {
     let current = null, pending = new Map(), registered = new Map(), queue = Promise.resolve(), projectReady = false, closeAllowed = false;
     window.waveCanvasProjectPath = () => current?.path || null;
     window.waveCanvasTrimRecent = limit => storage().trimRecent(limit);
+    const external = new Map();
+    window.waveCanvasQueueExternalProject = file => {
+        const token = crypto.randomUUID(); external.set(token, file);
+        if (projectReady) window.webContents.send('wavecanvas-project:externalRequested');
+    };
     const prefix = 'wavecanvas-project:';
     function sender(event) { if (event.sender !== window.webContents || event.senderFrame !== window.webContents.mainFrame) throw new Error('Project IPC sender 無效。'); }
     function bind(name, handler) {
@@ -44,6 +49,12 @@ function install(window) {
         } else { const choice = await dialog.showOpenDialog(window, { title: '開啟 WaveCanvas 專案', properties: ['openFile'], filters: [{ name: 'WaveCanvas Project', extensions: ['waveproj'] }] }); if (choice.canceled) return null; file = choice.filePaths[0]; }
         return grant(await storage().open(file));
     }));
+    bind('takeExternal', () => { const token = external.keys().next().value; return token || null; });
+    bind('openExternal', token => exclusive(async () => {
+        const file = external.get(token); if (!file) throw Error('External project authorization expired');
+        external.delete(token); return grant(await storage().open(file));
+    }));
+    bind('discardExternal', token => external.delete(token));
     bind('readMedia', async (token, slot) => {
         const entry = pending.get(token)?.media[slot];
         if (!model.slots.includes(slot) || !entry || entry.missing) return null;
@@ -97,6 +108,6 @@ function install(window) {
     // Ask the controller even for a reported-clean session: it drains pending media refs and
     // compares the latest snapshot, avoiding an IPC status/OS-close race after an edit.
     window.on('close', event => { if (!closeAllowed && projectReady) { event.preventDefault(); window.webContents.send(prefix + 'closeRequested'); } });
-    window.on('closed', () => { for (const name of ['registerMedia', 'open', 'readMedia', 'activate', 'save', 'collect', 'confirmUnsaved', 'getRecent', 'removeRecent', 'new', 'status', 'finishClose']) ipcMain.removeHandler(prefix + name); });
+    window.on('closed', () => { for (const name of ['registerMedia', 'open', 'readMedia', 'activate', 'save', 'collect', 'confirmUnsaved', 'getRecent', 'removeRecent', 'new', 'status', 'finishClose', 'takeExternal', 'openExternal', 'discardExternal']) ipcMain.removeHandler(prefix + name); });
 }
 module.exports = { install };

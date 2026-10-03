@@ -1,0 +1,32 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Real project opens through ordinary loader"
+    },
+    {
+      "pass": true,
+      "label": "Current saved media/lyrics references preserved verbatim"
+    },
+    {
+      "pass": true,
+      "label": "Both serialized edited lyric documents restored exactly"
+    },
+    {
+      "pass": true,
+      "label": "Audio and images decode"
+    },
+    {
+      "pass": true,
+      "label": "Real project full export succeeds"
+    },
+    {
+      "pass": true,
+      "label": "ffprobe H.264 / 1080p / 60 FPS / 3612 frames / AAC"
+    },
+    {
+      "pass": true,
+      "label": "Real project files hashes/size/mtime unchanged"
+    }
+  ]
+}

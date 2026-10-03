@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Installed app saves Unicode project"
+    },
+    {
+      "pass": true,
+      "label": "Actual installed association quotes executable and project"
+    },
+    {
+      "pass": true,
+      "label": "Shell running Cancel preserves edits with confirmUnsavedClose Off"
+    },
+    {
+      "pass": true,
+      "label": "Shell running Save writes edits before normal loader opens target"
+    },
+    {
+      "pass": true,
+      "label": "Shell running Discard opens target"
+    },
+    {
+      "pass": true,
+      "label": "Actual Windows shell cold open loads Unicode / spaces via formal pipeline"
+    },
+    {
+      "pass": true,
+      "label": "Shell loader restores installed font family"
+    },
+    {
+      "pass": true,
+      "label": "Shell open updates Recent Projects"
+    },
+    {
+      "pass": true,
+      "label": "Packaged canonical About version and narrow license resources"
+    },
+    {
+      "pass": true,
+      "label": "Help Open Source Licenses UI opens with GPL/source status"
+    },
+    {
+      "pass": true,
+      "label": "Windows shell long path >260 / Unicode / emoji opens where host supports it"
+    }
+  ]
+}

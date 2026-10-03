@@ -1,0 +1,114 @@
+[
+  {
+    "pass": true,
+    "label": "Uninstaller exits successfully"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes application executable"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes Start Menu / Desktop shortcuts"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes Installed Apps entry"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes registered file association"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall preserves original AppData, isolated business data / ten backups and project / media hashes"
+  },
+  {
+    "pass": true,
+    "label": "Installer 1.0.0-rc.1 exits successfully"
+  },
+  {
+    "pass": true,
+    "label": "Exactly one Installed Apps entry for 1.0.0-rc.1"
+  },
+  {
+    "pass": true,
+    "label": "Shortcuts recreated"
+  },
+  {
+    "pass": true,
+    "label": "Installed quoted association command restored"
+  },
+  {
+    "pass": true,
+    "label": "Internal RC install preserves data"
+  },
+  {
+    "pass": true,
+    "label": "Installer 1.0.0 exits successfully"
+  },
+  {
+    "pass": true,
+    "label": "Exactly one Installed Apps entry for 1.0.0"
+  },
+  {
+    "pass": true,
+    "label": "Shortcuts recreated"
+  },
+  {
+    "pass": true,
+    "label": "Installed quoted association command restored"
+  },
+  {
+    "pass": true,
+    "label": "Upgrade uses same GUID / appId and does not duplicate installation"
+  },
+  {
+    "pass": true,
+    "label": "Upgrade preserves business data and projects"
+  },
+  {
+    "pass": true,
+    "label": "Uninstaller exits successfully"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes application executable"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes Start Menu / Desktop shortcuts"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes Installed Apps entry"
+  },
+  {
+    "pass": true,
+    "label": "Uninstall removes registered file association"
+  },
+  {
+    "pass": true,
+    "label": "Final uninstall preserves settings, recents, remembered state, backups, projects and media"
+  },
+  {
+    "pass": true,
+    "label": "Installer 1.0.0 exits successfully"
+  },
+  {
+    "pass": true,
+    "label": "Exactly one Installed Apps entry for 1.0.0"
+  },
+  {
+    "pass": true,
+    "label": "Shortcuts recreated"
+  },
+  {
+    "pass": true,
+    "label": "Installed quoted association command restored"
+  },
+  {
+    "pass": true,
+    "label": "Reinstall preserves all recorded business hashes"
+  }
+]

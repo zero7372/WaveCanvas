@@ -1,6 +1,6 @@
-# Third-party notices — pre-release draft
+# WaveCanvas third-party notices
 
-2026-10-03。**Incomplete release preparation draft; not a compliance certificate.** 尚未加入目前packaging allowlist，不能把本文件當作已交付notice。下一輪需將本文件及各原始全文license打包，並完成以下source/copyright缺口。This is a technical licensing and distribution audit, not legal advice.
+2026-10-03. Packaged with the unsigned RC. License inventory and corresponding source delivery remain incomplete: PUBLIC RELEASE BLOCKED.
 
 ## WaveCanvas own code
 
@@ -36,6 +36,6 @@ package.json declares MIT；原始 [License.txt](License.txt) 保留。MIT不取
 
 Electron 44.5.1／Chromium runtime是另一个distribution inventory；installed output已有LICENSE.electron.txt與LICENSES.chromium.html，應保留并驗證。其ffmpeg.dll不是上述Gyanffmpeg.exe。npm build/test devDependencies和實際packaged runtime分開審核，不硬塞入GPL段落；完整runtime attribution/source obligations另做release audit。
 
-## Release action
+## Release gate
 
-參照 [distribution audit](dev/reports/FFMPEG-DISTRIBUTION-LICENSING-AUDIT.md) 完成source delivery、license文本、manifest、packaging、UI與artifact驗證後，才能移除此draft標記。本文件沒有改變任何component的原license或提供codec patent clearance。
+See FFmpeg/SOURCE_INFO.txt and RELEASE_GPL_SOURCE_CHECKLIST.md. Provider exact dependency revisions, patches, recipes and complete source archive are not yet delivered. No compliance certificate or public release readiness is claimed.

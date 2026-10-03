@@ -1,0 +1,6 @@
+{
+  "target": "C:\\Users\\peter\\AppData\\Local\\Programs\\WaveCanvas\\WaveCanvas.exe",
+  "arguments": "",
+  "icon": "C:\\Users\\peter\\AppData\\Local\\Programs\\WaveCanvas\\WaveCanvas.exe,0",
+  "association": "\"C:\\Users\\peter\\AppData\\Local\\Programs\\WaveCanvas\\WaveCanvas.exe\" \"%1\""
+}
