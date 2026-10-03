@@ -24,15 +24,16 @@ function create(userData, options = {}) {
         try {
             const data = JSON.parse(await io.readFile(recentFile, 'utf8'));
             return Array.isArray(data) ? data.filter(item => item && typeof item.path === 'string' && typeof item.name === 'string'
-                && typeof item.lastOpenedAt === 'string' && ['circle', 'square', 'linear'].includes(item.layout)).slice(0, 10) : [];
+                && typeof item.lastOpenedAt === 'string' && ['circle', 'square', 'linear'].includes(item.layout)).slice(0, await recentLimit()) : [];
         } catch (error) { if (error.code !== 'ENOENT') log.warn('Recent Projects 無法讀取', error.message); return []; }
     }
+    async function recentLimit() { const value = await options.getRecentLimit?.(); return [5,10,15,20].includes(value) ? value : 10; }
     function recentMutation(change) {
         const result = recentQueue.then(async () => { const list = change(await readRecent()); await io.mkdir(userData, { recursive: true }); await atomicWrite(recentFile, JSON.stringify(list, null, 2), io); return list; });
         recentQueue = result.catch(() => {}); return result;
     }
     async function remember(file, project) {
-        try { await recentMutation(list => [{ path: path.resolve(file), name: project.name, lastOpenedAt: new Date().toISOString(), layout: project.state.settings.standalone.visualizer.layout }, ...list.filter(item => identity(item.path) !== identity(file))].slice(0, 10)); }
+        try { const limit = await recentLimit(); await recentMutation(list => [{ path: path.resolve(file), name: project.name, lastOpenedAt: new Date().toISOString(), layout: project.state.settings.standalone.visualizer.layout }, ...list.filter(item => identity(item.path) !== identity(file))].slice(0, limit)); }
         catch (error) { log.warn('Recent Projects 無法更新', error.message); }
     }
     async function media(project, projectPath) {
@@ -119,6 +120,6 @@ function create(userData, options = {}) {
     }
     return { open, save, collect, remember, media, backup, getRecent: async () => {
         await recentQueue; return Promise.all((await readRecent()).map(async item => ({ ...item, missing: !(await io.stat(item.path).catch(() => null))?.isFile() })));
-    }, removeRecent: file => recentMutation(list => list.filter(item => identity(item.path) !== identity(file))) };
+    }, trimRecent: limit => recentMutation(list => list.slice(0, limit)), removeRecent: file => recentMutation(list => list.filter(item => identity(item.path) !== identity(file))) };
 }
 module.exports = { create, atomicWrite, safeName, identity, extensions };

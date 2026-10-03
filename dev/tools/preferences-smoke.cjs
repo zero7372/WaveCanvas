@@ -9,7 +9,7 @@ async function freePort() { const server = net.createServer(); await new Promise
 async function launch(profile) {
     const port = await freePort(), exe = packaged ? path.join(root, 'dist/win-unpacked/WaveCanvas.exe') : require('electron');
     const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
-    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
+    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, '--user-data-dir=' + profile, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
     let output = '', exited = false; child.stdout.on('data', data => output += data); child.stderr.on('data', data => output += data); child.on('exit', () => exited = true);
     let target; for (let i = 0; i < 200 && !target && !exited; i++) { try { target = (await (await fetch('http://127.0.0.1:' + port + '/json/list')).json())[0]; } catch {} await wait(50); }
     if (!target) { child.kill(); throw Error('Inspector unavailable: ' + output); }
@@ -93,4 +93,5 @@ async function run() {
     finally{if(session)await session.finish();await fs.writeFile(path.join(artifacts,'results.json'),JSON.stringify({packaged,checks},null,2));}
     const failed=checks.filter(x=>!x.pass).length;console.log('Preferences: '+(checks.length-failed)+' passed / '+failed+' failed\n'+artifacts);process.exitCode=failed?1:0;
 }
-run().catch(error=>{console.error(error);process.exitCode=1});
+module.exports = { launch, artifacts };
+if (require.main === module) run().catch(error=>{console.error(error);process.exitCode=1});

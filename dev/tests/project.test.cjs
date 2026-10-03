@@ -55,7 +55,7 @@ test('Controller owns one configurable scheduler across New/Open, no unsaved wri
     app.VisualizerLocalAudio = { getFile: () => null, clear() {} };
     app.WaveCanvasShell = { showView() {} };
     let settings = { ...require('../../app/app-settings.js').defaults.project, askNameOnCreate: false }, settingsListener;
-    app.WaveCanvasPreferences = { ready: Promise.resolve(), get: () => ({ project: settings }), subscribe(callback) { settingsListener = callback; callback({ project: settings }); return () => {}; } };
+    app.WaveCanvasPreferences = { ready: Promise.resolve(), get: () => ({ ...require('../../app/app-settings.js').normalize(null), project: settings }), subscribe(callback) { settingsListener = callback; callback({ project: settings }); return () => {}; } };
     app.WaveCanvasAutosaveScheduler = require('../../app/autosave-scheduler.js');
     const createScheduler = app.WaveCanvasAutosaveScheduler;
     app.WaveCanvasAutosaveScheduler = callback => createScheduler(callback, app);

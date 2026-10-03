@@ -8,9 +8,10 @@ const downloads=path.join(artifacts,'downloads-'+Date.now());fs.mkdirSync(downlo
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function freePort(){const server=net.createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const port=server.address().port;await new Promise(resolve=>server.close(resolve));return port;}
 async function run(){
+ const profile=path.join(artifacts,'profile-'+Date.now());fs.mkdirSync(profile);
  const port=await freePort(),exe=packaged?path.join(root,'dist/win-unpacked/WaveCanvas.exe'):require('electron');
  const args=packaged?[]:['.',...(devToolsMode?['--dev']:[])],env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
- const child=spawn(exe,['--inspect=127.0.0.1:'+port,...args],{cwd:root,env,windowsHide:false});let output='',exited=false;
+ const child=spawn(exe,['--inspect=127.0.0.1:'+port,'--user-data-dir='+profile,...args],{cwd:root,env,windowsHide:false});let output='',exited=false;
  child.stdout.on('data',data=>output+=data);child.stderr.on('data',data=>output+=data);child.on('exit',()=>exited=true);
  const pending=new Map();let socket,serial=0;const report={tag,checks:[]};
  try{
@@ -21,7 +22,7 @@ async function run(){
   socket.addEventListener('message',event=>{const message=JSON.parse(event.data);if(pending.has(message.id)){const item=pending.get(message.id);pending.delete(message.id);message.error?item.reject(Error(message.error.message)):item.resolve(message.result);}});
   async function evaluate(expression){const id=++serial;const response=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(id);reject(Error('Inspector evaluation timeout'));},30000);pending.set(id,{resolve:value=>{clearTimeout(timer);resolve(value);},reject:error=>{clearTimeout(timer);reject(error);}});socket.send(JSON.stringify({id,method:'Runtime.evaluate',params:{expression,awaitPromise:true,returnByValue:true}}));});if(response.exceptionDetails)throw Error(response.exceptionDetails.exception?.description||JSON.stringify(response.exceptionDetails));return response.result?.value;}
   const mainFile=packaged?path.join(root,'dist/win-unpacked/resources/app.asar/electron/main.cjs'):path.join(root,'electron/main.cjs');
-  await evaluate(`globalThis.wcQA={electron:process.getBuiltinModule('module').createRequire(${JSON.stringify(mainFile)})('electron'),downloads:[]}; 'ready'`);
+  await evaluate(`globalThis.wcQA={electron:process.getBuiltinModule('module').createRequire(${JSON.stringify(mainFile)})('electron'),downloads:[]};wcQA.electron.app.setPath('userData',${JSON.stringify(profile)}); 'ready'`);
   await evaluate(`(async()=>{for(let i=0;i<150;i++){const w=wcQA.electron.BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('index.html'));if(w&&!w.webContents.isLoading()){wcQA.window=w;return true;}await new Promise(r=>setTimeout(r,50));}throw Error('Window did not load');})()`);
   await evaluate(`(async()=>{for(let i=0;i<150;i++){if(wcQA.window.isVisible() && (!${devToolsMode} || wcQA.window.webContents.isDevToolsOpened()))return true;await new Promise(r=>setTimeout(r,50));}throw Error('Window / DevTools visibility: '+JSON.stringify({visible:wcQA.window.isVisible(),devTools:wcQA.window.webContents.isDevToolsOpened(),argv:process.argv,title:wcQA.window.getTitle()}));})()`);
   const security=await evaluate(`({preferences:wcQA.window.webContents.getLastWebPreferences(),versions:process.versions,title:wcQA.window.getTitle(),devTools:wcQA.window.webContents.isDevToolsOpened()})`);report.versions=security.versions;
@@ -39,7 +40,7 @@ async function run(){
   check(await evaluate(`wcQA.window.webContents.executeJavaScript("document.querySelector('#local-audio').readyState>=2 && VisualizerFiles.getName('logoimage')==='wavecanvas.png' && VisualizerLyrics.getEvent(0).secondary==='Open the gate'")`),'On-disk WAV / PNG / LRC / SRT import via unchanged HTML file inputs');
   await evaluate(`wcQA.window.webContents.executeJavaScript("document.querySelector('#local-audio').currentTime=1.5;VisualizerLyrics.update('seek');VisualizerTimingEditor.select('primary',VisualizerLyrics.getDocument('primary').events[0].id);true")`);
   await evaluate('wcQA.window.minimize();true');await wait(200);check(await evaluate('wcQA.window.isMinimized()'),'Minimize');
-  const second=spawn(exe,args,{cwd:root,env,windowsHide:false});const secondCode=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>{second.kill();reject(Error('Second instance timeout'));},5000);second.on('exit',code=>{clearTimeout(timer);resolve(code);});});await wait(200);
+  const second=spawn(exe,['--user-data-dir='+profile,...args],{cwd:root,env,windowsHide:false});const secondCode=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>{second.kill();reject(Error('Second instance timeout'));},5000);second.on('exit',code=>{clearTimeout(timer);resolve(code);});});await wait(200);
   check(secondCode===0&&await evaluate("!wcQA.window.isMinimized() && wcQA.window.isFocused() && wcQA.electron.BrowserWindow.getAllWindows().filter(w=>w.webContents.getURL().includes('index.html')).length===1"),'Single instance restores and focuses first window');
   await evaluate('wcQA.window.maximize();true');await wait(250);check(await evaluate('wcQA.window.isMaximized()'),'Maximize');
   await evaluate('wcQA.window.unmaximize();wcQA.window.setSize(1100,740);true');await wait(250);

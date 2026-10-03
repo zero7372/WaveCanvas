@@ -95,7 +95,7 @@
         for (const key of ['logoimage', 'backgroundimage', 'backgroundimagef']) window.VisualizerFiles.clear(key);
         window.VisualizerLyrics.clear();
     }
-    async function restore(loaded) {
+    async function restore(loaded, userInitiated = true) {
         const value = serializer.prepare(loaded.project);
         const files = {}, missing = [];
         // Load/copy into memory before replacing the existing session. Lyrics restore from embedded edited docs.
@@ -139,6 +139,10 @@
                 if (node && loaded.media[slot]?.missing) node.textContent = 'Missing · ' + loaded.media[slot].name;
             }
             window.WaveCanvasShell.showView('EDITOR'); window.dispatchEvent(new Event('wavecanvas-recent-change'));
+            if (userInitiated && !missing.length && files.audio && preferences.get().playback.autoPlayOnLoad) {
+                const play = () => { if (window.VisualizerLocalAudio.getFile() === files.audio && !audio.error && preferences.get().playback.autoPlayOnLoad) audio.play().catch(error => console.warn('Auto-play:', error.message)); };
+                if (audio.readyState >= 3 && !audio.error) play(); else audio.addEventListener('canplay', play, { once:true });
+            }
         } catch (error) {
             clearMedia(); runtime.restoreProjectSettings(old.project.state.settings);
             if (old.files.audio) window.VisualizerLocalAudio.load(old.files.audio);
@@ -169,6 +173,7 @@
                     const defaults = window.VisualizerFactoryDefaults.get(layout); return [layout, { visualizer: defaults.standalone.visualizer, properties: defaults.properties, text: defaults.standalone.text }];
                 })) });
             initialize(name); projectPath = null; dirty = false; failure = ''; lastSavedHash = hash(snapshot()); window.WaveCanvasShell.showView('EDITOR');
+            audio.volume = preferences.get().playback.defaultVolume;
         } finally { restoring = false; notify(); }
         return true;
     }); }
@@ -183,10 +188,17 @@
     // One scheduler for the lifetime of this controller, independent of Open/New.
     const scheduler = window.WaveCanvasAutosaveScheduler(() => { if (!window.WaveCanvasExport?.getState().busy && !busy && !saving && projectPath && dirty) operation(() => save('autosave')); });
     const unsubscribeSettings = preferences.subscribe(value => scheduler.configure(value.project));
-    const unsubscribeClose = api.onCloseRequested(() => operation(async () => { if (await guard()) await api.finishClose(); }));
+    const unsubscribeClose = api.onCloseRequested(() => operation(async () => { await preferences.ready; if (!preferences.get().general.confirmUnsavedClose || await guard()) await api.finishClose(); }));
     window.addEventListener('pagehide', () => { scheduler.dispose(); unsubscribeSettings(); clearTimeout(checkTimer); unsubscribeClose(); });
     notify();
     window.WaveCanvasProject = Object.freeze({ getState: state, snapshot, markProjectDirty, check, open, newProject, collect, rename,
         save: kind => operation(() => save(kind)), autosave: () => operation(() => save('autosave')),
         subscribe(callback) { listeners.add(callback); callback(state()); return () => listeners.delete(callback); } });
+    preferences.ready.then(async () => {
+        if (preferences.get().general.startupMode !== 'reopen-last') return;
+        await operation(async () => {
+            try { const last = (await api.getRecent())[0]; if (!last || last.missing) return false; const result = await api.open(last.path); if (!result) return false; await restore(result, false); return true; }
+            catch (error) { console.warn('Startup reopen:', error.message); failure = ''; window.WaveCanvasShell.showView('HOME'); return false; }
+        });
+    });
 }());

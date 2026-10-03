@@ -14,3 +14,12 @@
 .app-dialog .dialog-note { color: var(--muted); font-size: 12px; }
 .app-dialog .dialog-message { color: #f2ad9d; min-height: 1.5em; margin: 8px 0 0; }
 #preferences-reset { margin-right: auto; }
+.app-dialog { zoom:var(--ui-scale,1); max-height:calc(90vh / var(--ui-scale,1)); overflow:auto; }
+#preferences-dialog { width:min(640px,calc(100vw / var(--ui-scale,1) - 32px)); }
+.preferences-body { display:flex; gap:24px; }
+.preferences-body nav { display:flex; flex-direction:column; gap:6px; flex:0 0 110px; }
+.preferences-body nav button { text-align:left; }
+.preferences-body nav button[aria-current=true] { background:#2d4056; border-color:#52769b; }
+.preferences-panels { flex:1; min-width:0; }
+.preferences-panels input[type=range] { width:100%; }
+@media(max-width:600px) { .preferences-body { flex-direction:column; gap:14px; } .preferences-body nav { flex-direction:row; flex-wrap:wrap; flex-basis:auto; } }

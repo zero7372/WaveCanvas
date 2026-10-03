@@ -1,0 +1,27 @@
+{
+  "sameFailures": true,
+  "currentFailures": [
+    "FAIL Preset missing fields default; numeric values clamp; unknown fields ignored",
+    "FAIL Reset restores all current defaults and Input Gain 1",
+    "FAIL Home has truthful empty Recent Projects",
+    "FAIL Square shares the entire spectrum equally across all four edges",
+    "FAIL Square mirrors each edge around its center",
+    "FAIL Legacy Square preset defaults missing spectrum layout to Symmetric",
+    "FAIL Layout switches retain Circle/Square/Linear settings",
+    "FAIL Inspector preset roundtrip preserves keys and Square layout",
+    "FAIL Inspector old preset defaults Square spectrum without format change",
+    "FAIL Inspector Reset synchronizes defaults and Circle section"
+  ],
+  "baselineFailures": [
+    "FAIL Preset missing fields default; numeric values clamp; unknown fields ignored",
+    "FAIL Reset restores all current defaults and Input Gain 1",
+    "FAIL Home has truthful empty Recent Projects",
+    "FAIL Square shares the entire spectrum equally across all four edges",
+    "FAIL Square mirrors each edge around its center",
+    "FAIL Legacy Square preset defaults missing spectrum layout to Symmetric",
+    "FAIL Layout switches retain Circle/Square/Linear settings",
+    "FAIL Inspector preset roundtrip preserves keys and Square layout",
+    "FAIL Inspector old preset defaults Square spectrum without format change",
+    "FAIL Inspector Reset synchronizes defaults and Circle section"
+  ]
+}

@@ -2,6 +2,7 @@
 // Test-only Main inspector harness. Dialog responses are controlled; no test hooks ship in app/.
 const fs = require('node:fs/promises'), path = require('node:path'), net = require('node:net'), { spawn } = require('node:child_process');
 const root = path.resolve(__dirname, '../..'), packaged = process.argv.includes('--packaged');
+const runtimeRoot = packaged ? path.join(root, 'dist/win-unpacked/resources/app.asar') : root;
 const artifacts = path.join(root, 'dev/tests/artifacts/export-' + (packaged ? 'packaged' : 'development') + '-' + Date.now());
 process.env.ELECTRON_CACHE = path.join(root, '.electron-cache'); process.env.electron_config_cache = process.env.ELECTRON_CACHE;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -9,7 +10,7 @@ async function freePort() { const server = net.createServer(); await new Promise
 async function launch(profile) {
     const port = await freePort(), exe = packaged ? path.join(root, 'dist/win-unpacked/WaveCanvas.exe') : require('electron');
     const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
-    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
+    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, '--user-data-dir=' + profile, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
     let output = '', exited = false; child.stdout.on('data', data => output += data); child.stderr.on('data', data => output += data); child.on('exit', () => exited = true);
     let target; for (let i = 0; i < 200 && !target && !exited; i++) { try { target = (await (await fetch('http://127.0.0.1:' + port + '/json/list')).json())[0]; } catch {} await wait(50); }
     if (!target) { child.kill(); throw Error('Inspector unavailable: ' + output); }
@@ -52,7 +53,7 @@ await session.renderer('VisualizerLyrics.load('+JSON.stringify(lrc)+',"synthetic
 if (!process.argv.includes('--layouts')) {
 const outputs=[];
 for(let repeat=0;repeat<2;repeat++){
- if(repeat===1){const before=await session.renderer('JSON.stringify(WaveCanvasProject.snapshot())');await session.renderer('WaveCanvasPreferences.update({project:{askNameOnCreate:false,autosaveEnabled:false,autosaveIntervalMinutes:1}})');check(before===await session.renderer('JSON.stringify(WaveCanvasProject.snapshot())'),'Preferences changes leave export project snapshot unchanged');}
+ if(repeat===1){const before=await session.renderer('JSON.stringify(WaveCanvasProject.snapshot())');await session.renderer('WaveCanvasPreferences.update({project:{askNameOnCreate:false,autosaveEnabled:false,autosaveIntervalMinutes:1,recentProjectsLimit:20},interface:{uiScale:1.25},playback:{defaultVolume:0,autoPlayOnLoad:true},export:{defaultDirectoryMode:"project-folder"}})');check(before===await session.renderer('JSON.stringify(WaveCanvasProject.snapshot())'),'Preferences changes leave export project snapshot unchanged');}
  await session.evaluate(repeat===0?'projectQA.window.minimize();true':'projectQA.window.restore();projectQA.window.setSize(1100,700);projectQA.window.webContents.setZoomFactor(1.25);true');
  await fs.writeFile(path.join(artifacts,"snapshot-"+repeat+".json"),JSON.stringify(await session.renderer("WaveCanvasProject.snapshot()"),null,2));
  const output=path.join(artifacts,'repeat-'+repeat+'.mp4');outputs.push(output);
@@ -78,10 +79,12 @@ for(const frame of ['0','60','120']){
  let maximum=0,changed=0;for(let i=0;i<pixels[0].length;i++){const delta=Math.abs(pixels[0][i]-pixels[1][i]);maximum=Math.max(maximum,delta);if(delta)changed++;}tolerances.push({frame,maximum,changed,ratio:changed/pixels[0].length});check(maximum<=1&&changed/pixels[0].length<.001,'Full compositor tolerance at frame '+frame+' (max 1/255, <0.1% channels)');
 }
 const ssim=require('child_process').spawnSync(path.join(root,'vendor/ffmpeg/ffmpeg.exe'),['-i',outputs[0],'-i',outputs[1],'-lavfi','ssim','-f','null','-'],{encoding:'utf8',windowsHide:true});const score=Number(/All:([0-9.]+)/.exec(ssim.stderr)?.[1]);check(score>=.99,'Repeated decoded video SSIM >=0.99');await fs.writeFile(path.join(artifacts,'determinism.json'),JSON.stringify({tolerances,canvasTolerances,ssim:score,bitIdentical:false,note:'Audio/lyric state exact; decoded Canvas and compositor use existing Phase 1 compositor tolerance. PNG byte equality retained as a diagnostic because of baseline rounding.'},null,2));
-const cancelPath=path.join(artifacts,'canceled.mp4');await fs.writeFile(cancelPath,'existing-target');await session.evaluate('projectQA.savePaths.push('+JSON.stringify(cancelPath)+');true');await session.renderer('exportQAProgress=[];WaveCanvasExport.start();true');await wait(300);await session.renderer('document.querySelector("#export-progress button").click();true');for(let i=0;i<100;i++){if(await session.renderer('!WaveCanvasExport.getState().busy'))break;await wait(100);}
-check(await fs.readFile(cancelPath,'utf8')==='existing-target','Cancel preserves an existing output target');check(!(await fs.readdir(artifacts)).some(n=>n.includes('.partial.mp4')),'Cancel cleans partial output after process exit');check(await session.renderer('!document.querySelector("#editor-view").inert'),'Cancel restores Editor');
+const remembered=await session.evaluate('projectQA.window.waveCanvasApplicationState().get()');check(remembered.lastExportDirectory===artifacts,'Successful export remembers its output directory');
+const canceledDirectory=path.join(artifacts,'cancel-other-folder');await fs.mkdir(canceledDirectory);const cancelPath=path.join(canceledDirectory,'canceled.mp4');await fs.writeFile(cancelPath,'existing-target');await session.evaluate('projectQA.savePaths.push('+JSON.stringify(cancelPath)+');true');await session.renderer('exportQAProgress=[];WaveCanvasExport.start();true');await wait(300);await session.renderer('document.querySelector("#export-progress button").click();true');for(let i=0;i<100;i++){if(await session.renderer('!WaveCanvasExport.getState().busy'))break;await wait(100);}
+check((await session.evaluate('projectQA.window.waveCanvasApplicationState().get()')).lastExportDirectory===remembered.lastExportDirectory,'Canceled export to another folder preserves last successful directory');
+check(await fs.readFile(cancelPath,'utf8')==='existing-target','Cancel preserves an existing output target');check(!(await fs.readdir(canceledDirectory)).some(n=>n.includes('.partial.mp4')),'Cancel cleans partial output after process exit');check(await session.renderer('!document.querySelector("#editor-view").inert'),'Cancel restores Editor');
 const missingPath=path.join(artifacts,'missing-ffmpeg.mp4');
-await session.evaluate('projectQA.runner=process.getBuiltinModule("module").createRequire('+JSON.stringify(path.join(root,'electron/main.cjs'))+')('+JSON.stringify(path.join(root,'electron/ffmpeg-runner.cjs'))+');projectQA.resolver=projectQA.runner.resolver;projectQA.runner.resolver=()=>'+JSON.stringify(path.join(artifacts,'no-ffmpeg.exe'))+';projectQA.savePaths.push('+JSON.stringify(missingPath)+');true');
+await session.evaluate('projectQA.runner=process.getBuiltinModule("module").createRequire('+JSON.stringify(path.join(runtimeRoot,'electron/main.cjs'))+')('+JSON.stringify(path.join(runtimeRoot,'electron/ffmpeg-runner.cjs'))+');projectQA.resolver=projectQA.runner.resolver;projectQA.runner.resolver=()=>'+JSON.stringify(path.join(artifacts,'no-ffmpeg.exe'))+';projectQA.savePaths.push('+JSON.stringify(missingPath)+');true');
 await session.renderer('exportQAProgress=[];WaveCanvasExport.start();true');for(let i=0;i<100;i++){if(await session.renderer('!WaveCanvasExport.getState().busy'))break;await wait(100);}
 check(await session.renderer('exportQAProgress.some(s=>s.phase==="error"&&s.error.includes("FFmpeg"))&&!document.querySelector("#editor-view").inert'),'Missing FFmpeg error restores Editor');
 await session.evaluate('projectQA.runner.resolver=projectQA.resolver;true');

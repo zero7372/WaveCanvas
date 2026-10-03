@@ -1,0 +1,24 @@
+
+> wavecanvas@0.1.0 electron:build
+> node dev/tools/electron-run.cjs build
+
+  • electron-builder  version=26.15.3 os=10.0.26300
+  • loaded configuration  file=package.json ("build" field)
+  • author is missed in the package.json  appPackageFile=H:\WaveCanvas\Audio visualizer\package.json
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=win32 arch=x64 electron=44.5.1 appOutDir=dist\win-unpacked
+  • using custom unpacked Electron distribution  electronDist=node_modules\electron\dist
+  • copying unpacked Electron  source=H:\WaveCanvas\Audio visualizer\node_modules\electron\dist destination=H:\WaveCanvas\Audio visualizer\dist\win-unpacked
+  • searching for node modules  pm=npm searchDir=H:\WaveCanvas\Audio visualizer
+  • searching for node modules  pm=traversal searchDir=H:\WaveCanvas\Audio visualizer
+  • using manual traversal of node_modules to build dependency tree
+  • no node modules returned while searching directories  searchDirectories=[""]
+  • updating asar integrity executable resource  executablePath=dist\win-unpacked\WaveCanvas.exe
+  • signing with signtool.exe  path=dist\win-unpacked\resources\ffmpeg\ffprobe.exe
+  • signing with signtool.exe  path=dist\win-unpacked\resources\ffmpeg\ffmpeg.exe
+  • signing with signtool.exe  path=dist\win-unpacked\WaveCanvas.exe
+
+> wavecanvas@0.1.0 postelectron:build
+> node dev/tools/audit-electron-build.cjs
+
+Package allowlist passed: 90 entries; 569.95 MiB; no dev/ or node_modules.

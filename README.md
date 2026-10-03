@@ -36,6 +36,7 @@ npm run project:test
 npm run electron:test
 npm run export:test
 npm run preferences:test
+npm run options:test
 npm run browser:test
 ```
 
@@ -53,6 +54,7 @@ npm run build:audit
 npm run electron:test:build
 npm run project:test:build
 npm run preferences:test:build
+npm run options:test:build
 npm run export:test:build
 ```
 
@@ -94,11 +96,20 @@ Home RTX 3080 Ti／i5-12600KF reference：60.186s project、3612 frames、66.83s
 
 Test-only benchmarks 位於 dev/tools，與 production encoder path 分離。可用 `node dev/tools/capture-benchmark.cjs --mode=production --full` 重建數據；compare helpers 需要新產生的 benchmark.json/raw frames，不讀精簡 archive 當作完整 run。
 
-## Preferences
+## Options / Preferences
 
-File → Preferences… 提供 askNameOnCreate、autosaveEnabled、autosaveIntervalMinutes（1／3／5／10／15；預設5）。Cancel／Esc 捨棄草稿，只有 Save 成功才 persist＋apply。Restore Defaults 需確認且仍須 Save，不清專案、Recent 或 backups。
+File → Preferences… 分為 General、Project、Playback、Interface、Export、Advanced。Cancel／Esc 捨棄草稿，只有 Save 成功才 persist＋apply。Restore Defaults 需確認且仍須 Save，恢復全部偏好但保留專案、Recent 原始歷史、backups、視窗及匯出位置紀錄；Home 仍按恢復後的 Recent limit 顯示。
+
+- General：預設啟動 Home，可重開最後專案；不存在或 invalid 時回 Home。記住視窗 normal bounds／maximized，驗證目前 displays；關閉確認只控制 app/window close，Open／New 仍有 dirty guard。
+- Project：沿用命名與 autosave（1／3／5／10／15 分鐘，預設5）；Recent limit 支援5／10／15／20，預設10。一般 Save 即時裁切列表，不刪專案。
+- Playback：預設音量0–100%，只套用下一個 media/project session；自動播放預設 Off，只在使用者成功載入且 audio ready 時生效。啟動重開專案保持靜音。
+- Interface：80／90／100／110／125%，Save 即時改 application chrome；canonical Stage 1920×1080、DPR 與 export 座標不變。
+- Export：Last used／Project folder／Custom folder；Custom 使用 native picker。成功匯出才記錄 last folder；目錄失效或專案未存時 fallback last-used／system Save dialog。
+- Advanced：Main 的窄 API 開啟 Data Folder。沒有穩定 logs directory，因此沒有假的 Logs 按鈕。
 
 Main 使用 `app.getPath('userData')/settings.json`，獨立 `wavecanvas-settings` v1 JSON、canonical defaults、load validation 與 atomic temp→rename。Renderer 只有窄 API，沒有 raw fs/path/ipcRenderer。Interval 改變先 clear 再重建單一 scheduler，Off 不影響 manual save／dirty／close guard。正式 settings 不寫進 project 或 repo；tests 使用 isolated userData。
+
+新版補齊舊 v1 缺少欄位，保留原 naming／autosave 值。`application-state.json` 獨立保存 window／lastExportDirectory；最後專案沿用 `recent-projects.json` metadata，不把 project state 放入 settings。
 
 ## Known Limitations
 

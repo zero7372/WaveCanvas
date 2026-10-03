@@ -24,7 +24,9 @@
     "preferences:test:build": "node dev/tools/preferences-smoke.cjs --packaged",
     "browser:test": "node dev/tools/browser-smoke.cjs",
     "build:audit": "node dev/tools/audit-electron-build.cjs",
-    "repo:size": "node dev/tools/audit-repo-size.cjs"
+    "repo:size": "node dev/tools/audit-repo-size.cjs",
+    "options:test": "node dev/tools/options-smoke.cjs",
+    "options:test:build": "node dev/tools/options-smoke.cjs --packaged"
   },
   "devDependencies": {
     "electron": "44.5.1",

@@ -8,7 +8,7 @@ test('Missing settings loads canonical defaults without creating any files', asy
 test('Versioned settings validates valid/partial fields and recovers invalid JSON and unknown versions', async t => {
     const directory = await folder(t), file = path.join(directory, 'settings.json'), warnings = [], store = create(directory, { log: { warn: (...args) => warnings.push(args) } });
     await fs.writeFile(file, JSON.stringify({ ...schema.defaults, project: { askNameOnCreate: false, autosaveEnabled: 'bad', autosaveIntervalMinutes: 3, unknown: true } }));
-    assert.deepEqual((await store.get()).project, { askNameOnCreate: false, autosaveEnabled: true, autosaveIntervalMinutes: 3 });
+    assert.deepEqual((await store.get()).project, { askNameOnCreate: false, autosaveEnabled: true, autosaveIntervalMinutes: 3, recentProjectsLimit: 10 });
     await fs.writeFile(file, '{broken'); assert.deepEqual(await store.get(), schema.normalize(null)); assert.equal(await fs.readFile(file, 'utf8'), '{broken');
     await fs.writeFile(file, JSON.stringify({ ...schema.defaults, version: 99 })); assert.deepEqual(await store.get(), schema.normalize(null));
     for (const value of [0, 2, 20, '5', NaN]) assert.equal(schema.normalize({ ...schema.defaults, project: { autosaveIntervalMinutes: value } }).project.autosaveIntervalMinutes, schema.defaults.project.autosaveIntervalMinutes);
@@ -17,7 +17,7 @@ test('Versioned settings validates valid/partial fields and recovers invalid JSO
 test('Atomic settings update persists across restart, serializes concurrent patches and resets only preferences', async t => {
     const directory = await folder(t), store = create(directory); await fs.writeFile(path.join(directory, 'recent-projects.json'), 'retain');
     await Promise.all([store.update({ project: { askNameOnCreate: false } }), store.update({ project: { autosaveEnabled: false, autosaveIntervalMinutes: 1 } })]);
-    assert.deepEqual((await create(directory).get()).project, { askNameOnCreate: false, autosaveEnabled: false, autosaveIntervalMinutes: 1 });
+    assert.deepEqual((await create(directory).get()).project, { askNameOnCreate: false, autosaveEnabled: false, autosaveIntervalMinutes: 1, recentProjectsLimit: 10 });
     assert.equal(await fs.readFile(path.join(directory, 'recent-projects.json'), 'utf8'), 'retain');
     await store.reset(); assert.deepEqual(await create(directory).get(), schema.normalize(null));
     assert.deepEqual((await fs.readdir(directory)).sort(), ['recent-projects.json', 'settings.json']);

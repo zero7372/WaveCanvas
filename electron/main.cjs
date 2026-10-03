@@ -20,18 +20,28 @@ process.on('uncaughtException', error => fatal('Main Process 發生錯誤', erro
 process.on('unhandledRejection', error => fatal('Main Process 非同步錯誤', error));
 const preferences = { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false,
     sandbox: true, webSecurity: true, allowRunningInsecureContent: false, devTools: true, webviewTag: false };
-function createWindow() {
+async function createWindow() {
+    const stateModule = require('./application-state.cjs');
+    const initialSettings = await require('./settings-store.cjs').create(app.getPath('userData')).get();
+    const initialState = await stateModule.create(app.getPath('userData')).get();
+    const bounds = stateModule.windowBounds(initialState.window, screen.getAllDisplays(), initialSettings.general.rememberWindowBounds);
     const area = screen.getPrimaryDisplay().workAreaSize;
-    mainWindow = new BrowserWindow({ title: 'WaveCanvas', width: Math.min(1560, area.width), height: Math.min(960, area.height),
-        minWidth: Math.min(1000, area.width), minHeight: Math.min(680, area.height),
+    mainWindow = new BrowserWindow({ title: 'WaveCanvas', ...(bounds ? { x: bounds.x, y: bounds.y } : {}), width: bounds?.width || Math.min(1560, area.width), height: bounds?.height || Math.min(960, area.height),
+        minWidth: Math.min(1000, bounds?.width || area.width), minHeight: Math.min(680, bounds?.height || area.height),
         backgroundColor: '#17191e', show: false, frame: true, autoHideMenuBar: true,
         icon: path.join(root, 'app', 'assets', 'wavecanvas.png'), webPreferences: preferences });
     mainWindow.setMenu(null);
     const window = mainWindow;
+    let stateStore, stateDirectory;
+    window.waveCanvasApplicationState = () => { const directory = app.getPath('userData'); if (directory !== stateDirectory) { stateDirectory = directory; stateStore = stateModule.create(directory); } return stateStore; };
     require('./project-ipc.cjs').install(window);
     require('./settings-ipc.cjs').install(window);
+    window.waveCanvasSaveWindowState = async () => {
+        try { if ((await window.waveCanvasSettings().get()).general.rememberWindowBounds && !window.isDestroyed()) await window.waveCanvasApplicationState().update({ window: { ...window.getNormalBounds(), maximized: window.isMaximized() } }); }
+        catch (error) { console.error('Window state:', error.message); }
+    };
     window.waveCanvasExportController = require('./export-controller.cjs').install(window);
-    window.once('ready-to-show', () => { window.show(); if (dev) window.webContents.openDevTools({ mode: 'detach' }); });
+    window.once('ready-to-show', () => { if (bounds?.maximized) window.maximize(); window.show(); if (dev) window.webContents.openDevTools({ mode: 'detach' }); });
     window.on('closed', () => { if (mainWindow === window) { mainWindow = null; app.quit(); } });
     window.webContents.on('will-navigate', (event, url) => { if (url.split('#')[0] !== entryURL) event.preventDefault(); });
     window.webContents.on('will-redirect', event => event.preventDefault());
@@ -60,13 +70,13 @@ const locked = app.requestSingleInstanceLock();
 if (!locked) app.quit();
 else {
     app.on('second-instance', () => { if (mainWindow) { if (mainWindow.isMinimized()) mainWindow.restore(); mainWindow.show(); mainWindow.focus(); } });
-    app.whenReady().then(() => {
+    app.whenReady().then(async () => {
         session.defaultSession.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
         session.defaultSession.setPermissionCheckHandler(() => false);
         // This local-only app has no runtime network dependency.
         session.defaultSession.webRequest.onBeforeRequest({ urls: ['http://*/*', 'https://*/*', 'ws://*/*', 'wss://*/*'] }, (_details, callback) => callback({ cancel: true }));
-        createWindow();
-        app.on('activate', () => { if (!mainWindow) createWindow(); else mainWindow.focus(); });
+        await createWindow();
+        app.on('activate', () => { if (!mainWindow) createWindow().catch(error => fatal('無法建立視窗', error)); else mainWindow.focus(); });
     }).catch(error => fatal('無法啟動 WaveCanvas', error));
     app.on('window-all-closed', () => app.quit());
 }

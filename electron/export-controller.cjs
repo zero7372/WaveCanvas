@@ -12,7 +12,8 @@ function install(editor) {
     bind('selectOutput', async name => {
         if (job) throw Error('輸出進行中。');
         const safe = String(name || 'WaveCanvas Export').replace(/[<>:"/\\|?*\x00-\x1f]/g, '_').slice(0, 150);
-        const choice = await dialog.showSaveDialog(editor, { title: '輸出影片', defaultPath: safe + '.mp4', filters: [{ name: 'MP4 Video', extensions: ['mp4'] }] });
+        const directory = await require('./application-state.cjs').exportDirectory((await editor.waveCanvasSettings().get()).export, await editor.waveCanvasApplicationState().get(), editor.waveCanvasProjectPath());
+        const choice = await dialog.showSaveDialog(editor, { title: '輸出影片', defaultPath: directory ? path.join(directory, safe + '.mp4') : safe + '.mp4', filters: [{ name: 'MP4 Video', extensions: ['mp4'] }] });
         selected = choice.canceled ? null : choice.filePath;
         if (selected && !/\.mp4$/i.test(selected)) selected += '.mp4'; return Boolean(selected);
     });
@@ -75,6 +76,7 @@ function install(editor) {
             state.committing = true;
             send({ phase: 'finalizing', progress: 98 }); await fs.rename(state.temp, state.output);
             completedPath = state.output;
+            await editor.waveCanvasApplicationState().update({ lastExportDirectory: path.dirname(state.output) }).catch(error => console.error('Export directory state:', error.message));
             const result = { output: state.output, duration: info.duration, exportedDuration: count / 60, frames: count, averageCaptureMs: sumMs / count,
                 slowestCaptureMs: slowestMs, analysisMs: info.analysisMs, cacheBytes: info.cacheBytes, encodingMs: performance.now() - encodeStarted,
                 renderingMs, encoderDrainMs: performance.now() - finalEncodeStarted, peakWorkingSetBytes,

@@ -7,10 +7,12 @@ function install(window) {
     let store, storeDirectory;
     function storage() {
         const directory = app.getPath('userData');
-        if (directory !== storeDirectory) { storeDirectory = directory; store = create(directory); }
+        if (directory !== storeDirectory) { storeDirectory = directory; store = create(directory, { getRecentLimit: async () => (await window.waveCanvasSettings().get()).project.recentProjectsLimit }); }
         return store;
     }
     let current = null, pending = new Map(), registered = new Map(), queue = Promise.resolve(), projectReady = false, closeAllowed = false;
+    window.waveCanvasProjectPath = () => current?.path || null;
+    window.waveCanvasTrimRecent = limit => storage().trimRecent(limit);
     const prefix = 'wavecanvas-project:';
     function sender(event) { if (event.sender !== window.webContents || event.senderFrame !== window.webContents.mainFrame) throw new Error('Project IPC sender 無效。'); }
     function bind(name, handler) {
@@ -91,7 +93,7 @@ function install(window) {
         if (!status || typeof status.dirty !== 'boolean' || typeof status.name !== 'string') throw new Error('Project status 無效。');
         projectReady = true; window.setTitle(status.name.slice(0, 256) + (status.dirty ? ' *' : '') + ' — WaveCanvas'); return true;
     });
-    bind('finishClose', () => { closeAllowed = true; window.close(); return true; });
+    bind('finishClose', async () => { await window.waveCanvasSaveWindowState?.(); closeAllowed = true; window.close(); return true; });
     // Ask the controller even for a reported-clean session: it drains pending media refs and
     // compares the latest snapshot, avoiding an IPC status/OS-close race after an edit.
     window.on('close', event => { if (!closeAllowed && projectReady) { event.preventDefault(); window.webContents.send(prefix + 'closeRequested'); } });

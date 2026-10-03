@@ -203,3 +203,6 @@ input[type=color] { width: 48px; height: 32px; background: transparent; border: 
 .recent-project-card > div { display: grid; gap: 6px; min-width: 0; }
 .recent-project-card small { color: #97a6bb; overflow-wrap: anywhere; }
 #shell-status { white-space: pre-line; overflow-wrap: anywhere; }
+
+/* Scale only application chrome. No Stage ancestor or runtime geometry is zoomed. */
+.runtime-standalone #standalone-chrome,.runtime-standalone #home-view,.runtime-standalone #media-panel,.runtime-standalone #settings-panel,.runtime-standalone #transport,.runtime-standalone .editor-strip,.runtime-standalone .preview-heading,.runtime-standalone .preview-caption,.runtime-standalone #future-timing { zoom:var(--ui-scale,1); }

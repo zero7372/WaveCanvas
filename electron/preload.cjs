@@ -10,7 +10,8 @@ const settingsInvoke = async (name, ...args) => {
     if (!result.ok) throw new Error(result.error); return result.value;
 };
 contextBridge.exposeInMainWorld('waveCanvas', { settings: {
-    get: () => settingsInvoke('get'), update: changes => settingsInvoke('update', changes), reset: () => settingsInvoke('reset'),
+    get: () => settingsInvoke('get'), update: (changes, restoringDefaults = false) => settingsInvoke('update', changes, restoringDefaults), reset: () => settingsInvoke('reset'),
+    chooseDirectory: () => settingsInvoke('chooseDirectory'), openDataFolder: () => settingsInvoke('openDataFolder'),
     onChanged(callback) { const listener = (_event, value) => callback(value); ipcRenderer.on('wavecanvas-settings:changed', listener); return () => ipcRenderer.removeListener('wavecanvas-settings:changed', listener); }
 }, project: {
     open: recentPath => invoke('open', recentPath),
