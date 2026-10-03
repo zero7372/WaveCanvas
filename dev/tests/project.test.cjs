@@ -44,7 +44,7 @@ test('Complete three-layout settings, edited bilingual SRT/LRC timing, stable ID
     fresh.VisualizerLyrics.load('[00:01.00]New source', 'new.lrc');
     assert.notEqual(fresh.VisualizerLyrics.getDocument('primary').id, restoredDocumentId, 'new imports have a new identity, so Timing history is cleared');
 });
-test('Controller owns one fixed 5-minute scheduler across New/Open, no Untitled writes, clean skip and pagehide cleanup', async t => {
+test('Controller owns one configurable scheduler across New/Open, no unsaved writes, clean skip, Off/manual-save/re-enable and pagehide cleanup', async t => {
     const app = renderer(), events = new Map(), intervals = [], cleared = [], writes = [];
     app.crypto = crypto; app.setTimeout = setTimeout; app.clearTimeout = clearTimeout;
     app.setInterval = (callback, ms) => { intervals.push({ callback, ms }); return intervals.length; };
@@ -54,6 +54,11 @@ test('Controller owns one fixed 5-minute scheduler across New/Open, no Untitled 
     app.VisualizerFiles = { getFile: () => null, subscribe() {}, clear() {} };
     app.VisualizerLocalAudio = { getFile: () => null, clear() {} };
     app.WaveCanvasShell = { showView() {} };
+    let settings = { ...require('../../app/app-settings.js').defaults.project, askNameOnCreate: false }, settingsListener;
+    app.WaveCanvasPreferences = { ready: Promise.resolve(), get: () => ({ project: settings }), subscribe(callback) { settingsListener = callback; callback({ project: settings }); return () => {}; } };
+    app.WaveCanvasAutosaveScheduler = require('../../app/autosave-scheduler.js');
+    const createScheduler = app.WaveCanvasAutosaveScheduler;
+    app.WaveCanvasAutosaveScheduler = callback => createScheduler(callback, app);
     const incoming = project(app);
     app.waveCanvas = { project: { status: async () => {}, confirmUnsaved: async () => 1, onCloseRequested: () => () => {}, newProject: async () => {},
         save: async (value, kind) => { writes.push(kind); return { path: 'C:/saved.waveproj', project: value }; },
@@ -65,12 +70,19 @@ test('Controller owns one fixed 5-minute scheduler across New/Open, no Untitled 
     assert.equal(intervals.length, 1); assert.equal(intervals[0].ms, 300000);
     intervals[0].callback(); await new Promise(resolve => setTimeout(resolve, 10)); assert.equal(writes.length, 0);
     app.VisualizerRuntime.updateStandalone({ inputGain: 2 }); intervals[0].callback(); await new Promise(resolve => setTimeout(resolve, 10)); assert.deepEqual(writes, ['autosave']); assert.equal(app.WaveCanvasProject.getState().dirty, false);
+    settings = { ...settings, autosaveEnabled: false }; settingsListener({ project: settings });
+    app.VisualizerRuntime.updateStandalone({ inputGain: 2.5 }); assert.equal(await app.WaveCanvasProject.autosave(), false); assert.deepEqual(writes, ['autosave']);
+    assert.equal(await app.WaveCanvasProject.save(), true); assert.deepEqual(writes, ['autosave','save']);
+    settings = { ...settings, autosaveEnabled: true, autosaveIntervalMinutes: 1 }; settingsListener({ project: settings }); settingsListener({ project: settings });
+    assert.equal(intervals.length, 2); assert.equal(intervals[1].ms, 60000);
+    app.VisualizerRuntime.updateStandalone({ inputGain: 3 }); intervals[1].callback(); await new Promise(resolve => setTimeout(resolve, 10)); assert.deepEqual(writes, ['autosave','save','autosave']);
     events.get('pagehide')(); assert.equal(cleared[0], 1);
 });
 test('Canonical comparison ignores key order and save metadata, strips all temporary image URLs', () => {
     const app = renderer(); app.VisualizerRuntime.updateProperties({ logoimage: { value: 'blob:cover' }, backgroundimage: { value: 'blob:bg' } });
     const value = project(app), reversed = JSON.parse(JSON.stringify(value)); reversed.modifiedAt = 'later'; reversed.name = 'different';
-    reversed.state.media = Object.fromEntries(Object.entries(reversed.state.media).reverse());
+    assert.notEqual(model.comparison(value), model.comparison(reversed), 'rename is dirty project metadata');
+    reversed.name = value.name; reversed.state.media = Object.fromEntries(Object.entries(reversed.state.media).reverse());
     assert.equal(model.comparison(value), model.comparison(reversed)); assert.doesNotMatch(model.serialize(value), /blob:/);
     reversed.state.settings.standalone.inputGain = 2; assert.notEqual(model.comparison(value), model.comparison(reversed));
 });

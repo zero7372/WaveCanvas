@@ -1,0 +1,16 @@
+.app-dialog { width: min(440px, calc(100vw - 48px)); padding: 24px; border: 1px solid var(--line); border-radius: 10px; color: var(--text); background: var(--surface); font: 14px/1.5 system-ui, sans-serif; box-shadow: 0 20px 80px #0008; }
+.app-dialog::backdrop { background: #090b10aa; }
+.app-dialog h2 { margin: 0 0 20px; font-size: 22px; font-weight: 600; }
+.app-dialog h3 { margin: 0 0 14px; font-size: 15px; }
+.app-dialog label { display: block; margin: 12px 0 6px; }
+.app-dialog input[type=text], .app-dialog select { box-sizing: border-box; width: 100%; padding: 9px 10px; border: 1px solid #464e5c; border-radius: 6px; color: inherit; background: #171b22; font: inherit; }
+.app-dialog .preference-toggle { display: flex; gap: 10px; align-items: center; margin: 16px 0; }
+.app-dialog input[type=checkbox] { accent-color: var(--accent); }
+.app-dialog footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
+.app-dialog button { padding: 8px 14px; border: 1px solid #464e5c; border-radius: 6px; background: #2a303a; color: inherit; font: inherit; cursor: pointer; }
+.app-dialog .primary-button { background: #2d4056; border-color: #52769b; }
+.app-dialog button:disabled, .app-dialog select:disabled { opacity: .45; cursor: default; }
+.app-dialog :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.app-dialog .dialog-note { color: var(--muted); font-size: 12px; }
+.app-dialog .dialog-message { color: #f2ad9d; min-height: 1.5em; margin: 8px 0 0; }
+#preferences-reset { margin-right: auto; }

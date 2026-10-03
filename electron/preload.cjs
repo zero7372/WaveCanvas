@@ -5,7 +5,14 @@ const invoke = async (name, ...args) => {
     if (!result.ok) throw new Error(result.error);
     return result.value;
 };
-contextBridge.exposeInMainWorld('waveCanvas', { project: {
+const settingsInvoke = async (name, ...args) => {
+    const result = await ipcRenderer.invoke('wavecanvas-settings:' + name, ...args);
+    if (!result.ok) throw new Error(result.error); return result.value;
+};
+contextBridge.exposeInMainWorld('waveCanvas', { settings: {
+    get: () => settingsInvoke('get'), update: changes => settingsInvoke('update', changes), reset: () => settingsInvoke('reset'),
+    onChanged(callback) { const listener = (_event, value) => callback(value); ipcRenderer.on('wavecanvas-settings:changed', listener); return () => ipcRenderer.removeListener('wavecanvas-settings:changed', listener); }
+}, project: {
     open: recentPath => invoke('open', recentPath),
     save: (project, kind = 'save') => invoke('save', project, kind),
     collect: project => invoke('collect', project),

@@ -8,13 +8,13 @@
         button.addEventListener('click', () => {
             if (!controller) return;
             for (const menu of document.querySelectorAll('.app-menu')) menu.open = false;
-            const work = name === 'open' ? controller.open() : name === 'new' ? controller.newProject() : name === 'collect' ? controller.collect() : controller.save(name);
+            const work = name === 'open' ? controller.open() : name === 'new' ? controller.newProject() : name === 'rename' ? controller.rename() : name === 'collect' ? controller.collect() : controller.save(name);
             work.catch(error => { $('#shell-status').textContent = error.message; });
         });
     }
     const fileMenu = $('.app-menu div');
     const projectCommands = document.createDocumentFragment();
-    for (const [name, label] of [['new', '新增專案'], ['open', '開啟專案… · Ctrl+O'], ['save', '儲存 · Ctrl+S'], ['saveAs', '另存新檔… · Ctrl+Shift+S'], ['collect', '收集專案…']]) {
+    for (const [name, label] of [['new', '新增專案'], ['open', '開啟專案… · Ctrl+O'], ['rename', '重新命名專案…'], ['save', '儲存 · Ctrl+S'], ['saveAs', '另存新檔… · Ctrl+Shift+S'], ['collect', '收集專案…']]) {
         const button = document.createElement('button'); button.textContent = label; command(button, name); projectCommands.append(button);
     }
     fileMenu.prepend(projectCommands);

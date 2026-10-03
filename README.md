@@ -96,7 +96,15 @@ Electron 支援可讀 JSON `.waveproj` 專案：File → 開啟專案（Ctrl+O�
 
 專案保存完整 runtime settings、Circle／Square／Linear 個別狀態、Background、Song Info、雙語 edited lyric documents／timing／stable IDs，以及本地媒體路徑。原始 SRT／LRC 不會被 Save、Autosave 或 Collect 改寫。播放位置、Undo history、Object URL、視窗位置不保存。
 
-已存檔且 dirty 的專案每 5 分鐘檢查一次；內容相同就不寫檔。Autosave 成功視為正式保存；先在 Electron userData 的 `Backups/<projectId>/` 保存舊版，每個 projectId 保留最近 10 份。Backup 的相對媒體參照會轉成原來源絕對路徑，方便手動開啟。Untitled 不會偷偷建立 recovery／temp project。關閉、Open／New 前若有變更，會詢問儲存／不儲存／取消。
+已存檔且 dirty 的專案依 Preferences 間隔檢查（預設 5 分鐘，可選 1／3／5／10／15）；內容相同就不寫檔。Autosave 可關閉，手動儲存與關閉保護仍正常。Autosave 成功視為正式保存；先在 Electron userData 的 `Backups/<projectId>/` 保存舊版，每個 projectId 保留最近 10 份。Backup 的相對媒體參照會轉成原來源絕對路徑，方便手動開啟。從未存檔的專案不會偷偷建立 recovery／temp project。關閉、Open／New 前若有變更，會詢問儲存／不儲存／取消。
+
+### Preferences 與專案名稱
+
+Desktop File → Preferences… 提供「建立新專案時要求輸入名稱」、Autosave 開關與間隔。取消／Esc 捨棄草稿；只有儲存才保存並套用。Restore Defaults 需確認，仍須按儲存；它不清除專案、Recent 或 backups。設定為獨立 `wavecanvas-settings` v1 JSON，Main 使用 `app.getPath('userData')/settings.json` 原子保存，不寫進 `.waveproj` 或 repo；Browser 中入口停用，不另外使用 LocalStorage 保存 Preferences。
+
+New Project 預設詢問名稱，可取消、稍後命名（Untitled）或建立。名稱會 trim，最多 128 字；File → 重新命名專案… 只更動 metadata 並標記 dirty，不移動或重新命名檔案。Window title 使用 `<名稱> * — WaveCanvas` 表示 dirty。專案顯示名稱與 `projectPath` 分離，有名稱但尚未存檔的專案 Ctrl+S 仍開啟 Save As。
+
+`.waveproj` v1 保留 `name` 顯示文字；缺少名稱的舊專案從檔案 basename fallback。Save As 不用選定檔名覆蓋名稱，預設檔名與 Collect folder/file 使用 sanitized project name，移除 Windows 非法字元、處理 reserved names 與空值；Recent 在成功 Open／Save 後更新 metadata。完整驗證與限制見 [App Polish & Preferences v1 report](dev/reports/APP-POLISH-PREFERENCES-V1-REPORT.md)。
 
 收集專案只複製素材，建立 `<專案名稱>/<專案名稱>.waveproj` 與 `media/audio/`、`artwork/`、`background/`、`lyrics/`。新專案使用 relative paths，可整包搬移；缺檔中止收集，重名加安全序號，目的資料夾已存在則建立新名稱。完成後可選切換或繼續原專案。Save As／Collect 保留 projectId。Recent Projects 保存於 userData，最多 10 筆；缺失項目只在使用者按移除時刪除記錄。
 

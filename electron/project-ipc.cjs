@@ -2,6 +2,7 @@
 const { ipcMain, dialog, app } = require('electron');
 const path = require('node:path'), fs = require('node:fs/promises'), crypto = require('node:crypto');
 const model = require('../app/project-model.js'), { create, extensions, identity } = require('./project-store.cjs');
+const { sanitizeProjectFilename } = require('../app/project-names.js');
 function install(window) {
     let store, storeDirectory;
     function storage() {
@@ -58,9 +59,9 @@ function install(window) {
         await checkReferences(project); let file = current?.path;
         if (kind === 'autosave' && !file) return null;
         if (!file || kind === 'saveAs') {
-            const choice = await dialog.showSaveDialog(window, { title: '另存 WaveCanvas 專案', defaultPath: file || project.name + '.waveproj', filters: [{ name: 'WaveCanvas Project', extensions: ['waveproj'] }] });
+            const filename = sanitizeProjectFilename(project.name) + '.waveproj';
+            const choice = await dialog.showSaveDialog(window, { title: '另存 WaveCanvas 專案', defaultPath: file ? path.join(path.dirname(file), filename) : filename, filters: [{ name: 'WaveCanvas Project', extensions: ['waveproj'] }] });
             if (choice.canceled) return null; file = choice.filePath; if (!/\.waveproj$/i.test(file)) file += '.waveproj';
-            project = model.validate(project); project.name = path.basename(file, path.extname(file));
         }
         // Save As must rebase relative references without redirecting them to another folder.
         project = model.validate(project);
@@ -88,7 +89,7 @@ function install(window) {
     bind('new', () => { current = null; pending.clear(); registered.clear(); return true; });
     bind('status', status => {
         if (!status || typeof status.dirty !== 'boolean' || typeof status.name !== 'string') throw new Error('Project status 無效。');
-        projectReady = true; window.setTitle((status.dirty ? '* ' : '') + status.name.slice(0, 200) + ' — WaveCanvas'); return true;
+        projectReady = true; window.setTitle(status.name.slice(0, 256) + (status.dirty ? ' *' : '') + ' — WaveCanvas'); return true;
     });
     bind('finishClose', () => { closeAllowed = true; window.close(); return true; });
     // Ask the controller even for a reported-clean session: it drains pending media refs and

@@ -29,6 +29,7 @@ function createWindow() {
     mainWindow.setMenu(null);
     const window = mainWindow;
     require('./project-ipc.cjs').install(window);
+    require('./settings-ipc.cjs').install(window);
     window.waveCanvasExportController = require('./export-controller.cjs').install(window);
     window.once('ready-to-show', () => { window.show(); if (dev) window.webContents.openDevTools({ mode: 'detach' }); });
     window.on('closed', () => { if (mainWindow === window) { mainWindow = null; app.quit(); } });

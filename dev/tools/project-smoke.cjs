@@ -51,6 +51,7 @@ async function run() {
         await fs.writeFile(primary, originalPrimary); await fs.writeFile(secondary, '[offset:30]\n[00:01.00]Open the gate\n[00:10.00]The night remembers\n');
         check(await r(`typeof require==='undefined'&&typeof process==='undefined'&&typeof waveCanvas.project.save==='function'&&!waveCanvas.project.fs&&!waveCanvas.project.ipcRenderer`), 'Narrow project preload; no Node / raw IPC / fs');
         check(await r(`WaveCanvasProject.autosave().then(result=>!result&&!WaveCanvasProject.getState().projectPath)`), 'Untitled never autosaves');
+        await r('WaveCanvasPreferences.update({project:{askNameOnCreate:false}})');
         await r('WaveCanvasProject.newProject()'); await r(`document.querySelector('[data-template="circle"]').click();true`);
         check(await r('WaveCanvasProject.getState().dirty'), 'Template mutation marks dirty');
         for (const [selector, file] of [['#audio-file', wav], ['#setting-logoimage', cover], ['#setting-backgroundimage', cover], ['#lyrics-file', primary], ['#lyrics-secondary-file', secondary]]) { await session.select(selector, file); if(selector.includes('setting-'))check(await r(`VisualizerFiles.getName(${JSON.stringify(selector.includes('logoimage')?'logoimage':'backgroundimage')})==='封面 圖片.png'`),selector+' image committed'); }

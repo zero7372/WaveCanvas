@@ -3,17 +3,18 @@
     const api = window.waveCanvas?.project;
     if (!api || window.VisualizerRuntime.mode !== 'standalone') return;
     const runtime = window.VisualizerRuntime, serializer = window.WaveCanvasProjectSerializer, model = window.WaveCanvasProjectModel;
+    const preferences = window.WaveCanvasPreferences;
     const audio = document.querySelector('#local-audio'), listeners = new Set(), knownFiles = new WeakMap(), pendingFiles = new WeakSet();
     const observedImages = new Map([['cover', window.VisualizerFiles.getFile('logoimage')], ['background', window.VisualizerFiles.getFile('backgroundimage')]]);
     let metadata, media, missingMedia = {}, projectPath = null, lastSavedHash = '', dirty = false, saving = false, restoring = false, failure = '', busy = false;
     let checkTimer = null, tracking = Promise.resolve();
-    function initialize() {
-        metadata = { projectId: crypto.randomUUID(), name: 'Untitled', appVersion: '0.1.0', createdAt: new Date().toISOString(), modifiedAt: null };
+    function initialize(name = 'Untitled') {
+        metadata = { projectId: crypto.randomUUID(), name, appVersion: '0.1.0', createdAt: new Date().toISOString(), modifiedAt: null };
         media = Object.fromEntries(model.slots.map(slot => [slot, null]));
         missingMedia = {};
     }
     initialize();
-    function state() { return { name: metadata.name, projectPath, dirty, saving, failure, busy, missingMedia: { ...missingMedia } }; }
+    function state() { return { name: metadata.name, projectName: metadata.name, projectPath, dirty, saving, failure, busy, missingMedia: { ...missingMedia } }; }
     function notify() {
         for (const callback of listeners) callback(state());
         api.status({ name: metadata.name, dirty }).catch(error => console.error('Project title:', error));
@@ -73,7 +74,7 @@
     async function save(kind = 'save') {
         await tracking; check();
         if (saving || restoring) return false;
-        if (kind === 'autosave' && (!projectPath || !dirty)) return false;
+        if (kind === 'autosave' && (!preferences.get().project.autosaveEnabled || !projectPath || !dirty)) return false;
         const value = snapshot(), before = hash(value);
         if (kind === 'autosave' && before === lastSavedHash) { dirty = false; notify(); return false; }
         for (const [slot, file] of [['audio', window.VisualizerLocalAudio.getFile()], ['cover', window.VisualizerFiles.getFile('logoimage')], ['background', window.VisualizerFiles.getFile('backgroundimage')]]) {
@@ -83,7 +84,7 @@
         try {
             const result = await api.save(value, kind);
             if (!result) return false;
-            projectPath = result.path; metadata = { ...metadata, name: result.project.name, modifiedAt: result.project.modifiedAt };
+            projectPath = result.path; metadata = { ...metadata, modifiedAt: result.project.modifiedAt };
             for (const slot of model.slots) if (media[slot] === value.state.media[slot]) media[slot] = result.project.state.media[slot];
             lastSavedHash = hash(result.project); check(); window.dispatchEvent(new Event('wavecanvas-recent-change')); return !dirty;
         } catch (error) { failure = (kind === 'autosave' ? '自動儲存失敗：' : '儲存失敗：') + error.message; dirty = true; console.error(failure); return false; }
@@ -154,6 +155,9 @@
     }
     async function open(recentPath) { return operation(async () => { if (!await guard()) return false; const result = await api.open(recentPath); if (!result) return false; await restore(result); return true; }); }
     async function newProject() { return operation(async () => {
+        await preferences.ready;
+        const name = preferences.get().project.askNameOnCreate ? await window.WaveCanvasProjectNameDialog.show('new') : 'Untitled';
+        if (name === null) return false;
         if (!await guard()) return false;
         restoring = true;
         try {
@@ -164,18 +168,25 @@
                 layouts: Object.fromEntries(window.VisualizerFactoryDefaults.layouts.map(layout => {
                     const defaults = window.VisualizerFactoryDefaults.get(layout); return [layout, { visualizer: defaults.standalone.visualizer, properties: defaults.properties, text: defaults.standalone.text }];
                 })) });
-            initialize(); projectPath = null; dirty = false; failure = ''; lastSavedHash = hash(snapshot()); window.WaveCanvasShell.showView('EDITOR');
+            initialize(name); projectPath = null; dirty = false; failure = ''; lastSavedHash = hash(snapshot()); window.WaveCanvasShell.showView('EDITOR');
         } finally { restoring = false; notify(); }
+        return true;
+    }); }
+    async function rename() { return operation(async () => {
+        const name = await window.WaveCanvasProjectNameDialog.show('rename', metadata.name);
+        if (name === null) return false;
+        if (name !== metadata.name) { metadata.name = name; markProjectDirty(); }
         return true;
     }); }
     async function collect() { return operation(async () => { await tracking; const result = await api.collect(snapshot()); if (!result) return false; if (result.switch) await restore(result.loaded); else { failure = '專案已收集完成：' + result.path; notify(); } return true; }); }
     lastSavedHash = hash(snapshot());
     // One scheduler for the lifetime of this controller, independent of Open/New.
-    const interval = setInterval(() => { if (!window.WaveCanvasExport?.getState().busy && !busy && !saving && projectPath && dirty) operation(() => save('autosave')); }, 5 * 60 * 1000);
+    const scheduler = window.WaveCanvasAutosaveScheduler(() => { if (!window.WaveCanvasExport?.getState().busy && !busy && !saving && projectPath && dirty) operation(() => save('autosave')); });
+    const unsubscribeSettings = preferences.subscribe(value => scheduler.configure(value.project));
     const unsubscribeClose = api.onCloseRequested(() => operation(async () => { if (await guard()) await api.finishClose(); }));
-    window.addEventListener('pagehide', () => { clearInterval(interval); clearTimeout(checkTimer); unsubscribeClose(); });
+    window.addEventListener('pagehide', () => { scheduler.dispose(); unsubscribeSettings(); clearTimeout(checkTimer); unsubscribeClose(); });
     notify();
-    window.WaveCanvasProject = Object.freeze({ getState: state, snapshot, markProjectDirty, check, open, newProject, collect,
+    window.WaveCanvasProject = Object.freeze({ getState: state, snapshot, markProjectDirty, check, open, newProject, collect, rename,
         save: kind => operation(() => save(kind)), autosave: () => operation(() => save('autosave')),
         subscribe(callback) { listeners.add(callback); callback(state()); return () => listeners.delete(callback); } });
 }());

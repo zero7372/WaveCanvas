@@ -1,6 +1,7 @@
 'use strict';
 const fs = require('node:fs/promises'), path = require('node:path'), crypto = require('node:crypto');
 const model = require('../app/project-model.js');
+const { sanitizeProjectFilename } = require('../app/project-names.js');
 const extensions = { audio: /\.(wav|mp3|flac|ogg|m4a|aac|opus)$/i, cover: /\.(png|jpe?g|webp)$/i,
     background: /\.(png|jpe?g|webp)$/i, primary: /\.(lrc|srt)$/i, secondary: /\.(lrc|srt)$/i };
 const identity = file => path.resolve(file).toLowerCase();
@@ -50,7 +51,7 @@ function create(userData, options = {}) {
     async function open(file) {
         if (!/\.waveproj$/i.test(file)) throw new Error('請選擇 .waveproj 專案。');
         if ((await io.stat(file)).size > 16 * 1024 * 1024) throw new Error('專案檔案過大。');
-        const project = model.parse(await io.readFile(file, 'utf8'));
+        const project = model.parse(await io.readFile(file, 'utf8'), path.basename(file, path.extname(file)) || 'Untitled');
         return { project, path: path.resolve(file), media: await media(project, file) };
     }
     async function backup(file, projectId) {
@@ -81,7 +82,7 @@ function create(userData, options = {}) {
         const sources = await media(project, currentPath || path.join(process.cwd(), 'Untitled.waveproj'));
         const missing = Object.entries(sources).filter(([, entry]) => entry?.missing);
         if (missing.length) throw new Error('收集已中止，找不到媒體：\n' + missing.map(([slot, entry]) => slot + ': ' + entry.path).join('\n'));
-        const name = safeName(project.name); let directory;
+        const name = sanitizeProjectFilename(project.name); let directory;
         for (let suffix = 0; suffix < 1000; suffix++) {
             directory = path.join(parent, name + (suffix ? '_' + (suffix + 1) : ''));
             try { await io.mkdir(directory); break; } catch (error) { if (error.code !== 'EEXIST' || suffix === 999) throw error; }

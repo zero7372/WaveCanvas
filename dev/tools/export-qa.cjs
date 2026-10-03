@@ -52,6 +52,7 @@ await session.renderer('VisualizerLyrics.load('+JSON.stringify(lrc)+',"synthetic
 if (!process.argv.includes('--layouts')) {
 const outputs=[];
 for(let repeat=0;repeat<2;repeat++){
+ if(repeat===1){const before=await session.renderer('JSON.stringify(WaveCanvasProject.snapshot())');await session.renderer('WaveCanvasPreferences.update({project:{askNameOnCreate:false,autosaveEnabled:false,autosaveIntervalMinutes:1}})');check(before===await session.renderer('JSON.stringify(WaveCanvasProject.snapshot())'),'Preferences changes leave export project snapshot unchanged');}
  await session.evaluate(repeat===0?'projectQA.window.minimize();true':'projectQA.window.restore();projectQA.window.setSize(1100,700);projectQA.window.webContents.setZoomFactor(1.25);true');
  await fs.writeFile(path.join(artifacts,"snapshot-"+repeat+".json"),JSON.stringify(await session.renderer("WaveCanvasProject.snapshot()"),null,2));
  const output=path.join(artifacts,'repeat-'+repeat+'.mp4');outputs.push(output);
@@ -65,14 +66,18 @@ for(let repeat=0;repeat<2;repeat++){
 }
 
 const results=[0,1].map(i=>JSON.parse(require('fs').readFileSync(path.join(artifacts,'progress-'+i+'.json'))).find(s=>s.result).result);
-const tolerances=[];
+const tolerances=[],canvasTolerances=[];
 for(const frame of ['0','60','120']){
  const states=results.map(r=>r.diagnosticStates[frame]);
- check(JSON.stringify(states[0].samples)===JSON.stringify(states[1].samples)&&states[0].canvas===states[1].canvas&&states[0].lyrics===states[1].lyrics,'Identical audio / Canvas / lyric state at frame '+frame);
+ check(JSON.stringify(states[0].samples)===JSON.stringify(states[1].samples)&&states[0].lyrics===states[1].lyrics,'Identical audio / lyric state at frame '+frame);
+ const canvasPixels=states.map((s,i)=>{const file=path.join(artifacts,'canvas-'+i+'-'+frame+'.png');require('fs').writeFileSync(file,Buffer.from(s.canvas.split(',').pop(),'base64'));return execFileSync(path.join(root,'vendor/ffmpeg/ffmpeg.exe'),['-v','error','-i',file,'-f','rawvideo','-pix_fmt','rgba','-'],{windowsHide:true,maxBuffer:10*1024*1024});});
+ let canvasMaximum=0,canvasChanged=0;for(let i=0;i<canvasPixels[0].length;i++){const delta=Math.abs(canvasPixels[0][i]-canvasPixels[1][i]);canvasMaximum=Math.max(canvasMaximum,delta);if(delta)canvasChanged++;}
+ canvasTolerances.push({frame,maximum:canvasMaximum,changed:canvasChanged,ratio:canvasChanged/canvasPixels[0].length,pngBytesEqual:states[0].canvas===states[1].canvas});
+ check(canvasPixels[0].length===canvasPixels[1].length&&canvasMaximum<=1&&canvasChanged/canvasPixels[0].length<.001,'Canvas pixel tolerance at frame '+frame+' (same max 1/255, <0.1% channels as full compositor)');
  const pixels=states.map((s,i)=>{const file=path.join(artifacts,'composite-'+i+'-'+frame+'.png');require('fs').writeFileSync(file,Buffer.from(s.composite,'base64'));return execFileSync(path.join(root,'vendor/ffmpeg/ffmpeg.exe'),['-v','error','-i',file,'-f','rawvideo','-pix_fmt','rgba','-'],{windowsHide:true,maxBuffer:10*1024*1024});});
  let maximum=0,changed=0;for(let i=0;i<pixels[0].length;i++){const delta=Math.abs(pixels[0][i]-pixels[1][i]);maximum=Math.max(maximum,delta);if(delta)changed++;}tolerances.push({frame,maximum,changed,ratio:changed/pixels[0].length});check(maximum<=1&&changed/pixels[0].length<.001,'Full compositor tolerance at frame '+frame+' (max 1/255, <0.1% channels)');
 }
-const ssim=require('child_process').spawnSync(path.join(root,'vendor/ffmpeg/ffmpeg.exe'),['-i',outputs[0],'-i',outputs[1],'-lavfi','ssim','-f','null','-'],{encoding:'utf8',windowsHide:true});const score=Number(/All:([0-9.]+)/.exec(ssim.stderr)?.[1]);check(score>=.99,'Repeated decoded video SSIM >=0.99');await fs.writeFile(path.join(artifacts,'determinism.json'),JSON.stringify({tolerances,ssim:score,bitIdentical:false,note:'Chromium antialias/compositor rounding within tolerance; semantic states exact'},null,2));
+const ssim=require('child_process').spawnSync(path.join(root,'vendor/ffmpeg/ffmpeg.exe'),['-i',outputs[0],'-i',outputs[1],'-lavfi','ssim','-f','null','-'],{encoding:'utf8',windowsHide:true});const score=Number(/All:([0-9.]+)/.exec(ssim.stderr)?.[1]);check(score>=.99,'Repeated decoded video SSIM >=0.99');await fs.writeFile(path.join(artifacts,'determinism.json'),JSON.stringify({tolerances,canvasTolerances,ssim:score,bitIdentical:false,note:'Audio/lyric state exact; decoded Canvas and compositor use existing Phase 1 compositor tolerance. PNG byte equality retained as a diagnostic because of baseline rounding.'},null,2));
 const cancelPath=path.join(artifacts,'canceled.mp4');await fs.writeFile(cancelPath,'existing-target');await session.evaluate('projectQA.savePaths.push('+JSON.stringify(cancelPath)+');true');await session.renderer('exportQAProgress=[];WaveCanvasExport.start();true');await wait(300);await session.renderer('document.querySelector("#export-progress button").click();true');for(let i=0;i<100;i++){if(await session.renderer('!WaveCanvasExport.getState().busy'))break;await wait(100);}
 check(await fs.readFile(cancelPath,'utf8')==='existing-target','Cancel preserves an existing output target');check(!(await fs.readdir(artifacts)).some(n=>n.includes('.partial.mp4')),'Cancel cleans partial output after process exit');check(await session.renderer('!document.querySelector("#editor-view").inert'),'Cancel restores Editor');
 const missingPath=path.join(artifacts,'missing-ffmpeg.mp4');

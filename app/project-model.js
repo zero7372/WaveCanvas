@@ -39,13 +39,16 @@
         }
         if (value.sourceWarnings && !Array.isArray(value.sourceWarnings)) throw new Error('歌詞 warnings 無效。');
     }
-    function validate(project) {
+    function validate(project, fallbackName = 'Untitled') {
         safe(project);
         if (!object(project) || project.format !== 'wavecanvas-project') throw new Error('不是 WaveCanvas 專案。');
         if (project.version > 1) throw new Error('專案版本較新，無法由目前 WaveCanvas 開啟。');
         if (project.version !== 1) throw new Error('不支援的專案版本。');
         if (typeof project.projectId !== 'string' || !/^[a-f0-9-]{36}$/i.test(project.projectId)) throw new Error('projectId 無效。');
-        if (typeof project.name !== 'string' || !project.name.trim() || project.name.length > 200) throw new Error('專案名稱無效。');
+        project = JSON.parse(JSON.stringify(project));
+        if (project.name === undefined) project.name = fallbackName;
+        if (typeof project.name !== 'string' || !project.name.trim() || project.name.length > 256 || /[\x00-\x1f\x7f]/.test(project.name)) throw new Error('專案名稱無效。');
+        project.name = project.name.trim();
         if (!object(project.state) || !object(project.state.settings) || !object(project.state.media) || !object(project.state.lyrics)) throw new Error('專案 state 無效。');
         const settings = project.state.settings;
         if (!object(settings.properties) || !object(settings.standalone) || !object(settings.layouts)
@@ -57,13 +60,13 @@
         document(project.state.lyrics.primary, 'primary'); document(project.state.lyrics.secondary, 'secondary');
         return JSON.parse(JSON.stringify(project));
     }
-    function parse(text) {
+    function parse(text, fallbackName) {
         if (typeof text !== 'string' || text.length > 16 * 1024 * 1024) throw new Error('專案必須是小於 16 MB 的 JSON。');
         let value; try { value = JSON.parse(text.replace(/^\uFEFF/, '')); } catch { throw new Error('專案 JSON 格式損壞。'); }
-        return validate(value);
+        return validate(value, fallbackName);
     }
-    // Identity / timestamps / name are metadata, not mutable working state.
-    function comparison(project) { return JSON.stringify(stable(project.state)); }
+    // Name is mutable project metadata; identity and timestamps do not affect dirty state.
+    function comparison(project) { return JSON.stringify(stable({ name: project.name, state: project.state })); }
     function serialize(project) { return JSON.stringify(stable(validate(project)), null, 2) + '\n'; }
     return Object.freeze({ slots, validate, parse, comparison, serialize, document });
 }));
