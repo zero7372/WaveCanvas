@@ -1,0 +1,84 @@
+{
+  "regression": {
+    "project-development": {
+      "passed": 51,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\project-development-1791045649892\\results.json"
+    },
+    "preferences-development": {
+      "passed": 28,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\preferences-development-1791045658446\\results.json"
+    },
+    "options-development": {
+      "passed": 43,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\preferences-development-1791045663306\\options-results.json"
+    },
+    "fonts-development": {
+      "passed": 22,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\preferences-development-1791045681399\\font-results.json"
+    },
+    "electron-development": {
+      "passed": 48,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\electron-development\\results.json"
+    },
+    "export-development": {
+      "passed": 34,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\export-development-1791045693452\\results.json"
+    },
+    "project-packaged": {
+      "passed": 51,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\project-packaged-1791045823517\\results.json"
+    },
+    "preferences-packaged": {
+      "passed": 28,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\preferences-packaged-1791045832070\\results.json"
+    },
+    "options-packaged": {
+      "passed": 43,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\preferences-packaged-1791045837002\\options-results.json"
+    },
+    "fonts-packaged": {
+      "passed": 22,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\preferences-packaged-1791045852201\\font-results.json"
+    },
+    "electron-packaged": {
+      "passed": 48,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\electron-packaged\\results.json"
+    },
+    "export-packaged": {
+      "passed": 34,
+      "failed": 0,
+      "source": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\export-packaged-1791045864033\\results.json"
+    },
+    "browser": {
+      "passed": 589,
+      "failed": 10,
+      "newFailures": 0,
+      "exactPriorFailureLabelsMatch": true
+    },
+    "node": {
+      "passed": 125,
+      "failed": 0
+    }
+  },
+  "isolatedChecks": 22,
+  "avDifferenceSeconds": 0.013878000000005386,
+  "fullSSIM": 0.999062,
+  "shortSSIM": 1,
+  "shortTimeRatio": 0.9061238824174525,
+  "fullTimeRatio": 0.7559368847940657,
+  "sourceBytes": 52352069,
+  "sourceSha256": "e33292b8e4dc2a8218aaf4289434fb0c8d3aa2c7d816c96bad1731e9bbb9b255",
+  "installerBytes": 133533842,
+  "installerSha256": "be1b61ebd7812bcb169182e0e7db871e3ca61feb2af50f2e96c6f34983ee25b6"
+}

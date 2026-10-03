@@ -1,0 +1,26 @@
+﻿[
+    {
+        "pass":  true,
+        "label":  "App closed before uninstall"
+    },
+    {
+        "pass":  true,
+        "label":  "Controlled installer uninstall succeeds"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall removes app executable"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall removes Installed Apps entry"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall removes project association"
+    },
+    {
+        "pass":  false,
+        "label":  "Uninstall removes shortcuts"
+    }
+]

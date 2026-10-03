@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Installed release API exposes canonical version / source info"
+    },
+    {
+      "pass": true,
+      "label": "Installed source info states controlled co-delivery readiness and unpublished status"
+    },
+    {
+      "pass": true,
+      "label": "Installed Open Source Licenses UI displays updated notices"
+    }
+  ]
+}

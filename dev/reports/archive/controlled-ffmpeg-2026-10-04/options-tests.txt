@@ -1,0 +1,49 @@
+
+> wavecanvas@1.0.0 options:test
+> node dev/tools/options-smoke.cjs
+
+PASS Native userData switch isolates startup before renderer initialization
+PASS Home default startup clean
+PASS Data folder narrow Main action uses isolated userData
+PASS Recent 10 to 5 preference Save immediately trims in correct order
+PASS Cancel discards new Interface / Playback draft
+PASS UI Save persists/apply all new preference groups
+PASS New media uses default volume; autoplay Off
+PASS Save volume preference leaves current session volume intact
+PASS New media autoplay On / default volume zero
+PASS Default volume one on next load
+PASS Decode failure never autoplay
+PASS Save project for startup roundtrip
+PASS UI scale 0.8 keeps canonical Stage / project snapshot / DPR
+PASS Chrome and Preferences usable at 0.8
+PASS UI scale 0.9 keeps canonical Stage / project snapshot / DPR
+PASS UI scale 1 keeps canonical Stage / project snapshot / DPR
+PASS Chrome and Preferences usable at 1
+PASS UI scale 1.1 keeps canonical Stage / project snapshot / DPR
+PASS UI scale 1.25 keeps canonical Stage / project snapshot / DPR
+PASS Chrome and Preferences usable at 1.25
+PASS Close confirmation Off still guards New
+PASS Close confirmation Off still guards Open
+PASS Confirm On dirty close Cancel keeps app open
+PASS Confirm Off dirty close exits without prompt
+PASS All preference groups persist quit / restart
+PASS Startup reopens valid project through loader, clean and silent even autoplay On
+PASS Normal window bounds restored across restart
+PASS User initiated project load autoplay On
+PASS Missing project media never autoplay
+PASS Choose Folder stays draft before Save
+PASS Custom export directory Unicode/spaces native dialog default
+PASS Project folder default location / filename retained
+PASS Last-used native default; canceled Save dialog preserves remembered directory
+PASS Deleted custom directory falls back Last-used in native dialog
+PASS Restore defaults stays draft until Save
+PASS UI Restore Defaults Save resets every group and preserves raw Recent history
+PASS Restore defaults preserves remembered state and Recent history
+PASS Remember bounds Off ignores old state on restart
+PASS Maximized state restores
+PASS Startup missing safely falls back Home
+PASS Startup invalid safely falls back Home
+PASS Startup offscreen safely falls back Home
+PASS Offscreen restore uses visible factory position
+Options: 43 passed / 0 failed
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\preferences-development-1791045663306

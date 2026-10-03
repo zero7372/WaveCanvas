@@ -1,0 +1,53 @@
+
+> wavecanvas@1.0.0 electron:test:build
+> node dev/tools/electron-smoke.cjs --packaged
+
+PASS contextIsolation / no Node / sandbox
+PASS Project title / no auto DevTools in start or build
+PASS Direct local file loading without server
+PASS Renderer has no Node / native execution bridge
+PASS Home visible
+PASS All template / Recent thumbnails decode locally
+PASS Local stylesheets apply
+PASS circle template opens Editor
+PASS square template opens Editor
+PASS linear template opens Editor
+PASS HTML File input imports local WAV
+PASS Web Audio playback starts
+PASS Existing analyser / FFT / bass reaction produces signal
+PASS circle renders with live audio signal
+PASS square renders with live audio signal
+PASS linear renders with live audio signal
+PASS Pause
+PASS Seek preserves decimal time
+PASS Cover import uses existing image cache
+PASS Replacing Cover revokes previous URL
+PASS Primary SRT + Secondary LRC bilingual import
+PASS Existing Lyrics renderer shows SRT text
+PASS Primary ... interlude
+PASS Primary LRC + Secondary SRT import
+PASS Waveform decodes and caches local audio
+PASS Fine adjust
+PASS Undo / Redo
+PASS Manual timestamp edit
+PASS Drag retime uses existing handler
+PASS Timing zoom / fit
+PASS Preset file import
+PASS Preset / Unicode LRC request native Chromium downloads
+PASS Factory defaults / Reset
+PASS Replacing Audio revokes previous URL
+PASS Clearing Audio revokes URL
+PASS Clearing Cover removes image source
+PASS Owned URLs remain bounded after media replacement/clear
+PASS No Renderer errors: []
+PASS Preset and LRC downloads complete
+PASS Downloaded 桌面測試.json contains valid Unicode data
+PASS Downloaded primary-timed.lrc contains valid Unicode data
+PASS On-disk WAV / PNG / LRC / SRT import via unchanged HTML file inputs
+PASS Minimize
+PASS Single instance restores and focuses first window
+PASS Maximize
+PASS Restore
+PASS Resize keeps stage 16:9 and Transport within viewport
+PASS Closing dirty primary window with discard exits process
+Electron packaged: 48 passed / 0 failed

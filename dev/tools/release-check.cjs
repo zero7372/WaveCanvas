@@ -43,6 +43,8 @@ if(fs.existsSync(preparation)){
     check(manifest.includes(a.sha256+'  '+a.file),'Preparation ZIP is listed in release hashes');
 }
 const gate=require('./gpl-public-gate.cjs').evaluate(root);
-fs.writeFileSync(path.join(root,'dev/reports/archive/gpl-source-2026-10-03/release-status.json'),JSON.stringify({technicalReleaseCandidate:true,signed:false,...gate},null,2)+'\n');
+const statusDirectory=path.join(root,'dev/reports/archive/controlled-ffmpeg-2026-10-04');
+fs.mkdirSync(statusDirectory,{recursive:true});
+fs.writeFileSync(path.join(statusDirectory,'release-status.json'),JSON.stringify({technicalReleaseCandidate:true,signed:false,...gate},null,2)+'\n');
 console.log('Technical release health PASS; signed=false; GPL source gate='+gate.gplSourceGate+'; publicReleaseReady='+gate.publicReleaseReady+'.');
 if(process.argv.includes('--public')&&!gate.publicReleaseReady){console.error('Public release blocked:\n'+gate.reasons.join('\n'));process.exitCode=1;}

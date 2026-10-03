@@ -1,0 +1,8 @@
+PASS Complete controlled co-delivery release passes while unpublished without invented URL
+PASS Missing complete source ZIP fails closed
+PASS Independent copied release/source material passes
+PASS Source ZIP hash mismatch fails closed
+PASS Missing co-delivery strategy fails closed
+PASS Published metadata requires a real delivery URL
+PASS Runtime/source hash mismatch fails closed
+PASS Missing controlled build recipe fails closed

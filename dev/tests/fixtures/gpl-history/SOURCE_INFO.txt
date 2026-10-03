@@ -1,0 +1,16 @@
+WaveCanvas 1.0.0 bundled FFmpeg source status: BLOCKED
+Binary: 9.0.2-essentials_build-www.gyan.dev
+Binary identities: SHA256.txt and SOURCE_MANIFEST.json
+FFmpeg upstream commit: 946fcce07b6dcd0331c8cc609192aeff5e1924f8
+x264 upstream commit: 0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee (binary/SEI r3223 0480cb0)
+Complete source asset planned: WaveCanvas-1.0.0-GPL-Source.zip
+Preparation-only asset: WaveCanvas-1.0.0-GPL-Source-PREPARATION.zip — NOT complete Corresponding Source.
+Release location: <OFFICIAL_RELEASE_URL> — unresolved metadata; must be replaced before public release.
+Direct free source delivery beside installer is planned; no written offer is made.
+Full configuration: BUILD_CONFIG.txt. External inventory: DEPENDENCIES.json.
+Selected dependency licenses in dependencies/; complete exact-source notice closure remains BLOCKED.
+Provider patches, transitive dependencies and matching build recipe remain UNKNOWN / NOT DELIVERED.
+Upstream snapshots and version mappings do not establish pristine provider source state.
+No WaveCanvas patches applied to acquired snapshots; provider patches are not assumed absent.
+Do not distribute this RC publicly until complete source delivery and release metadata pass all gates.
+publicReleaseReady=false; signed=false (separate signing status).

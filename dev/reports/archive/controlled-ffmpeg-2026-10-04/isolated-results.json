@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Feature command -version"
+    },
+    {
+      "pass": true,
+      "label": "Feature command -buildconf"
+    },
+    {
+      "pass": true,
+      "label": "Feature command -encoders"
+    },
+    {
+      "pass": true,
+      "label": "Feature command -decoders"
+    },
+    {
+      "pass": true,
+      "label": "Feature command -demuxers"
+    },
+    {
+      "pass": true,
+      "label": "Feature command -muxers"
+    },
+    {
+      "pass": true,
+      "label": "Feature command -protocols"
+    },
+    {
+      "pass": true,
+      "label": "libx264 and native AAC encoders"
+    },
+    {
+      "pass": true,
+      "label": "MP4 muxer"
+    },
+    {
+      "pass": true,
+      "label": "Controlled ffprobe version"
+    },
+    {
+      "pass": true,
+      "label": "Decode/probe/transcode WAV"
+    },
+    {
+      "pass": true,
+      "label": "Decode/probe/transcode MP3"
+    },
+    {
+      "pass": true,
+      "label": "Decode/probe/transcode FLAC"
+    },
+    {
+      "pass": true,
+      "label": "Decode/probe/transcode OGG"
+    },
+    {
+      "pass": true,
+      "label": "Decode/probe/transcode OPUS"
+    },
+    {
+      "pass": true,
+      "label": "Decode/probe/transcode M4A"
+    },
+    {
+      "pass": true,
+      "label": "Decode/probe/transcode AAC"
+    },
+    {
+      "pass": true,
+      "label": "Unchanged production BGRA pipe / libx264 medium CRF18 / 1080p60 / 300 frames / yuv420p"
+    },
+    {
+      "pass": true,
+      "label": "Native AAC and A/V duration difference < one frame"
+    },
+    {
+      "pass": true,
+      "label": "MP4 faststart moov precedes mdat"
+    },
+    {
+      "pass": true,
+      "label": "ffmpeg imports Windows system DLLs only"
+    },
+    {
+      "pass": true,
+      "label": "ffprobe imports Windows system DLLs only"
+    }
+  ],
+  "directory": "H:\\WaveCanvas\\Audio visualizer\\dev\\ffmpeg-build\\output",
+  "binaries": [
+    {
+      "file": "ffmpeg.exe",
+      "bytes": 32895488,
+      "sha256": "31d7c4ea1a71e50cef1132782779742f3f4aae53015e2c0765db3b303ea81d13"
+    },
+    {
+      "file": "ffprobe.exe",
+      "bytes": 32694272,
+      "sha256": "95184847a8d81488180abc16178b52d12a93acb437f30d55a161b9dbfc8359d6"
+    }
+  ]
+}

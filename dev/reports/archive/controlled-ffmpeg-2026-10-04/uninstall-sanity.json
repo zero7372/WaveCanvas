@@ -1,0 +1,46 @@
+﻿[
+    {
+        "pass":  true,
+        "label":  "App closed before uninstall"
+    },
+    {
+        "pass":  true,
+        "label":  "Controlled installer uninstall succeeds"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall removes app executable"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall removes Installed Apps entry"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall removes project association"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall removes shortcuts"
+    },
+    {
+        "pass":  true,
+        "label":  "Uninstall preserves normal user business files and real project/media"
+    },
+    {
+        "pass":  true,
+        "label":  "Verified controlled installer restores installed app"
+    },
+    {
+        "pass":  true,
+        "label":  "Reinstall preserves business/project files"
+    },
+    {
+        "pass":  true,
+        "label":  "Reinstalled controlled binary identity ffmpeg.exe"
+    },
+    {
+        "pass":  true,
+        "label":  "Reinstalled controlled binary identity ffprobe.exe"
+    }
+]

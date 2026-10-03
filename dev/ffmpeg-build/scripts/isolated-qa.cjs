@@ -2,7 +2,9 @@
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'../../..'),directory=path.resolve(process.argv[2]||path.join(root,'dev/ffmpeg-build/output'));
 const output=path.join(root,'dev/ffmpeg-build/workspace/qa');fs.mkdirSync(output,{recursive:true});
-const ffmpeg=path.join(directory,'ffmpeg.exe'),ffprobe=path.join(directory,'ffprobe.exe'),old=path.join(root,'vendor/ffmpeg/ffmpeg.exe');
+const ffmpeg=path.join(directory,'ffmpeg.exe'),ffprobe=path.join(directory,'ffprobe.exe');
+const fixtureRoot=path.join(root,'dev/tests/fixtures/controlled-ffmpeg-audio');
+const fixtureManifest=JSON.parse(fs.readFileSync(path.join(fixtureRoot,'MANIFEST.json'),'utf8'));
 const run=(exe,args)=>cp.execFileSync(exe,args,{encoding:'utf8',windowsHide:true,maxBuffer:16000000});
 const checks=[];const check=(value,label)=>{checks.push({pass:!!value,label});assert.ok(value,label);console.log('PASS '+label);};
 async function main(){
@@ -18,7 +20,11 @@ async function main(){
         const fixtures=[['wav','pcm_s16le'],['mp3','libmp3lame'],['flac','flac'],['ogg','libvorbis'],['opus','libopus'],['m4a','aac'],['aac','aac']];
         for(const [extension,codec] of fixtures){
             const file=path.join(output,'input.'+extension);
-            if(!fs.existsSync(file))run(old,['-v','error','-y','-f','lavfi','-i','sine=frequency=440:sample_rate=48000','-t','6','-c:a',codec,file]);
+            if(['mp3','ogg','opus'].includes(extension)){
+                const content=fs.readFileSync(path.join(fixtureRoot,'input.'+extension));
+                assert.equal(crypto.createHash('sha256').update(content).digest('hex'),fixtureManifest.files['input.'+extension]);
+                fs.writeFileSync(file,content);
+            }else run(ffmpeg,['-v','error','-y','-f','lavfi','-i','sine=frequency=440:sample_rate=48000','-t','6','-c:a',codec,file]);
             const target=path.join(output,'decoded-'+extension+'.m4a');
             run(ffmpeg,['-v','error','-y','-i',file,'-t','1','-c:a','aac',target]);
             const probe=JSON.parse(run(ffprobe,['-v','error','-show_streams','-of','json',target]));

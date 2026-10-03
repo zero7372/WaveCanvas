@@ -36,6 +36,25 @@ with zipfile.ZipFile(archive) as z:
         assert any(n.startswith(directory) for n in names), directory
     for item in [manifest['ffmpegSource'], manifest['libx264Source']]:
         assert hashlib.sha256(z.read('upstream/' + item['file'])).hexdigest() == item['archiveSha256']
+    build = json.loads(z.read(manifest['buildManifest']))
+    closure = json.loads(z.read(manifest['closureReview']))
+    assert build['output'] == manifest['output']
+    assert build['patches'] == [] and build['sourceVerification']['sourceModifications'] == []
+    assert build['sourceVerification']['status'] == 'PASS' and closure['status'] == 'PASS'
+    actual = {p.replace('\\', '/').split('/')[-1] for p in build['linkedArchives']}
+    assert actual == {a for group in closure['groups'] for a in group['archives']}
+    import io
+    count = 0
+    for component, source in build['sources'].items():
+        data = z.read('upstream/' + source['archive'])
+        assert hashlib.sha256(data).hexdigest() == source['archiveSha256']
+        with zipfile.ZipFile(io.BytesIO(data)) as upstream:
+            for entry in upstream.infolist():
+                if not entry.is_dir():
+                    relative = entry.filename.split('/', 1)[1]
+                    assert z.read('sources/' + component + '/' + relative) == upstream.read(entry), relative
+                    count += 1
+    assert count == build['sourceVerification']['originalFilesCompared']
     scripts = manifest['buildRecipe']['providerScripts']
     for script in scripts if isinstance(scripts, list) else [scripts]:
         assert script in hashes, 'Provider script missing: ' + script

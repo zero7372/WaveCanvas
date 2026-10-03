@@ -1,12 +1,704 @@
 {
-  "source": "https://github.com/GyanD/codexffmpeg/releases/tag/9.0.2",
-  "version": "9.0.2-essentials_build-www.gyan.dev",
-  "license": "GPL-3.0-or-later",
-  "gpl": true,
-  "libx264": true,
-  "releaseSafe": false,
-  "sha256": {
-    "ffmpeg.exe": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
-    "ffprobe.exe": "f0d36ecbbdd3bcfac3efa078c96c7271c2e68b3810595552ac3b7f17e9a65c52"
+  "schemaVersion": 1,
+  "provider": "WaveCanvas controlled FFmpeg build",
+  "sources": {
+    "ffmpeg": {
+      "tag": "n9.0.2",
+      "commit": "946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "repository": "https://github.com/FFmpeg/FFmpeg.git",
+      "archive": "FFmpeg-946fcce07b6dcd0331c8cc609192aeff5e1924f8.zip",
+      "archiveSha256": "8cffa6ccf78df6d39d57bd61baaf19e8bf0a7d590eef0d838de69932e8de3572",
+      "archiveURL": "https://codeload.github.com/FFmpeg/FFmpeg/zip/946fcce07b6dcd0331c8cc609192aeff5e1924f8"
+    },
+    "x264": {
+      "commit": "0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+      "repository": "https://code.videolan.org/videolan/x264.git",
+      "archive": "x264-0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee.zip",
+      "archiveSha256": "d8f276b5a7595ff9608890a32863dc51d8fd97454e908b4dd90ede8fb4b2490a",
+      "archiveURL": "https://code.videolan.org/api/v4/projects/videolan%2Fx264/repository/archive.zip?sha=0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee"
+    },
+    "zlib": {
+      "tag": "v1.3.2",
+      "commit": "da607da739fa6047df13e66a2af6b8bec7c2a498",
+      "repository": "https://github.com/madler/zlib.git",
+      "archive": "zlib-da607da739fa6047df13e66a2af6b8bec7c2a498.zip",
+      "archiveSha256": "21de001766abb1f5bfdfb3c23aa42d30a6bbd7eddd37131d5e7fe89c5ec068f8",
+      "archiveURL": "https://codeload.github.com/madler/zlib/zip/da607da739fa6047df13e66a2af6b8bec7c2a498"
+    }
+  },
+  "sourceVerification": {
+    "status": "PASS",
+    "originalFilesCompared": 10956,
+    "sourceModifications": []
+  },
+  "patches": [],
+  "toolchain": {
+    "os": "Windows-10-10.0.26300-SP0",
+    "architecture": "AMD64",
+    "environment": "MSYS2 UCRT64",
+    "versions": {
+      "compiler": "gcc.exe (Rev4, Built by MSYS2 project) 16.2.0\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "linker": "GNU ld (GNU Binutils) 2.47.20260726\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) a later version.\nThis program has absolutely no warranty.",
+      "nasm": "NASM version 3.02 compiled on Jul  4 2026",
+      "make": "GNU Make 4.4.1\nBuilt for x86_64-pc-cygwin\nCopyright (C) 1988-2023 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+      "pkg-config": "3.0.7"
+    },
+    "installedPackages": [
+      "base 2022.06-1",
+      "bash 5.3.020-1",
+      "bash-completion 2.18.0-1",
+      "brotli 1.2.0-1",
+      "bsdtar 3.8.9-1",
+      "bzip2 1.0.8-4",
+      "ca-certificates 20260816-1",
+      "coreutils 8.32-5",
+      "curl 8.22.0-1",
+      "dash 0.5.13.4-1",
+      "db 6.2.32-6",
+      "diffutils 3.12-1",
+      "file 5.48-1",
+      "filesystem 2026.03.06-1",
+      "findutils 4.11.0-2",
+      "gawk 5.4.1-1",
+      "gcc-libs 15.3.0-1",
+      "gdbm 1.26-1",
+      "getent 2.18.90-6",
+      "gettext 0.22.5-1",
+      "git 2.56.0-1",
+      "gmp 6.3.0-2",
+      "gnupg 2.4.9-3",
+      "grep 1~3.0-7",
+      "gzip 1.15-1",
+      "heimdal 7.8.0-7",
+      "heimdal-libs 7.8.0-7",
+      "inetutils 2.8-1",
+      "info 7.2-3",
+      "less 710-1",
+      "libargp 20260115-1",
+      "libasprintf 0.22.5-1",
+      "libassuan 3.0.2-1",
+      "libbz2 1.0.8-4",
+      "libcbor 0.14.0-2",
+      "libcurl 8.22.0-1",
+      "libdb 6.2.32-6",
+      "libedit 20240808_3.1-1",
+      "libexpat 2.8.5-1",
+      "libffi 3.8.0-1",
+      "libfido2 1.17.0-1",
+      "libgcrypt 1.12.4-1",
+      "libgdbm 1.26-1",
+      "libgettextpo 0.22.5-1",
+      "libgnutls 3.8.13-2",
+      "libgpg-error 1.61-1",
+      "libhogweed 4.0-1",
+      "libiconv 1.19-1",
+      "libidn2 2.3.8-1",
+      "libintl 0.22.5-1",
+      "libksba 1.8.1-1",
+      "liblz4 1.10.0-1",
+      "liblzma 5.8.4-1",
+      "libnettle 4.0-1",
+      "libnghttp2 1.70.0-1",
+      "libnghttp3 1.18.0-1",
+      "libngtcp2 1.25.0-1",
+      "libnpth 1.8-1",
+      "libopenssl 3.6.4-1",
+      "libp11-kit 0.26.5-1",
+      "libpcre 8.45-5",
+      "libpcre2_8 10.48-1",
+      "libpsl 0.23.2-1",
+      "libreadline 8.3.006-1",
+      "libsqlite 3.53.4-1",
+      "libssh2 1.11.1-1",
+      "libtasn1 4.21.0-1",
+      "libunistring 1.4.2-1",
+      "libutil-linux 2.40.2-2",
+      "libxcrypt 4.5.2-1",
+      "libzstd 1.5.7-1",
+      "make 4.4.1-3",
+      "mingw-w64-ucrt-x86_64-binutils 2.47-3",
+      "mingw-w64-ucrt-x86_64-cc-libs 16.2.0-4",
+      "mingw-w64-ucrt-x86_64-crt 14.0.0.r426.g4564ee4b5-1",
+      "mingw-w64-ucrt-x86_64-gcc 16.2.0-4",
+      "mingw-w64-ucrt-x86_64-gettext-runtime 1.0-1",
+      "mingw-w64-ucrt-x86_64-gmp 6.3.0-2",
+      "mingw-w64-ucrt-x86_64-headers 14.0.0.r426.g4564ee4b5-1",
+      "mingw-w64-ucrt-x86_64-isl 0.28-1",
+      "mingw-w64-ucrt-x86_64-libatomic 16.2.0-4",
+      "mingw-w64-ucrt-x86_64-libgcc 16.2.0-4",
+      "mingw-w64-ucrt-x86_64-libiconv 1.19-1",
+      "mingw-w64-ucrt-x86_64-libquadmath 16.2.0-4",
+      "mingw-w64-ucrt-x86_64-libstdc++ 16.2.0-4",
+      "mingw-w64-ucrt-x86_64-libwinpthread 14.0.0.r426.g4564ee4b5-1",
+      "mingw-w64-ucrt-x86_64-mpc 1.4.1-1",
+      "mingw-w64-ucrt-x86_64-mpfr 4.2.2-3",
+      "mingw-w64-ucrt-x86_64-nasm 3.02-1",
+      "mingw-w64-ucrt-x86_64-pkgconf 1~3.0.7-1",
+      "mingw-w64-ucrt-x86_64-tzdata 2026e-1",
+      "mingw-w64-ucrt-x86_64-windows-default-manifest 20260815-1",
+      "mingw-w64-ucrt-x86_64-winpthreads 14.0.0.r426.g4564ee4b5-1",
+      "mingw-w64-ucrt-x86_64-zlib 1.3.2-2",
+      "mingw-w64-ucrt-x86_64-zstd 1.5.7-2",
+      "mintty 1~3.8.3-1",
+      "mpfr 4.2.2-1",
+      "msys2-keyring 1~20260814-1",
+      "msys2-launcher 1.5-3",
+      "msys2-runtime 3.6.10-5",
+      "nano 9.2-1",
+      "ncurses 6.6-2",
+      "nettle 4.0-1",
+      "openssh 10.5p1-3",
+      "openssl 3.6.4-1",
+      "p11-kit 0.26.5-1",
+      "pacman 6.1.0-25",
+      "pacman-contrib 1.10.6-2",
+      "pacman-mirrors 20260129-1",
+      "perl 5.42.3-2",
+      "perl-authen-sasl 2.2100-2",
+      "perl-clone 0.50-3",
+      "perl-convert-binhex 1.125-3",
+      "perl-encode-locale 1.05-3",
+      "perl-error 0.17030-3",
+      "perl-file-listing 6.16-2",
+      "perl-html-parser 3.86-2",
+      "perl-html-tagset 3.24-2",
+      "perl-http-cookiejar 0.014-2",
+      "perl-http-cookies 6.12-2",
+      "perl-http-daemon 6.17-2",
+      "perl-http-date 6.08-2",
+      "perl-http-message 7.04-2",
+      "perl-http-negotiate 6.01-4",
+      "perl-io-html 1.004-3",
+      "perl-io-socket-ssl 2.099-2",
+      "perl-io-stringy 2.113-4",
+      "perl-libwww 6.83-3",
+      "perl-lwp-mediatypes 6.05-2",
+      "perl-mailtools 2.22-2",
+      "perl-mime-tools 5.518-2",
+      "perl-net-http 6.24-2",
+      "perl-net-smtp-ssl 1.04-3",
+      "perl-net-ssleay 1.96-2",
+      "perl-termreadkey 2.38-9",
+      "perl-timedate 2.35-2",
+      "perl-try-tiny 0.32-2",
+      "perl-uri 5.37-2",
+      "perl-www-robotrules 6.03-2",
+      "pinentry 1.3.3-1",
+      "rebase 4.5.0-5",
+      "sed 4.9-1",
+      "tar 1.35-3",
+      "time 1.10-1",
+      "tzcode 2026d-1",
+      "util-linux 2.40.2-2",
+      "wget 1.25.0-4",
+      "which 2.25-1",
+      "xz 5.8.4-1",
+      "zlib 1.3.2-1",
+      "zstd 1.5.7-1"
+    ],
+    "bootstrap": {
+      "tag": "2026-09-27",
+      "url": "https://github.com/msys2/msys2-installer/releases/download/2026-09-27/msys2-base-x86_64-20260927.sfx.exe",
+      "sha256": "ad336cccfda47758b5e15cda993fbba421115cb0b126697daef1ee4dfe37209f",
+      "bytes": 43117824,
+      "mirrors": [
+        "https://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20260927.sfx.exe"
+      ]
+    },
+    "packageArchives": {
+      "environment": "UCRT64",
+      "packages": [
+        {
+          "file": "db-6.2.32-6-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/db-6.2.32-6-x86_64.pkg.tar.zst",
+          "sha256": "41bc94acad3b53eaa92227ec34412305f648848ffbc963bcad88274517e13e8d",
+          "bytes": 49971
+        },
+        {
+          "file": "diffutils-3.12-1-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/diffutils-3.12-1-x86_64.pkg.tar.zst",
+          "sha256": "7902c8ce3d4dd69a0f5e98dc9d5c83c17b23314ba486169db57ef6e2835ce3b6",
+          "bytes": 394515
+        },
+        {
+          "file": "gdbm-1.26-1-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/gdbm-1.26-1-x86_64.pkg.tar.zst",
+          "sha256": "1f8e949be2bbe488c5644132db78ecda288c9945922e7ed2447384734e2adba2",
+          "bytes": 212954
+        },
+        {
+          "file": "git-2.56.0-1-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/git-2.56.0-1-x86_64.pkg.tar.zst",
+          "sha256": "051fc526cba4a5c732acde867cddec9dbd54653d781be3009546c611bfd82638",
+          "bytes": 7681199
+        },
+        {
+          "file": "heimdal-7.8.0-7-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/heimdal-7.8.0-7-x86_64.pkg.tar.zst",
+          "sha256": "c1e9dc49b6eaffd145abd73c8b516acca89eac64fa90031e116ac93c3b493a1e",
+          "bytes": 552333
+        },
+        {
+          "file": "heimdal-libs-7.8.0-7-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/heimdal-libs-7.8.0-7-x86_64.pkg.tar.zst",
+          "sha256": "badbf9d464fe8498668451b8d53cf84c7ec3bd0e7bcc0ea158bf6339a30a2416",
+          "bytes": 861182
+        },
+        {
+          "file": "libcbor-0.14.0-2-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/libcbor-0.14.0-2-x86_64.pkg.tar.zst",
+          "sha256": "a661826edc2d452f8d74bae2cd5974dfbcd84e23bfbfa7ea3db38ee010d7b004",
+          "bytes": 23152
+        },
+        {
+          "file": "libdb-6.2.32-6-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/libdb-6.2.32-6-x86_64.pkg.tar.zst",
+          "sha256": "27a35786f3aab14e625c02df7bcd8a9dda0da782ce4f0549a427a21316b4d179",
+          "bytes": 831918
+        },
+        {
+          "file": "libedit-20240808_3.1-1-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/libedit-20240808_3.1-1-x86_64.pkg.tar.zst",
+          "sha256": "aada8ba7dfe41fdcac28d3706c0dc7c621b7667035a5e629cb5f3af7fb3f7de0",
+          "bytes": 94059
+        },
+        {
+          "file": "libfido2-1.17.0-1-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/libfido2-1.17.0-1-x86_64.pkg.tar.zst",
+          "sha256": "30794db36fa21af67c7126a221e2cb95b177be08845bb38720a8c9f28c39cdbb",
+          "bytes": 84734
+        },
+        {
+          "file": "libgdbm-1.26-1-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/libgdbm-1.26-1-x86_64.pkg.tar.zst",
+          "sha256": "bb4b08b720dd3194db010589812e9c63bec3d29b32545e7cbd07b6443e51c5ed",
+          "bytes": 32345
+        },
+        {
+          "file": "make-4.4.1-3-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/make-4.4.1-3-x86_64.pkg.tar.zst",
+          "sha256": "af0bdba17f06fe037f0194069adaa31a8fe45f1a11381501896aea1fae37bd5d",
+          "bytes": 514683
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-binutils-2.47-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-binutils-2.47-3-any.pkg.tar.zst",
+          "sha256": "ba98af202fe71e0884bb51daf78ce10bd8a51c69528c700dcf5855e6ece06dd3",
+          "bytes": 6639046
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-cc-libs-16.2.0-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-cc-libs-16.2.0-4-any.pkg.tar.zst",
+          "sha256": "b05218ea8b8f2142d2042cd01843810f4cf9345af6e5e7fe39395590cd55b2dc",
+          "bytes": 2377
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-crt-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-crt-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "sha256": "5d1c1f2c3859e690181d9ebcada1640a6744ab8dd5643b4bdbc7fe258af95037",
+          "bytes": 4065694
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-gcc-16.2.0-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gcc-16.2.0-4-any.pkg.tar.zst",
+          "sha256": "dfde2ee85df123a4afc43ac7bf8d4c379ddb919010c4b79a17db0862e030b2d1",
+          "bytes": 48531195
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-gettext-runtime-1.0-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gettext-runtime-1.0-1-any.pkg.tar.zst",
+          "sha256": "ba693dda4ac375af76ce481ff3a6e7481286546cc7dc6d56c7021dae34084157",
+          "bytes": 417977
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-gmp-6.3.0-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gmp-6.3.0-2-any.pkg.tar.zst",
+          "sha256": "e82a75968a556484a50084578238a84eb60fb93e34986fd6695c537975bd39ea",
+          "bytes": 592359
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-headers-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-headers-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "sha256": "b81c19e278ba0fc9f6ad0326d4aef64aea93053a6272916fb4c07069ac0215d0",
+          "bytes": 6890648
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-isl-0.28-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-isl-0.28-1-any.pkg.tar.zst",
+          "sha256": "8594e01a253d5a72646c586cf5a1626c1b1c2be7c30060fe67abd9bebe3fe223",
+          "bytes": 1540719
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-libatomic-16.2.0-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-libatomic-16.2.0-4-any.pkg.tar.zst",
+          "sha256": "81d960422f47c9cff742aa5a6dd6c587ba39e5da64738d903730e79577479582",
+          "bytes": 25427
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-libgcc-16.2.0-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-libgcc-16.2.0-4-any.pkg.tar.zst",
+          "sha256": "de65b4adae899d9278427402e29d03860bacba481794460f3a1d078610cbb783",
+          "bytes": 77220
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-libiconv-1.19-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-libiconv-1.19-1-any.pkg.tar.zst",
+          "sha256": "9a500f38c2b91808741c62fae746b3e9110b33a1ecf5c30fa0c66dbedddf7e16",
+          "bytes": 744750
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-libquadmath-16.2.0-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-libquadmath-16.2.0-4-any.pkg.tar.zst",
+          "sha256": "75960aa837a7fc6dc8313afb11014bf7f42548ab6067498d0b561cc3c490b5b2",
+          "bytes": 179389
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-libstdc++-16.2.0-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-libstdc++-16.2.0-4-any.pkg.tar.zst",
+          "sha256": "2211dbbf1220287e49f5d66bb6cb09ee5a157901a485197553c9a940cc902d5b",
+          "bytes": 795771
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-libwinpthread-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-libwinpthread-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "sha256": "f8de8153bbc0e47ba244a423c12c426fa1d9f56395117ecaa34c6ad6ebed6ca3",
+          "bytes": 30667
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-mpc-1.4.1-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-mpc-1.4.1-1-any.pkg.tar.zst",
+          "sha256": "f06556e811c711ce91609484e31d358e4f495811ba29813bf2284a3b236d82ce",
+          "bytes": 139585
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-mpfr-4.2.2-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-mpfr-4.2.2-3-any.pkg.tar.zst",
+          "sha256": "6b70a275d2ec75c70aa50a236c218e6b7ee9a5ab4c6d52cb0b580267b7d200fe",
+          "bytes": 553765
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-nasm-3.02-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-nasm-3.02-1-any.pkg.tar.zst",
+          "sha256": "e60cf678bedee3d6c9a9264f8dec5897520e5ff7e3ae80c2b90b2628c5f51d58",
+          "bytes": 452146
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-pkgconf-1~3.0.7-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-pkgconf-1~3.0.7-1-any.pkg.tar.zst",
+          "sha256": "74b6fe685d84ec6ea19b9ee285d752d122e31b6b93038f933627b05324d8f2a3",
+          "bytes": 149076
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-tzdata-2026e-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-tzdata-2026e-1-any.pkg.tar.zst",
+          "sha256": "f1809089f8ed5cec858ae8584289172896eb921be1e78ba583555f74e9015428",
+          "bytes": 225916
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-windows-default-manifest-20260815-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-windows-default-manifest-20260815-1-any.pkg.tar.zst",
+          "sha256": "b39039f754a600cc0dec49df7d675a59a3cb2b63691d91b4ae60735ee7075eca",
+          "bytes": 2652
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-winpthreads-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-winpthreads-14.0.0.r426.g4564ee4b5-1-any.pkg.tar.zst",
+          "sha256": "c24b627938c592666c7c2f73cc83be29c552f935f6c6cc25b86b20959629bfee",
+          "bytes": 45661
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-zlib-1.3.2-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-zlib-1.3.2-2-any.pkg.tar.zst",
+          "sha256": "841401182976d2f9e17e5c0ebaac51f2a8014140ea53d67625e91c8fb3c85ea0",
+          "bytes": 111475
+        },
+        {
+          "file": "mingw-w64-ucrt-x86_64-zstd-1.5.7-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-zstd-1.5.7-2-any.pkg.tar.zst",
+          "sha256": "dbdb8427280046a2b41697780aa4c52983b708082b0da4755951dc3bea96ca89",
+          "bytes": 668277
+        },
+        {
+          "file": "openssh-10.5p1-3-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/openssh-10.5p1-3-x86_64.pkg.tar.zst",
+          "sha256": "165aed5674e9a80afd291ce7ab845869cee29b49b759416b81010c43c53dcaaf",
+          "bytes": 1213051
+        },
+        {
+          "file": "perl-5.42.3-2-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-5.42.3-2-x86_64.pkg.tar.zst",
+          "sha256": "d89eaa2b8d661fd2040b54092d718f57aa1c066ea2d63735989ee47cfa7c9ef2",
+          "bytes": 7527096
+        },
+        {
+          "file": "perl-authen-sasl-2.2100-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-authen-sasl-2.2100-2-any.pkg.tar.zst",
+          "sha256": "98cdd396f65df318ca777de7f4166485ad7815c5000399e4aa6843f59e00e55b",
+          "bytes": 42301
+        },
+        {
+          "file": "perl-clone-0.50-3-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-clone-0.50-3-x86_64.pkg.tar.zst",
+          "sha256": "c9f0bc99e8e93f9ca3fe06e10d85cd2deac8a8d440a9e85e17ce109b0c5cf1c3",
+          "bytes": 15821
+        },
+        {
+          "file": "perl-convert-binhex-1.125-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-convert-binhex-1.125-3-any.pkg.tar.zst",
+          "sha256": "96d9418550129e569a69b17682654f71754c92bbe97515f2f255d6aa9ad4d1bc",
+          "bytes": 29568
+        },
+        {
+          "file": "perl-encode-locale-1.05-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-encode-locale-1.05-3-any.pkg.tar.zst",
+          "sha256": "e02957a3468521d6a35fec39327ee9ecf024b00261fb4c496339cb5428decd8f",
+          "bytes": 10630
+        },
+        {
+          "file": "perl-error-0.17030-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-error-0.17030-3-any.pkg.tar.zst",
+          "sha256": "c5c183196a4803c0b427fc174e446cc530e80833fce7405719bc46a33d3c61fd",
+          "bytes": 21354
+        },
+        {
+          "file": "perl-file-listing-6.16-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-file-listing-6.16-2-any.pkg.tar.zst",
+          "sha256": "15e00cd7923ec76c8127576bb64e0cb159a48ea87efefc35f64493bcd1e8a95e",
+          "bytes": 10271
+        },
+        {
+          "file": "perl-html-parser-3.86-2-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-html-parser-3.86-2-x86_64.pkg.tar.zst",
+          "sha256": "18a6097593b08689f3923bfe948356c645e486929af5fee6e9d661a1285c060c",
+          "bytes": 80703
+        },
+        {
+          "file": "perl-html-tagset-3.24-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-html-tagset-3.24-2-any.pkg.tar.zst",
+          "sha256": "cf9adccdaaa6b5b1307365afed083daa126d4230ef812f35ec65eb5f6e472c92",
+          "bytes": 10815
+        },
+        {
+          "file": "perl-http-cookiejar-0.014-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-http-cookiejar-0.014-2-any.pkg.tar.zst",
+          "sha256": "70fdf1d4bdbab078765e7200436f614cf995007f2329f487baafc1841e8d66a9",
+          "bytes": 13667
+        },
+        {
+          "file": "perl-http-cookies-6.12-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-http-cookies-6.12-2-any.pkg.tar.zst",
+          "sha256": "902e3d2ac5564536bafd113f42d49df7ecf8c4808c793369ba7bb413a12546d1",
+          "bytes": 22253
+        },
+        {
+          "file": "perl-http-daemon-6.17-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-http-daemon-6.17-2-any.pkg.tar.zst",
+          "sha256": "77d6fd31b6e1a1db66237a97da8a99c7a0eff8297ca1d5b75acfcb38a86251ca",
+          "bytes": 20173
+        },
+        {
+          "file": "perl-http-date-6.08-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-http-date-6.08-2-any.pkg.tar.zst",
+          "sha256": "c26c4e9655557e7c9ec8b74c39d32e31ec5640552f5371b221d59bc22bfa520a",
+          "bytes": 10237
+        },
+        {
+          "file": "perl-http-message-7.04-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-http-message-7.04-2-any.pkg.tar.zst",
+          "sha256": "526c89268f0489c37d950fbd8fdbdbb745dbe61ec2d2bd2871c6c8646d01792d",
+          "bytes": 75778
+        },
+        {
+          "file": "perl-http-negotiate-6.01-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-http-negotiate-6.01-4-any.pkg.tar.zst",
+          "sha256": "0cb00eb507d51b5fb9446827acc7d7f0629381f7d7bf8548fa3e0ba64704dd5e",
+          "bytes": 12075
+        },
+        {
+          "file": "perl-io-html-1.004-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-io-html-1.004-3-any.pkg.tar.zst",
+          "sha256": "3d42f5fe05b06fda5cbe94c79f98c9a1f32d0b0361b93839f9244af3676620f0",
+          "bytes": 14494
+        },
+        {
+          "file": "perl-io-socket-ssl-2.099-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-io-socket-ssl-2.099-2-any.pkg.tar.zst",
+          "sha256": "d9d0adc2c9435a50d573869031f893babbceef8ddbc8039efe01a7ee598ac35f",
+          "bytes": 170073
+        },
+        {
+          "file": "perl-io-stringy-2.113-4-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-io-stringy-2.113-4-any.pkg.tar.zst",
+          "sha256": "35664d5b4b6e6c569984f4901d7d57b56869b5a41b9ab35674f938186a50b7e2",
+          "bytes": 44503
+        },
+        {
+          "file": "perl-libwww-6.83-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-libwww-6.83-3-any.pkg.tar.zst",
+          "sha256": "adbc8538af75c6d9d37ec3c05cbda27843ad35c6b9fc6de8de64e016bb4c27b1",
+          "bytes": 130150
+        },
+        {
+          "file": "perl-lwp-mediatypes-6.05-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-lwp-mediatypes-6.05-2-any.pkg.tar.zst",
+          "sha256": "4afde66f5a53366fbed27779345b3f7fd782feffa00613a5d5482b5d207f6358",
+          "bytes": 19513
+        },
+        {
+          "file": "perl-mailtools-2.22-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-mailtools-2.22-2-any.pkg.tar.zst",
+          "sha256": "53cba8b2bc2042518d83a88d562a9ee0d1ceae3d581ac4896baec0ac25bfc91c",
+          "bytes": 59858
+        },
+        {
+          "file": "perl-mime-tools-5.518-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-mime-tools-5.518-2-any.pkg.tar.zst",
+          "sha256": "05d3cb6d53c943ce4481f67a04e7b9272e383577ea84672f2ff390d7dab95766",
+          "bytes": 182639
+        },
+        {
+          "file": "perl-net-http-6.24-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-net-http-6.24-2-any.pkg.tar.zst",
+          "sha256": "8f45b20264525e3c5788f2b12a1c15ae8a27ef2904030bd598aa7fc9d10fda36",
+          "bytes": 22198
+        },
+        {
+          "file": "perl-net-smtp-ssl-1.04-3-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-net-smtp-ssl-1.04-3-any.pkg.tar.zst",
+          "sha256": "d553221db395c227c93643800af42d39049b055f2630e39b1c4cd78a7d3745c1",
+          "bytes": 4714
+        },
+        {
+          "file": "perl-net-ssleay-1.96-2-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-net-ssleay-1.96-2-x86_64.pkg.tar.zst",
+          "sha256": "63b534ee973831d01b9c9e64fd8891925e9cf0c8923326b63f3c9d4582fee820",
+          "bytes": 225869
+        },
+        {
+          "file": "perl-termreadkey-2.38-9-x86_64.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-termreadkey-2.38-9-x86_64.pkg.tar.zst",
+          "sha256": "584029cb544e78f46d7cc2040d22d144bc26657d0584452d2119dc67f1cf747d",
+          "bytes": 20568
+        },
+        {
+          "file": "perl-timedate-2.35-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-timedate-2.35-2-any.pkg.tar.zst",
+          "sha256": "ddd3cd5bb07f6c1cc2a6315233e48002d904a492901134d6f1f4139d21f31625",
+          "bytes": 62901
+        },
+        {
+          "file": "perl-try-tiny-0.32-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-try-tiny-0.32-2-any.pkg.tar.zst",
+          "sha256": "3d36d2b776c6aa8d4313b3b08eea81ad58002783c5f95c4ad8ca718cd84b9c8c",
+          "bytes": 19142
+        },
+        {
+          "file": "perl-uri-5.37-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-uri-5.37-2-any.pkg.tar.zst",
+          "sha256": "80c66674e48c53b56561fe76d39a739a80fd0796644d535a70a3117bba52add2",
+          "bytes": 100657
+        },
+        {
+          "file": "perl-www-robotrules-6.03-2-any.pkg.tar.zst",
+          "url": "https://repo.msys2.org/msys/x86_64/perl-www-robotrules-6.03-2-any.pkg.tar.zst",
+          "sha256": "c4b720d8a7e5973d524de6b53d798db49e6f3697252da1ea68a680ca0861c4d5",
+          "bytes": 14489
+        }
+      ]
+    },
+    "globalPATHModified": false
+  },
+  "configure": "--prefix=/h/WaveCanvas/.ffmpeg-build/prefix --target-os=mingw32 --arch=x86_64 --cc=gcc --cxx=g++ --enable-gpl --enable-version3 --enable-libx264 --enable-zlib --enable-static --disable-shared --disable-autodetect --disable-doc --disable-debug --disable-ffplay --disable-network --disable-hwaccels --extra-version=wavecanvas-controlled --extra-cflags=-I/h/WaveCanvas/.ffmpeg-build/prefix/include --extra-ldflags='-L/h/WaveCanvas/.ffmpeg-build/prefix/lib -static -static-libgcc -Wl,-Map,/h/WaveCanvas/.ffmpeg-build/output/LINK-MAP.txt' --pkg-config-flags=--static",
+  "linkedArchives": [
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libadvapi32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libatomic.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libbcrypt.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libgdi32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libkernel32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libm.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libmingw32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libmingwex.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libmsvcrt.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libole32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\liboleaut32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libpsapi.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libpthread.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libshell32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libshlwapi.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libstrmiids.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libuser32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libuuid.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib\\libvfw32.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0\\libgcc.a",
+    "H:/WaveCanvas/.ffmpeg-build/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0\\libgcc_eh.a",
+    "H:/WaveCanvas/.ffmpeg-build/prefix/lib\\libx264.a",
+    "H:/WaveCanvas/.ffmpeg-build/prefix/lib\\libz.a",
+    "libavcodec\\libavcodec.a",
+    "libavdevice\\libavdevice.a",
+    "libavfilter\\libavfilter.a",
+    "libavformat\\libavformat.a",
+    "libavutil\\libavutil.a",
+    "libswresample\\libswresample.a",
+    "libswscale\\libswscale.a"
+  ],
+  "systemDLLImports": {
+    "ffmpeg": [
+      "AVICAP32.dll",
+      "GDI32.dll",
+      "KERNEL32.dll",
+      "OLEAUT32.dll",
+      "SHELL32.dll",
+      "SHLWAPI.dll",
+      "USER32.dll",
+      "api-ms-win-crt-conio-l1-1-0.dll",
+      "api-ms-win-crt-convert-l1-1-0.dll",
+      "api-ms-win-crt-environment-l1-1-0.dll",
+      "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "api-ms-win-crt-heap-l1-1-0.dll",
+      "api-ms-win-crt-locale-l1-1-0.dll",
+      "api-ms-win-crt-math-l1-1-0.dll",
+      "api-ms-win-crt-private-l1-1-0.dll",
+      "api-ms-win-crt-runtime-l1-1-0.dll",
+      "api-ms-win-crt-stdio-l1-1-0.dll",
+      "api-ms-win-crt-string-l1-1-0.dll",
+      "api-ms-win-crt-time-l1-1-0.dll",
+      "api-ms-win-crt-utility-l1-1-0.dll",
+      "bcrypt.dll",
+      "ole32.dll"
+    ],
+    "ffprobe": [
+      "AVICAP32.dll",
+      "GDI32.dll",
+      "KERNEL32.dll",
+      "OLEAUT32.dll",
+      "SHELL32.dll",
+      "SHLWAPI.dll",
+      "USER32.dll",
+      "api-ms-win-crt-convert-l1-1-0.dll",
+      "api-ms-win-crt-environment-l1-1-0.dll",
+      "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "api-ms-win-crt-heap-l1-1-0.dll",
+      "api-ms-win-crt-locale-l1-1-0.dll",
+      "api-ms-win-crt-math-l1-1-0.dll",
+      "api-ms-win-crt-private-l1-1-0.dll",
+      "api-ms-win-crt-runtime-l1-1-0.dll",
+      "api-ms-win-crt-stdio-l1-1-0.dll",
+      "api-ms-win-crt-string-l1-1-0.dll",
+      "api-ms-win-crt-time-l1-1-0.dll",
+      "api-ms-win-crt-utility-l1-1-0.dll",
+      "bcrypt.dll",
+      "ole32.dll"
+    ]
+  },
+  "compilerRuntimeClassification": "GCC libgcc/libatomic: standard compiler runtime with Runtime Library Exception; MinGW CRT: standard C/Windows interface support; Windows UCRT/system DLLs are OS system components. Exact installed license texts are retained.",
+  "output": {
+    "ffmpeg.exe": {
+      "bytes": 32895488,
+      "sha256": "31d7c4ea1a71e50cef1132782779742f3f4aae53015e2c0765db3b303ea81d13"
+    },
+    "ffprobe.exe": {
+      "bytes": 32694272,
+      "sha256": "95184847a8d81488180abc16178b52d12a93acb437f30d55a161b9dbfc8359d6"
+    }
   }
 }

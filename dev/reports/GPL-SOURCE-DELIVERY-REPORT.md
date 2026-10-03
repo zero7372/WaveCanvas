@@ -1,5 +1,7 @@
 # WaveCanvas 1.0.0 GPL Source Delivery / Public Release Gate
 
+Historical Gyan preparation report (6232b63). Current controlled release evidence is in CONTROLLED-FFMPEG-REBUILD-REPORT.md. The ignored preparation ZIP/staging were archived to dev/ffmpeg-build/workspace/history/; tracked preparation metadata and original evidence remain.
+
 2026-10-03，Windows x64。Technical RC=true；signed=false；GPL source gate=BLOCKED；publicReleaseReady=false。本輪完成可驗證的 source preparation、installed license resources、hashes 與防止誤報 ready 的 release gate。**沒有把缺少 provider provenance 的材料標成完整 Corresponding Source。**
 
 ## Bundled binary verification
@@ -29,7 +31,7 @@
 
 ## GPL dependency audit
 
-[DEPENDENCIES.json](../../licenses/FFmpeg/DEPENDENCIES.json) 對完整 buildconf 的 **53 個 explicit external/hardware enable flags** 建立 entries；[readable inventory](../release-source/DEPENDENCIES.md) 列版本、preliminary license families 與 mapping 狀態。包含 GPL、LGPL、permissive、MPL、dual-license、system/runtime/header interfaces，沒有只處理 x264。
+[Historical DEPENDENCIES.json](../tests/fixtures/gpl-history/DEPENDENCIES.json) 對完整 buildconf 的 **53 個 explicit external/hardware enable flags** 建立 entries；[readable inventory](../release-source/DEPENDENCIES.md) 列版本、preliminary license families 與 mapping 狀態。包含 GPL、LGPL、permissive、MPL、dual-license、system/runtime/header interfaces，沒有只處理 x264。
 
 補查的 GPL/interface-exception component 包括 AviSynthPlus；Windows FFmpeg 用 runtime loading，不能因 enable flag 宣稱 bundled avisynth.dll。採保守方式保留 source/header/license snapshot。Reported AviSynthPlus、vid.stab short hashes 已由 upstream API 解析；provider modifications 未證明。
 
@@ -41,7 +43,7 @@ Rubber Band/Xvid 已取得 version-matched upstream archives，但無 provider s
 
 ## Source artifact contents
 
-[Preparation artifact](../../release/WaveCanvas-1.0.0-GPL-Source-PREPARATION.zip)：73,110,995 bytes（69.72 MiB），12,093 ZIP entries。名稱含 PREPARATION，README/manifest 明確 BLOCKED。未產生會誤導的正式 `WaveCanvas-1.0.0-GPL-Source.zip`。
+[Preparation artifact metadata](../release-source/ARTIFACT.json)：73,110,995 bytes（69.72 MiB），12,093 ZIP entries。名稱含 PREPARATION，README/manifest 明確 BLOCKED。未產生會誤導的正式 `WaveCanvas-1.0.0-GPL-Source.zip`。
 
 Archive 含 `sources/{ffmpeg,x264,avisynth,vidstab,rubberband,xvid}/`、六份原始 upstream archives、README、SOURCE-MANIFEST.json、DEPENDENCIES.json/md、BUILD-RECIPE.md、PATCHES.md、完整 configuration、selected licenses、fresh primary/binary evidence、FILE-HASHES.json。完整 FFmpeg source 包含 COPYING 與 upstream build systems，各 upstream 檔案保留 source copyright。npm dependencies 沒有混入 source tree。
 

@@ -1,0 +1,22 @@
+PASS Feature command -version
+PASS Feature command -buildconf
+PASS Feature command -encoders
+PASS Feature command -decoders
+PASS Feature command -demuxers
+PASS Feature command -muxers
+PASS Feature command -protocols
+PASS libx264 and native AAC encoders
+PASS MP4 muxer
+PASS Controlled ffprobe version
+PASS Decode/probe/transcode WAV
+PASS Decode/probe/transcode MP3
+PASS Decode/probe/transcode FLAC
+PASS Decode/probe/transcode OGG
+PASS Decode/probe/transcode OPUS
+PASS Decode/probe/transcode M4A
+PASS Decode/probe/transcode AAC
+PASS Unchanged production BGRA pipe / libx264 medium CRF18 / 1080p60 / 300 frames / yuv420p
+PASS Native AAC and A/V duration difference < one frame
+PASS MP4 faststart moov precedes mdat
+PASS ffmpeg imports Windows system DLLs only
+PASS ffprobe imports Windows system DLLs only

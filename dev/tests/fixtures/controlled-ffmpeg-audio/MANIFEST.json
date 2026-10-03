@@ -1,0 +1,16 @@
+{
+  "description": "Synthetic 440 Hz sine, 48000 Hz, six seconds. Test data only; no third-party music or recording.",
+  "generator": "Historical Gyan FFmpeg 9.0.2-essentials_build-www.gyan.dev",
+  "generatorSha256": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
+  "arguments": "-f lavfi -i sine=frequency=440:sample_rate=48000 -t 6 -c:a <codec>",
+  "codecs": {
+    "mp3": "libmp3lame",
+    "ogg": "libvorbis",
+    "opus": "libopus"
+  },
+  "files": {
+    "input.mp3": "7a02067e57ebf098d5530c69559385a29597f1ac9a4cd5e954217508ad2eed50",
+    "input.ogg": "6f6b6c79721a24f124af82d33c48a074bd421e3d1ca1952de6db9547560c3690",
+    "input.opus": "95e56fc3ee589844a90b8600f37cd810f5a2363b8fd8d4f0f366399e99d0eae8"
+  }
+}

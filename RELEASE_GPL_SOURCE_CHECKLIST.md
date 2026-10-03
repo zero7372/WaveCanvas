@@ -1,27 +1,26 @@
-# GPL corresponding-source delivery checklist
+# WaveCanvas 1.0.0 controlled FFmpeg GPL artifact checklist
 
-WaveCanvas 1.0.0 internal unsigned RC. GPL source gate BLOCKED; publicReleaseReady=false. The PREPARATION ZIP is not complete Corresponding Source.
+Status: engineering artifact readiness PASS; published=false. A source ZIP must always accompany the matching installer. Unpublished official URL metadata is separate from artifact readiness.
 
-| Requirement | Status | Evidence / remaining work |
+| Requirement | Status | Evidence |
 |---|---|---|
-| Binary version, size and SHA256 identity | PASS | dev/reports/archive/gpl-source-2026-10-03/binary-verification.json and fresh ffmpeg/ffprobe version/buildconf/L outputs |
-| Exact FFmpeg upstream revision | PASS | provider-release.json, ffmpeg-commit.json: 946fcce07b6dcd0331c8cc609192aeff5e1924f8 |
-| Exact x264 upstream revision mapping | PASS | x264-sei.txt, binary-strings.json, VideoLAN x264-commit.json: 0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee; provider patch state separately BLOCKED |
-| Full build configuration captured | PASS | licenses/FFmpeg/BUILD_CONFIG.txt; complete binary output |
-| All explicit external enable flags inventoried | PASS | licenses/FFmpeg/DEPENDENCIES.json: 53 entries; transitive closure not implied |
-| Matching upstream source archives acquired and hashed | PASS | dev/release-source/SOURCE-MANIFEST.json: six primary upstream downloads; hashes verified by package-gpl-source.py |
-| Preparation ZIP extraction / file hash integrity | PASS | dev/release-source/ARTIFACT.json; ZIP FILE-HASHES.json; does not prove complete correspondence |
-| Complete matching FFmpeg source artifact delivery | BLOCKED | Upstream source acquired; Gyan patches / complete source delivery unverified |
-| GPL / other linked dependency exact source states | BLOCKED | x265 116b875 unresolved; Rubber Band/Xvid provider state unknown; other exact trees absent |
-| All static/transitive dependency source closure | BLOCKED | DEPENDENCIES.json; provider package locks / static link map absent; no assumed exclusions |
-| Gyan / dependency patches | BLOCKED | dev/release-source/PATCHES.md; unknown is not none |
-| Matching build/install recipe | BLOCKED | dev/release-source/BUILD-RECIPE.md; compiler/config known; scripts/environment/order absent |
-| Complete exact dependency copyright/license texts | BLOCKED | Seven selected upstream dependency license files acquired; remaining exact-source notices unresolved |
-| Binary/source correspondence for complete package | BLOCKED | Partial mappings only; no provider closure or validated matching build |
-| Complete source ZIP and release hash binding | BLOCKED | Only GPL-Source-PREPARATION.zip exists; formal GPL-Source.zip intentionally absent |
-| Free source access alongside installer (GPLv3 6(d)) | BLOCKED | <OFFICIAL_RELEASE_URL> unresolved; no publication performed |
-| Physical media written offer | N/A | Direct online source delivery planned; no physical distribution or written offer |
-| Original MIT attribution retained | PASS | License.txt / licenses/WaveCanvas-LICENSE.txt byte identity; original 2017 attribution retained |
-| Own rights chain / distribution boundary review | BLOCKED | Attribution retention alone does not establish rights chain or all distribution obligations |
+| Exact FFmpeg source | PASS | manifests/SOURCES.lock.json; full sources/ffmpeg/ |
+| Exact x264 source | PASS | manifests/SOURCES.lock.json; full sources/x264/ |
+| Additional dependency source | PASS | sources/zlib/; matching original archive |
+| Static library inventory | PASS | BUILD-MANIFEST.json linkedArchives; CLOSURE-REVIEW.json |
+| System library exclusions | PASS | CLOSURE-REVIEW.json per-library compiler/Windows classification |
+| Toolchain versions and packages | PASS | TOOLCHAIN-MANIFEST.json; TOOLCHAIN_PACKAGES.lock.json |
+| Controlled build recipe | PASS | build-scripts/bootstrap.ps1, build.ps1, build.sh |
+| Patch provenance | PASS | patches/PATCHES.md; 10956 original source files compared; zero changes |
+| Configure flags | PASS | build-evidence/BUILD_CONFIG.txt; BUILD-MANIFEST.json |
+| Binary hashes | PASS | vendor/ffmpeg/BUILD.json; licenses/FFmpeg/SHA256.txt |
+| License closure | PASS | licenses/FFmpeg/dependencies/ and toolchain/; original source file notices |
+| WaveCanvas attribution | PASS | License.txt byte-identical to licenses/WaveCanvas-LICENSE.txt |
+| Process boundary review | PASS | standalone subprocesses/pipes; no linking into MIT application |
+| Complete source artifact | PASS | release/WaveCanvas-1.0.0-GPL-Source.zip; FILE-HASHES.json |
+| Offline source snapshots | PASS | all three sources/ and upstream/ original archives included |
+| Build self-sufficiency | PASS | standalone script layout verified; pinned general tools separately bootstrapped |
+| Co-delivery readiness | PASS | source ZIP beside installer; RELEASE-HASHES.txt; SOURCE_INFO.txt |
+| Integrity gate | PASS | dev/tools/verify-gpl-source.py; npm run release:check -- --public |
 
-Evidence names refer to dev/reports/archive/gpl-source-2026-10-03 unless otherwise stated. Every public requirement must pass before clearing the gate. Signing is separate and remains false. release:check reports technical integrity and public status separately; --public fails while blocked. See dev/reports/GPL-SOURCE-DELIVERY-REPORT.md for minimal remaining inputs.
+General purpose tools/compiler System Libraries are explicitly reviewed exclusions, not source mappings claimed PASS. This is not legal certification. Historical Gyan preparation remains in Git history and prior reports; it is not the shipped runtime.

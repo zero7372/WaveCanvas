@@ -6,3 +6,9 @@ dev/release-source/* text eol=lf
 dev/release-source/ARTIFACT.json -text -whitespace
 dev/reports/archive/gpl-source-2026-10-03/* -text -whitespace
 licenses/FFmpeg/dependencies/avisynth-LICENSE.rst conflict-marker-size=32
+# Bash/Python recipes must retain LF in Windows Git checkouts.
+dev/ffmpeg-build/scripts/* text eol=lf
+dev/ffmpeg-build/manifests/* text eol=lf
+# Preserve captured evidence and installed upstream runtime license bytes.
+licenses/FFmpeg/toolchain/* -text -whitespace
+dev/reports/archive/controlled-ffmpeg-2026-10-04/* -text -whitespace

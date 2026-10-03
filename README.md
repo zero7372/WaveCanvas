@@ -14,7 +14,7 @@ WaveCanvas **1.0.0 Unsigned Release Candidate**。Installer 位於 `release/Wave
 
 雙擊 `.waveproj` 可冷啟動或交給既有 instance；未儲存修改使用 Save / Don't Save / Cancel。Help 提供 About 與 Open Source Licenses；安裝目錄 resources/licenses 附原始 MIT attribution、GPL 全文、FFmpeg build/source/hash 資料。
 
-**publicReleaseReady=false**：GPL static FFmpeg 的完整 corresponding source、patches、recipes 與固定 source release attachment 尚未交付；code signing 尚未配置。此 RC 僅供內部驗證。Unknown Publisher 是 unsigned build 的預期狀態；不需停用 Windows security protections。詳見 [GPL checklist](RELEASE_GPL_SOURCE_CHECKLIST.md)、[release checklist](RELEASE-CHECKLIST.md)、[release notes](RELEASE-NOTES-1.0.0.md)。
+**artifactReady=true；publicReleaseReady=true；published=false**：WaveCanvas controlled FFmpeg 的完整 source ZIP 與 installer 同目錄提供；發布时需一同交付。官方發布網址尚未決定；code signing 尚未配置。Unknown Publisher 是 unsigned build 的預期狀態；不需停用 Windows security protections。詳見 [GPL checklist](RELEASE_GPL_SOURCE_CHECKLIST.md)、[release checklist](RELEASE-CHECKLIST.md)、[release notes](RELEASE-NOTES-1.0.0.md)。
 
 Build from source: `npm ci` → `npm run release:build` → `node dev/tools/release-check.cjs --generate` → `npm run release:check`。package.json 是 version 單一來源；release/ 可重建，不提交大型 binary。原有 developer / maintenance 工作流程保留。
 
@@ -145,6 +145,6 @@ Main 使用 `app.getPath('userData')/settings.json`，獨立 `wavecanvas-setting
 
 目前 bundled FFmpeg 是 **GPL build**（見 vendor/ffmpeg/BUILD.json、LICENSE、README provenance與hashes）。Unsigned RC 供內部驗證；公開 redistribution 前仍需完成 release licensing compliance，不宣稱 release-safe。
 
-發布策略、source delivery gates 與 encoder 相容性評估見 [FFmpeg distribution/licensing audit](dev/reports/FFMPEG-DISTRIBUTION-LICENSING-AUDIT.md)；[Third-party notices](THIRD_PARTY_NOTICES.md) 與 licenses/ 已打包，完整 dependency notices 與 corresponding-source delivery 仍 BLOCKED。
+發布策略、source delivery gates 與 encoder 相容性評估見 [FFmpeg distribution/licensing audit](dev/reports/FFMPEG-DISTRIBUTION-LICENSING-AUDIT.md)；[Third-party notices](THIRD_PARTY_NOTICES.md) 與 licenses/ 已打包，controlled FFmpeg source、build recipe 與完整 source ZIP 已備妥；詳見 [controlled rebuild report](dev/reports/CONTROLLED-FFMPEG-REBUILD-REPORT.md)。
 
-Release Engineering v1 已提供 Installer、File Association 與 licensing UI / resources；code signing 未配置，source delivery gate 未完成。NVENC／HEVC／AV1／4K未正式整合。
+Release Engineering v1 已提供 Installer、File Association 與 licensing UI / resources；code signing 未配置，controlled source artifact gate 已完成，尚未執行公開發布。NVENC／HEVC／AV1／4K未正式整合。

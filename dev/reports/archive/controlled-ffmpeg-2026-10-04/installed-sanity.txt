@@ -1,0 +1,40 @@
+PASS No running WaveCanvas process before installer
+PASS Controlled runtime installer completes per-user install
+PASS Existing normal user business files unchanged
+PASS Installed license identity FFmpeg/BUILD_CONFIG.txt
+PASS Installed license identity FFmpeg/BUILD_INFO.json
+PASS Installed license identity FFmpeg/DEPENDENCIES.json
+PASS Installed license identity FFmpeg/LICENSE
+PASS Installed license identity FFmpeg/PROVIDER-README.txt
+PASS Installed license identity FFmpeg/SHA256.txt
+PASS Installed license identity FFmpeg/SOURCE_INFO.txt
+PASS Installed license identity FFmpeg/SOURCE_MANIFEST.json
+PASS Installed license identity FFmpeg/VERSION.txt
+PASS Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.GPLv2
+PASS Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.GPLv3
+PASS Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.LGPLv2.1
+PASS Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.LGPLv3
+PASS Installed license identity FFmpeg/dependencies/ffmpeg-LICENSE.md
+PASS Installed license identity FFmpeg/dependencies/x264-COPYING
+PASS Installed license identity FFmpeg/dependencies/zlib-LICENSE
+PASS Installed license identity FFmpeg/toolchain/crt-COPYING
+PASS Installed license identity FFmpeg/toolchain/crt-COPYING.MinGW-w64-runtime.txt
+PASS Installed license identity FFmpeg/toolchain/crt-COPYING.MinGW-w64.txt
+PASS Installed license identity FFmpeg/toolchain/headers-COPYING
+PASS Installed license identity FFmpeg/toolchain/headers-COPYING.MinGW-w64-runtime.txt
+PASS Installed license identity FFmpeg/toolchain/headers-COPYING.MinGW-w64.txt
+PASS Installed license identity FFmpeg/toolchain/headers-ddk-readme.txt
+PASS Installed license identity FFmpeg/toolchain/libatomic-COPYING.RUNTIME
+PASS Installed license identity FFmpeg/toolchain/libatomic-COPYING3
+PASS Installed license identity FFmpeg/toolchain/libgcc-COPYING.RUNTIME
+PASS Installed license identity FFmpeg/toolchain/libgcc-COPYING3
+PASS Installed license identity FFmpeg/toolchain/winpthreads-COPYING
+PASS Installed license identity THIRD_PARTY_NOTICES.md
+PASS Installed license identity WaveCanvas-LICENSE.txt
+PASS Installed controlled binary matches vendor ffmpeg.exe
+PASS Installed controlled binary matches vendor ffprobe.exe
+PASS Installed app remains unsigned
+PASS Quoted project association unchanged
+PASS Single Installed Apps version 1.0.0
+PASS Start Menu shortcut retained
+PASS Source ZIP excluded from installer resources

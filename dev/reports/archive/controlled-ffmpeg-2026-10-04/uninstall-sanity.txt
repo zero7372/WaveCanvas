@@ -1,0 +1,11 @@
+PASS App closed before uninstall
+PASS Controlled installer uninstall succeeds
+PASS Uninstall removes app executable
+PASS Uninstall removes Installed Apps entry
+PASS Uninstall removes project association
+PASS Uninstall removes shortcuts
+PASS Uninstall preserves normal user business files and real project/media
+PASS Verified controlled installer restores installed app
+PASS Reinstall preserves business/project files
+PASS Reinstalled controlled binary identity ffmpeg.exe
+PASS Reinstalled controlled binary identity ffprobe.exe

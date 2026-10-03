@@ -1,0 +1,12 @@
+ffmpeg version 9.0.2-wavecanvas-controlled Copyright (c) 2000-2026 the FFmpeg developers
+built with gcc 16.2.0 (Rev4, Built by MSYS2 project)
+configuration: --prefix=/h/WaveCanvas/.ffmpeg-build/prefix --target-os=mingw32 --arch=x86_64 --cc=gcc --cxx=g++ --enable-gpl --enable-version3 --enable-libx264 --enable-zlib --enable-static --disable-shared --disable-autodetect --disable-doc --disable-debug --disable-ffplay --disable-network --disable-hwaccels --extra-version=wavecanvas-controlled --extra-cflags=-I/h/WaveCanvas/.ffmpeg-build/prefix/include --extra-ldflags='-L/h/WaveCanvas/.ffmpeg-build/prefix/lib -static -static-libgcc -Wl,-Map,/h/WaveCanvas/.ffmpeg-build/output/LINK-MAP.txt' --pkg-config-flags=--static
+libavutil      61.  1.102 / 61.  1.102
+libavcodec     63.  1.102 / 63.  1.102
+libavformat    63.  1.102 / 63.  1.102
+libavdevice    63.  1.102 / 63.  1.102
+libavfilter    12.  1.102 / 12.  1.102
+libswscale     10.  1.102 / 10.  1.102
+libswresample   7.  1.102 /  7.  1.102
+
+Exiting with exit code 0

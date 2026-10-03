@@ -1,12 +1,38 @@
 {
-  "source": "https://github.com/GyanD/codexffmpeg/releases/tag/9.0.2",
-  "version": "9.0.2-essentials_build-www.gyan.dev",
+  "provider": "WaveCanvas controlled FFmpeg build",
+  "version": "9.0.2-wavecanvas-controlled",
   "license": "GPL-3.0-or-later",
   "gpl": true,
   "libx264": true,
-  "releaseSafe": false,
+  "releaseSafe": true,
+  "sourceArtifact": "WaveCanvas-1.0.0-GPL-Source.zip",
+  "sources": {
+    "ffmpeg": {
+      "tag": "n9.0.2",
+      "commit": "946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+      "repository": "https://github.com/FFmpeg/FFmpeg.git",
+      "archive": "FFmpeg-946fcce07b6dcd0331c8cc609192aeff5e1924f8.zip",
+      "archiveSha256": "8cffa6ccf78df6d39d57bd61baaf19e8bf0a7d590eef0d838de69932e8de3572",
+      "archiveURL": "https://codeload.github.com/FFmpeg/FFmpeg/zip/946fcce07b6dcd0331c8cc609192aeff5e1924f8"
+    },
+    "x264": {
+      "commit": "0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+      "repository": "https://code.videolan.org/videolan/x264.git",
+      "archive": "x264-0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee.zip",
+      "archiveSha256": "d8f276b5a7595ff9608890a32863dc51d8fd97454e908b4dd90ede8fb4b2490a",
+      "archiveURL": "https://code.videolan.org/api/v4/projects/videolan%2Fx264/repository/archive.zip?sha=0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee"
+    },
+    "zlib": {
+      "tag": "v1.3.2",
+      "commit": "da607da739fa6047df13e66a2af6b8bec7c2a498",
+      "repository": "https://github.com/madler/zlib.git",
+      "archive": "zlib-da607da739fa6047df13e66a2af6b8bec7c2a498.zip",
+      "archiveSha256": "21de001766abb1f5bfdfb3c23aa42d30a6bbd7eddd37131d5e7fe89c5ec068f8",
+      "archiveURL": "https://codeload.github.com/madler/zlib/zip/da607da739fa6047df13e66a2af6b8bec7c2a498"
+    }
+  },
   "sha256": {
-    "ffmpeg.exe": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
-    "ffprobe.exe": "f0d36ecbbdd3bcfac3efa078c96c7271c2e68b3810595552ac3b7f17e9a65c52"
+    "ffmpeg.exe": "31d7c4ea1a71e50cef1132782779742f3f4aae53015e2c0765db3b303ea81d13",
+    "ffprobe.exe": "95184847a8d81488180abc16178b52d12a93acb437f30d55a161b9dbfc8359d6"
   }
 }

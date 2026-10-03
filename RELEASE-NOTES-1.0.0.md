@@ -1,9 +1,7 @@
-# WaveCanvas 1.0.0 — Unsigned Release Candidate
+# WaveCanvas 1.0.0
 
-Windows x64 local audio visualizer with Save/Open/Recent/Collect Project, Circle/Square/Linear layouts, bilingual LRC/SRT lyrics, Timing Editor, installed font selection, deterministic 1920×1080 / 60 FPS H.264/AAC export, Preferences / Options and autosave/backups.
+Windows x64 per-user NSIS installer, projects/preferences/options/fonts and deterministic 1080p60 H.264/AAC export. UserData and projects survive uninstall. Application features and production export command are unchanged.
 
-NSIS per-user installer, Start Menu and Desktop shortcuts, .waveproj shell open, Help About / Open Source Licenses. UserData and projects survive uninstall.
+This release uses WaveCanvas controlled FFmpeg 9.0.2 with exact FFmpeg/x264/zlib revisions in licenses/FFmpeg/SOURCE_INFO.txt. Complete corresponding source is distributed alongside the installer as WaveCanvas-1.0.0-GPL-Source.zip with RELEASE-HASHES.txt. GPL artifact readiness PASS; artifactReady=true; publicReleaseReady=true; published=false. The official release URL has not been decided. Publishing must attach installer, complete source ZIP, notices and hashes together.
 
-Limitations: Windows only; unsigned (Unknown Publisher is expected); fixed 1080p60 export using CPU libx264; Chromium-visible font collection may differ from the full Windows GDI collection. Collect stores family names and does not copy font files. Existing browser baseline has 10 known failures. No auto-update.
-
-GPL FFmpeg source delivery is incomplete. publicReleaseReady=false. This internal RC is not cleared for public distribution; see RELEASE_GPL_SOURCE_CHECKLIST.md.
+Unsigned: Windows Unknown Publisher remains expected. Code signing is not configured. Browser baseline retains 10 pre-existing failures (589 passing checks); no new regression. No GitHub publication, automatic updater or new codec/hardware export features are included.

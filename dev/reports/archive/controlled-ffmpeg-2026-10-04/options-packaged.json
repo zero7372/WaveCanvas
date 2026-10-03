@@ -1,0 +1,176 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Native userData switch isolates startup before renderer initialization"
+    },
+    {
+      "pass": true,
+      "label": "Home default startup clean"
+    },
+    {
+      "pass": true,
+      "label": "Data folder narrow Main action uses isolated userData"
+    },
+    {
+      "pass": true,
+      "label": "Recent 10 to 5 preference Save immediately trims in correct order"
+    },
+    {
+      "pass": true,
+      "label": "Cancel discards new Interface / Playback draft"
+    },
+    {
+      "pass": true,
+      "label": "UI Save persists/apply all new preference groups"
+    },
+    {
+      "pass": true,
+      "label": "New media uses default volume; autoplay Off"
+    },
+    {
+      "pass": true,
+      "label": "Save volume preference leaves current session volume intact"
+    },
+    {
+      "pass": true,
+      "label": "New media autoplay On / default volume zero"
+    },
+    {
+      "pass": true,
+      "label": "Default volume one on next load"
+    },
+    {
+      "pass": true,
+      "label": "Decode failure never autoplay"
+    },
+    {
+      "pass": true,
+      "label": "Save project for startup roundtrip"
+    },
+    {
+      "pass": true,
+      "label": "UI scale 0.8 keeps canonical Stage / project snapshot / DPR"
+    },
+    {
+      "pass": true,
+      "label": "Chrome and Preferences usable at 0.8"
+    },
+    {
+      "pass": true,
+      "label": "UI scale 0.9 keeps canonical Stage / project snapshot / DPR"
+    },
+    {
+      "pass": true,
+      "label": "UI scale 1 keeps canonical Stage / project snapshot / DPR"
+    },
+    {
+      "pass": true,
+      "label": "Chrome and Preferences usable at 1"
+    },
+    {
+      "pass": true,
+      "label": "UI scale 1.1 keeps canonical Stage / project snapshot / DPR"
+    },
+    {
+      "pass": true,
+      "label": "UI scale 1.25 keeps canonical Stage / project snapshot / DPR"
+    },
+    {
+      "pass": true,
+      "label": "Chrome and Preferences usable at 1.25"
+    },
+    {
+      "pass": true,
+      "label": "Close confirmation Off still guards New"
+    },
+    {
+      "pass": true,
+      "label": "Close confirmation Off still guards Open"
+    },
+    {
+      "pass": true,
+      "label": "Confirm On dirty close Cancel keeps app open"
+    },
+    {
+      "pass": true,
+      "label": "Confirm Off dirty close exits without prompt"
+    },
+    {
+      "pass": true,
+      "label": "All preference groups persist quit / restart"
+    },
+    {
+      "pass": true,
+      "label": "Startup reopens valid project through loader, clean and silent even autoplay On"
+    },
+    {
+      "pass": true,
+      "label": "Normal window bounds restored across restart"
+    },
+    {
+      "pass": true,
+      "label": "User initiated project load autoplay On"
+    },
+    {
+      "pass": true,
+      "label": "Missing project media never autoplay"
+    },
+    {
+      "pass": true,
+      "label": "Choose Folder stays draft before Save"
+    },
+    {
+      "pass": true,
+      "label": "Custom export directory Unicode/spaces native dialog default"
+    },
+    {
+      "pass": true,
+      "label": "Project folder default location / filename retained"
+    },
+    {
+      "pass": true,
+      "label": "Last-used native default; canceled Save dialog preserves remembered directory"
+    },
+    {
+      "pass": true,
+      "label": "Deleted custom directory falls back Last-used in native dialog"
+    },
+    {
+      "pass": true,
+      "label": "Restore defaults stays draft until Save"
+    },
+    {
+      "pass": true,
+      "label": "UI Restore Defaults Save resets every group and preserves raw Recent history"
+    },
+    {
+      "pass": true,
+      "label": "Restore defaults preserves remembered state and Recent history"
+    },
+    {
+      "pass": true,
+      "label": "Remember bounds Off ignores old state on restart"
+    },
+    {
+      "pass": true,
+      "label": "Maximized state restores"
+    },
+    {
+      "pass": true,
+      "label": "Startup missing safely falls back Home"
+    },
+    {
+      "pass": true,
+      "label": "Startup invalid safely falls back Home"
+    },
+    {
+      "pass": true,
+      "label": "Startup offscreen safely falls back Home"
+    },
+    {
+      "pass": true,
+      "label": "Offscreen restore uses visible factory position"
+    }
+  ]
+}

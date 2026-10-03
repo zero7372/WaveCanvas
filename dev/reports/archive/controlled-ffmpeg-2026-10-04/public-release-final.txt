@@ -1,0 +1,87 @@
+PASS Canonical version and product identity
+PASS Seven-size Windows ICO
+PASS ICO dimensions
+PASS vendor/ffmpeg/ffmpeg.exe pinned hash
+PASS release/win-unpacked/resources/ffmpeg/ffmpeg.exe pinned hash
+PASS vendor/ffmpeg/ffprobe.exe pinned hash
+PASS release/win-unpacked/resources/ffmpeg/ffprobe.exe pinned hash
+PASS Installer license allowlist matches audit
+PASS Packaged license FFmpeg/BUILD_CONFIG.txt
+PASS Packaged license FFmpeg/BUILD_INFO.json
+PASS Packaged license FFmpeg/DEPENDENCIES.json
+PASS Packaged license FFmpeg/LICENSE
+PASS Packaged license FFmpeg/PROVIDER-README.txt
+PASS Packaged license FFmpeg/SHA256.txt
+PASS Packaged license FFmpeg/SOURCE_INFO.txt
+PASS Packaged license FFmpeg/SOURCE_MANIFEST.json
+PASS Packaged license FFmpeg/VERSION.txt
+PASS Packaged license FFmpeg/dependencies/ffmpeg-COPYING.GPLv2
+PASS Packaged license FFmpeg/dependencies/ffmpeg-COPYING.GPLv3
+PASS Packaged license FFmpeg/dependencies/ffmpeg-COPYING.LGPLv2.1
+PASS Packaged license FFmpeg/dependencies/ffmpeg-COPYING.LGPLv3
+PASS Packaged license FFmpeg/dependencies/ffmpeg-LICENSE.md
+PASS Packaged license FFmpeg/dependencies/x264-COPYING
+PASS Packaged license FFmpeg/dependencies/zlib-LICENSE
+PASS Packaged license FFmpeg/toolchain/crt-COPYING
+PASS Packaged license FFmpeg/toolchain/crt-COPYING.MinGW-w64-runtime.txt
+PASS Packaged license FFmpeg/toolchain/crt-COPYING.MinGW-w64.txt
+PASS Packaged license FFmpeg/toolchain/headers-COPYING
+PASS Packaged license FFmpeg/toolchain/headers-COPYING.MinGW-w64-runtime.txt
+PASS Packaged license FFmpeg/toolchain/headers-COPYING.MinGW-w64.txt
+PASS Packaged license FFmpeg/toolchain/headers-ddk-readme.txt
+PASS Packaged license FFmpeg/toolchain/libatomic-COPYING.RUNTIME
+PASS Packaged license FFmpeg/toolchain/libatomic-COPYING3
+PASS Packaged license FFmpeg/toolchain/libgcc-COPYING.RUNTIME
+PASS Packaged license FFmpeg/toolchain/libgcc-COPYING3
+PASS Packaged license FFmpeg/toolchain/winpthreads-COPYING
+PASS Packaged license THIRD_PARTY_NOTICES.md
+PASS Packaged license WaveCanvas-LICENSE.txt
+PASS NSIS installer present
+PASS Packaged app / electron sources match current frozen core and release implementation
+PASS Release hash WaveCanvas-Setup-1.0.0.exe
+PASS Release hash win-unpacked/WaveCanvas.exe
+PASS Release hash win-unpacked/resources/ffmpeg/ffmpeg.exe
+PASS Release hash win-unpacked/resources/ffmpeg/ffprobe.exe
+PASS Release hash licenses/FFmpeg/BUILD_CONFIG.txt
+PASS Release hash licenses/FFmpeg/BUILD_INFO.json
+PASS Release hash licenses/FFmpeg/DEPENDENCIES.json
+PASS Release hash licenses/FFmpeg/LICENSE
+PASS Release hash licenses/FFmpeg/PROVIDER-README.txt
+PASS Release hash licenses/FFmpeg/SHA256.txt
+PASS Release hash licenses/FFmpeg/SOURCE_INFO.txt
+PASS Release hash licenses/FFmpeg/SOURCE_MANIFEST.json
+PASS Release hash licenses/FFmpeg/VERSION.txt
+PASS Release hash licenses/FFmpeg/dependencies/ffmpeg-COPYING.GPLv2
+PASS Release hash licenses/FFmpeg/dependencies/ffmpeg-COPYING.GPLv3
+PASS Release hash licenses/FFmpeg/dependencies/ffmpeg-COPYING.LGPLv2.1
+PASS Release hash licenses/FFmpeg/dependencies/ffmpeg-COPYING.LGPLv3
+PASS Release hash licenses/FFmpeg/dependencies/ffmpeg-LICENSE.md
+PASS Release hash licenses/FFmpeg/dependencies/x264-COPYING
+PASS Release hash licenses/FFmpeg/dependencies/zlib-LICENSE
+PASS Release hash licenses/FFmpeg/toolchain/crt-COPYING
+PASS Release hash licenses/FFmpeg/toolchain/crt-COPYING.MinGW-w64-runtime.txt
+PASS Release hash licenses/FFmpeg/toolchain/crt-COPYING.MinGW-w64.txt
+PASS Release hash licenses/FFmpeg/toolchain/headers-COPYING
+PASS Release hash licenses/FFmpeg/toolchain/headers-COPYING.MinGW-w64-runtime.txt
+PASS Release hash licenses/FFmpeg/toolchain/headers-COPYING.MinGW-w64.txt
+PASS Release hash licenses/FFmpeg/toolchain/headers-ddk-readme.txt
+PASS Release hash licenses/FFmpeg/toolchain/libatomic-COPYING.RUNTIME
+PASS Release hash licenses/FFmpeg/toolchain/libatomic-COPYING3
+PASS Release hash licenses/FFmpeg/toolchain/libgcc-COPYING.RUNTIME
+PASS Release hash licenses/FFmpeg/toolchain/libgcc-COPYING3
+PASS Release hash licenses/FFmpeg/toolchain/winpthreads-COPYING
+PASS Release hash licenses/THIRD_PARTY_NOTICES.md
+PASS Release hash licenses/WaveCanvas-LICENSE.txt
+PASS Release hash source-info/SOURCE_MANIFEST.json
+PASS Release hash THIRD_PARTY_NOTICES.md
+PASS Release hash RELEASE-CHECKLIST.md
+PASS Release hash RELEASE_GPL_SOURCE_CHECKLIST.md
+PASS Release hash RELEASE-NOTES-1.0.0.md
+PASS Release hash WaveCanvas-1.0.0-GPL-Source.zip
+Package allowlist passed: 94 entries; 431.92 MiB; no dev/ or node_modules.
+PASS Release document matches THIRD_PARTY_NOTICES.md
+PASS Release document matches RELEASE-CHECKLIST.md
+PASS Release document matches RELEASE_GPL_SOURCE_CHECKLIST.md
+PASS Release document matches RELEASE-NOTES-1.0.0.md
+PASS Release source manifest matches installed resource
+Technical release health PASS; signed=false; GPL source gate=PASS; publicReleaseReady=true.

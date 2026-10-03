@@ -1,19 +1,22 @@
 # WaveCanvas release checklist
 
-WaveCanvas 1.0.0 — Unsigned Release Candidate.
+WaveCanvas 1.0.0 unsigned release artifacts. Source and installer are co-delivered.
 
 | Area | Status | Evidence |
 |---|---|---|
-| Build | PASS | Canonical package.json version, NSIS x64, runtime allowlist and SHA256 checks |
-| Licensing | BLOCKED | RELEASE_GPL_SOURCE_CHECKLIST.md; exact static source delivery incomplete |
-| Installer | PASS | Installed app QA passed |
-| File Association | PASS | Installed app QA passed |
-| Preferences / Options | PASS | Installed app QA passed |
-| Fonts | PASS | Installed app QA passed |
-| QA | PASS | Installed app QA passed; browser known baseline 589 PASS / 10 FAIL |
-| Signing | BLOCKED | NOT CONFIGURED; unsigned; no certificate or updater |
-| Distribution | BLOCKED | Internal RC only; incomplete corresponding source delivery |
+| Build | PASS | release:check hashes/runtime allowlist |
+| Licensing | PASS | RELEASE_GPL_SOURCE_CHECKLIST.md and complete controlled source ZIP |
+| Installer | PASS | Controlled rebuild report and installed sanity evidence |
+| File Association | PASS | Quoted .waveproj shell association |
+| Preferences / Options | PASS | Full regression evidence |
+| Fonts | PASS | Full regression evidence |
+| QA | PASS | Full regression, 3612 frames; browser existing baseline 589 PASS / 10 FAIL |
+| Signing | N/A | Explicit unsigned release; no certificate configured |
+| Distribution artifacts | PASS | Complete source ZIP beside matching installer; RELEASE-HASHES.txt |
+| Publication | N/A | Not performed; official URL to be decided when publishing |
 
 technicalReleaseCandidate=true
 signed=false
-publicReleaseReady=false
+artifactReady=true
+publicReleaseReady=true
+published=false

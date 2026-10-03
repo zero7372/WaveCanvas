@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Complete controlled co-delivery release passes while unpublished without invented URL"
+    },
+    {
+      "pass": true,
+      "label": "Missing complete source ZIP fails closed"
+    },
+    {
+      "pass": true,
+      "label": "Independent copied release/source material passes"
+    },
+    {
+      "pass": true,
+      "label": "Source ZIP hash mismatch fails closed"
+    },
+    {
+      "pass": true,
+      "label": "Missing co-delivery strategy fails closed"
+    },
+    {
+      "pass": true,
+      "label": "Published metadata requires a real delivery URL"
+    },
+    {
+      "pass": true,
+      "label": "Runtime/source hash mismatch fails closed"
+    },
+    {
+      "pass": true,
+      "label": "Missing controlled build recipe fails closed"
+    }
+  ]
+}

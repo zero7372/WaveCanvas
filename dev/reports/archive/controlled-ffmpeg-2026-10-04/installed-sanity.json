@@ -1,0 +1,162 @@
+﻿[
+    {
+        "pass":  true,
+        "label":  "No running WaveCanvas process before installer"
+    },
+    {
+        "pass":  true,
+        "label":  "Controlled runtime installer completes per-user install"
+    },
+    {
+        "pass":  true,
+        "label":  "Existing normal user business files unchanged"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/BUILD_CONFIG.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/BUILD_INFO.json"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/DEPENDENCIES.json"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/LICENSE"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/PROVIDER-README.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/SHA256.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/SOURCE_INFO.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/SOURCE_MANIFEST.json"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/VERSION.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.GPLv2"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.GPLv3"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.LGPLv2.1"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/dependencies/ffmpeg-COPYING.LGPLv3"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/dependencies/ffmpeg-LICENSE.md"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/dependencies/x264-COPYING"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/dependencies/zlib-LICENSE"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/crt-COPYING"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/crt-COPYING.MinGW-w64-runtime.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/crt-COPYING.MinGW-w64.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/headers-COPYING"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/headers-COPYING.MinGW-w64-runtime.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/headers-COPYING.MinGW-w64.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/headers-ddk-readme.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/libatomic-COPYING.RUNTIME"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/libatomic-COPYING3"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/libgcc-COPYING.RUNTIME"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/libgcc-COPYING3"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity FFmpeg/toolchain/winpthreads-COPYING"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity THIRD_PARTY_NOTICES.md"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed license identity WaveCanvas-LICENSE.txt"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed controlled binary matches vendor ffmpeg.exe"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed controlled binary matches vendor ffprobe.exe"
+    },
+    {
+        "pass":  true,
+        "label":  "Installed app remains unsigned"
+    },
+    {
+        "pass":  true,
+        "label":  "Quoted project association unchanged"
+    },
+    {
+        "pass":  true,
+        "label":  "Single Installed Apps version 1.0.0"
+    },
+    {
+        "pass":  true,
+        "label":  "Start Menu shortcut retained"
+    },
+    {
+        "pass":  true,
+        "label":  "Source ZIP excluded from installer resources"
+    }
+]
