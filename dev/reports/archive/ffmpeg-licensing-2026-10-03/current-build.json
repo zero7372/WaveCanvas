@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-03T12:09:13.318Z",
+  "repoHead": "271c08e8ea8efbf0efad1ed52c2e188453fd68ea",
+  "metadata": {
+    "source": "https://github.com/GyanD/codexffmpeg/releases/tag/9.0.2",
+    "version": "9.0.2-essentials_build-www.gyan.dev",
+    "license": "GPL-3.0-or-later",
+    "gpl": true,
+    "libx264": true,
+    "releaseSafe": false,
+    "sha256": {
+      "ffmpeg.exe": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
+      "ffprobe.exe": "f0d36ecbbdd3bcfac3efa078c96c7271c2e68b3810595552ac3b7f17e9a65c52"
+    }
+  },
+  "binaries": {
+    "ffmpeg.exe": {
+      "bytes": 105423872,
+      "sha256": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
+      "metadataMatches": true,
+      "packagedMatches": true,
+      "version": "ffmpeg version 9.0.2-essentials_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers\r\nbuilt with gcc 16.2.0 (Rev3, Built by MSYS2 project)\r\nconfiguration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-cairo --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-openal --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband\r\nlibavutil      61.  1.102 / 61.  1.102\r\nlibavcodec     63.  1.102 / 63.  1.102\r\nlibavformat    63.  1.102 / 63.  1.102\r\nlibavdevice    63.  1.102 / 63.  1.102\r\nlibavfilter    12.  1.102 / 12.  1.102\r\nlibswscale     10.  1.102 / 10.  1.102\r\nlibswresample   7.  1.102 /  7.  1.102\r\n\r\nExiting with exit code 0\r\n",
+      "license": "ffmpeg is free software; you can redistribute it and/or modify\r\nit under the terms of the GNU General Public License as published by\r\nthe Free Software Foundation; either version 3 of the License, or\r\n(at your option) any later version.\r\n\r\nffmpeg is distributed in the hope that it will be useful,\r\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\r\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\nGNU General Public License for more details.\r\n\r\nYou should have received a copy of the GNU General Public License\r\nalong with ffmpeg.  If not, see <http://www.gnu.org/licenses/>.\r\n"
+    },
+    "ffprobe.exe": {
+      "bytes": 105221120,
+      "sha256": "f0d36ecbbdd3bcfac3efa078c96c7271c2e68b3810595552ac3b7f17e9a65c52",
+      "metadataMatches": true,
+      "packagedMatches": true,
+      "version": "ffprobe version 9.0.2-essentials_build-www.gyan.dev Copyright (c) 2007-2026 the FFmpeg developers\r\nbuilt with gcc 16.2.0 (Rev3, Built by MSYS2 project)\r\nconfiguration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-cairo --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-openal --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband\r\nlibavutil      61.  1.102 / 61.  1.102\r\nlibavcodec     63.  1.102 / 63.  1.102\r\nlibavformat    63.  1.102 / 63.  1.102\r\nlibavdevice    63.  1.102 / 63.  1.102\r\nlibavfilter    12.  1.102 / 12.  1.102\r\nlibswscale     10.  1.102 / 10.  1.102\r\nlibswresample   7.  1.102 /  7.  1.102\r\n",
+      "license": "ffprobe is free software; you can redistribute it and/or modify\r\nit under the terms of the GNU General Public License as published by\r\nthe Free Software Foundation; either version 3 of the License, or\r\n(at your option) any later version.\r\n\r\nffprobe is distributed in the hope that it will be useful,\r\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\r\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\nGNU General Public License for more details.\r\n\r\nYou should have received a copy of the GNU General Public License\r\nalong with ffprobe.  If not, see <http://www.gnu.org/licenses/>.\r\n"
+    }
+  },
+  "sourceCommit": "946fcce07b6dcd0331c8cc609192aeff5e1924f8",
+  "sourceCommitResolution": "GitHub commits API",
+  "encoderEnumerationOnly": [
+    " V....D libx264              libx264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 (codec h264)",
+    " V....D libx264rgb           libx264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 RGB (codec h264)",
+    " V....D h264_amf             AMD AMF H.264 Encoder (codec h264)",
+    " V....D h264_d3d12va         D3D12VA h264 encoder (codec h264)",
+    " V....D h264_mf              H264 via MediaFoundation (codec h264)",
+    " V....D h264_nvenc           NVIDIA NVENC H.264 encoder (codec h264)",
+    " V..... h264_qsv             H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 (Intel Quick Sync Video acceleration) (codec h264)",
+    " V....D h264_vaapi           H.264/AVC (VAAPI) (codec h264)",
+    " A....D aac                  AAC (Advanced Audio Coding)",
+    " A....D aac_mf               AAC via MediaFoundation (codec aac)"
+  ],
+  "externalLibraryVersions": "AMF v1.5.2-2-gc35f613\naom v3.15.0-25-g023743a7d7\nAviSynthPlus v3.7.5-383-g5c82777b\ncairo 1.18.5\nffnvcodec n13.1.15.0-1-geddcea9\nfreetype VER-2-14-3\nfribidi v1.0.16-19-gc928e4c\ngsm 1.0.24\nharfbuzz 14.4.0-108-g64e2b532\nlame 3.100\nlibass 0.17.5-8-gb2fe9d8\nlibgme 0.6.6\nlibopencore-amrnb 0.1.6\nlibopencore-amrwb 0.1.6\nlibssh 0.12.2\nlibtheora v1.2.0\nlibwebp v1.6.0-249-g1f34635\nopenal-soft 1.25.2-48-g7532541\nopenjpeg2 2.5.4\nopenmpt libopenmpt-0.6.30-3-g6c0a06bc\nopus v1.6.1-68-g503d81b1\nrubberband v4.0.0\nSDL release-2.32.0-234-gb90ac9502\nspeex Speex-1.2.1-51-g0589522\nsrt v1.5.7-7-gcae8f62\nVAAPI 2.25.0.\nvidstab v1.1.2-214-ge2445c4\nvmaf v3.2.0-13-gf85a8536\nvo-amrwbenc 0.1.3\nvorbis v1.3.7-37-g1b75110b\nVPL 2.17\nvpx v1.17.0-57-gd2413e2ca\nx264 v0.165.3223\nx265 4.3-45-g116b875\nxvid v1.3.7\nzeromq 4.3.5\nzimg release-3.0.6-253-g67e0603",
+  "compatibilityTestsRun": false
+}

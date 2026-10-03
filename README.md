@@ -122,4 +122,6 @@ Main 使用 `app.getPath('userData')/settings.json`，獨立 `wavecanvas-setting
 
 目前 bundled FFmpeg 是 **GPL build**（見 vendor/ffmpeg/BUILD.json、LICENSE、README provenance與hashes）。Development build 可用；公開 redistribution 前仍需完成 release licensing compliance，不宣稱 release-safe。
 
+發布策略、source delivery gates 與 encoder 相容性評估見 [FFmpeg distribution/licensing audit](dev/reports/FFMPEG-DISTRIBUTION-LICENSING-AUDIT.md)；[Third-party notices](THIRD_PARTY_NOTICES.md) 目前是未完成、尚未打包的 release draft。
+
 Installer、code signing、File Association、licensing remediation 等 release engineering 是後續独立工作，本輪不實作。NVENC／HEVC／AV1／4K亦未正式整合。
