@@ -1,0 +1,57 @@
+
+> wavecanvas@0.1.0 project:test
+> node dev/tools/project-smoke.cjs
+
+PASS Narrow project preload; no Node / raw IPC / fs
+PASS Untitled never autosaves
+PASS Template mutation marks dirty
+PASS #setting-logoimage image committed
+PASS #setting-backgroundimage image committed
+PASS Untitled Ctrl+S uses Save As; Unicode path, clean state
+PASS Real source refs and edited SRT/sourceCue stored
+PASS Project contains no Object URLs
+PASS Playback / pause / seek do not dirty project
+PASS Clean project closes normally
+PASS Project reopens after process restart
+PASS Full media / edited lyrics / IDs / offsets / background / Song Info restored
+PASS circle inactive bank restored
+PASS square inactive bank restored
+PASS linear inactive bank restored
+PASS Saved + dirty autosave writes and cleans
+PASS Backup retains previous version before overwrite
+PASS Autosave updates formal project
+PASS Clean autosave skips write
+PASS False dirty + identical canonical content skips write
+PASS Skipped autosave leaves mtime unchanged
+PASS Autosave failure retains dirty state / low-noise failure status
+PASS Failed autosave leaves formal project intact
+PASS Explicit Save As succeeds
+PASS Save As preserves project identity
+PASS Existing Save writes without Save dialog
+PASS Open guard Cancel preserves current project
+PASS Close guard Cancel retains window
+PASS Open guard Save persists before switching
+PASS Guard Save writes edited state
+PASS invalid JSON reports error and keeps active project
+PASS wrong format reports error and keeps active project
+PASS newer version reports error and keeps active project
+PASS Collect continue succeeds
+PASS Collect continue preserves current path
+PASS Collected refs are relative
+PASS Original subtitle never overwritten by Save/autosave/Collect
+PASS Moved collected folder reopens
+PASS Moved project resolves media and edited timing
+PASS Collect switch succeeds
+PASS Collect switch activates copied project and clean baseline
+PASS Recent Home cards render project name/path/time/layout thumbnail
+PASS Recent list persists and deduplicates
+PASS Missing Media project opens gracefully
+PASS Missing Media list and media slot indicators
+PASS Changing settings preserves missing media references
+PASS Collect missing media aborts visibly
+PASS New guard Discard clears media and restores clean factory state
+PASS Save As cancel retains dirty state
+PASS Close Save then Save As cancel aborts close
+PASS Close guard Discard exits
+Project smoke: 51 passed / 0 failed
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\project-development-1791018810496

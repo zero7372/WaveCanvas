@@ -1,0 +1,109 @@
+{
+  "at": "2026-10-03T11:02:08.199Z",
+  "root": "H:\\WaveCanvas\\Audio visualizer",
+  "method": "logical file bytes; no symlink traversal; nested directories overlap",
+  "total": {
+    "bytes": 772239322,
+    "files": 8037,
+    "links": 0,
+    "mib": 736.464807510376
+  },
+  "directories": {
+    "app": {
+      "bytes": 1994858,
+      "files": 70,
+      "links": 0,
+      "mib": 1.902444839477539
+    },
+    "electron": {
+      "bytes": 43877,
+      "files": 11,
+      "links": 0,
+      "mib": 0.04184436798095703
+    },
+    "vendor": {
+      "bytes": 210722123,
+      "files": 5,
+      "links": 0,
+      "mib": 200.96027660369873
+    },
+    "dev": {
+      "bytes": 1535106,
+      "files": 210,
+      "links": 0,
+      "mib": 1.4639911651611328
+    },
+    "dev/tests": {
+      "bytes": 373797,
+      "files": 60,
+      "links": 0,
+      "mib": 0.35648059844970703
+    },
+    "dev/tests/fixtures": {
+      "bytes": 57576,
+      "files": 12,
+      "links": 0,
+      "mib": 0.05490875244140625
+    },
+    "dev/tests/artifacts": {
+      "bytes": 0,
+      "files": 0,
+      "links": 0,
+      "mib": 0,
+      "missing": true
+    },
+    "dev/reports": {
+      "bytes": 957495,
+      "files": 126,
+      "links": 0,
+      "mib": 0.9131383895874023
+    },
+    "dev/downloads": {
+      "bytes": 0,
+      "files": 0,
+      "links": 0,
+      "mib": 0,
+      "missing": true
+    },
+    "node_modules": {
+      "bytes": 470856135,
+      "files": 7481,
+      "links": 0,
+      "mib": 449.04340267181396
+    },
+    "dist": {
+      "bytes": 0,
+      "files": 0,
+      "links": 0,
+      "mib": 0,
+      "missing": true
+    },
+    ".git": {
+      "bytes": 86901070,
+      "files": 254,
+      "links": 0,
+      "mib": 82.87531852722168
+    },
+    ".electron-cache": {
+      "bytes": 0,
+      "files": 0,
+      "links": 0,
+      "mib": 0,
+      "missing": true
+    },
+    ".npm-cache": {
+      "bytes": 0,
+      "files": 0,
+      "links": 0,
+      "mib": 0,
+      "missing": true
+    },
+    ".electron-builder-cache": {
+      "bytes": 0,
+      "files": 0,
+      "links": 0,
+      "mib": 0,
+      "missing": true
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "at": "2026-10-03T10:57:13.945Z",
+  "root": "H:\\WaveCanvas\\Audio visualizer",
+  "method": "logical file bytes; no symlink traversal; nested directories overlap",
+  "total": {
+    "bytes": 3288545706,
+    "files": 11097,
+    "links": 0,
+    "mib": 3136.201578140259
+  },
+  "directories": {
+    "app": {
+      "bytes": 1994858,
+      "files": 70,
+      "links": 0,
+      "mib": 1.902444839477539
+    },
+    "electron": {
+      "bytes": 43877,
+      "files": 11,
+      "links": 0,
+      "mib": 0.04184436798095703
+    },
+    "vendor": {
+      "bytes": 210722123,
+      "files": 5,
+      "links": 0,
+      "mib": 200.96027660369873
+    },
+    "dev": {
+      "bytes": 1550365221,
+      "files": 2151,
+      "links": 0,
+      "mib": 1478.5434923171997
+    },
+    "dev/tests": {
+      "bytes": 1106040821,
+      "files": 2066,
+      "links": 0,
+      "mib": 1054.8027238845825
+    },
+    "dev/tests/artifacts": {
+      "bytes": 1105724808,
+      "files": 2016,
+      "links": 0,
+      "mib": 1054.501350402832
+    },
+    "dev/reports": {
+      "bytes": 138997,
+      "files": 16,
+      "links": 0,
+      "mib": 0.13255786895751953
+    },
+    "dev/downloads": {
+      "bytes": 443989811,
+      "files": 46,
+      "links": 0,
+      "mib": 423.42167949676514
+    },
+    "node_modules": {
+      "bytes": 470856135,
+      "files": 7481,
+      "links": 0,
+      "mib": 449.04340267181396
+    },
+    "dist": {
+      "bytes": 721886611,
+      "files": 81,
+      "links": 0,
+      "mib": 688.4447202682495
+    },
+    ".git": {
+      "bytes": 86901070,
+      "files": 254,
+      "links": 0,
+      "mib": 82.87531852722168
+    },
+    ".electron-cache": {
+      "bytes": 157998329,
+      "files": 1,
+      "links": 0,
+      "mib": 150.67894840240479
+    },
+    ".npm-cache": {
+      "bytes": 72805499,
+      "files": 1030,
+      "links": 0,
+      "mib": 69.43273448944092
+    },
+    ".electron-builder-cache": {
+      "bytes": 14786184,
+      "files": 7,
+      "links": 0,
+      "mib": 14.101203918457031
+    }
+  }
+}

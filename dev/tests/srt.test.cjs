@@ -67,6 +67,6 @@ test('SRT edits, numeric/manual timing, undo/redo and LRC export retain metadata
     assert.equal(m.fromText('[00:01.00]Legacy','primary','Untitled').sourceFormat,'lrc');
 });
 test('SRT phase protects LRC parser, Lyrics renderer, Timing editor and all audio/visual/factory/preset code byte-for-byte',()=>{
-    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/artifacts/srt-protected-hashes.json'),'utf8').replace(/^\uFEFF/,''));
+    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/fixtures/baselines/srt-protected-hashes.json'),'utf8').replace(/^\uFEFF/,''));
     for(const [file,hash] of Object.entries(hashes))assert.equal(crypto.createHash('sha256').update(require('./project-baseline.cjs')(file,fs.readFileSync(path.join(root,file)))).digest('hex'),hash,file);
 });

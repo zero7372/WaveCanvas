@@ -48,7 +48,7 @@ test('Templates reject unknown ids, retain inactive edits and leave Preset/Facto
     assert.equal(r.getStandalone().visualizer.coverX,50);assert.equal(r.getStandalone().visualizer.coverShape,'circle');
 });
 test('Template and media UI scope does not modify renderers, audio, factory/preset, Lyrics or Timing modules',()=>{
-    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/artifacts/template-protected-hashes.json'),'utf8').replace(/^\uFEFF/,''));
+    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/fixtures/baselines/template-protected-hashes.json'),'utf8').replace(/^\uFEFF/,''));
     for(const [file,hash] of Object.entries(hashes)) {
         // SRT import intentionally extends source/runtime/UI; srt.test.cjs covers metadata and protects renderer.
         if (['lyrics-runtime.js','lyrics-ui.js','timing-model.js'].includes(file)) continue;

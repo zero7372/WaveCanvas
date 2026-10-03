@@ -1,0 +1,209 @@
+{
+  "packaged": false,
+  "checks": [
+    {
+      "pass": true,
+      "label": "Narrow project preload; no Node / raw IPC / fs"
+    },
+    {
+      "pass": true,
+      "label": "Untitled never autosaves"
+    },
+    {
+      "pass": true,
+      "label": "Template mutation marks dirty"
+    },
+    {
+      "pass": true,
+      "label": "#setting-logoimage image committed"
+    },
+    {
+      "pass": true,
+      "label": "#setting-backgroundimage image committed"
+    },
+    {
+      "pass": true,
+      "label": "Untitled Ctrl+S uses Save As; Unicode path, clean state"
+    },
+    {
+      "pass": true,
+      "label": "Real source refs and edited SRT/sourceCue stored"
+    },
+    {
+      "pass": true,
+      "label": "Project contains no Object URLs"
+    },
+    {
+      "pass": true,
+      "label": "Playback / pause / seek do not dirty project"
+    },
+    {
+      "pass": true,
+      "label": "Clean project closes normally"
+    },
+    {
+      "pass": true,
+      "label": "Project reopens after process restart"
+    },
+    {
+      "pass": true,
+      "label": "Full media / edited lyrics / IDs / offsets / background / Song Info restored"
+    },
+    {
+      "pass": true,
+      "label": "circle inactive bank restored"
+    },
+    {
+      "pass": true,
+      "label": "square inactive bank restored"
+    },
+    {
+      "pass": true,
+      "label": "linear inactive bank restored"
+    },
+    {
+      "pass": true,
+      "label": "Saved + dirty autosave writes and cleans"
+    },
+    {
+      "pass": true,
+      "label": "Backup retains previous version before overwrite"
+    },
+    {
+      "pass": true,
+      "label": "Autosave updates formal project"
+    },
+    {
+      "pass": true,
+      "label": "Clean autosave skips write"
+    },
+    {
+      "pass": true,
+      "label": "False dirty + identical canonical content skips write"
+    },
+    {
+      "pass": true,
+      "label": "Skipped autosave leaves mtime unchanged"
+    },
+    {
+      "pass": true,
+      "label": "Autosave failure retains dirty state / low-noise failure status"
+    },
+    {
+      "pass": true,
+      "label": "Failed autosave leaves formal project intact"
+    },
+    {
+      "pass": true,
+      "label": "Explicit Save As succeeds"
+    },
+    {
+      "pass": true,
+      "label": "Save As preserves project identity"
+    },
+    {
+      "pass": true,
+      "label": "Existing Save writes without Save dialog"
+    },
+    {
+      "pass": true,
+      "label": "Open guard Cancel preserves current project"
+    },
+    {
+      "pass": true,
+      "label": "Close guard Cancel retains window"
+    },
+    {
+      "pass": true,
+      "label": "Open guard Save persists before switching"
+    },
+    {
+      "pass": true,
+      "label": "Guard Save writes edited state"
+    },
+    {
+      "pass": true,
+      "label": "invalid JSON reports error and keeps active project"
+    },
+    {
+      "pass": true,
+      "label": "wrong format reports error and keeps active project"
+    },
+    {
+      "pass": true,
+      "label": "newer version reports error and keeps active project"
+    },
+    {
+      "pass": true,
+      "label": "Collect continue succeeds"
+    },
+    {
+      "pass": true,
+      "label": "Collect continue preserves current path"
+    },
+    {
+      "pass": true,
+      "label": "Collected refs are relative"
+    },
+    {
+      "pass": true,
+      "label": "Original subtitle never overwritten by Save/autosave/Collect"
+    },
+    {
+      "pass": true,
+      "label": "Moved collected folder reopens"
+    },
+    {
+      "pass": true,
+      "label": "Moved project resolves media and edited timing"
+    },
+    {
+      "pass": true,
+      "label": "Collect switch succeeds"
+    },
+    {
+      "pass": true,
+      "label": "Collect switch activates copied project and clean baseline"
+    },
+    {
+      "pass": true,
+      "label": "Recent Home cards render project name/path/time/layout thumbnail"
+    },
+    {
+      "pass": true,
+      "label": "Recent list persists and deduplicates"
+    },
+    {
+      "pass": true,
+      "label": "Missing Media project opens gracefully"
+    },
+    {
+      "pass": true,
+      "label": "Missing Media list and media slot indicators"
+    },
+    {
+      "pass": true,
+      "label": "Changing settings preserves missing media references"
+    },
+    {
+      "pass": true,
+      "label": "Collect missing media aborts visibly"
+    },
+    {
+      "pass": true,
+      "label": "New guard Discard clears media and restores clean factory state"
+    },
+    {
+      "pass": true,
+      "label": "Save As cancel retains dirty state"
+    },
+    {
+      "pass": true,
+      "label": "Close Save then Save As cancel aborts close"
+    },
+    {
+      "pass": true,
+      "label": "Close guard Discard exits"
+    }
+  ]
+}

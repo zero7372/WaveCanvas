@@ -5,3 +5,7 @@ dist/
 .electron-builder-cache/
 dev/tests/artifacts/
 dev/downloads/
+*.log
+/temp/
+/output/
+/screenshots/

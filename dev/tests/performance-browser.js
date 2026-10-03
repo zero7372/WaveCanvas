@@ -2,7 +2,7 @@
     'use strict';
     const frame = document.querySelector('#app'), output = document.querySelector('#results'), status = document.querySelector('#status');
     if (new URLSearchParams(location.search).get('detail') === '1') frame.src='../../app/index.html?profile=1&profileDetail=1';
-    if (new URLSearchParams(location.search).get('baseline') === '1') frame.src='artifacts/index-before.html?profile=1';
+    if (new URLSearchParams(location.search).get('baseline') === '1') frame.src='fixtures/baselines/index-before.html?profile=1';
     const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
     let app, doc, audio, perf, runtime, wav, cover, background, busy = false;
     const errors = [], report = { kind: 'Synthetic / controlled browser benchmark', scenarios: [], checks: [] };

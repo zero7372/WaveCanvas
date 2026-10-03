@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Factory Layout Defaults / Per-Control Restore Default
 
 1. **JSON 映射**：factory-defaults/circle.json、square.json、linear.json 是 Circle.json、square.json、Linear.json 原樣副本，未修改 Dropbox 原檔。每份 54 properties 保留 key / value 結構；測試逐欄核對全部來源數值。
@@ -25,7 +27,7 @@
 
 Circle/Square draw trace、Linear spectrum geometry/trace 保持基準；FFT mapping / wallpaperAudioListener SHA-256 不變。兩個 browser runner 無 page errors／unhandled rejection；Cover cache、clipping、旋轉、bass/shake、Preset 同步回歸通過。Schema check 98 entries、Factory generator check、JS syntax checks 通過。
 
-Browser 紀錄為 tests/artifacts/factory-defaults-results.txt、factory-linear-cover-results.txt；截圖 factory-restore-default.png。可用 node scripts/generate-factory-defaults.cjs --check 核對來源、node --test tests/*.test.cjs 重跑必要 regression。
+Browser 紀錄為 dev/reports/archive/milestone-evidence/factory-defaults-results.txt、factory-linear-cover-results.txt；截圖 factory-restore-default.png。可用 node dev/tools/generate-factory-defaults.cjs --check 核對來源、npm test 重跑必要 regression。
 
 ## 相容性與限制
 

@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Repository Classification — app / dev
 
 本輪只移動檔案、修正路徑與更新入口說明，沒有 Electron、packaging、新套件、功能或演算法變更。
@@ -84,4 +86,4 @@ Browser smoke：`/dev/tests/repository-smoke.html`。另外重跑搬移後的 SR
 
 分類前 187 個檔案逐一建立 `{ original, destination, sha256 }` manifest；分類後 187 個目的檔皆存在且無名稱衝突。全部正式 JS／CSS、assets、project.json、Factory JSON、MIT License 與未修改的歷史 artifacts SHA-256 保持一致。只允許 HTML／工具／測試中的路徑與 README 文字變更；所有原檔案皆保留。
 
-保留 manifest：`dev/notes/repository-file-manifest.json`。驗證紀錄與畫面：`dev/tests/artifacts/repository-smoke-results.txt`、`repository-smoke.png`、`repository-node-results.txt`。
+保留 manifest：`dev/notes/repository-file-manifest.json`。驗證紀錄與畫面：`dev/reports/archive/milestone-evidence/repository-smoke-results.txt`、`repository-smoke.png`、`repository-node-results.txt`。

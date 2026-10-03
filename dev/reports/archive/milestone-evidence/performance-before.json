@@ -1,0 +1,602 @@
+{
+  "kind": "Synthetic / controlled browser benchmark",
+  "scenarios": [
+    {
+      "scenario": "A Idle",
+      "started": 1701.3000000044703,
+      "frames": 479,
+      "elapsed": 7983.4,
+      "maxFrame": 17.199999999999818,
+      "currentFrame": 16.600000000000364,
+      "longFrames": 0,
+      "droppedEstimate": 0,
+      "hiddenFrames": 0,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "measures": {
+        "Particle.draw": {
+          "calls": 16920,
+          "totalMs": 28.700000047683716,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.001696217496908021
+        },
+        "visualizer": {
+          "calls": 480,
+          "totalMs": 135.70000011473894,
+          "maxMs": 1.1000000014901161,
+          "averageMs": 0.2827083335723728
+        },
+        "VisualizerRuntime.deliverLocalAudio": {
+          "calls": 240,
+          "totalMs": 1.599999986588955,
+          "maxMs": 0.30000000447034836,
+          "averageMs": 0.006666666610787312
+        },
+        "audio.frame": {
+          "calls": 480,
+          "totalMs": 7.599999971687794,
+          "maxMs": 0.30000000447034836,
+          "averageMs": 0.01583333327434957
+        },
+        "song-info.frame": {
+          "calls": 480,
+          "totalMs": 11.899999976158142,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.024791666616996128
+        },
+        "lyrics.frame": {
+          "calls": 480,
+          "totalMs": 25.00000012665987,
+          "maxMs": 0.29999999701976776,
+          "averageMs": 0.05208333359720806
+        }
+      },
+      "canvas": {},
+      "urlCreated": 0,
+      "urlRevoked": 0,
+      "durationMs": 8003.10000000149,
+      "currentFPS": 60.24096385542037,
+      "averageFPS": 59.99949896034271,
+      "minFPS": 58.139534883721545,
+      "averageFrameMs": 16.666805845511483,
+      "activeURLs": 0,
+      "pendingRAF": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      },
+      "audio": "empty",
+      "timingOpen": false,
+      "layout": "circle",
+      "stage": {
+        "width": 455.99993896484375,
+        "height": 256.5,
+        "canonical": "1920x1080"
+      },
+      "heapBytes": 24804438,
+      "dpr": 1.2000000476837158,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": "visible",
+      "gpuStatus": "UNKNOWN — inspect chrome://gpu on the hardware under test",
+      "duplicateListenerAttempts": 0,
+      "audioGraphs": 1,
+      "detail": false,
+      "currentLoop": ""
+    },
+    {
+      "scenario": "B Basic",
+      "started": 10879.60000000149,
+      "frames": 479,
+      "elapsed": 7983.300000000001,
+      "maxFrame": 17.19999999999891,
+      "currentFrame": 16.5,
+      "longFrames": 0,
+      "droppedEstimate": 0,
+      "hiddenFrames": 0,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "measures": {
+        "Particle.draw": {
+          "calls": 22758,
+          "totalMs": 39.599999971687794,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.0017400474545956495
+        },
+        "visualizer": {
+          "calls": 480,
+          "totalMs": 182.9999998807907,
+          "maxMs": 0.8000000044703484,
+          "averageMs": 0.3812499997516473
+        },
+        "audio.frame": {
+          "calls": 480,
+          "totalMs": 141.40000005066395,
+          "maxMs": 1.2000000029802322,
+          "averageMs": 0.2945833334388832
+        },
+        "song-info.frame": {
+          "calls": 480,
+          "totalMs": 11.900000028312206,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.02479166672565043
+        },
+        "VisualizerLRC.activeIndex": {
+          "calls": 570,
+          "totalMs": 0.7999999821186066,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.001403508740558959
+        },
+        "lyrics.frame": {
+          "calls": 480,
+          "totalMs": 32.69999998807907,
+          "maxMs": 0.3999999985098839,
+          "averageMs": 0.06812499997516473
+        },
+        "audio.analyser": {
+          "calls": 240,
+          "totalMs": 108.70000009983778,
+          "maxMs": 1,
+          "averageMs": 0.45291666708265743
+        },
+        "audio.mapping": {
+          "calls": 240,
+          "totalMs": 23.299999929964542,
+          "maxMs": 0.3999999985098839,
+          "averageMs": 0.09708333304151892
+        },
+        "VisualizerRuntime.deliverLocalAudio": {
+          "calls": 240,
+          "totalMs": 1.5000000149011612,
+          "maxMs": 0.19999999552965164,
+          "averageMs": 0.006250000062088172
+        },
+        "timing.playhead": {
+          "calls": 30,
+          "totalMs": 0.7000000104308128,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.023333333681027094
+        },
+        "timing.markers": {
+          "calls": 30,
+          "totalMs": 0.19999999552965164,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.006666666517655055
+        },
+        "timing.playhead+markers": {
+          "calls": 30,
+          "totalMs": 1.1000000089406967,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.03666666696468989
+        }
+      },
+      "canvas": {},
+      "urlCreated": 0,
+      "urlRevoked": 0,
+      "durationMs": 8001.20000000298,
+      "currentFPS": 60.60606060606061,
+      "averageFPS": 60.00025052296669,
+      "minFPS": 58.13953488372462,
+      "averageFrameMs": 16.666597077244262,
+      "activeURLs": 2,
+      "pendingRAF": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      },
+      "audio": "playing",
+      "timingOpen": false,
+      "layout": "circle",
+      "stage": {
+        "width": 455.99993896484375,
+        "height": 256.5,
+        "canonical": "1920x1080"
+      },
+      "heapBytes": 26022589,
+      "dpr": 1.2000000476837158,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": "visible",
+      "gpuStatus": "UNKNOWN — inspect chrome://gpu on the hardware under test",
+      "duplicateListenerAttempts": 0,
+      "audioGraphs": 1,
+      "detail": false,
+      "currentLoop": ""
+    },
+    {
+      "scenario": "C Lyrics",
+      "started": 20013.10000000149,
+      "frames": 479,
+      "elapsed": 7983.100000000002,
+      "maxFrame": 17.100000000002183,
+      "currentFrame": 16.400000000001455,
+      "longFrames": 0,
+      "droppedEstimate": 0,
+      "hiddenFrames": 0,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "measures": {
+        "Particle.draw": {
+          "calls": 22881,
+          "totalMs": 41.900000005960464,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.0018312136709916728
+        },
+        "visualizer": {
+          "calls": 480,
+          "totalMs": 176.59999990463257,
+          "maxMs": 0.7999999970197678,
+          "averageMs": 0.36791666646798454
+        },
+        "audio.frame": {
+          "calls": 480,
+          "totalMs": 146.300000064075,
+          "maxMs": 1.1000000014901161,
+          "averageMs": 0.30479166680015624
+        },
+        "song-info.frame": {
+          "calls": 480,
+          "totalMs": 15.499999985098839,
+          "maxMs": 0.30000000447034836,
+          "averageMs": 0.03229166663562258
+        },
+        "VisualizerLRC.activeIndex": {
+          "calls": 578,
+          "totalMs": 0.8000000044703484,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.0013840830527168657
+        },
+        "lyrics.frame": {
+          "calls": 480,
+          "totalMs": 38.50000002235174,
+          "maxMs": 2.6999999955296516,
+          "averageMs": 0.08020833337989947
+        },
+        "audio.analyser": {
+          "calls": 240,
+          "totalMs": 110.80000003427267,
+          "maxMs": 1,
+          "averageMs": 0.46166666680946944
+        },
+        "audio.mapping": {
+          "calls": 240,
+          "totalMs": 25.599999994039536,
+          "maxMs": 0.30000000447034836,
+          "averageMs": 0.1066666666418314
+        },
+        "VisualizerRuntime.deliverLocalAudio": {
+          "calls": 240,
+          "totalMs": 1.5000000074505806,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.006250000031044086
+        },
+        "timing.playhead": {
+          "calls": 34,
+          "totalMs": 1.1000000089406967,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.03235294143943226
+        },
+        "timing.markers": {
+          "calls": 34,
+          "totalMs": 0.20000000298023224,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.00588235302883036
+        },
+        "timing.playhead+markers": {
+          "calls": 34,
+          "totalMs": 1.300000011920929,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.03823529446826262
+        }
+      },
+      "canvas": {},
+      "urlCreated": 0,
+      "urlRevoked": 0,
+      "durationMs": 8003.20000000298,
+      "currentFPS": 60.97560975609215,
+      "averageFPS": 60.001753704701166,
+      "minFPS": 58.47953216373523,
+      "averageFrameMs": 16.666179540709816,
+      "activeURLs": 2,
+      "pendingRAF": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      },
+      "audio": "playing",
+      "timingOpen": false,
+      "layout": "circle",
+      "stage": {
+        "width": 455.99993896484375,
+        "height": 256.5,
+        "canonical": "1920x1080"
+      },
+      "heapBytes": 10005918,
+      "dpr": 1.2000000476837158,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": "visible",
+      "gpuStatus": "UNKNOWN — inspect chrome://gpu on the hardware under test",
+      "duplicateListenerAttempts": 0,
+      "audioGraphs": 1,
+      "detail": false,
+      "currentLoop": ""
+    },
+    {
+      "scenario": "D Full",
+      "started": 29280.30000000447,
+      "frames": 479,
+      "elapsed": 7983.199999999997,
+      "maxFrame": 17.200000000004366,
+      "currentFrame": 16.799999999995634,
+      "longFrames": 0,
+      "droppedEstimate": 0,
+      "hiddenFrames": 0,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "measures": {
+        "Particle.draw": {
+          "calls": 30468,
+          "totalMs": 53.09999990463257,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.0017428121276300567
+        },
+        "visualizer": {
+          "calls": 480,
+          "totalMs": 184.60000012815,
+          "maxMs": 0.8999999985098839,
+          "averageMs": 0.3845833336003125
+        },
+        "audio.frame": {
+          "calls": 480,
+          "totalMs": 117,
+          "maxMs": 0.8999999985098839,
+          "averageMs": 0.24375
+        },
+        "song-info.frame": {
+          "calls": 480,
+          "totalMs": 12.900000028312206,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.026875000058983762
+        },
+        "VisualizerLRC.activeIndex": {
+          "calls": 578,
+          "totalMs": 1.0999999940395355,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.0019031141765389887
+        },
+        "lyrics.frame": {
+          "calls": 480,
+          "totalMs": 30.399999991059303,
+          "maxMs": 1.5,
+          "averageMs": 0.06333333331470688
+        },
+        "audio.analyser": {
+          "calls": 240,
+          "totalMs": 87.30000000447035,
+          "maxMs": 0.8999999985098839,
+          "averageMs": 0.36375000001862645
+        },
+        "audio.mapping": {
+          "calls": 240,
+          "totalMs": 21.80000000447035,
+          "maxMs": 0.3999999985098839,
+          "averageMs": 0.09083333335195978
+        },
+        "VisualizerRuntime.deliverLocalAudio": {
+          "calls": 240,
+          "totalMs": 0.8999999985098839,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.003749999993791183
+        },
+        "timing.playhead": {
+          "calls": 34,
+          "totalMs": 0.9000000059604645,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.026470588410601896
+        },
+        "timing.markers": {
+          "calls": 34,
+          "totalMs": 0.3999999985098839,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.011764705838525997
+        },
+        "timing.playhead+markers": {
+          "calls": 34,
+          "totalMs": 1.3000000044703484,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.038235294249127895
+        }
+      },
+      "canvas": {},
+      "urlCreated": 0,
+      "urlRevoked": 0,
+      "durationMs": 8009.39999999851,
+      "currentFPS": 59.523809523824994,
+      "averageFPS": 60.0010021044193,
+      "minFPS": 58.139534883706176,
+      "averageFrameMs": 16.66638830897703,
+      "activeURLs": 3,
+      "pendingRAF": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      },
+      "audio": "playing",
+      "timingOpen": false,
+      "layout": "circle",
+      "stage": {
+        "width": 455.99993896484375,
+        "height": 256.5,
+        "canonical": "1920x1080"
+      },
+      "heapBytes": 9474051,
+      "dpr": 1.2000000476837158,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": "visible",
+      "gpuStatus": "UNKNOWN — inspect chrome://gpu on the hardware under test",
+      "duplicateListenerAttempts": 0,
+      "audioGraphs": 1,
+      "detail": false,
+      "currentLoop": ""
+    },
+    {
+      "scenario": "E Full + Timing",
+      "started": 38547.20000000298,
+      "frames": 479,
+      "elapsed": 7983.4000000000015,
+      "maxFrame": 17.099999999998545,
+      "currentFrame": 16.700000000004366,
+      "longFrames": 0,
+      "droppedEstimate": 0,
+      "hiddenFrames": 0,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "measures": {
+        "Particle.draw": {
+          "calls": 29899,
+          "totalMs": 41.30000003427267,
+          "maxMs": 0.29999999701976776,
+          "averageMs": 0.0013813171020526664
+        },
+        "visualizer": {
+          "calls": 480,
+          "totalMs": 155.6000000461936,
+          "maxMs": 0.7000000029802322,
+          "averageMs": 0.32416666676290334
+        },
+        "audio.frame": {
+          "calls": 480,
+          "totalMs": 104.39999997615814,
+          "maxMs": 0.8000000044703484,
+          "averageMs": 0.21749999995032945
+        },
+        "song-info.frame": {
+          "calls": 480,
+          "totalMs": 12.100000001490116,
+          "maxMs": 0.20000000298023224,
+          "averageMs": 0.02520833333643774
+        },
+        "VisualizerLRC.activeIndex": {
+          "calls": 1538,
+          "totalMs": 0.9000000059604645,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.0005851755565412643
+        },
+        "lyrics.frame": {
+          "calls": 480,
+          "totalMs": 23.799999959766865,
+          "maxMs": 1.3000000044703484,
+          "averageMs": 0.0495833332495143
+        },
+        "timing.playhead": {
+          "calls": 514,
+          "totalMs": 12.500000044703484,
+          "maxMs": 0.30000000447034836,
+          "averageMs": 0.02431906623483168
+        },
+        "timing.markers": {
+          "calls": 514,
+          "totalMs": 2.5,
+          "maxMs": 0.19999999552965164,
+          "averageMs": 0.0048638132295719845
+        },
+        "timing.playhead+markers": {
+          "calls": 514,
+          "totalMs": 16.200000032782555,
+          "maxMs": 0.30000000447034836,
+          "averageMs": 0.031517509791405746
+        },
+        "timing.follow": {
+          "calls": 480,
+          "totalMs": 106.99999991059303,
+          "maxMs": 0.5999999940395355,
+          "averageMs": 0.22291666648040215
+        },
+        "timing.frame": {
+          "calls": 480,
+          "totalMs": 133.9999999254942,
+          "maxMs": 0.7999999970197678,
+          "averageMs": 0.2791666665114462
+        },
+        "audio.analyser": {
+          "calls": 240,
+          "totalMs": 76.3999999165535,
+          "maxMs": 0.7000000029802322,
+          "averageMs": 0.3183333329856396
+        },
+        "audio.mapping": {
+          "calls": 240,
+          "totalMs": 20.10000005364418,
+          "maxMs": 0.30000000447034836,
+          "averageMs": 0.08375000022351742
+        },
+        "VisualizerRuntime.deliverLocalAudio": {
+          "calls": 240,
+          "totalMs": 0.7999999970197678,
+          "maxMs": 0.10000000149011612,
+          "averageMs": 0.003333333320915699
+        },
+        "timing.draw": {
+          "calls": 1,
+          "totalMs": 1.8000000044703484,
+          "maxMs": 1.8000000044703484,
+          "averageMs": 1.8000000044703484
+        }
+      },
+      "canvas": {},
+      "urlCreated": 0,
+      "urlRevoked": 0,
+      "durationMs": 8000.39999999851,
+      "currentFPS": 59.88023952094243,
+      "averageFPS": 59.9994989603427,
+      "minFPS": 58.47953216374766,
+      "averageFrameMs": 16.666805845511487,
+      "activeURLs": 3,
+      "pendingRAF": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1,
+        "timing.frame": 1
+      },
+      "audio": "playing",
+      "timingOpen": true,
+      "layout": "circle",
+      "stage": {
+        "width": 255.99998474121094,
+        "height": 143.99998474121094,
+        "canonical": "1920x1080"
+      },
+      "heapBytes": 10692414,
+      "dpr": 1.2000000476837158,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": "visible",
+      "gpuStatus": "UNKNOWN — inspect chrome://gpu on the hardware under test",
+      "duplicateListenerAttempts": 0,
+      "audioGraphs": 1,
+      "detail": false,
+      "currentLoop": ""
+    }
+  ],
+  "checks": [
+    {
+      "pass": true,
+      "message": "No page errors during scenarios: "
+    }
+  ],
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "dpr": 1.2000000476837158,
+    "fixtureViewport": [
+      960,
+      640
+    ],
+    "canvas": [
+      1920,
+      1080
+    ],
+    "gpu": "UNKNOWN"
+  }
+}

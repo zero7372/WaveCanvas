@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Electron Phase 1 — Windows Desktop Shell + Development Build
 
 本輪新增 Electron 外殼與 Windows x64 unpacked build；既有 Renderer JS／CSS、FFT、listener、Audio、Lyrics、Timing、Geometry、Preset 及 Templates 程式未修改。新增唯一 app 資產為從既有 CSS WaveCanvas 標記繪製的 PNG icon。
@@ -79,7 +81,7 @@ Main uncaughtException、unhandledRejection、主頁 load failure、render-proce
 
 因自訂 Electron dist 保留上游 default_app.asar，afterPack 在已驗證的生成 dist 目錄中移除該 Getting Started demo；不修改 node_modules 或原始專案檔案。resources 只含 app.asar。原 MIT License 在 archive 內，Electron／Chromium 隨附 notices 保留。
 
-Build 約 369 MiB（精確 bytes／MiB 與 62 個 archive entries 見 dev/tests/artifacts/electron-build-audit.json）；沒有極端體積優化。Build audit 為 postelectron:build，每次成功 build 都會執行。
+Build 約 369 MiB（精確 bytes／MiB 與 62 個 archive entries 見 dev/reports/archive/milestone-evidence/electron-build-audit.json）；沒有極端體積優化。Build audit 為 postelectron:build，每次成功 build 都會執行。
 
 ## 18. Electron Smoke
 
@@ -87,7 +89,7 @@ Build 約 369 MiB（精確 bytes／MiB 與 62 個 archive entries 見 dev/tests/
 
 測試經 Main inspector 執行 dev-only renderer fixture，沒有測試 API 或 native bridge 留在 production app。檔案匯入使用真實 file input 的 programmatic selection；Windows OS picker 與 Save dialog 未手動逐一操作。每次下載使用新目錄，避免既有檔案造成 interrupted；保留歷次測試產物。
 
-紀錄：dev/tests/artifacts/electron-{development,devtools,packaged}/results.json、console.txt、editor.png。下載也在各自目錄。最終測試不含 Renderer error／fatal load error。
+紀錄：歷史 generated output（electron-{development；已清除）,devtools,packaged}/results.json、console.txt、editor.png。下載也在各自目錄。最終測試不含 Renderer error／fatal load error。
 
 ## 19. Browser Regression
 

@@ -1,0 +1,573 @@
+Running
+PASS WaveCanvas starts on Home
+PASS Standalone: 86 runtime settings
+PASS Standalone audio controls visible
+PASS WE: native API registered once; local controls hidden
+PASS WE settings and audio reach original visualizer
+PASS Local WAV plays and produces finite FFT
+PASS Strong bass triggers original shake threshold
+PASS Pause decays original smoothing to silence
+PASS Seek then play resumes analysis
+PASS BFCache pagehide pauses local audio
+PASS BFCache retained graph can resume analysis
+PASS Replace file: new URL and no stale spectrum
+PASS Quiet bass remains visible without false shake trigger
+PASS Unsupported/corrupt audio reports decode error
+PASS UI exposes 54 active property definitions; retired keys stay internal
+PASS UI removes Clock metadata and keeps active section metadata
+PASS WE hides all Standalone chrome and settings
+PASS Panel docks outside visualizer area
+PASS Docked panel keeps canonical 16:9 canvas
+PASS Checkbox -> unified property -> visualizer
+PASS Slider -> unified property -> visualizer
+PASS Color converts hex to WE RGB float
+PASS Combo preserves original option values
+PASS Schema conditions update dependent controls
+PASS Runtime state synchronizes range and numeric input
+PASS Runtime state synchronizes color and condition
+PASS Retired properties are absent from UI
+PASS Cover decodes non-square image/png
+PASS Cover caches one decode across frames: cover.png
+PASS Cover decodes non-square image/jpeg
+PASS Cover caches one decode across frames: cover.jpg
+PASS Cover replacement revokes prior URL: cover.jpg
+PASS Cover decodes non-square image/webp
+PASS Cover caches one decode across frames: cover.webp
+PASS Cover replacement revokes prior URL: cover.webp
+PASS Cancel selection retains current Cover
+PASS Bad Cover retains previous decoded image
+PASS Rapid changes commit only the latest Cover
+PASS Clear Cover revokes URL and clears visual cache
+PASS Background file uses original image property
+PASS Overlay file uses original image property
+PASS Retired rotation falls back to a single image
+PASS WE logoimage uses the same cached drawing path
+PASS Input Gain 0.5 changes only amplitude
+PASS Input Gain 0.5 preserves frequency index
+PASS Input Gain 1 changes only amplitude
+PASS Input Gain 1 preserves frequency index
+PASS Input Gain 2 changes only amplitude
+PASS Input Gain 2 preserves frequency index
+PASS Preset contains 54 active properties plus Standalone Input Gain and Song Info
+PASS Preset excludes URLs and all selected file resources
+PASS Export button generates complete JSON payload
+PASS Export button exposes downloadable JSON link and filename
+PASS Preset import clears and revokes selected image resources
+PASS Preset missing fields default; numeric values clamp; unknown fields ignored
+PASS Imported preset synchronizes UI
+PASS Corrupt preset rejection is atomic
+PASS Import file UI loads the exported JSON payload
+PASS Import file UI reports corrupt JSON without changing current settings
+PASS Reset restores all current defaults and Input Gain 1
+PASS Reset UI matches runtime state
+PASS Owned image URLs are revoked exactly once
+PASS Background generates all schema controls
+PASS Background position uses canonical pixel offsets
+PASS Background opacity and blur apply to image only
+PASS Background underlay has independent color
+PASS Original background sizing update preserves offsets
+PASS Background runtime state synchronizes UI
+PASS Background preset roundtrip
+PASS Image settings deactivate in other background modes
+PASS Background reset restores black backing and opaque image
+PASS Song Info default group renders Title + Artist
+PASS WE hides Standalone Song Info
+PASS Clock function and controls removed
+PASS Removed assets have no live DOM dependencies or built-in video option
+PASS Title/Artist inputs update group safely using textContent
+PASS Empty title hides only Title
+PASS Both empty strings hide Song Info group
+PASS Primary-only text restores group
+PASS Song Info alignment: left
+PASS Song Info alignment: center
+PASS Song Info alignment: right
+PASS Song Info position/scale/gap use canonical Stage coordinates
+PASS System font dropdown and live family preview
+PASS Native option has font preview style
+PASS White text, outline width and soft glow render
+PASS Zero blur produces hard outline
+PASS Zero border width disables both stroke and glow
+PASS Border off clears effect and hides dependent controls
+PASS Song Info bass reaction uses existing processed audioSample
+PASS Zero bass strength keeps base scale
+PASS Bass off keeps base scale
+PASS Bass compatibility keys share Song Info state
+PASS Song Info preset roundtrip synchronizes UI and DOM
+PASS Old Clock/Text/video preset safely defaults
+PASS Reset Song Info defaults synchronizes controls
+PASS Settings have no disabled dead controls
+PASS WaveCanvas Editor and brand title
+PASS Five Inspector tabs and four Media items
+PASS Home has truthful empty Recent Projects
+PASS Inspector tab: visualizer
+PASS Inspector tab: lyrics
+PASS Inspector tab: song
+PASS Inspector tab: background
+PASS Inspector tab: audio
+PASS Existing media inputs moved out of Inspector
+PASS Collapsible sections preserve existing setting controls
+PASS Home hides Editor without destroying it
+PASS Home -> resume retains state and audio resource
+PASS media panel collapse
+PASS settings panel collapse
+PASS Shell 1920x1080 panels false: contained 16:9
+PASS Shell resize preserves canonical coordinates and geometry
+PASS Shell fits viewport without overflow
+PASS Shell 1920x1080 panels true: contained 16:9
+PASS Shell resize preserves canonical coordinates and geometry
+PASS Shell fits viewport without overflow
+PASS Shell 1366x768 panels false: contained 16:9
+PASS Shell resize preserves canonical coordinates and geometry
+PASS Shell fits viewport without overflow
+PASS Shell 1366x768 panels true: contained 16:9
+PASS Shell resize preserves canonical coordinates and geometry
+PASS Shell fits viewport without overflow
+PASS Shell 480x640 panels false: contained 16:9
+PASS Shell resize preserves canonical coordinates and geometry
+PASS Shell fits viewport without overflow
+PASS Shell 480x640 panels true: contained 16:9
+PASS Shell resize preserves canonical coordinates and geometry
+PASS Shell fits viewport without overflow
+PASS Audio clear releases resource and resets Transport
+PASS Audio filename and duration shown in Media/Transport
+PASS Custom Transport plays existing audio
+PASS Custom Transport pauses existing audio
+PASS Custom Transport seeks audio
+PASS Custom Transport adjusts playback volume only
+PASS Rewind returns to start
+PASS Media displays cached Cover filename and dimensions
+PASS Media Cover clear updates filename
+PASS Media displays Primary and Secondary LRC filenames
+PASS Media Secondary clear updates filename
+PASS Media Primary clear updates filename
+PASS All Standalone geometry controls generated
+PASS 1200x800 closed: fixed 16:9
+PASS 1200x800 closed: contained
+PASS 1200x800 closed: canonical backing resolution
+PASS 1200x800 closed: 1920x1080 coordinates
+PASS 1200x800 open: fixed 16:9
+PASS 1200x800 open: contained
+PASS 1200x800 open: canonical backing resolution
+PASS 1200x800 open: 1920x1080 coordinates
+PASS 720x420 closed: fixed 16:9
+PASS 720x420 closed: contained
+PASS 720x420 closed: canonical backing resolution
+PASS 720x420 closed: 1920x1080 coordinates
+PASS 720x420 open: fixed 16:9
+PASS 720x420 open: contained
+PASS 720x420 open: canonical backing resolution
+PASS 720x420 open: 1920x1080 coordinates
+PASS 390x720 closed: fixed 16:9
+PASS 390x720 closed: contained
+PASS 390x720 closed: canonical backing resolution
+PASS 390x720 closed: 1920x1080 coordinates
+PASS 390x720 open: fixed 16:9
+PASS 390x720 open: contained
+PASS 390x720 open: canonical backing resolution
+PASS 390x720 open: 1920x1080 coordinates
+PASS 640x230 closed: fixed 16:9
+PASS 640x230 closed: contained
+PASS 640x230 closed: canonical backing resolution
+PASS 640x230 closed: 1920x1080 coordinates
+PASS 640x230 open: fixed 16:9
+PASS 640x230 open: contained
+PASS 640x230 open: canonical backing resolution
+PASS 640x230 open: 1920x1080 coordinates
+PASS Square UI -> unified Standalone settings
+PASS Square shares the entire spectrum equally across all four edges
+PASS Square mirrors each edge around its center
+PASS Square symmetry is intrinsic; Linear mirror options are hidden
+PASS Square inward changes rendered geometry
+PASS Square spectrum selector is visible only for Square
+PASS Square spectrum UI -> runtime: symmetric
+PASS Square spectrum symmetry/count: symmetric
+PASS Square spectrum rotation renders: symmetric
+PASS Square spectrum preset export version 1: symmetric
+PASS Square spectrum preset import -> UI: symmetric
+PASS Square spectrum UI -> runtime: topBassMirror
+PASS Square spectrum symmetry/count: topBassMirror
+PASS Square spectrum rotation renders: topBassMirror
+PASS Square spectrum preset export version 1: topBassMirror
+PASS Square spectrum preset import -> UI: topBassMirror
+PASS Square spectrum UI -> runtime: foldedDiagonal
+PASS Square spectrum symmetry/count: foldedDiagonal
+PASS Square spectrum rotation renders: foldedDiagonal
+PASS Square spectrum preset export version 1: foldedDiagonal
+PASS Square spectrum preset import -> UI: foldedDiagonal
+PASS Legacy Square preset defaults missing spectrum layout to Symmetric
+PASS Linear hides Square spectrum selector
+PASS Linear horizontal / vertical rendering
+PASS Mirror mode none renders
+PASS Mirror mode center renders
+PASS Mirror mode dual renders
+PASS Preset preserves complete geometry settings
+PASS Imported geometry state -> UI
+PASS Resize preserves canonical geometry settings
+PASS Circle uses original radial renderer
+PASS WE retains original Circle renderer
+PASS Reset includes layout defaults
+PASS Inspector shows only active layout section: circle
+PASS Inspector section order: circle
+PASS Inspector Circle-only controls scoped: circle
+PASS Circle-only controls remain in Circle section: circle
+PASS Inspector center shapes/bass shared by Circle and Square: circle
+PASS Inspector Square spectrum selector scoped: circle
+PASS Inspector Linear controls scoped: circle
+PASS Inspector retains original control nodes: circle
+PASS Common Spectrum contains only effective color controls: circle
+PASS Common Spectrum opacity affects renderer: circle
+PASS Common Spectrum color affects renderer: circle
+PASS Common Spectrum rainbow mode/offset affects renderer: circle
+PASS Common Spectrum beat threshold affects renderer: circle
+PASS Inspector shows only active layout section: square
+PASS Inspector section order: square
+PASS Inspector Circle-only controls scoped: square
+PASS Circle-only controls remain in Circle section: square
+PASS Inspector center shapes/bass shared by Circle and Square: square
+PASS Inspector Square spectrum selector scoped: square
+PASS Inspector Linear controls scoped: square
+PASS Inspector retains original control nodes: square
+PASS Common Spectrum contains only effective color controls: square
+PASS Common Spectrum opacity affects renderer: square
+PASS Common Spectrum color affects renderer: square
+PASS Common Spectrum rainbow mode/offset affects renderer: square
+PASS Common Spectrum beat threshold affects renderer: square
+PASS Inspector shows only active layout section: linear
+PASS Inspector section order: linear
+PASS Inspector Circle-only controls scoped: linear
+PASS Circle-only controls remain in Circle section: linear
+PASS Inspector center shapes/bass shared by Circle and Square: linear
+PASS Inspector Square spectrum selector scoped: linear
+PASS Inspector Linear controls scoped: linear
+PASS Inspector retains original control nodes: linear
+PASS Common Spectrum contains only effective color controls: linear
+PASS Common Spectrum opacity affects renderer: linear
+PASS Common Spectrum color affects renderer: linear
+PASS Common Spectrum rainbow mode/offset affects renderer: linear
+PASS Common Spectrum beat threshold affects renderer: linear
+PASS Layout switches retain Circle/Square/Linear settings
+PASS Layout switches retain per-section collapse state
+PASS Inspector preset roundtrip preserves keys and Square layout
+PASS Inspector old preset defaults Square spectrum without format change
+PASS Style 2 exposes effective color and hides Style 1-only controls
+PASS Inspector Reset synchronizes defaults and Circle section
+PASS Inspector contains no disabled debug controls
+PASS LRC input parses CRLF, metadata, offset and multi timestamps
+PASS Lyrics load selects currentTime directly
+PASS All 38 lyrics settings generated outside WE properties
+PASS WE and remaining original properties unaffected
+PASS Lyrics uses fixed five-node pool
+PASS Playback transfers lyric focus
+PASS Pause preserves lyric focus
+PASS Forward seek finds correct line
+PASS Backward seek finds correct line
+PASS Rapid seek snaps focus without animation queue
+PASS Positive global offset advances lyric timing
+PASS Negative global offset delays lyric timing
+PASS File and global offset combine in milliseconds
+PASS End-of-song timing retains last event
+PASS Ended starts final lyric exit
+PASS Replacing LRC replaces cached node text
+PASS LRC text is rendered safely as textContent
+PASS Long English wraps within bounded line count
+PASS Lyrics stay inside canonical safe area
+PASS CJK text retained with system font fallback
+PASS Settings toggle preserves canonical lyrics position
+PASS Resize preserves canonical lyrics layout
+PASS Natural next-line change uses bounded inertial animations
+PASS Previous-line change interrupts old inertial animations
+PASS Rapid lyric changes do not accumulate animations
+PASS Seek cancels every old animation
+PASS Bass 0 does not move primary text
+PASS Bass 0.1 does not move primary text
+PASS Bass 0.8 does not move primary text
+PASS Low / medium / strong bass change only bounded glow strength
+PASS Bass changes the visible Primary halo, not only hidden CSS variables
+PASS Disabling glow clears the focused halo
+PASS Inactive lines never receive glow
+PASS Same-file Primary / Secondary share one event
+PASS Bilingual text shares one content block
+PASS Secondary above with independent font fallback
+PASS Secondary below preserves visual hierarchy
+PASS Japanese / Chinese share timeline
+PASS Primary-only cue hides secondary
+PASS Long bilingual block stays inside stage
+PASS Secondary file exact / tolerance / missing matches
+PASS Positive secondary offset calibrates matching
+PASS Negative secondary offset respects tolerance
+PASS Bilingual forward seek
+PASS Bilingual backward seek
+PASS One animation moves the entire bilingual item
+PASS Bilingual has only Primary glow
+PASS Secondary clear retains Primary timeline
+PASS Preset stores appearance and behavior without LRC contents
+PASS Preset reload synchronizes UI and retains loaded LRC
+PASS Legacy preset uses lyrics defaults
+PASS Rapid LRC file selections commit latest
+PASS Clear LRC empties stage
+PASS Intro hides entire stage, glow and every lyric item
+PASS First event enters as one bilingual item
+PASS First Current and Next enter together
+PASS First entry has no Previous placeholder
+PASS Seek to intro cancels all transitions
+PASS Single-line song has one item
+PASS Exact trimmed ellipsis uses three dots without bilingual text
+PASS Interlude has no bass glow
+PASS Seek into interlude restores audio-derived dot phase
+PASS Different interlude seek positions retain different phases
+PASS Leaving interlude stops dots and preserves ordinary ellipsis text
+PASS Final lyric stays active until audio ends
+PASS Audio end moves entire stack upwards without recentering
+PASS Final slide-out finishes with hidden stage
+PASS Backward seek restores active final lyric
+PASS Rapid seek interrupts final exit and restores active lyrics
+PASS Seek to audio end hides immediately without exit animation
+PASS Backward seek after exit restores intro hidden state
+PASS Changing Audio clears previous LRC
+PASS Timing opens safely with no Audio or LRC
+PASS Secondary-only timeline stays independent of Primary runtime timeline
+PASS Empty Primary LRC gives empty track
+PASS Primary-only timeline and zero timestamp remain usable
+PASS No-audio seek displays safe empty state
+PASS Waveform decoded once into multiple cached peak densities
+PASS Waveform draws actual nonempty PCM peaks
+PASS Unordered bilingual/multiple same-time lines form one stable Primary event block
+PASS Loading LRC refreshes file offset label before any setting update
+PASS Primary and Secondary ellipsis preserve independent interlude markers
+PASS Selection shows full bilingual text and stable identity
+PASS Offsets labelled separately without baking into Raw timestamps
+PASS Drag previews snapped timestamp without early runtime commit
+PASS Drag crosses neighbour, sorts timestamps and retains stable selection
+PASS Primary retime does not modify Secondary track or bilingual text
+PASS Undo restores drag timestamp and order
+PASS Redo restores drag commit
+PASS Fine adjustment changes only selected timestamp
+PASS Manual timestamp preserves millisecond precision without applying drag snap
+PASS Invalid manual input keeps previous timestamp and displays validation
+PASS Timing Ctrl+Z restores manual timestamp
+PASS Text input retains native undo shortcut
+PASS Timing Ctrl+Y redoes manual timestamp
+PASS Decimal cue Seek avoids Chromium one-microsecond truncation
+PASS Double-click seeks effective time and immediately updates existing lyric focus
+PASS Active marker and selected outline coexist independently
+PASS Click ruler seeks using shared coordinate mapping
+PASS Click waveform uses the same seek mapping as ruler
+PASS Drag playhead seeks without editing any lyric
+PASS Ctrl+wheel zoom keeps cursor time anchored
+PASS Alt+wheel scrolls viewport without seeking
+PASS Ordinary wheel retains normal scrolling
+PASS Editable input wheel is not intercepted
+PASS Ctrl+wheel outside timeline cannot change whole app scale
+PASS Fit Song fits complete extent without changing timestamps
+PASS Smooth playhead and threshold follow scroll while playing
+PASS Zoom during playback reuses lyric DOM and waveform cache
+PASS Secondary edit clamps to zero
+PASS Secondary edit clamps to audio duration
+PASS Secondary timing undo restores independent track
+PASS Export primary LRC serializes edited source and UTF-8 text
+PASS Export preserves supported metadata, raw offset and extra bilingual content
+PASS Export secondary LRC serializes edited source and UTF-8 text
+PASS Timing documents remain outside appearance Preset
+PASS Repeated keyboard fine adjustment preserves focus across block rebuilds
+PASS Focused block Ctrl+Z remains scoped to timing history
+PASS Focused block Ctrl+Shift+Z redoes timing edit
+PASS Timing 1920x1080 preserves contained canonical 16:9
+PASS Timing 1366x768 preserves contained canonical 16:9
+PASS Timing 480x640 preserves contained canonical 16:9
+PASS Timing 640x230 preserves contained canonical 16:9
+PASS Resize while playing preserves shared audio playback
+PASS Collapse/expand retains waveform cache, timestamps and geometry
+PASS Home/Editor retains edited LRC documents
+PASS Rapid audio replace clears old LRC/history and commits latest waveform
+PASS Audio clear releases waveform cache
+PASS Fit Song supports very long raw timeline with no Audio
+PASS Long timeline zoom stays within browser coordinate limits
+PASS Background png loads one centered cover image
+PASS Background png decodes once during animation
+PASS Background jpg loads one centered cover image
+PASS Background jpg decodes once during animation
+PASS Background webp loads one centered cover image
+PASS Background webp decodes once during animation
+PASS Cancel retains background
+PASS Bad background is rejected without replacing the working image
+PASS Rapid background replacements keep the last selection
+PASS Replaced and failed image URLs are revoked once
+PASS Infinity animates translation without rotation
+PASS Infinity shows only drift controls
+PASS Bass is fixed at center even with stored drift offsets
+PASS Bass shows only pulse controls and hides positional offsets
+PASS Bass attacks subtly and releases smoothly on pause
+PASS New modes and appearance roundtrip through preset and UI
+PASS Old slideshow preset safely migrates and ignores removed settings
+PASS No slideshow layers, settings or source option remain
+PASS Blur opacity and backing color remain independent
+PASS Disable hides image without discarding source
+PASS Enable restores the same cached image
+PASS Home stops the background animation
+PASS Editor resumes drift smoothly
+PASS Normal Standalone has no profiler hooks or overlay
+PASS WE mode has no profiler hooks or overlay by default
+PASS Resize burst defers layout reads until the next animation frame
+PASS One frame coalesces 100 resize requests into one timeline layout
+PASS Zoom reads scrollLeft once for anchoring and once for the final waveform redraw
+PASS Fractional DPR redraw reuses the existing waveform backing store
+PASS Playback does not rebuild timing lyric DOM
+PASS Zoom / playback retains cached waveform levels and canvas
+PASS Paused timeline does not move playhead
+PASS Timing open / close preserves existing waveform cache
+PASS Non-persisted pagehide cancels lyric animations
+PASS Non-persisted pagehide pauses local audio
+PASS FFT 44100 Hz / 60 Hz / peak 0.1: L2=0.1500
+PASS FFT 44100 Hz / 60 Hz / peak 0.5: L2=0.7500
+PASS FFT 44100 Hz / 60 Hz / peak 0.8: L2=1.1212
+PASS FFT 44100 Hz / 1000 Hz / peak 0.1: L2=0.1500
+PASS FFT 44100 Hz / 1000 Hz / peak 0.5: L2=0.7500
+PASS FFT 44100 Hz / 1000 Hz / peak 0.8: L2=1.0000
+PASS FFT 44100 Hz / 10000 Hz / peak 0.1: L2=0.1500
+PASS FFT 44100 Hz / 10000 Hz / peak 0.5: L2=0.7500
+PASS FFT 44100 Hz / 10000 Hz / peak 0.8: L2=1.0000
+PASS FFT 44100 Hz: digital silence maps to zero
+PASS FFT 44100 Hz: sub-floor tone maps to zero
+PASS FFT 48000 Hz / 60 Hz / peak 0.1: L2=0.1500
+PASS FFT 48000 Hz / 60 Hz / peak 0.5: L2=0.7500
+PASS FFT 48000 Hz / 60 Hz / peak 0.8: L2=1.1367
+PASS FFT 48000 Hz / 1000 Hz / peak 0.1: L2=0.1500
+PASS FFT 48000 Hz / 1000 Hz / peak 0.5: L2=0.7500
+PASS FFT 48000 Hz / 1000 Hz / peak 0.8: L2=1.0000
+PASS FFT 48000 Hz / 10000 Hz / peak 0.1: L2=0.1500
+PASS FFT 48000 Hz / 10000 Hz / peak 0.5: L2=0.7500
+PASS FFT 48000 Hz / 10000 Hz / peak 0.8: L2=1.0000
+PASS FFT 48000 Hz: digital silence maps to zero
+PASS FFT 48000 Hz: sub-floor tone maps to zero
+PASS Standalone: no page errors or unhandled promises []
+PASS WE simulation: no page errors or unhandled promises []
+CALIBRATION
+[
+  {
+    "sampleRate": 44100,
+    "frequency": 60,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.136
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 60,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.6798
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 60,
+    "amplitude": 0.8,
+    "norm": 1.1212,
+    "max": 1
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 1000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 1000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 1000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 10000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 10000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 10000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 60,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.1339
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 60,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.6696
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 60,
+    "amplitude": 0.8,
+    "norm": 1.1367,
+    "max": 1
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 1000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 1000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 1000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 10000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 10000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 10000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  }
+]
+DONE failures=0

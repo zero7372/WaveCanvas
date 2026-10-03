@@ -1,0 +1,44 @@
+✔ LRC parses seconds, hundredths, thousandths, multi-tags, metadata, offsets, CRLF and bilingual duplicate grouping (9.4848ms)
+✔ Lyrics runtime reads currentTime directly across pause, seek, end, replacement, clear and audio changes (4.9173ms)
+✔ Lyrics envelope uses bounded attack/release, consistent time steps and no position signal (3.3183ms)
+✔ Lyrics phases hide intro, use audio end, and restore after backward seek (3.9101ms)
+✔ Interlude is exact Primary text and timing phase follows audio plus offset (2.8707ms)
+✔ Lyrics schema covers all requested fields, clamps numbers and rejects unsafe types/colors/fonts (3.3823ms)
+✔ Bilingual LRC groups first two nonempty lines without guessing language (3.6253ms)
+✔ Two-file merge reserves exact matches, respects tolerance, missing/extra cues and signed offsets (3.1615ms)
+✔ Bilingual runtime merges on settings changes and keeps a single seek timeline (3.8816ms)
+✔ profiling disabled leaves native APIs and normal UI untouched (1.947ms)
+✔ profiling preserves RAF cancellation and reports bounded frame/cost aggregates (1.9469ms)
+✔ profiler tracks owned URLs and target listener registration without changing results (3.3153ms)
+✔ Standalone background settings clamp, preset roundtrip and reject atomically (22.7713ms)
+✔ generated schema includes every property and metadata (11.2304ms)
+✔ standalone renders with defaults and no WE API (11.8051ms)
+✔ early WE values merge with defaults; native audio and directory API preserved (5.0382ms)
+✔ unified updates retain 90 keys, handle all combo branches and protect snapshots (117.2373ms)
+✔ original smoothing/mirroring chain and bass reaction remain usable (14.6009ms)
+✔ spectrum mapper conserves boundary power, gates silence and limits input (14.9059ms)
+✔ accepted FFT mapping and wallpaperAudioListener are unchanged (1.0067ms)
+✔ Input Gain changes only amplitude and is ignored by WE (5.2822ms)
+✔ Preset roundtrip, complete defaults, unknown fields, clamps and atomic rejection (6.582ms)
+✔ Cover caches one decode, handles races/errors/cancel, and revokes owned URLs (55.042ms)
+✔ geometry samples one processed spectrum, mirrors, reverses, and separates amplitude from placement (5.0269ms)
+✔ geometry presets roundtrip, clamp, default old presets, and reject atomically (8.6418ms)
+✔ lyrics presets save settings only, default legacy fields, clamp and reject atomically (9.8231ms)
+✔ asset cleanup removes bundled media/fonts and all live asset references resolve (7.947ms)
+✔ Song Info defaults, validation, atomic import, legacy keys and bass aliases (6.7272ms)
+✔ timeline mapping and cursor anchored zoom retain the pointed time (5.9966ms)
+✔ millisecond timestamps parse/serialize, reject invalid values and snap/clamp safely (4.1316ms)
+✔ editable source preserves bilingual duplicates, extra lines, blanks, metadata and raw offsets (4.1567ms)
+✔ retiming across neighbours sorts data while preserving identity and text; tracks stay independent (1.8436ms)
+✔ runtime retime uses existing bilingual/interlude merge, syncs active cue and never bakes offsets (5.8004ms)
+✔ empty/secondary-only sources and timestamp collisions remain valid (11.8858ms)
+✔ local timing history supports drag/fine/manual undo redo and truncates the redo branch (2.1379ms)
+✔ waveform caches stereo extrema and multiple densities, handles silence and cancels stale work (21.7236ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 454.1721

@@ -1,0 +1,120 @@
+{
+  "checks": [
+    {
+      "pass": true,
+      "label": "Native output dialog + full UI export 0"
+    },
+    {
+      "pass": true,
+      "label": "Editor lock/playback restored 0"
+    },
+    {
+      "pass": true,
+      "label": "Synthetic frame count 0"
+    },
+    {
+      "pass": true,
+      "label": "Preferences changes leave export project snapshot unchanged"
+    },
+    {
+      "pass": true,
+      "label": "Native output dialog + full UI export 1"
+    },
+    {
+      "pass": true,
+      "label": "Editor lock/playback restored 1"
+    },
+    {
+      "pass": true,
+      "label": "Synthetic frame count 1"
+    },
+    {
+      "pass": true,
+      "label": "Identical audio / Canvas / lyric state at frame 0"
+    },
+    {
+      "pass": true,
+      "label": "Full compositor tolerance at frame 0 (max 1/255, <0.1% channels)"
+    },
+    {
+      "pass": false,
+      "label": "Identical audio / Canvas / lyric state at frame 60"
+    },
+    {
+      "pass": true,
+      "label": "Full compositor tolerance at frame 60 (max 1/255, <0.1% channels)"
+    },
+    {
+      "pass": true,
+      "label": "Identical audio / Canvas / lyric state at frame 120"
+    },
+    {
+      "pass": true,
+      "label": "Full compositor tolerance at frame 120 (max 1/255, <0.1% channels)"
+    },
+    {
+      "pass": true,
+      "label": "Repeated decoded video SSIM >=0.99"
+    },
+    {
+      "pass": true,
+      "label": "Cancel preserves an existing output target"
+    },
+    {
+      "pass": true,
+      "label": "Cancel cleans partial output after process exit"
+    },
+    {
+      "pass": true,
+      "label": "Cancel restores Editor"
+    },
+    {
+      "pass": true,
+      "label": "Missing FFmpeg error restores Editor"
+    },
+    {
+      "pass": true,
+      "label": "Full export edge duration 0.01 frame count"
+    },
+    {
+      "pass": true,
+      "label": "Full export edge duration 10 frame count"
+    },
+    {
+      "pass": true,
+      "label": "Audio decode failure restores Editor"
+    },
+    {
+      "pass": true,
+      "label": "FFmpeg non-zero failure preserves target and restores Editor"
+    },
+    {
+      "pass": true,
+      "label": "Export renderer crash leaves WaveCanvas alive and restores Editor"
+    },
+    {
+      "pass": true,
+      "label": "Export circle / Particle Style 1 / Bass Pulse"
+    },
+    {
+      "pass": true,
+      "label": "Animated circle frame evolves"
+    },
+    {
+      "pass": true,
+      "label": "Export square / Particle Style 2 / Bass Pulse"
+    },
+    {
+      "pass": true,
+      "label": "Animated square frame evolves"
+    },
+    {
+      "pass": true,
+      "label": "Export linear / Particle Style 1 / Bass Pulse"
+    },
+    {
+      "pass": true,
+      "label": "Animated linear frame evolves"
+    }
+  ]
+}

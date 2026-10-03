@@ -7,7 +7,7 @@ function environment(before=false) {
     const notify=()=>callbacks.forEach(fn=>fn({circleopacity:{value:opacity}},{visualizer:config}));
     app.VisualizerRuntime={mode:'standalone',getStandalone:()=>({visualizer:config}),subscribe(fn){callbacks.push(fn);notify();}};
     if(!before)vm.runInContext(fs.readFileSync(path.join(root,'linear-cover.js'),'utf8'),app);
-    vm.runInContext(fs.readFileSync(path.join(root,before?'../dev/tests/artifacts/linear-cover-geometry-before.js':'visualizer-geometry.js'),'utf8'),app);
+    vm.runInContext(fs.readFileSync(path.join(root,before?'../dev/tests/fixtures/baselines/linear-cover-geometry-before.js':'visualizer-geometry.js'),'utf8'),app);
     return {app,config:()=>config,set(patch,newOpacity=opacity){config={...config,...patch};opacity=newOpacity;notify();}};
 }
 function context() {
@@ -61,7 +61,7 @@ test('Circle/Square draw traces and every Linear spectrum geometry remain identi
     }
 });
 test('Existing schema values remain unchanged and new Linear fields safely normalize old presets',()=>{
-    const env=environment(),old={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'../dev/tests/artifacts/linear-cover-schema-before.js'),'utf8'),old);
+    const env=environment(),old={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'../dev/tests/fixtures/baselines/linear-cover-schema-before.js'),'utf8'),old);
     for(const[key,field]of Object.entries(old.window.VisualizerLayoutSettings.properties))assert.equal(JSON.stringify(env.app.VisualizerLayoutSettings.properties[key]),JSON.stringify(field));
     const settings=env.app.VisualizerLayoutSettings,legacy=settings.normalize({layout:'linear'});
     assert.equal(legacy.coverShape,'square');assert.equal(legacy.coverSize,30);assert.equal(legacy.coverRotationSpeed,0);

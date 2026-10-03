@@ -1,0 +1,9 @@
+
+> wavecanvas@0.1.0 project:test
+> node dev/tools/project-smoke.cjs
+
+FAIL Error: ENOENT: no such file or directory, copyfile 'H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\timing-review.wav' -> 'H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\project-development-1791026146234\音訊 檔案.wav'
+    at async Object.copyFile (node:internal/fs/promises:619:10)
+    at async run (H:\WaveCanvas\Audio visualizer\dev\tools\project-smoke.cjs:49:9)
+Project smoke: 0 passed / 1 failed
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\project-development-1791026146234

@@ -1,0 +1,40 @@
+{
+  "a": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\home-benchmark-1791017938374",
+  "b": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\home-benchmark-1791018092716",
+  "snapshotEqual": true,
+  "selected": [
+    {
+      "frame": 0,
+      "semanticEqual": true,
+      "canvasPngExact": true,
+      "canvasMaxDelta": 0,
+      "canvasChangedRatio": 0,
+      "rawPixelsMaxDelta": 0,
+      "rawPixelsChangedChannels": 0,
+      "changedRatio": 0
+    },
+    {
+      "frame": 60,
+      "semanticEqual": true,
+      "canvasPngExact": false,
+      "canvasMaxDelta": 1,
+      "canvasChangedRatio": 1.2056327160493827e-7,
+      "rawPixelsMaxDelta": 1,
+      "rawPixelsChangedChannels": 1,
+      "changedRatio": 1.2056327160493827e-7
+    },
+    {
+      "frame": 120,
+      "semanticEqual": true,
+      "canvasPngExact": true,
+      "canvasMaxDelta": 0,
+      "canvasChangedRatio": 0,
+      "rawPixelsMaxDelta": 0,
+      "rawPixelsChangedChannels": 0,
+      "changedRatio": 0
+    }
+  ],
+  "pass": true,
+  "toleranceNote": "Phase 1 Chromium rounding tolerance: maximum 1/255, less than 0.1% changed channels. Canvas PNG byte equality is reported separately.",
+  "timingNote": "Duration comparison verifies mux/clock endpoints; no manual auditory beat synchronization claim."
+}

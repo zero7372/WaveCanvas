@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Linear Cover / Artwork 回報
 
 此為上一輪歷史報告。暫時 fallback 已由正式 Factory Layout Defaults 取代；目前 Linear Shape=circle、RPM=0，Preset／Restore 流程見 FACTORY-DEFAULTS-REPORT.md。
@@ -16,5 +18,5 @@
 
 修改檔案：linear-cover.js（新增）、visualizer-geometry.js（Linear hook）、layout-schema.js（5 個新增欄位）、layout-ui.js 的既有 generator 不變；inspector-policy.js、inspector-ui.js、settings-ui.js、ui-zh-tw.js、index.html 接入控制與載入。另新增 targeted tests／改動前 snapshots，調整 Inspector 保護測試中這輪有意變更的 geometry／schema 範圍；歷史 hash 記錄不覆寫。README 已同步。
 
-證據：tests/artifacts/linear-cover-results.txt、linear-cover.png。限制：暫時 fallback 尚未作 Factory Default 設計；未對完整歌曲／Wallpaper Engine 宿主重新人工驗收，Circle／Square 由原繪製 trace 及 main.js hash 比對保護。
+證據：dev/reports/archive/milestone-evidence/linear-cover-results.txt、linear-cover.png。限制：暫時 fallback 尚未作 Factory Default 設計；未對完整歌曲／Wallpaper Engine 宿主重新人工驗收，Circle／Square 由原繪製 trace 及 main.js hash 比對保護。
 

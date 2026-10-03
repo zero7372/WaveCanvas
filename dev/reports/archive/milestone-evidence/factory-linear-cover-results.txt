@@ -1,0 +1,22 @@
+Running
+PASS Linear uses the decoded local Cover
+PASS Cover controls belong to the Linear Cover group
+PASS X/Y use independent canonical stage coordinates
+PASS Size changes the longest artwork edge
+PASS Square retains full non-square image without circular clipping
+PASS Square hides rotation speed
+PASS Circle mask is centered on artwork
+PASS Rotation combines with existing bass enlargement and shake
+PASS Circle exposes rotation speed
+PASS Loaded Linear artwork exposes shared opacity/bass controls
+PASS Shared opacity affects artwork and restores Canvas alpha
+PASS Shape switch retains rotation speed
+PASS Layout switches retain all Linear Cover fields
+PASS Linear Cover geometry does not overwrite Circle/Square state
+PASS Preset exports new fields with version 1
+PASS Preset import synchronizes Cover controls
+PASS Old preset uses official Linear factory fallbacks
+PASS Frames reuse image cache without decode
+PASS Actual Linear renderer draws the loaded Cover
+PASS No page errors or unhandled promises: []
+DONE passes=20 failures=0

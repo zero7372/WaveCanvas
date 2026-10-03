@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Visualizer Inspector UX 盤點
 
 後續 Linear Cover 階段新增 Linear 封面 subgroup，以及共用 circleopacity／cbassmultiplier 在 Linear 有圖片時的控制入口；原有分類其餘部分保留。最新功能與測試見 LINEAR-COVER-REPORT.md；以下記錄本次 Inspector UX 階段的分類與驗證。
@@ -54,6 +56,6 @@ Circle／Square 共用：circlecolor、circleopacity、secondcircle、secondcirc
 
 Node 54 項、Chromium 442 項通過，包含三個 Layout 的專區 visibility／順序、原 control node 身分保留、值／collapse state 保留、共用色彩五項設定的實際繪製效果、粒子條件、Preset roundtrip／legacy／reset。無 page errors 或 unhandled promises。
 
-`node scripts/generate-schema.cjs --check` 確認 98 個 schema entries 相符。syntax check 涵蓋新增與修改 JS。inspector-protected-hashes.json 比對 main.js、visualizer-geometry.js、layout-schema.js、audio-adapter.js、local-audio.js、runtime-adapter.js、presets.js、Lyrics、Timing Editor 及 Shell 完全未變；另保留既有 FFT／wallpaperAudioListener hash 測試。Circle／Square／Linear rendering 演算法未修改。
+`node dev/tools/generate-schema.cjs --check` 確認 98 個 schema entries 相符。syntax check 涵蓋新增與修改 JS。inspector-protected-hashes.json 比對 main.js、visualizer-geometry.js、layout-schema.js、audio-adapter.js、local-audio.js、runtime-adapter.js、presets.js、Lyrics、Timing Editor 及 Shell 完全未變；另保留既有 FFT／wallpaperAudioListener hash 測試。Circle／Square／Linear rendering 演算法未修改。
 
-證據：tests/artifacts/inspector-results.txt、inspector-square.png。Chromium 測試包含 WE API simulation，未以 Wallpaper Engine 宿主人工操作；此次只改 Standalone UI。
+證據：dev/reports/archive/milestone-evidence/inspector-results.txt、inspector-square.png。Chromium 測試包含 WE API simulation，未以 Wallpaper Engine 宿主人工操作；此次只改 Standalone UI。

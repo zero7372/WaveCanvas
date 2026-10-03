@@ -1,0 +1,33 @@
+Running
+PASS Both file pickers accept LRC and SRT
+PASS Primary SRT produces three timeline events
+PASS Milliseconds and all cue text lines reach existing model
+PASS Secondary SRT goes through existing tolerance merge
+PASS Media shows original .srt name and SRT format
+PASS Secondary media format label is SRT
+PASS Original end time and sequence retained in source metadata
+PASS After cue end, lyric remains active until next start
+PASS Existing renderer shows cleaned SRT text
+PASS Primary SRT ... uses existing INTERLUDE semantics
+PASS Seek backward selects the same SRT event
+PASS Both SRT tracks populate existing Timing Editor
+PASS Fine adjust edits the SRT start time
+PASS Undo restores imported start
+PASS Redo restores adjusted start
+PASS Manual timestamp UI edits SRT events
+PASS Timing edits never alter original start/end metadata
+PASS Existing drag handler retimes SRT event
+PASS Drag undo retains event identity
+PASS SRT edits serialize into ordinary LRC
+PASS Existing export action generates a .lrc download
+PASS Existing zoom and fit operate with SRT sources
+PASS Primary SRT + Secondary LRC imports
+PASS Primary LRC + Secondary SRT imports
+PASS Secondary SRT ... never changes Primary event type
+PASS All-invalid SRT reports an actionable error
+PASS Invalid primary import preserves previous document
+PASS Invalid secondary import preserves previous document
+PASS Partially valid SRT imports and exposes parser warnings
+PASS Style preset still excludes subtitle source data
+PASS No browser errors/unhandled promises: []
+DONE 31 passed / 0 failed

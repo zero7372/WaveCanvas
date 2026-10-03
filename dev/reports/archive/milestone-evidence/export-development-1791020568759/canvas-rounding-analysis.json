@@ -1,0 +1,10 @@
+{
+  "frame": 60,
+  "samplesExact": true,
+  "lyricsExact": true,
+  "canvasMaximumChannelDelta": 1,
+  "canvasChangedChannels": 1,
+  "canvasChangedRatio": 1.2056327160493827e-7,
+  "thresholdUnchanged": true,
+  "note": "Initial strict PNG equality assertion failed on one channel by 1/255; full compositor passed the existing tolerance. Full QA repeat passed 28/28 without app changes."
+}

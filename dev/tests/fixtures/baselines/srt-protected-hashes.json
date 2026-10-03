@@ -1,0 +1,16 @@
+{
+  "main.js": "e50f50e570174ac9f195e350023c0760240bb11737d9121c9a000a26fb7aa119",
+  "audio-adapter.js": "88bbce2d97c18b8e8b2b0670860c362def8fd6bcd70d26ab9c38c5a57e78bfe4",
+  "local-audio.js": "0787a079eae784b0248a0307342a092aaf6e33c3dc14be5b5742c066db06b9b6",
+  "lrc-parser.js": "c92930c6fb927d7e14770484392c94edc9ab309e233d6eeb18f6385822690f58",
+  "lyrics-stage.js": "a37ca603af264af1929854d8184207559455593408c38354e14a034ab0e843d1",
+  "lyrics.css": "93ae1be03355833e9c67d11c98c2de1d39488b0ad81ce78ae3e0f787fe2be261",
+  "timing-editor.js": "ac70678e8a1c531401746849243721163763c40c46d70a5e5f8d906feaa59531",
+  "waveform-cache.js": "0e076787c32145271788fce54f030c12bcfdd486bee6dcbee3be303df933185c",
+  "visualizer-geometry.js": "ab3eccefadaac28673efd6f62415ef90cd6e55586c9aa7b22c87ae5446b73a3e",
+  "linear-cover.js": "f7cb1b6f153ba532eee6b47eee532ca9c07ee5fdb1080d328ca9f1e998d31232",
+  "runtime-adapter.js": "4ab76ea39bd6fc21ed837d91e1571d9a4cdcad96699ddceb531a5df5db185a07",
+  "presets.js": "ad6c414e8739b9dcefbcd8cdddd96acf7355c6acfb99f4d29ae60fbd64b1afee",
+  "builtin-templates.js": "d900c12efff422b4cc0d76ce2a4a3d08bd0395c6b500502b805879bec0b91530",
+  "template-selection-ui.js": "a73328b4b82db4b7f3a23c2b409e8b7e3eb55088df71df42dfde4bad872f0661"
+}

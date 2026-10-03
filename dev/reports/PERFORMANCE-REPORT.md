@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Performance Profiling & Optimization
 
 日期：2026-10-02。此輪只修改 Timing 外層重畫與版面事件處理，建立開發量測／測試工具；不重寫 renderer、Audio pipeline、Lyrics，也不變更 Preset 格式。
@@ -22,7 +24,7 @@
 | D Full | 60.00／60.00 | 58.14／58.48 | 16.666／16.666 | 0／0 |
 | E Full + Timing | 60.00／60.00 | 58.48／58.48 | 16.667／16.667 | 0／0 |
 
-FPS 已接近 refresh ceiling，細小差異是 clock／排程噪音，**不宣稱提升播放 FPS**。Before fixture 保存相同現有模組與 profiling hooks，僅回退這輪的 Timing 重畫／resize／backing-store 優化；`/tests/performance.html?baseline=1` 可重跑。每次需保持頁面前景、Stage 可見，避免其他測試同時執行。
+FPS 已接近 refresh ceiling，細小差異是 clock／排程噪音，**不宣稱提升播放 FPS**。Before fixture 保存相同現有模組與 profiling hooks，僅回退這輪的 Timing 重畫／resize／backing-store 優化；`/dev/tests/performance.html?baseline=1` 可重跑。每次需保持頁面前景、Stage 可見，避免其他測試同時執行。
 
 ## 3. 證據與實際優化
 
@@ -112,9 +114,9 @@ Mock DPR 只驗證 JS/backing store 邏輯，不等同 Windows 真正縮放與 G
 - `performance-profile.js`：query-only instrumentation／overlay／console helpers。
 - `index.html`：載入開發工具與 export instrumentation hooks。
 - `timing-editor.js`：上述四項低風險優化、query-only scope measures、pending resize cleanup。
-- `tests/performance.html`、`performance-browser.js`、`performance-regression.js`、`performance.test.cjs`：可重現 benchmark／lifecycle／regression。
-- `tests/browser.html`／`browser.js`：加入新回歸。
-- `tests/artifacts/index-before.html`／`timing-editor-before.js`：Before fixture；其他 `performance-*` artifacts 為 JSON／trace／測試結果。
+- `dev/tests/performance.html`、`performance-browser.js`、`performance-regression.js`、`performance.test.cjs`：可重現 benchmark／lifecycle／regression。
+- `dev/tests/browser.html`／`browser.js`：加入新回歸。
+- `dev/tests/fixtures/baselines/index-before.html`／`timing-editor-before.js`：Before fixture；其他 `performance-*` artifacts 為 JSON／trace／測試結果。
 - `README.md`、本報告、`PERFORMANCE-HARDWARE-CHECKLIST.md`：操作方式、證據與實測表。
 
 沒有新增 dependency。`main.js`、`audio-adapter.js`、Lyrics 語意／renderer、Preset schema 未改。
@@ -127,6 +129,6 @@ Mock DPR 只驗證 JS/backing store 邏輯，不等同 Windows 真正縮放與 G
 
 8 秒基準無法保證長期 frame pacing；真實 GPU、全尺寸 CSS Stage、大量粒子、不同 codec、數小時高取樣率音訊與不同電源模式仍需實機測量。沒有啟用 Reduced Preview Quality，因為沒有低階硬體證據。pagehide cleanup 測試包含 synthetic event，不能完全代替 browser navigation／BFCache lifecycle。
 
-`tests/artifacts/performance-preview.jpg` 為 geometry 壓力測試後的開發介面截圖，overlay 的歷史 Min 包含刻意連續執行 5,000 次 build 的 CPU 任務；A–E 播放數據以各自 reset 後的 JSON／上表為準。
+`dev/reports/archive/milestone-evidence/performance-preview.jpg` 為 geometry 壓力測試後的開發介面截圖，overlay 的歷史 Min 包含刻意連續執行 5,000 次 build 的 CPU 任務；A–E 播放數據以各自 reset 後的 JSON／上表為準。
 
 本輪完成後停止。沒有開始 Electron、Project Save／Load、Video Export、Options／Preferences、Profile account、i18n、Frameless Window 或其他產品功能。沒有新增長期 AGENTS 規則。

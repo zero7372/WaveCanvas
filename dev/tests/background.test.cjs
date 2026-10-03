@@ -90,7 +90,7 @@ test('Infinity stage advances while paused and restarts after idle Bass, disable
     app.document.hidden=false;events.get('document.visibilitychange')();assert.equal(frames.size,1);
 });
 test('Protected audio, Lyrics and Timing modules remain byte-identical', () => {
-    const hashes = JSON.parse(fs.readFileSync(path.join(root, '../dev/tests/artifacts/background-protected-hashes.json')));
+    const hashes = JSON.parse(fs.readFileSync(path.join(root, '../dev/tests/fixtures/baselines/background-protected-hashes.json')));
     for (const [file, expected] of Object.entries(hashes)) {
         // Square geometry is now intentionally changed and covered by square.test.cjs.
         // Template/media UI intentionally changes shell, not Background/audio/Lyrics/Timing.

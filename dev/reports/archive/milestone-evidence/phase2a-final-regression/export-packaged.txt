@@ -1,0 +1,13 @@
+
+> wavecanvas@0.1.0 export:test:build
+> node dev/tools/export-smoke.cjs --packaged
+
+PASS Real project opens through ordinary loader
+PASS Current saved media/lyrics references preserved verbatim
+PASS Both serialized edited lyric documents restored exactly
+PASS Audio and images decode
+Export working...
+PASS Real project short export succeeds
+PASS ffprobe H.264 / 1080p / 60 FPS / 300 frames / AAC
+PASS Real project files hashes/size/mtime unchanged
+H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\export-packaged-1791021102951

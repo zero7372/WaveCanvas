@@ -9,5 +9,6 @@ for(const file of ['app/index.html','electron/main.cjs','electron/preload.cjs','
 const pkg=JSON.parse(asar.extractFile(archive,'package.json'));assert.equal(pkg.productName,'WaveCanvas');assert.equal(pkg.devDependencies,undefined);
 function size(dir){return fs.readdirSync(dir,{withFileTypes:true}).reduce((total,item)=>total+(item.isDirectory()?size(path.join(dir,item.name)):fs.statSync(path.join(dir,item.name)).size),0);}
 const report={productName:pkg.productName,version:pkg.version,files:entries.length,bytes:size(directory),mib:size(directory)/1048576,unexpected,entries};
+fs.mkdirSync(path.join(root,'dev/tests/artifacts'),{recursive:true});
 fs.writeFileSync(path.join(root,'dev/tests/artifacts/electron-build-audit.json'),JSON.stringify(report,null,2));
 console.log('Package allowlist passed: '+entries.length+' entries; '+report.mib.toFixed(2)+' MiB; no dev/ or node_modules.');

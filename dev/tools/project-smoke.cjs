@@ -46,7 +46,7 @@ async function run() {
         session = await launch(profile); const { renderer: r, evaluate: main } = session;
         const projectFile = path.join(artifacts, '中文 空白 專案.waveproj'), secondFile = path.join(artifacts, '另存 副本.waveproj');
         const wav = path.join(artifacts, '音訊 檔案.wav'), cover = path.join(artifacts, '封面 圖片.png'), primary = path.join(artifacts, '主要 歌詞.srt'), secondary = path.join(artifacts, '次要 歌詞.lrc');
-        await fs.copyFile(path.join(root, 'dev/tests/artifacts/timing-review.wav'), wav); await fs.copyFile(path.join(root, 'app/assets/wavecanvas.png'), cover);
+        await fs.copyFile(path.join(root, 'dev/tests/fixtures/integration-tone.wav'), wav); await fs.copyFile(path.join(root, 'app/assets/wavecanvas.png'), cover);
         const originalPrimary = '1\n00:00:01,000 --> 00:00:03,000\n敞開大門\n\n2\n00:00:05,000 --> 00:00:07,000\n...\n\n3\n00:00:10,000 --> 00:00:11,000\n夜晚記得\n';
         await fs.writeFile(primary, originalPrimary); await fs.writeFile(secondary, '[offset:30]\n[00:01.00]Open the gate\n[00:10.00]The night remembers\n');
         check(await r(`typeof require==='undefined'&&typeof process==='undefined'&&typeof waveCanvas.project.save==='function'&&!waveCanvas.project.fs&&!waveCanvas.project.ipcRenderer`), 'Narrow project preload; no Node / raw IPC / fs');

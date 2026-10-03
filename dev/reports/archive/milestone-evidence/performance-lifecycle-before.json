@@ -1,0 +1,178 @@
+{
+  "kind": "Synthetic / controlled browser benchmark",
+  "scenarios": [],
+  "checks": [
+    {
+      "pass": false,
+      "message": "Error: 圖片無法載入：Cannot read properties of undefined (reading 'name')\n    at Object.select (http://127.0.0.1:8765/local-files.js:53:19)\n    at setup (http://127.0.0.1:8765/tests/performance-browser.js:40:53)\n    at async http://127.0.0.1:8765/tests/performance-browser.js:71:9\n    at async action (http://127.0.0.1:8765/tests/performance-browser.js:55:15)"
+    },
+    {
+      "pass": true,
+      "message": "Playback retains lyric blocks and waveform canvas"
+    },
+    {
+      "pass": true,
+      "message": "Playback does not rebuild blocks / waveform / reparse LRC"
+    },
+    {
+      "pass": true,
+      "message": "Playback without follow scroll does not redraw waveform"
+    },
+    {
+      "pass": true,
+      "message": "Paused timeline has no scheduled animation loop"
+    },
+    {
+      "pass": true,
+      "message": "All media Object URLs revoked after replace / clear"
+    },
+    {
+      "pass": true,
+      "message": "Audio listener registrations stay stable across repeated media cycles"
+    },
+    {
+      "pass": true,
+      "message": "No repeated identical event-listener registration attempts"
+    },
+    {
+      "pass": true,
+      "message": "At most one pending RAF per render-loop label after repeated sessions"
+    },
+    {
+      "pass": true,
+      "message": "Clear releases stale waveform peak cache"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1 / 1366×768 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1 / 480×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1 / 960×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1.25 / 1366×768 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1.25 / 480×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1.25 / 960×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1.5 / 1366×768 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1.5 / 480×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 1.5 / 960×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 2 / 1366×768 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 2 / 480×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Mock DPR 2 / 960×640 canonical 16:9 remains contained"
+    },
+    {
+      "pass": true,
+      "message": "Lifecycle has no uncaught errors: "
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 5,
+      "urls": 0,
+      "heapBytes": 57698195,
+      "nodes": 1159,
+      "pending": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      }
+    },
+    {
+      "cycle": 10,
+      "urls": 0,
+      "heapBytes": 27520484,
+      "nodes": 1159,
+      "pending": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      }
+    },
+    {
+      "cycle": 15,
+      "urls": 0,
+      "heapBytes": 40928866,
+      "nodes": 1159,
+      "pending": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      }
+    },
+    {
+      "cycle": 20,
+      "urls": 0,
+      "heapBytes": 27630960,
+      "nodes": 1159,
+      "pending": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      }
+    },
+    {
+      "cycle": 25,
+      "urls": 0,
+      "heapBytes": 40983282,
+      "nodes": 1159,
+      "pending": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      }
+    },
+    {
+      "cycle": 30,
+      "urls": 0,
+      "heapBytes": 27687855,
+      "nodes": 1159,
+      "pending": {
+        "visualizer": 1,
+        "audio.frame": 1,
+        "song-info.frame": 1,
+        "lyrics.frame": 1
+      }
+    }
+  ],
+  "memory": {
+    "baselineHeap": 9968055,
+    "finalHeap": 28051743,
+    "baselineNodes": 1429,
+    "finalNodes": 1159
+  }
+}

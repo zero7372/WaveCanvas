@@ -1,0 +1,117 @@
+{
+  "packaged": false,
+  "checks": [
+    {
+      "pass": true,
+      "label": "Default preferences / isolated userData"
+    },
+    {
+      "pass": true,
+      "label": "New name initial input focus"
+    },
+    {
+      "pass": true,
+      "label": "Blank / spaces rejected"
+    },
+    {
+      "pass": true,
+      "label": "Esc cancels New without replacing project"
+    },
+    {
+      "pass": true,
+      "label": "Later creates Untitled / path null"
+    },
+    {
+      "pass": true,
+      "label": "Enter creates trimmed named unsaved project"
+    },
+    {
+      "pass": true,
+      "label": "Autosave Off disables interval control"
+    },
+    {
+      "pass": true,
+      "label": "Preferences close discards draft"
+    },
+    {
+      "pass": true,
+      "label": "Preferences Save persists/applies without project dirty"
+    },
+    {
+      "pass": true,
+      "label": "Restore Defaults requires confirmation and remains draft"
+    },
+    {
+      "pass": true,
+      "label": "Cancel reset draft retains saved settings"
+    },
+    {
+      "pass": true,
+      "label": "First Save opens native Save As"
+    },
+    {
+      "pass": true,
+      "label": "First Save filename sanitized from display name"
+    },
+    {
+      "pass": true,
+      "label": "Save chosen filename never changes display name"
+    },
+    {
+      "pass": true,
+      "label": "Rename Esc preserves metadata"
+    },
+    {
+      "pass": true,
+      "label": "Rename dirties metadata, retains path, does not rename file"
+    },
+    {
+      "pass": true,
+      "label": "Dirty window title uses display name then asterisk"
+    },
+    {
+      "pass": true,
+      "label": "Save As succeeds"
+    },
+    {
+      "pass": true,
+      "label": "Save As defaults to sanitized name and preserves metadata"
+    },
+    {
+      "pass": true,
+      "label": "Collect succeeds"
+    },
+    {
+      "pass": true,
+      "label": "Collect folder/file sanitized; embedded display name unchanged"
+    },
+    {
+      "pass": true,
+      "label": "Recent cache prefers saved display metadata"
+    },
+    {
+      "pass": true,
+      "label": "Legacy v1 without name falls back to file basename"
+    },
+    {
+      "pass": true,
+      "label": "Legacy Save adds optional name without version bump"
+    },
+    {
+      "pass": true,
+      "label": "askName Off creates Untitled directly"
+    },
+    {
+      "pass": true,
+      "label": "Preferences persist process restart"
+    },
+    {
+      "pass": true,
+      "label": "Saved project name persists restart / Open"
+    },
+    {
+      "pass": true,
+      "label": "Restore defaults only settings, leaves project clean"
+    }
+  ]
+}

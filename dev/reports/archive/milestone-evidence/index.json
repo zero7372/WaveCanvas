@@ -1,0 +1,765 @@
+{
+  "note": "Selected small evidence only. Original generated videos/profiles/raw outputs deleted; some aggregate JSON compacted.",
+  "records": [
+    {
+      "source": "dev\\tests\\artifacts\\background-protected-hashes.json",
+      "destination": "dev\\tests\\fixtures\\baselines\\background-protected-hashes.json",
+      "kind": "test-fixture",
+      "bytes": 736
+    },
+    {
+      "source": "dev\\tests\\artifacts\\inspector-protected-hashes.json",
+      "destination": "dev\\tests\\fixtures\\baselines\\inspector-protected-hashes.json",
+      "kind": "test-fixture",
+      "bytes": 1000
+    },
+    {
+      "source": "dev\\tests\\artifacts\\srt-protected-hashes.json",
+      "destination": "dev\\tests\\fixtures\\baselines\\srt-protected-hashes.json",
+      "kind": "test-fixture",
+      "bytes": 1272
+    },
+    {
+      "source": "dev\\tests\\artifacts\\square-protected-hashes.json",
+      "destination": "dev\\tests\\fixtures\\baselines\\square-protected-hashes.json",
+      "kind": "test-fixture",
+      "bytes": 707
+    },
+    {
+      "source": "dev\\tests\\artifacts\\template-protected-hashes.json",
+      "destination": "dev\\tests\\fixtures\\baselines\\template-protected-hashes.json",
+      "kind": "test-fixture",
+      "bytes": 1376
+    },
+    {
+      "source": "dev\\tests\\artifacts\\linear-cover-geometry-before.js",
+      "destination": "dev\\tests\\fixtures\\baselines\\linear-cover-geometry-before.js",
+      "kind": "test-fixture",
+      "bytes": 8680
+    },
+    {
+      "source": "dev\\tests\\artifacts\\linear-cover-schema-before.js",
+      "destination": "dev\\tests\\fixtures\\baselines\\linear-cover-schema-before.js",
+      "kind": "test-fixture",
+      "bytes": 3093
+    },
+    {
+      "source": "dev\\tests\\artifacts\\square-geometry-before.js",
+      "destination": "dev\\tests\\fixtures\\baselines\\square-geometry-before.js",
+      "kind": "test-fixture",
+      "bytes": 5103
+    },
+    {
+      "source": "dev\\tests\\artifacts\\index-before.html",
+      "destination": "dev\\tests\\fixtures\\baselines\\index-before.html",
+      "kind": "test-fixture",
+      "bytes": 14414
+    },
+    {
+      "source": "dev\\tests\\artifacts\\timing-editor-before.js",
+      "destination": "dev\\tests\\fixtures\\baselines\\timing-editor-before.js",
+      "kind": "test-fixture",
+      "bytes": 21021
+    },
+    {
+      "source": "dev\\tests\\artifacts\\background-after.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\background-after.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 18244,
+      "bytes": 18244
+    },
+    {
+      "source": "dev\\tests\\artifacts\\background-before.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\background-before.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 18158,
+      "bytes": 18158
+    },
+    {
+      "source": "dev\\tests\\artifacts\\background-glow-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\background-glow-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 10957,
+      "bytes": 10957
+    },
+    {
+      "source": "dev\\tests\\artifacts\\background-modes.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\background-modes.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 7875,
+      "bytes": 7875
+    },
+    {
+      "source": "dev\\tests\\artifacts\\background-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\background-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 20585,
+      "bytes": 20585
+    },
+    {
+      "source": "dev\\tests\\artifacts\\browser-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\browser-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 3867,
+      "bytes": 3867
+    },
+    {
+      "source": "dev\\tests\\artifacts\\electron-node-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\electron-node-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 8294,
+      "bytes": 8294
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-node-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-node-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 10039,
+      "bytes": 10039
+    },
+    {
+      "source": "dev\\tests\\artifacts\\factory-defaults-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\factory-defaults-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1796,
+      "bytes": 1796
+    },
+    {
+      "source": "dev\\tests\\artifacts\\factory-linear-cover-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\factory-linear-cover-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1038,
+      "bytes": 1038
+    },
+    {
+      "source": "dev\\tests\\artifacts\\geometry-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\geometry-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 7980,
+      "bytes": 7980
+    },
+    {
+      "source": "dev\\tests\\artifacts\\inspector-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\inspector-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 24357,
+      "bytes": 24357
+    },
+    {
+      "source": "dev\\tests\\artifacts\\linear-cover-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\linear-cover-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1029,
+      "bytes": 1029
+    },
+    {
+      "source": "dev\\tests\\artifacts\\lyrics-behavior-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\lyrics-behavior-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 11913,
+      "bytes": 11913
+    },
+    {
+      "source": "dev\\tests\\artifacts\\lyrics-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\lyrics-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 10379,
+      "bytes": 10379
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-after.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-after.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 18094,
+      "bytes": 18094
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-backing-after.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-backing-after.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 6478,
+      "bytes": 6478
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-backing-before.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-backing-before.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 6595,
+      "bytes": 6595
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-before.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-before.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 18211,
+      "bytes": 18211
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-lifecycle-before.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-lifecycle-before.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 4419,
+      "bytes": 4419
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-node-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-node-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 3587,
+      "bytes": 3587
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-redraw-after.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-redraw-after.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 24443,
+      "bytes": 24443
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-redraw-before.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-redraw-before.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 5712,
+      "bytes": 5712
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-regression-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-regression-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 19379,
+      "bytes": 19379
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-render-summary.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-render-summary.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 466,
+      "bytes": 466
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-syntax-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-syntax-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 33,
+      "bytes": 33
+    },
+    {
+      "source": "dev\\tests\\artifacts\\project-node-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\project-node-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 9515,
+      "bytes": 9515
+    },
+    {
+      "source": "dev\\tests\\artifacts\\repository-node-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\repository-node-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 8229,
+      "bytes": 8229
+    },
+    {
+      "source": "dev\\tests\\artifacts\\repository-smoke-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\repository-smoke-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 585,
+      "bytes": 585
+    },
+    {
+      "source": "dev\\tests\\artifacts\\repository-srt-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\repository-srt-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1560,
+      "bytes": 1560
+    },
+    {
+      "source": "dev\\tests\\artifacts\\settings-cover-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\settings-cover-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 6215,
+      "bytes": 6215
+    },
+    {
+      "source": "dev\\tests\\artifacts\\song-info-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\song-info-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 13220,
+      "bytes": 13220
+    },
+    {
+      "source": "dev\\tests\\artifacts\\square-layouts-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\square-layouts-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 21737,
+      "bytes": 21737
+    },
+    {
+      "source": "dev\\tests\\artifacts\\square-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\square-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 20770,
+      "bytes": 20770
+    },
+    {
+      "source": "dev\\tests\\artifacts\\srt-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\srt-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1560,
+      "bytes": 1560
+    },
+    {
+      "source": "dev\\tests\\artifacts\\templates-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\templates-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 2674,
+      "bytes": 2674
+    },
+    {
+      "source": "dev\\tests\\artifacts\\timing-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\timing-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 18658,
+      "bytes": 18658
+    },
+    {
+      "source": "dev\\tests\\artifacts\\wavecanvas-results.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\wavecanvas-results.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 15260,
+      "bytes": 15260
+    },
+    {
+      "source": "dev\\tests\\artifacts\\preferences-development-1791022512556\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\preferences-development-1791022512556\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2623,
+      "bytes": 2623
+    },
+    {
+      "source": "dev\\tests\\artifacts\\preferences-packaged-1791022843709\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\preferences-packaged-1791022843709\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2622,
+      "bytes": 2622
+    },
+    {
+      "source": "dev\\tests\\artifacts\\project-development-1791022516885\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\project-development-1791022516885\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 4710,
+      "bytes": 4710
+    },
+    {
+      "source": "dev\\tests\\artifacts\\project-packaged-1791022855430\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\project-packaged-1791022855430\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 4709,
+      "bytes": 4709
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791023024796\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791023024796\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3119,
+      "bytes": 3119
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791023024796\\determinism.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791023024796\\determinism.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 948,
+      "bytes": 948
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791022920998\\console.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791022920998\\console.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 315,
+      "bytes": 315
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791022920998\\ffprobe.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791022920998\\ffprobe.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3590,
+      "bytes": 3590
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791022920998\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791022920998\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 682,
+      "bytes": 682
+    },
+    {
+      "source": "dev\\tests\\artifacts\\browser-regression-1791022644306\\phase2a-comparison.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\browser-regression-1791022644306\\phase2a-comparison.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 1637,
+      "bytes": 1637
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791022587014\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791022587014\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2736,
+      "bytes": 2736
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791022863406\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791022863406\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2736,
+      "bytes": 2736
+    },
+    {
+      "source": "dev\\tests\\artifacts\\electron-build-audit.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\electron-build-audit.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2738,
+      "bytes": 2738
+    },
+    {
+      "source": "dev\\tests\\artifacts\\electron-development\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\electron-development\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 5002,
+      "bytes": 5002
+    },
+    {
+      "source": "dev\\tests\\artifacts\\project-development-1791017821484\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\project-development-1791017821484\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 4710,
+      "bytes": 4710
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791017848982\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791017848982\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 682,
+      "bytes": 682
+    },
+    {
+      "source": "dev\\tests\\artifacts\\electron-packaged\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\electron-packaged\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 4999,
+      "bytes": 4999
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791018392738\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791018392738\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 682,
+      "bytes": 682
+    },
+    {
+      "source": "dev\\tests\\artifacts\\performance-preview.jpg",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\performance-preview.jpg",
+      "kind": "milestone-evidence",
+      "originalBytes": 79673,
+      "bytes": 79673
+    },
+    {
+      "source": "dev\\tests\\artifacts\\srt-import.png",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\srt-import.png",
+      "kind": "milestone-evidence",
+      "originalBytes": 129241,
+      "bytes": 129241
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791017938374\\gpu.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791017938374\\gpu.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 8223,
+      "bytes": 8223
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791018092716\\gpu.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791018092716\\gpu.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 8223,
+      "bytes": 8223
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791018092716\\nvenc-help.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791018092716\\nvenc-help.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 10571,
+      "bytes": 10571
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791018092716\\comparison.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791018092716\\comparison.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 1288,
+      "bytes": 1288
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791017938374\\aggregate.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791017938374\\aggregate.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2649,
+      "bytes": 2649
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791017938374\\ffprobe.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791017938374\\ffprobe.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3596,
+      "bytes": 3596
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791018092716\\aggregate.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791018092716\\aggregate.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2640,
+      "bytes": 2640
+    },
+    {
+      "source": "dev\\tests\\artifacts\\home-benchmark-1791018092716\\ffprobe.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\home-benchmark-1791018092716\\ffprobe.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3672,
+      "bytes": 3672
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791010785973\\ffprobe.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791010785973\\ffprobe.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3619,
+      "bytes": 3619
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791010785973\\export-result.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791010785973\\export-result.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 964,
+      "bytes": 964
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-production-1791020395089\\aggregate.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-production-1791020395089\\aggregate.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3193,
+      "bytes": 3193
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-production-1791020395089\\ffprobe.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-production-1791020395089\\ffprobe.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3599,
+      "bytes": 3599
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-production-1791020395089\\comparison.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-production-1791020395089\\comparison.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3411,
+      "bytes": 3411
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\browser-baseline.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\browser-baseline.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 373,
+      "bytes": 373
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\browser-complete.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\browser-complete.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 373,
+      "bytes": 373
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\browser-final.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\browser-final.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 371,
+      "bytes": 371
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\browser-repeat.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\browser-repeat.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 84,
+      "bytes": 84
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\browser-verified.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\browser-verified.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 371,
+      "bytes": 371
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\browser.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\browser.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 84,
+      "bytes": 84
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\electron-packaged.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\electron-packaged.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 2069,
+      "bytes": 2069
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\electron.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\electron.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 2055,
+      "bytes": 2055
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\export-packaged.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\export-packaged.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 543,
+      "bytes": 543
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\export-repeat.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\export-repeat.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1526,
+      "bytes": 1526
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\export.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\export.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1526,
+      "bytes": 1526
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\node-final.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\node-final.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 10438,
+      "bytes": 10438
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\node.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\node.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 10448,
+      "bytes": 10448
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\project-packaged.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\project-packaged.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 2635,
+      "bytes": 2635
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-final-regression\\project.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-final-regression\\project.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 2621,
+      "bytes": 2621
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791020970261\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791020970261\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2625,
+      "bytes": 2625
+    },
+    {
+      "source": "dev\\tests\\artifacts\\project-packaged-1791021094552\\console.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\project-packaged-1791021094552\\console.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1141,
+      "bytes": 1141
+    },
+    {
+      "source": "dev\\tests\\artifacts\\project-packaged-1791021094552\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\project-packaged-1791021094552\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 4709,
+      "bytes": 4709
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791021102951\\console.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791021102951\\console.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 315,
+      "bytes": 315
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791021102951\\ffprobe.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791021102951\\ffprobe.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3590,
+      "bytes": 3590
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-packaged-1791021102951\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-packaged-1791021102951\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 682,
+      "bytes": 682
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791020568759\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791020568759\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 2626,
+      "bytes": 2626
+    },
+    {
+      "source": "dev\\tests\\artifacts\\export-development-1791020568759\\canvas-rounding-analysis.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\export-development-1791020568759\\canvas-rounding-analysis.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 384,
+      "bytes": 384
+    },
+    {
+      "source": "dev\\tests\\artifacts\\browser-regression-1791021247931\\baseline-comparison.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\browser-regression-1791021247931\\baseline-comparison.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 3045,
+      "bytes": 3045
+    },
+    {
+      "source": "dev\\tests\\artifacts\\browser-regression-1791021346767\\results.json",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\browser-regression-1791021346767\\results.json",
+      "kind": "milestone-evidence",
+      "originalBytes": 604,
+      "bytes": 604
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-pre-regression\\electron.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-pre-regression\\electron.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 2055,
+      "bytes": 2055
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-pre-regression\\export.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-pre-regression\\export.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 1526,
+      "bytes": 1526
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-pre-regression\\node.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-pre-regression\\node.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 10029,
+      "bytes": 10029
+    },
+    {
+      "source": "dev\\tests\\artifacts\\phase2a-pre-regression\\project.txt",
+      "destination": "dev\\reports\\archive\\milestone-evidence\\phase2a-pre-regression\\project.txt",
+      "kind": "milestone-evidence",
+      "originalBytes": 2621,
+      "bytes": 2621
+    }
+  ]
+}

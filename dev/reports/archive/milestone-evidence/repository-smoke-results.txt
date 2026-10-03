@@ -1,0 +1,16 @@
+Running
+PASS Root server redirects to canonical app/index.html
+PASS All 47 app script/CSS paths return HTTP 200
+PASS Runtime, Lyrics, Timing and Shell initialize
+PASS Standalone CSS applies
+PASS Home opens normally
+PASS All three template thumbnails load
+PASS Help resolves root README
+PASS Home enters Editor
+PASS Audio import UI remains available
+PASS Synthetic WAV imports through existing audio handler
+PASS Media displays imported audio filename
+PASS Editor returns to Home
+PASS Reenter Editor retains imported media
+PASS No error/unhandled rejection: []
+DONE 14 passed / 0 failed

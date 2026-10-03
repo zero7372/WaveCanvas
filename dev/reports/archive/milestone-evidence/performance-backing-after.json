@@ -1,0 +1,257 @@
+{
+  "kind": "Synthetic / controlled browser benchmark",
+  "scenarios": [],
+  "checks": [
+    {
+      "pass": true,
+      "message": "3 min reuses an existing density level"
+    },
+    {
+      "pass": true,
+      "message": "10 min reuses an existing density level"
+    },
+    {
+      "pass": true,
+      "message": "60 min reuses an existing density level"
+    }
+  ],
+  "redraw": {
+    "iterations": 200,
+    "scrollLeftReads": 400,
+    "backingResets": 0,
+    "started": 1077.5999999940395,
+    "frames": 0,
+    "elapsed": 0,
+    "maxFrame": 0,
+    "currentFrame": 0,
+    "longFrames": 0,
+    "droppedEstimate": 0,
+    "hiddenFrames": 0,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "measures": {
+      "timing.playhead": {
+        "calls": 200,
+        "totalMs": 1.4999999850988388,
+        "maxMs": 0.10000000149011612,
+        "averageMs": 0.007499999925494194
+      },
+      "VisualizerLRC.activeIndex": {
+        "calls": 400,
+        "totalMs": 0.20000000298023224,
+        "maxMs": 0.10000000149011612,
+        "averageMs": 0.0005000000074505806
+      },
+      "timing.markers": {
+        "calls": 200,
+        "totalMs": 1.4000000059604645,
+        "maxMs": 0.10000000149011612,
+        "averageMs": 0.007000000029802322
+      },
+      "timing.playhead+markers": {
+        "calls": 200,
+        "totalMs": 3.7999999970197678,
+        "maxMs": 0.19999999552965164,
+        "averageMs": 0.01899999998509884
+      },
+      "timing.layout": {
+        "calls": 200,
+        "totalMs": 79.79999998956919,
+        "maxMs": 3.600000001490116,
+        "averageMs": 0.39899999994784596
+      },
+      "timing.draw": {
+        "calls": 200,
+        "totalMs": 39.80000005662441,
+        "maxMs": 0.6999999955296516,
+        "averageMs": 0.19900000028312206
+      }
+    },
+    "canvas": {},
+    "urlCreated": 0,
+    "urlRevoked": 0,
+    "durationMs": 511.5,
+    "currentFPS": 0,
+    "averageFPS": 0,
+    "minFPS": 0,
+    "averageFrameMs": 0,
+    "activeURLs": 3,
+    "pendingRAF": {
+      "visualizer": 1,
+      "audio.frame": 1,
+      "song-info.frame": 1,
+      "lyrics.frame": 1
+    },
+    "audio": "paused",
+    "timingOpen": true,
+    "layout": "circle",
+    "stage": {
+      "width": 255.99998474121094,
+      "height": 143.99998474121094,
+      "canonical": "1920x1080"
+    },
+    "heapBytes": 10939053,
+    "dpr": 1.2000000476837158,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "visibility": "visible",
+    "gpuStatus": "UNKNOWN — inspect chrome://gpu on the hardware under test",
+    "duplicateListenerAttempts": 0,
+    "audioGraphs": 1,
+    "detail": false,
+    "currentLoop": ""
+  },
+  "resizeBurst": {
+    "events": 100,
+    "started": 1589.5,
+    "frames": 5,
+    "elapsed": 583.5,
+    "maxFrame": 516.9000000000001,
+    "currentFrame": 16.59999999999991,
+    "longFrames": 1,
+    "droppedEstimate": 30,
+    "hiddenFrames": 0,
+    "longTasks": 1,
+    "longTaskMs": 525,
+    "measures": {
+      "timing.draw": {
+        "calls": 2,
+        "totalMs": 1.2999999970197678,
+        "maxMs": 1,
+        "averageMs": 0.6499999985098839
+      },
+      "Particle.draw": {
+        "calls": 751,
+        "totalMs": 0.6000000014901161,
+        "maxMs": 0.20000000298023224,
+        "averageMs": 0.0007989347556459603
+      },
+      "visualizer": {
+        "calls": 6,
+        "totalMs": 2.9000000059604645,
+        "maxMs": 0.8999999985098839,
+        "averageMs": 0.4833333343267441
+      },
+      "audio.frame": {
+        "calls": 6,
+        "totalMs": 0.10000000149011612,
+        "maxMs": 0.10000000149011612,
+        "averageMs": 0.016666666915019352
+      },
+      "song-info.frame": {
+        "calls": 6,
+        "totalMs": 0.10000000149011612,
+        "maxMs": 0.10000000149011612,
+        "averageMs": 0.016666666915019352
+      },
+      "lyrics.frame": {
+        "calls": 6,
+        "totalMs": 0.10000000149011612,
+        "maxMs": 0.10000000149011612,
+        "averageMs": 0.016666666915019352
+      },
+      "timing.playhead": {
+        "calls": 1,
+        "totalMs": 0,
+        "maxMs": 0,
+        "averageMs": 0
+      },
+      "VisualizerLRC.activeIndex": {
+        "calls": 2,
+        "totalMs": 0,
+        "maxMs": 0,
+        "averageMs": 0
+      },
+      "timing.markers": {
+        "calls": 1,
+        "totalMs": 0,
+        "maxMs": 0,
+        "averageMs": 0
+      },
+      "timing.playhead+markers": {
+        "calls": 1,
+        "totalMs": 0,
+        "maxMs": 0,
+        "averageMs": 0
+      },
+      "timing.layout": {
+        "calls": 1,
+        "totalMs": 2,
+        "maxMs": 2,
+        "averageMs": 2
+      },
+      "timingResize": {
+        "calls": 1,
+        "totalMs": 2,
+        "maxMs": 2,
+        "averageMs": 2
+      },
+      "VisualizerRuntime.deliverLocalAudio": {
+        "calls": 3,
+        "totalMs": 0,
+        "maxMs": 0,
+        "averageMs": 0
+      }
+    },
+    "canvas": {},
+    "urlCreated": 0,
+    "urlRevoked": 0,
+    "durationMs": 86.79999999701977,
+    "currentFPS": 60.24096385542202,
+    "averageFPS": 8.56898029134533,
+    "minFPS": 1.9346101760495258,
+    "averageFrameMs": 116.7,
+    "activeURLs": 3,
+    "pendingRAF": {
+      "visualizer": 1,
+      "audio.frame": 1,
+      "song-info.frame": 1,
+      "lyrics.frame": 1
+    },
+    "audio": "paused",
+    "timingOpen": true,
+    "layout": "circle",
+    "stage": {
+      "width": 255.99998474121094,
+      "height": 143.99998474121094,
+      "canonical": "1920x1080"
+    },
+    "heapBytes": 9385697,
+    "dpr": 1.2000000476837158,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "visibility": "visible",
+    "gpuStatus": "UNKNOWN — inspect chrome://gpu on the hardware under test",
+    "duplicateListenerAttempts": 0,
+    "audioGraphs": 1,
+    "detail": false,
+    "currentLoop": ""
+  },
+  "waveformBuild": [
+    {
+      "minutes": 3,
+      "sampleRate": 8000,
+      "channels": 1,
+      "elapsedMs": 29.100000001490116,
+      "levels": 15,
+      "peakBytes": 180032,
+      "pcmBytes": 5760000
+    },
+    {
+      "minutes": 10,
+      "sampleRate": 8000,
+      "channels": 1,
+      "elapsedMs": 76.79999999701977,
+      "levels": 17,
+      "peakBytes": 600048,
+      "pcmBytes": 19200000
+    },
+    {
+      "minutes": 60,
+      "sampleRate": 8000,
+      "channels": 1,
+      "elapsedMs": 440.20000000298023,
+      "levels": 19,
+      "peakBytes": 3600032,
+      "pcmBytes": 115200000
+    }
+  ]
+}

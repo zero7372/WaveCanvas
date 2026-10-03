@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Background Image 重整與驗證
 
 本輪只修改背景圖片與必要的 schema、Preset 相容層和測試。FFT mapping、wallpaperAudioListener、Visualizer Geometry、Lyrics、Timing Editor、Shell／Project、Electron／Export 均未改動其功能。受保護程式以 SHA-256 比對，測試全數通過。
@@ -95,7 +97,7 @@ Background 保留原圖片來源、單張選檔與純色選項，加入啟用、
 - 既有 FFT 校準、增益、Pause／Seek、Cover、Geometry、Lyrics 與 Timing regression 通過。
 - 保護 hash：audio-adapter.js、wallpaperAudioListener、visualizer-geometry.js、lyrics-runtime.js、lyrics-stage.js、timing-editor.js、timing-model.js、wavecanvas-shell.js 均與本輪開始時一致。
 
-證據：`tests/artifacts/background-results.txt`、`background-before.json`、`background-after.json`、`background-modes.json`、`background-ui.png`。
+證據：`dev/reports/archive/milestone-evidence/background-results.txt`、`background-before.json`、`background-after.json`、`background-modes.json`、`background-ui.png`。
 
 ## 9. 已知限制與修改檔案
 

@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # SRT Import 技術報告
 
 本輪只新增 SRT 匯入，不增加套件。既有 LRC parser、Lyrics renderer、Timing Editor、Audio／FFT、Geometry 與 Preset 程式保持原樣；新增來源格式資訊透過現有 Lyrics Runtime 傳到 UI。
@@ -73,13 +75,13 @@
 
 `node --test tests/srt.test.cjs tests/lyrics.test.cjs tests/timing.test.cjs`：24/24 通過。涵蓋標準 SRT、毫秒與小時、BOM／換行、多行／markup、空 cue、無序號／不連續序號、invalid cues、排序／穩定 ID、重複時間、混合格式、tolerance／seek／interlude、retime／history／serialize 與壞檔保留原資料。
 
-Chromium `/tests/srt-browser.html`：31/31 通過。涵蓋兩個 file input、實際 File.text() change handler、格式標籤、雙軌顯示、seek、Timing 拖曳／手動校時／細調／Undo／Redo／zoom、LRC 匯出入口、混合格式、warning、壞檔保留與 Preset 排除來源資料。捕捉的 error／unhandledrejection 為零。選檔資料由測試頁 DataTransfer 建立，不代表 OS 選檔視窗已人工驗證。
+Chromium `/dev/tests/srt-browser.html`：31/31 通過。涵蓋兩個 file input、實際 File.text() change handler、格式標籤、雙軌顯示、seek、Timing 拖曳／手動校時／細調／Undo／Redo／zoom、LRC 匯出入口、混合格式、warning、壞檔保留與 Preset 排除來源資料。捕捉的 error／unhandledrejection 為零。選檔資料由測試頁 DataTransfer 建立，不代表 OS 選檔視窗已人工驗證。
 
 加跑背景／Inspector／Square／Templates 的 Node 檢查後，合計 46/46 通過；14 個變更 JS／CJS 的 syntax check 通過。
 
 14 個受保護檔案的 SHA-256 比對通過，包含原 LRC parser、Lyrics renderer／CSS、Timing Editor、Audio／FFT、Geometry 與 Preset／Factory。依本輪要求未重新執行大型 Audio／FFT regression。
 
-紀錄：`tests/artifacts/srt-results.txt`；畫面：`tests/artifacts/srt-import.png`。測試頁不由產品入口載入。
+紀錄：`dev/reports/archive/milestone-evidence/srt-results.txt`；畫面：`dev/reports/archive/milestone-evidence/srt-import.png`。測試頁不由產品入口載入。
 
 ## 修改檔案
 

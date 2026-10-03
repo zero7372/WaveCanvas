@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Home development environment audit
 
 日期：2026-10-03（Asia/Taipei）。專案根目錄：`H:\WaveCanvas\Audio visualizer`。
@@ -41,11 +43,11 @@ FFmpeg SHA256 `3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec`
 | 驗證 | 結果 | 證據 |
 |---|---|---|
 | npm test | 95/95 pass | 本次命令輸出；加入診斷計時後亦 95/95 |
-| npm run electron:test | 48/48 pass | dev/tests/artifacts/electron-development/results.json |
-| npm run project:test | 51/51 pass | dev/tests/artifacts/project-development-1791017821484/results.json |
-| node dev/tools/export-smoke.cjs | 7/7 pass，真實專案 5 秒 / 300 frames | dev/tests/artifacts/export-development-1791017848982/results.json |
-| npm run electron:test:build（最終） | 48/48 pass | dev/tests/artifacts/electron-packaged/results.json |
-| npm run export:test:build（最終） | 7/7 pass，正式 libx264 / 300 frames | dev/tests/artifacts/export-packaged-1791018392738/results.json |
+| npm run electron:test | 48/48 pass | dev/reports/archive/milestone-evidence/electron-development/results.json |
+| npm run project:test | 51/51 pass | dev/reports/archive/milestone-evidence/project-development-1791017821484/results.json |
+| node dev/tools/export-smoke.cjs | 7/7 pass，真實專案 5 秒 / 300 frames | dev/reports/archive/milestone-evidence/export-development-1791017848982/results.json |
+| npm run electron:test:build（最終） | 48/48 pass | dev/reports/archive/milestone-evidence/electron-packaged/results.json |
+| npm run export:test:build（最終） | 7/7 pass，正式 libx264 / 300 frames | dev/reports/archive/milestone-evidence/export-packaged-1791018392738/results.json |
 | npm run electron:build | 成功；allowlist 77 entries / 569.95 MiB | dist/win-unpacked/WaveCanvas.exe；audit-electron-build output |
 
 真實 short export 為 H.264 / 1920×1080 / 60 FPS / AAC，原專案全檔 hash/size/mtime 不變。Electron regression 驗證正常啟動、音訊、歌詞與 Project 工作流程，使用 repo 現有 smoke script。

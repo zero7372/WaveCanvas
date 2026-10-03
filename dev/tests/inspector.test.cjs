@@ -22,7 +22,7 @@ test('Inspector scopes follow actual renderers and particle conditions',()=>{
     assert.equal(p.condition('autologorotatespeed','original'),'logoimage.value && autologorotate.value');
 });
 test('Inspector protected Circle renderer, FFT, listener and audio remain byte-identical',()=>{
-    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/artifacts/inspector-protected-hashes.json'),'utf8').replace(/^\uFEFF/,''));
+    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/fixtures/baselines/inspector-protected-hashes.json'),'utf8').replace(/^\uFEFF/,''));
     for(const[file,expected]of Object.entries(hashes)) {
         // Linear artwork intentionally extends these two files; targeted tests compare the old geometry.
         // Factory defaults intentionally change runtime/preset handling; factory-defaults.test.cjs covers it.

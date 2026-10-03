@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # WaveCanvas Video Export Phase 1
 
 完成日期：2026-10-03。此版本是未簽章的 Windows Development Build；影片輸出已實裝，尚不能宣稱可直接公開再散布隨附 FFmpeg。
@@ -191,7 +193,7 @@ Dev：`vendor/ffmpeg/ffmpeg.exe`；Packaged：`process.resourcesPath/ffmpeg/ffmp
 
 Memory 為 Main+GPU+Renderer+utility working sets 加總，排除 FFmpeg child，非 JS heap 或整機峰值。Encoding 與 capture 同時執行，因此165.531秒**不是純 encoder CPU 耗時**。現有數據較支持下一階段先調查 renderer / capture 成本，但本輪未實作 Phase 2。
 
-完整輸出：[real-full.mp4](../tests/artifacts/export-packaged-1791010785973/real-full.mp4)。[ffprobe](../tests/artifacts/export-packaged-1791010785973/ffprobe.json)、[metrics](../tests/artifacts/export-packaged-1791010785973/export-result.json)、[frame120](../tests/artifacts/export-packaged-1791010785973/frame-120.png)。
+完整輸出：real-full.mp4（歷史 generated output 已清除）。[ffprobe](archive/milestone-evidence/export-packaged-1791010785973/ffprobe.json)、[metrics](archive/milestone-evidence/export-packaged-1791010785973/export-result.json)、frame120（歷史 generated output 已清除）。
 
 ## 25. Lyrics / source references / real data protection
 

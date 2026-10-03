@@ -1,0 +1,155 @@
+{
+  "golden": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\phase2a-snapshot-two-1791019814266",
+  "candidate": "H:\\WaveCanvas\\Audio visualizer\\dev\\tests\\artifacts\\phase2a-production-1791020395089",
+  "snapshotExact": true,
+  "selected": [
+    {
+      "index": 0,
+      "semanticExact": true,
+      "canvas": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "composite": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "neighborMeanAbsolute": {
+        "1": 0.024224754792258305
+      },
+      "pass": true
+    },
+    {
+      "index": 1,
+      "semanticExact": true,
+      "canvas": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "composite": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "neighborMeanAbsolute": {
+        "0": 0.024224754792258305,
+        "2": 0.10486417111680454
+      },
+      "pass": true
+    },
+    {
+      "index": 2,
+      "semanticExact": true,
+      "canvas": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "composite": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "neighborMeanAbsolute": {
+        "1": 0.10486417111680454,
+        "3": 0.10539772946505742
+      },
+      "pass": true
+    },
+    {
+      "index": 30,
+      "semanticExact": true,
+      "canvas": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "composite": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "neighborMeanAbsolute": {
+        "29": 0.282700555238301,
+        "31": 0.18829123387146562
+      },
+      "pass": true
+    },
+    {
+      "index": 60,
+      "semanticExact": true,
+      "canvas": {
+        "max": 1,
+        "changed": 1,
+        "ratio": 1.2056327160493827e-7,
+        "meanAbsolute": 1.2056327160493827e-7
+      },
+      "composite": {
+        "max": 1,
+        "changed": 1,
+        "ratio": 1.2057815779725893e-7,
+        "meanAbsolute": 1.2057815779725893e-7
+      },
+      "neighborMeanAbsolute": {
+        "59": 0.6321518522734288,
+        "61": 0.28410697887084824
+      },
+      "pass": true
+    },
+    {
+      "index": 120,
+      "semanticExact": true,
+      "canvas": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "composite": {
+        "max": 1,
+        "changed": 48,
+        "ratio": 0.000005787751574268428,
+        "meanAbsolute": 0.000005787751574268428
+      },
+      "neighborMeanAbsolute": {
+        "119": 0.6162176898768367,
+        "121": 0.2103924867267564
+      },
+      "pass": true
+    },
+    {
+      "index": 600,
+      "semanticExact": true,
+      "canvas": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "composite": {
+        "max": 0,
+        "changed": 0,
+        "ratio": 0,
+        "meanAbsolute": 0
+      },
+      "neighborMeanAbsolute": {
+        "599": 0.2224236547336091
+      },
+      "pass": true
+    }
+  ],
+  "witnessErrors": [],
+  "pass": true,
+  "tolerance": "Phase 1 maximum 1/255 and changed channels <0.1%; current compositor must match exact frame, no one-frame lag."
+}

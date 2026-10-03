@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Template Selection Screen / Media Panel UI Polish
 
 1. **Template data structure**：`builtin-templates.js` 提供 immutable definitions，每筆有 id、name、subtitle、description、thumbnail、previewVideo、layout；共用 `VisualizerTemplates.apply(id)`。`template-selection-ui.js` 迭代資料生成 UI，新增模板只需新增 definition 與相應資產。
@@ -26,4 +28,4 @@
 
 main.js、visualizer-geometry.js、linear-cover.js、audio-adapter.js、local-audio.js、runtime-adapter.js、presets.js、Factory source/adapter、Lyrics renderer/runtime/UI、Timing editor/model、background renderer 全部 byte-identical。沒有新增套件；沒有修改 Plugin、Electron、Project Save/Load、Export；不需更新 AGENTS.md。
 
-證據：tests/artifacts/templates-results.txt、templates-factory-regression.txt；截圖 templates-home.png、templates-media.png。測試入口 tests/templates-browser.html、tests/factory-defaults-browser.html；Node 為 node --test tests/*.test.cjs。
+證據：dev/reports/archive/milestone-evidence/templates-results.txt、templates-factory-regression.txt；截圖 templates-home.png、templates-media.png。測試入口 dev/tests/templates-browser.html、dev/tests/factory-defaults-browser.html；Node 為 npm test。

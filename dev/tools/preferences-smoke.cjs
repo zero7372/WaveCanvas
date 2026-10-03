@@ -65,6 +65,7 @@ async function run() {
         check(await r('!WaveCanvasProject.getState().dirty&&WaveCanvasPreferences.get().project.autosaveIntervalMinutes===1'),'Preferences Save persists/applies without project dirty');
         await prefs();await r('document.querySelector("#preferences-reset").click();true');await until('document.querySelectorAll("dialog[open]").length===2');
         await r('Array.from(document.querySelectorAll("dialog[open]")).at(-1).querySelector("footer button:last-child").click();true');await until('document.querySelectorAll("dialog[open]").length===1');
+        await until('document.querySelector("#preference-ask-name").checked&&!WaveCanvasPreferences.get().project.askNameOnCreate');
         check(await r('document.querySelector("#preference-ask-name").checked&&!WaveCanvasPreferences.get().project.askNameOnCreate'),'Restore Defaults requires confirmation and remains draft');
         await r('document.querySelector("#preferences-dialog").close();true');check(await r('!WaveCanvasPreferences.get().project.askNameOnCreate'),'Cancel reset draft retains saved settings');
         await settlePaint();await session.evaluate('projectQA.window.webContents.capturePage().then(image=>process.getBuiltinModule("fs").writeFileSync('+JSON.stringify(path.join(artifacts,'named-editor.png'))+',image.toPNG()))');

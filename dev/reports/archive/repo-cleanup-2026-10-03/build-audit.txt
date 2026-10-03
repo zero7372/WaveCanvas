@@ -1,0 +1,5 @@
+
+> wavecanvas@0.1.0 build:audit
+> node dev/tools/audit-electron-build.cjs
+
+Package allowlist passed: 88 entries; 569.94 MiB; no dev/ or node_modules.

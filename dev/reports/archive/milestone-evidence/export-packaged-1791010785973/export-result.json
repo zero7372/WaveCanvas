@@ -1,0 +1,27 @@
+{
+  "result": {
+    "output": "C:\\Users\\user\\Documents\\雜項\\Audio visualizer\\dev\\tests\\artifacts\\export-packaged-1791010785973\\real-full.mp4",
+    "duration": 60.18610416666667,
+    "exportedDuration": 60.2,
+    "frames": 3612,
+    "averageCaptureMs": 38.564015946843945,
+    "slowestCaptureMs": 165.89630000000034,
+    "analysisMs": 1101.2999999970198,
+    "cacheBytes": 925184,
+    "encodingMs": 165530.9479,
+    "renderingMs": 164207.1021,
+    "encoderDrainMs": 1323.8524000000034,
+    "peakWorkingSetBytes": 1731731456,
+    "totalMs": 167156.9214,
+    "droppedFrames": 0,
+    "peakQueueDepth": 1,
+    "rawFrameHashes": {
+      "0": "3af712a0c7542bd1532737bd093df6f43e937a8980595160eab52d8ee21e3215",
+      "60": "3d6301741978256b3f8ea8579ffad49479e088dcc4154977849ec8a29897071a",
+      "120": "77c1827d6b8d290151055a2e7b793a5cd5aa1d200bb3d3d5a543cbb3422c088f"
+    },
+    "allFrameHashes": [],
+    "diagnosticStates": {},
+    "bytes": 28842799
+  }
+}

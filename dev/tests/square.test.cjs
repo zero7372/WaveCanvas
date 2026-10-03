@@ -67,7 +67,7 @@ test('Square leaves corners clear and supports inward, bass spacing and identica
     assert.equal(bars.length,64);for(let i=0;i<16;i++)for(let side=1;side<4;side++)assert.equal(bars[i].color,bars[side*16+i].color);
 });
 test('Linear geometry and drawing traces exactly match the previous renderer', () => {
-    const now=environment(),before=environment('../dev/tests/artifacts/square-geometry-before.js');
+    const now=environment(),before=environment('../dev/tests/fixtures/baselines/square-geometry-before.js');
     const samples=Array.from({length:128},(_,i)=>i%7/7);
     for(const layout of ['linear','circle'])for(const orientation of ['horizontal','vertical'])for(const mirror of ['none','center','dual'])for(const reverse of [false,true])for(const anchor of ['start','center','end'])for(const amplitudeDirection of ['positive','negative','both']) {
         const config={...now.defaults,layout,orientation,mirror,reverse,anchor,amplitudeDirection,barCount:17,rotation:23};
@@ -81,7 +81,7 @@ test('Linear geometry and drawing traces exactly match the previous renderer', (
     }
 });
 test('Circle renderer, FFT, listener, Audio, Lyrics and Timing implementation are unchanged', () => {
-    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/artifacts/square-protected-hashes.json')));
+    const hashes=JSON.parse(fs.readFileSync(path.join(root,'../dev/tests/fixtures/baselines/square-protected-hashes.json')));
     for(const [file,expected] of Object.entries(hashes)) {
         // Factory defaults intentionally change runtime/preset handling, not the renderers or audio.
         // SRT import adds runtime source metadata without changing Lyrics renderer.

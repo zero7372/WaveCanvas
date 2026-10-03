@@ -1,0 +1,216 @@
+Running
+PASS Standalone: 90 runtime settings
+PASS Standalone audio controls visible
+PASS WE: native API registered once; local controls hidden
+PASS WE settings and audio reach original visualizer
+PASS Local WAV plays and produces finite FFT
+PASS Strong bass triggers original shake threshold
+PASS Pause decays original smoothing to silence
+PASS Seek then play resumes analysis
+PASS BFCache pagehide pauses local audio
+PASS BFCache retained graph can resume analysis
+PASS Replace file: new URL and no stale spectrum
+PASS Quiet bass remains visible without false shake trigger
+PASS Unsupported/corrupt audio reports decode error
+PASS UI covers all 90 runtime properties
+PASS UI preserves all 12 metadata entries
+PASS WE hides all Standalone chrome and settings
+PASS Panel docks outside visualizer area
+PASS Docked panel resizes canvas
+PASS Checkbox -> unified property -> visualizer
+PASS Slider -> unified property -> visualizer
+PASS Color converts hex to WE RGB float
+PASS Combo preserves original option values
+PASS Schema conditions update dependent controls
+PASS Runtime state synchronizes range and numeric input
+PASS Runtime state synchronizes color and condition
+PASS Unused properties explicitly labeled
+PASS Cover decodes non-square image/png
+PASS Cover caches one decode across frames: cover.png
+PASS Cover decodes non-square image/jpeg
+PASS Cover caches one decode across frames: cover.jpg
+PASS Cover replacement revokes prior URL: cover.jpg
+PASS Cover decodes non-square image/webp
+PASS Cover caches one decode across frames: cover.webp
+PASS Cover replacement revokes prior URL: cover.webp
+PASS Cancel selection retains current Cover
+PASS Bad Cover retains previous decoded image
+PASS Rapid changes commit only the latest Cover
+PASS Clear Cover revokes URL and clears visual cache
+PASS Background file uses original image property
+PASS Overlay file uses original image property
+PASS Directory fallback feeds existing slideshow callback
+PASS WE logoimage uses the same cached drawing path
+PASS Input Gain 0.5 changes only amplitude
+PASS Input Gain 0.5 preserves frequency index
+PASS Input Gain 1 changes only amplitude
+PASS Input Gain 1 preserves frequency index
+PASS Input Gain 2 changes only amplitude
+PASS Input Gain 2 preserves frequency index
+PASS Preset contains 90 properties plus Standalone Input Gain
+PASS Preset excludes URLs and all selected file resources
+PASS Export button generates complete JSON payload
+PASS Export button exposes downloadable JSON link and filename
+PASS Preset import clears and revokes selected image resources
+PASS Preset missing fields default; numeric values clamp; unknown fields ignored
+PASS Imported preset synchronizes UI
+PASS Corrupt preset rejection is atomic
+PASS Import file UI loads the exported JSON payload
+PASS Import file UI reports corrupt JSON without changing current settings
+PASS Reset restores all 90 defaults and Input Gain 1
+PASS Reset UI matches runtime state
+PASS Owned image URLs are revoked exactly once
+PASS FFT 44100 Hz / 60 Hz / peak 0.1: L2=0.1500
+PASS FFT 44100 Hz / 60 Hz / peak 0.5: L2=0.7500
+PASS FFT 44100 Hz / 60 Hz / peak 0.8: L2=1.1212
+PASS FFT 44100 Hz / 1000 Hz / peak 0.1: L2=0.1500
+PASS FFT 44100 Hz / 1000 Hz / peak 0.5: L2=0.7500
+PASS FFT 44100 Hz / 1000 Hz / peak 0.8: L2=1.0000
+PASS FFT 44100 Hz / 10000 Hz / peak 0.1: L2=0.1500
+PASS FFT 44100 Hz / 10000 Hz / peak 0.5: L2=0.7500
+PASS FFT 44100 Hz / 10000 Hz / peak 0.8: L2=1.0000
+PASS FFT 44100 Hz: digital silence maps to zero
+PASS FFT 44100 Hz: sub-floor tone maps to zero
+PASS FFT 48000 Hz / 60 Hz / peak 0.1: L2=0.1500
+PASS FFT 48000 Hz / 60 Hz / peak 0.5: L2=0.7500
+PASS FFT 48000 Hz / 60 Hz / peak 0.8: L2=1.1367
+PASS FFT 48000 Hz / 1000 Hz / peak 0.1: L2=0.1500
+PASS FFT 48000 Hz / 1000 Hz / peak 0.5: L2=0.7500
+PASS FFT 48000 Hz / 1000 Hz / peak 0.8: L2=1.0000
+PASS FFT 48000 Hz / 10000 Hz / peak 0.1: L2=0.1500
+PASS FFT 48000 Hz / 10000 Hz / peak 0.5: L2=0.7500
+PASS FFT 48000 Hz / 10000 Hz / peak 0.8: L2=1.0000
+PASS FFT 48000 Hz: digital silence maps to zero
+PASS FFT 48000 Hz: sub-floor tone maps to zero
+PASS Standalone: no page errors or unhandled promises []
+PASS WE simulation: no page errors or unhandled promises []
+CALIBRATION
+[
+  {
+    "sampleRate": 44100,
+    "frequency": 60,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.136
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 60,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.6798
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 60,
+    "amplitude": 0.8,
+    "norm": 1.1212,
+    "max": 1
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 1000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 1000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 1000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 10000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 10000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 44100,
+    "frequency": 10000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 60,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.1339
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 60,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.6696
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 60,
+    "amplitude": 0.8,
+    "norm": 1.1367,
+    "max": 1
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 1000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 1000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 1000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 10000,
+    "amplitude": 0.1,
+    "norm": 0.15,
+    "max": 0.15
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 10000,
+    "amplitude": 0.5,
+    "norm": 0.75,
+    "max": 0.75
+  },
+  {
+    "sampleRate": 48000,
+    "frequency": 10000,
+    "amplitude": 0.8,
+    "norm": 1,
+    "max": 1
+  }
+]
+DONE failures=0

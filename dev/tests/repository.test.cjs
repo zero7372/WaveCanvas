@@ -2,19 +2,22 @@ const test = require('node:test'), assert = require('node:assert/strict');
 const fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto');
 const repo = path.resolve(__dirname, '..', '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(repo, 'dev/notes/repository-file-manifest.json'), 'utf8').replace(/^\uFEFF/, ''));
-test('Classification preserves every original file and all runtime code/assets byte-for-byte', () => {
+test('Classification protects retained source/fixtures and records disposed generated outputs', () => {
     assert.equal(new Set(manifest.map(item => item.destination)).size, manifest.length);
     for (const item of manifest) {
+        if (item.disposition === 'removed-generated-during-cleanup') {
+            assert.ok(item.destination.startsWith('dev/tests/artifacts/')); continue;
+        }
         const destination = path.join(repo, item.destination);
         assert.ok(fs.statSync(destination).isFile(), item.original);
         const editable = item.destination === 'README.md' || item.destination === 'app/index.html'
             || /^dev\/tools\//.test(item.destination) || /^dev\/tests\/[^/]+\.(?:js|html|cjs)$/.test(item.destination)
-            || item.destination === 'dev/tests/artifacts/index-before.html';
+            || /^dev\/reports\//.test(item.destination) || item.destination === 'dev/tests/fixtures/baselines/index-before.html';
         if (!editable) assert.equal(crypto.createHash('sha256').update(require('./project-baseline.cjs')(path.basename(destination),fs.readFileSync(destination))).digest('hex'), item.sha256, item.destination);
     }
 });
 test('Every static HTML script, stylesheet, base and local link resolves after classification', () => {
-    for (const item of manifest.filter(item => item.destination.endsWith('.html'))) {
+    for (const item of manifest.filter(item => item.destination.endsWith('.html') && item.disposition !== 'removed-generated-during-cleanup')) {
         const file = path.join(repo, item.destination);
         const html = fs.readFileSync(file, 'utf8').replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, '$1</script>');
         const base = /<base\b[^>]*href="([^"]+)"/i.exec(html);

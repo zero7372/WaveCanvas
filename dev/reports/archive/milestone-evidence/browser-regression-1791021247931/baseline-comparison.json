@@ -1,0 +1,106 @@
+{
+  "current": "browser-regression-1791021247931",
+  "baseline": "browser-regression-1791021346767",
+  "baselineCommit": "a09cc58179a4af2d153cdda8783492e1fcd2bf0c",
+  "currentFailures": [
+    "FAIL Preset missing fields default; numeric values clamp; unknown fields ignored",
+    "FAIL Reset restores all current defaults and Input Gain 1",
+    "FAIL Home has truthful empty Recent Projects",
+    "FAIL Square shares the entire spectrum equally across all four edges",
+    "FAIL Square mirrors each edge around its center",
+    "FAIL Legacy Square preset defaults missing spectrum layout to Symmetric",
+    "FAIL Layout switches retain Circle/Square/Linear settings",
+    "FAIL Inspector preset roundtrip preserves keys and Square layout",
+    "FAIL Inspector old preset defaults Square spectrum without format change",
+    "FAIL Inspector Reset synchronizes defaults and Circle section"
+  ],
+  "baselineFailures": [
+    "FAIL Preset missing fields default; numeric values clamp; unknown fields ignored",
+    "FAIL Reset restores all current defaults and Input Gain 1",
+    "FAIL Home has truthful empty Recent Projects",
+    "FAIL Square shares the entire spectrum equally across all four edges",
+    "FAIL Square mirrors each edge around its center",
+    "FAIL Legacy Square preset defaults missing spectrum layout to Symmetric",
+    "FAIL Layout switches retain Circle/Square/Linear settings",
+    "FAIL Inspector preset roundtrip preserves keys and Square layout",
+    "FAIL Inspector old preset defaults Square spectrum without format change",
+    "FAIL Inspector Reset synchronizes defaults and Circle section"
+  ],
+  "sameFailures": true,
+  "countsCurrent": [
+    {
+      "page": "browser.html",
+      "passes": 432,
+      "failures": 10,
+      "pass": false
+    },
+    {
+      "page": "repository-smoke.html",
+      "passes": 14,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "factory-defaults-browser.html",
+      "passes": 31,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "srt-browser.html",
+      "passes": 31,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "linear-cover-browser.html",
+      "passes": 20,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "templates-browser.html",
+      "passes": 61,
+      "failures": 0,
+      "pass": true
+    }
+  ],
+  "countsBaseline": [
+    {
+      "page": "browser.html",
+      "passes": 432,
+      "failures": 10,
+      "pass": false
+    },
+    {
+      "page": "repository-smoke.html",
+      "passes": 14,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "factory-defaults-browser.html",
+      "passes": 31,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "srt-browser.html",
+      "passes": 31,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "linear-cover-browser.html",
+      "passes": 20,
+      "failures": 0,
+      "pass": true
+    },
+    {
+      "page": "templates-browser.html",
+      "passes": 61,
+      "failures": 0,
+      "pass": true
+    }
+  ]
+}

@@ -20,7 +20,7 @@
 
 ## 可重現測試
 
-1. `node scripts/serve.cjs`，開啟 `http://127.0.0.1:8765/tests/performance.html`。
+1. `node dev/tools/serve.cjs`，開啟 `http://127.0.0.1:8765/dev/tests/performance.html`。
 2. 設定每個情境 60 秒，點 Run A–E benchmark。保持頁面前景、Stage 可見、不開 DevTools／不縮小視窗。結果 JSON 可選取複製。
 3. 測试頁使用固定 1920×1080 Canvas，但 iframe viewport 為 960×640，Stage 顯示尺寸較小。另開產品 `/?profile=1`，使用自己的素材與實際工作 viewport 再跑一次；不可把縮小 Stage 的數據當作實體 1920×1080 display certification。
 4. 產品 console：`WaveCanvasPerf.reset()` 開始；60 秒後 `WaveCanvasPerf.snapshot()`。Current FPS 是最近 frame；Min FPS 是最慢單一 frame 的倒數。long frame = RAF 間隔 >25 ms；不是所有超過 16.67 ms 的 clock jitter。

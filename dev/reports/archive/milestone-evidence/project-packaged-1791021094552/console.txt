@@ -1,0 +1,20 @@
+
+Debugger listening on ws://127.0.0.1:63735/a82d34a1-c4e9-4291-b18a-4a7cd423450a
+For help, see: https://nodejs.org/learn/getting-started/debugging
+Debugger attached.
+Debugger ending on ws://127.0.0.1:63735/a82d34a1-c4e9-4291-b18a-4a7cd423450a
+For help, see: https://nodejs.org/learn/getting-started/debugging
+
+Debugger listening on ws://127.0.0.1:63741/62c18644-8ba7-49f2-8513-8880bfda6582
+For help, see: https://nodejs.org/learn/getting-started/debugging
+Debugger attached.
+[Project] Injected replacement failure
+[Renderer error] 自動儲存失敗：Injected replacement failure
+[Project] 專案 JSON 格式損壞。
+[Project] 不是 WaveCanvas 專案。
+[Project] 專案版本較新，無法由目前 WaveCanvas 開啟。
+[Project] 收集已中止，找不到媒體：
+audio: H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\project-packaged-1791021094552\missing-audio.wav
+cover: H:\WaveCanvas\Audio visualizer\dev\tests\artifacts\project-packaged-1791021094552\missing-cover.png
+Debugger ending on ws://127.0.0.1:63741/62c18644-8ba7-49f2-8513-8880bfda6582
+For help, see: https://nodejs.org/learn/getting-started/debugging

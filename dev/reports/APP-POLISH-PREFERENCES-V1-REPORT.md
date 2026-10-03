@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # App Polish & Preferences v1
 
 完成日期：2026-10-03（Asia/Taipei）。範圍只有 app preferences、專案命名、Save/Collect default filename 與 autosave scheduler；未更動 Preview/FFT/listener、Preset、encoder 或 Phase 2A capture。
@@ -84,13 +86,13 @@ Collect 新 folder 與 .waveproj 使用同一 sanitized display name，原 colli
 | Build | 88 entries / 569.98 MiB；allowlist通過，無dev/node_modules |
 | Syntax / diff whitespace | 通過 |
 
-Artifacts：[UI development](../tests/artifacts/preferences-development-1791022512556/results.json)、[UI packaged](../tests/artifacts/preferences-packaged-1791022843709/results.json)、[Project development](../tests/artifacts/project-development-1791022516885/results.json)、[Project packaged](../tests/artifacts/project-packaged-1791022855430/results.json)、[Export QA](../tests/artifacts/export-development-1791023024796/results.json)、[export determinism](../tests/artifacts/export-development-1791023024796/determinism.json)、[packaged export](../tests/artifacts/export-packaged-1791022920998/)、[Browser comparison](../tests/artifacts/browser-regression-1791022644306/phase2a-comparison.json)。其他完整log在dev/tests/artifacts/preferences-*.txt；全部被Git ignore但保留磁碟。
+Artifacts：[UI development](archive/milestone-evidence/preferences-development-1791022512556/results.json)、[UI packaged](archive/milestone-evidence/preferences-packaged-1791022843709/results.json)、[Project development](archive/milestone-evidence/project-development-1791022516885/results.json)、[Project packaged](archive/milestone-evidence/project-packaged-1791022855430/results.json)、[Export QA](archive/milestone-evidence/export-development-1791023024796/results.json)、[export determinism](archive/milestone-evidence/export-development-1791023024796/determinism.json)、[packaged export](archive/milestone-evidence/export-packaged-1791022920998/README.md)、[Browser comparison](archive/milestone-evidence/browser-regression-1791022644306/phase2a-comparison.json)。其他完整log在歷史 generated output（preferences-；已清除）*.txt；全部被Git ignore但保留磁碟。
 
 Settings tests涵蓋missing/valid/partial/invalid JSON/invalid enum/version、atomic failure、concurrent writes、reset、restart與isolated userData。Controller fake timers測saved/unsaved/clean/dirty、5→1分鐘、Off/manual save/re-enable與dispose，scheduler standalone測不重複timer；原backup retention10份與錯誤保護仍通過。UI測Enter/Esc/focus、trim/blank/later/Ask Off、Rename dirty/path、Save As default/名稱不被檔名覆蓋、Collect、Recent、legacy缺name與process restart。打包版Preferences/Rename畫面另做目視檢查，無裁切、焦點outline與按鈕層級正常。
 
 Export新增Preferences change前後snapshot完全相等的assertion，輸出SSIM=1，samples/lyrics exact，完整畫面原容差通過。Phase 2A capture / clock / Stage / pixel helper與FFT/listener檔案相對e39de75的diff為空，未重新聲稱本輪跑過3612幀效能benchmark；本輪要求的300幀實際走同一正式optimized capture。
 
-首次與重跑的舊strict Canvas PNG byte equality各有frame60失敗，保存於[initial](../tests/artifacts/export-development-1791022587014/results.json)、[repeat](../tests/artifacts/export-development-1791022863406/results.json)，其完整composite僅1 channel差1/255、SSIM=1；這是Phase 2A已記錄的rounding。為避免只靠反覆執行直到剛好byte-equal，本輪明確維護QA：samples/lyrics仍exact，Canvas額外decode像素比較，使用**原本full compositor max1/255、changed<0.1%**門檻，完整compositorassertion不變；`pngBytesEqual`另保存diagnostic。不是更動renderer、encoder或放寬full Stage容差。最終32/32包含新增3個decoded Canvas checks。
+首次與重跑的舊strict Canvas PNG byte equality各有frame60失敗，保存於[initial](archive/milestone-evidence/export-development-1791022587014/results.json)、[repeat](archive/milestone-evidence/export-development-1791022863406/results.json)，其完整composite僅1 channel差1/255、SSIM=1；這是Phase 2A已記錄的rounding。為避免只靠反覆執行直到剛好byte-equal，本輪明確維護QA：samples/lyrics仍exact，Canvas額外decode像素比較，使用**原本full compositor max1/255、changed<0.1%**門檻，完整compositorassertion不變；`pngBytesEqual`另保存diagnostic。不是更動renderer、encoder或放寬full Stage容差。最終32/32包含新增3個decoded Canvas checks。
 
 Browser current套件432/10，其餘5個專項全部通過；逐項與前輪Phase 2A已保存的同套件結果比較，10項failures相同。沒有把已知failures誤報全綠，也沒有順便修改舊defaults/Square/Recent行為。
 

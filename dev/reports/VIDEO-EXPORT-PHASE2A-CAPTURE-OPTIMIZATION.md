@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Video Export Phase 2A — Capture optimization
 
 完成日期：2026-10-03（Asia/Taipei）。只修改 Chromium offscreen capture pipeline；正式 encoder 維持 libx264 medium CRF18 / AAC。正式結果 **66.825 秒，0.901× realtime，达到 <90 秒 target 與 60–75 秒 stretch 區間**。
@@ -12,7 +14,7 @@ Git 2.53.0.windows.1 正常。現有工作目錄與父目錄沒有 .git；README
 
 ## Baseline regression gate
 
-修改前：Node 95/95、Project 51/51、Electron 48/48、Export integration 28/28，以及 packaged build/allowlist 成功。logs 位於 dev/tests/artifacts/phase2a-pre-regression/；Export results 位於 export-development-1791018825777/results.json。
+修改前：Node 95/95、Project 51/51、Electron 48/48、Export integration 28/28，以及 packaged build/allowlist 成功。logs 位於 dev/reports/archive/milestone-evidence/phase2a-pre-regression/README.md；Export results 位於 export-development-1791018825777/results.json。
 
 完整閱讀 Phase 1 與 Home GPU benchmark 報告，保留 deterministic clock、offline analysis、full Stage、原 FFT/listener、原 Project/lyrics/preset 語意、CPU encoder 與 one-frame backpressure。
 
@@ -103,7 +105,7 @@ WAAPI每幀ready成本只有約0.04–0.06ms，且新動畫/新的ready promise�
 
 ## Final performance
 
-Production full run：[aggregate](../tests/artifacts/phase2a-production-1791020395089/aggregate.json)、[MP4](../tests/artifacts/phase2a-production-1791020395089/export.mp4)、[ffprobe](../tests/artifacts/phase2a-production-1791020395089/ffprobe.json)。正式 output 無16×16 witness；畫面外metadata row已排除。
+Production full run：[aggregate](archive/milestone-evidence/phase2a-production-1791020395089/aggregate.json)、MP4（歷史 generated output 已清除）、[ffprobe](archive/milestone-evidence/phase2a-production-1791020395089/ffprobe.json)。正式 output 無16×16 witness；畫面外metadata row已排除。
 
 | Metric | Final |
 |---|---:|
@@ -134,7 +136,7 @@ productionpaintWait量測listener收到acceptedpaint之前、renderrequest完成
 
 ffprobe：H.264、yuv420p、1920×1080、60/1、AAC、3612 decoded frames。Video 60.200000s，AAC 60.186122s，end difference **13.878ms <16.667ms**。frame count與sequentialclock確認沒有drop。時間軸仍以frameIndex/60；未偷frame或降低畫質。此為clock/mux endpoints驗證，非人工逐拍聽覺同步宣稱。
 
-production与独立current-frame reference之selectedpixels/semantic比较：[comparison](../tests/artifacts/phase2a-production-1791020395089/comparison.json)。完整witness run另證明3612/3612每幀身分。原Phase1raw composite在少數初始/轉場幀有stale，因此同時保存舊comparison差異與正確當前幀reference，沒有把修正stale誤稱成byte-identical舊輸出。
+production与独立current-frame reference之selectedpixels/semantic比较：[comparison](archive/milestone-evidence/phase2a-production-1791020395089/comparison.json)。完整witness run另證明3612/3612每幀身分。原Phase1raw composite在少數初始/轉場幀有stale，因此同時保存舊comparison差異與正確當前幀reference，沒有把修正stale誤稱成byte-identical舊輸出。
 
 Cover在原Canvas內，非獨立DOM；以完整Canvas像素與Circle幾何/particles/bass狀態比較cover位置/旋轉/反應。Background transform、Lyrics DOM/computed style、Song Info DOM/style直接比較。raw/full Stage包含全部layers；允許既有max1/255且changedchannel<0.1%的Chromium rounding，未放寬容差。
 
@@ -154,15 +156,15 @@ Node **99/99**、Project development **51/51**、Electron development **48/48**�
 
 打包版 Electron **48/48**、Project **51/51**、真實專案 short export **7/7**：H.264 / 1080p / 60 FPS / 300 frames / AAC，原專案檔案 hash/size/mtime 不變。最終 build audit **78 entries / 569.96 MiB**。Helper syntax 與 git diff whitespace 檢查通過。
 
-Logs：[final regression](../tests/artifacts/phase2a-final-regression/)。完整 QA 成功 artifact：[export repeat](../tests/artifacts/export-development-1791020970261/results.json)；打包版：[project](../tests/artifacts/project-packaged-1791021094552/)、[export](../tests/artifacts/export-packaged-1791021102951/)。最終 production frame0/60/600 另做目視檢查，Cover、Song Info、背景、歌詞與頻譜正常。
+Logs：[final regression](archive/milestone-evidence/phase2a-final-regression/README.md)。完整 QA 成功 artifact：[export repeat](archive/milestone-evidence/export-development-1791020970261/results.json)；打包版：[project](archive/milestone-evidence/project-packaged-1791021094552/README.md)、[export](archive/milestone-evidence/export-packaged-1791021102951/README.md)。最終 production frame0/60/600 另做目視檢查，Cover、Song Info、背景、歌詞與頻譜正常。
 
-保留首次 QA 的失敗：[initial QA](../tests/artifacts/export-development-1791020568759/results.json)。frame60 audio samples / lyrics exact；Canvas PNG byte equality 失敗，但 decode 後只有 **1 channel 差 1/255（ratio 0.00000012056）**；完整 composite 原容差通過。未修改或放寬該 strict assertion，未修改應用程式後完整重跑 28/28 通過。[pixel evidence](../tests/artifacts/export-development-1791020568759/canvas-rounding-analysis.json)。這項 exact PNG assertion 有 Chromium rounding 的非穩定性，不能宣稱所有重新啟動皆 byte-identical。
+保留首次 QA 的失敗：[initial QA](archive/milestone-evidence/export-development-1791020568759/results.json)。frame60 audio samples / lyrics exact；Canvas PNG byte equality 失敗，但 decode 後只有 **1 channel 差 1/255（ratio 0.00000012056）**；完整 composite 原容差通過。未修改或放寬該 strict assertion，未修改應用程式後完整重跑 28/28 通過。[pixel evidence](archive/milestone-evidence/export-development-1791020568759/canvas-rounding-analysis.json)。這項 exact PNG assertion 有 Chromium rounding 的非穩定性，不能宣稱所有重新啟動皆 byte-identical。
 
 Browser 回歸使用 test-only 獨立 sandbox BrowserWindow / session，沒有 Node/preload。初始 harness 的 default-session HTTP 阻擋與字串 escape 問題已修正；沒有放寬正式 app 的網路限制。另修正兩個既有 browser tests 的舊 Cover clear selector，指向現有 Media footer；只有 test selector 改動，未改 UI 或 assertion。
 
 Browser 最終 **589 PASS / 10 FAIL**，其中主套件 browser.html 為432/10；repository smoke14/0、factory defaults31/0、SRT31/0、Linear Cover20/0、templates61/0。**沒有宣稱 Browser 全綠。** 10項失敗集中於舊 preset/reset default、Square geometry、layout/preset roundtrip 與 Recent Projects 期待。
 
-為隔離本輪變更，harness 的 `--baseline` 從 Git baseline commit 讀取全部原始 app 檔案到獨立 artifact 子目錄，以相同 current tests（包含修正後的 clear selectors）執行；没有覆寫工作 source。Baseline 同樣 **589 PASS / 10 FAIL**，所有 failure labels 完全一致，證明這些是既有測試期待問題，不是 capture 優化新增 regression：[baseline comparison](../tests/artifacts/browser-regression-1791021247931/baseline-comparison.json)、[baseline results](../tests/artifacts/browser-regression-1791021346767/results.json)。本輪未更動既有 defaults、Square 或 Recent Projects 行為來滿足過時 assertions；後續可單獨維護主套件的期待值。
+為隔離本輪變更，harness 的 `--baseline` 從 Git baseline commit 讀取全部原始 app 檔案到獨立 artifact 子目錄，以相同 current tests（包含修正後的 clear selectors）執行；没有覆寫工作 source。Baseline 同樣 **589 PASS / 10 FAIL**，所有 failure labels 完全一致，證明這些是既有測試期待問題，不是 capture 優化新增 regression：[baseline comparison](archive/milestone-evidence/browser-regression-1791021247931/baseline-comparison.json)、[baseline results](archive/milestone-evidence/browser-regression-1791021346767/results.json)。本輪未更動既有 defaults、Square 或 Recent Projects 行為來滿足過時 assertions；後續可單獨維護主套件的期待值。
 
 ## Known limits
 

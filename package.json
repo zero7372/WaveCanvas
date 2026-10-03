@@ -19,7 +19,12 @@
     "browser:start": "node dev/tools/serve.cjs",
     "export:test": "node dev/tools/export-qa.cjs",
     "export:test:real": "node dev/tools/export-smoke.cjs --full",
-    "export:test:build": "node dev/tools/export-smoke.cjs --packaged"
+    "export:test:build": "node dev/tools/export-smoke.cjs --packaged",
+    "preferences:test": "node dev/tools/preferences-smoke.cjs",
+    "preferences:test:build": "node dev/tools/preferences-smoke.cjs --packaged",
+    "browser:test": "node dev/tools/browser-smoke.cjs",
+    "build:audit": "node dev/tools/audit-electron-build.cjs",
+    "repo:size": "node dev/tools/audit-repo-size.cjs"
   },
   "devDependencies": {
     "electron": "44.5.1",

@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # WaveCanvas Project System v1
 
 本輪新增可讀 JSON `.waveproj`、Desktop native Save/Open/Collect、dirty-aware autosave、rolling backups、unsaved guards 與 Recent Projects。沒有改 FFT mapping、wallpaperAudioListener、Visualizer 幾何、字幕 parser、SRT/LRC 原檔或 Preset format；沒有新增套件。
@@ -90,7 +92,7 @@ Browser 沒 preload API，Project controller 不啟用、commands disabled 並�
 
 Node 89/89 通過（含單一 300000 ms scheduler 跨 New/Open／pagehide cleanup、backup 10 份、原子失敗、filename collision、Recent persistence）。Project 開發 Electron smoke 51/51、packaged exe 51/51 通過。Browser 已實際確認 Project commands disabled、Circle Editor 可用、16:9、縮圖、Preset/LRC 控件與 console error=0；截圖 project-browser.png。原 Electron compatibility smoke 開發版 48/48、packaged 48/48；build allowlist 68 entries，約 368.96 MiB，排除 dev/。
 
-Project smoke 是實際 Electron process、實際磁碟媒體／project/backups／collect copies；dialog responses 由 test-only Main inspector 控制，不打包測試 hook。跨重啟 Save/Open、edited SRT/LRC、layout banks、autosave、failure injection、collect搬移、unsaved guards 已包含。最新完整 logs／results.json 位於 dev/tests/artifacts/project-{development,packaged}-<timestamp>/；Node log 為 project-node-results.txt。
+Project smoke 是實際 Electron process、實際磁碟媒體／project/backups／collect copies；dialog responses 由 test-only Main inspector 控制，不打包測試 hook。跨重啟 Save/Open、edited SRT/LRC、layout banks、autosave、failure injection、collect搬移、unsaved guards 已包含。最新完整 logs／results.json 位於 歷史 generated output（project-{development；已清除）,packaged}-<timestamp>/；Node log 為 project-node-results.txt。
 
 要求的 20 步 smoke 以自動化等效流程執行：New＋Circle，native-backed WAV/Cover/background/Primary SRT/Secondary LRC，retime，Background/Song Info，Save As，close/relaunch/open，驗證資料，修改 setting，呼叫同 autosave handler 模擬 interval，確認 backup，Collect，搬移新 test folder，reopen。不宣稱 Windows OS dialog 人工點選或實際等待 5 分鐘。
 

@@ -1,3 +1,5 @@
+> 維護註記（2026-10-03）：generated videos／暫存輸出已清除；小型證據連結改到 archive，靜態 baseline fixtures 改到 dev/tests/fixtures/baselines。下文數值為當時 milestone 實測，不代表本輪重跑。
+
 # Video Export Home GPU Benchmark
 
 日期：2026-10-03（Asia/Taipei）。本輪完成環境 audit 與 benchmark/bottleneck investigation，未開始正式 Phase 2。
@@ -16,7 +18,7 @@ Windows 11 Pro 10.0.26300 x64；PowerShell 7.6.5；host Node 24.14.0 / npm 11.9.
 
 app.getGPUFeatureStatus()：gpu_compositing=enabled、rasterization=enabled、2d_canvas=enabled、webgl=enabled、video_decode=enabled、video_encode=enabled。app.getGPUInfo('complete')：active NVIDIA RTX 3080 Ti；ANGLE D3D11，GaneshGL，sandboxed=true；Microsoft Basic Render Driver 為 inactive。未調整 GPU policy，未發現 software fallback。
 
-完整 API 輸出：[libx264 GPU](../tests/artifacts/home-benchmark-1791017938374/gpu.json)、[NVENC GPU](../tests/artifacts/home-benchmark-1791018092716/gpu.json)。這些是 Chromium feature/active-device 資訊，並非單一 compositor 的 GPU 利用率量測。
+完整 API 輸出：[libx264 GPU](archive/milestone-evidence/home-benchmark-1791017938374/gpu.json)、[NVENC GPU](archive/milestone-evidence/home-benchmark-1791018092716/gpu.json)。這些是 Chromium feature/active-device 資訊，並非單一 compositor 的 GPU 利用率量測。
 
 ## Company laptop baseline
 
@@ -38,7 +40,7 @@ app.getGPUFeatureStatus()：gpu_compositing=enabled、rasterization=enabled、2d
 
 先完整跑 production libx264 medium CRF18，再跑 test-only NVENC。正常 Project loader 開啟相鄰 Untitled.waveproj；snapshot JSON A/B 完全相同，原 project/media 未修改。相同 renderer、timeline、60 Hz clock、offline analysis、1080p、AAC320k；正式 ffmpeg-runner.cjs 的 args 與 UI 預設維持 libx264。
 
-NVENC 在 Main inspector 測試程序暫時替換 arguments：-c:v h264_nvenc -preset p6 -rc vbr -cq 18 -b:v 0 -pix_fmt yuv420p。先讀當前 build 的 [encoder help](../tests/artifacts/home-benchmark-1791018092716/nvenc-help.txt)，再以 60 幀 1080p60 color input 實際啟動 encoding probe 成功。未把 NVENC 加入 UI，未引入 HEVC/AV1/4K。
+NVENC 在 Main inspector 測試程序暫時替換 arguments：-c:v h264_nvenc -preset p6 -rc vbr -cq 18 -b:v 0 -pix_fmt yuv420p。先讀當前 build 的 [encoder help](archive/milestone-evidence/home-benchmark-1791018092716/nvenc-help.txt)，再以 60 幀 1080p60 color input 實際啟動 encoding probe 成功。未把 NVENC 加入 UI，未引入 HEVC/AV1/4K。
 
 | 指標 | Home libx264 | Home NVENC |
 |---|---:|---:|
@@ -117,7 +119,7 @@ Working set 採樣頻率與時間不同；非 JS heap、private bytes 或絕對�
 
 frame0/60/120 已抽 decoded PNG 並目視確認 Background、Cover、Circle Visualizer、Primary/Secondary Lyrics、Song Info、particles 與低頻幾何/背景反應。frame0 依原時間軸仍是 intro，Cover/lyrics 尚未完成進場；兩條 path 相同。
 
-[比較證據](../tests/artifacts/home-benchmark-1791018092716/comparison.json)：snapshot 完全相同，selected audio vectors、lyrics DOM、正規化背景 transform/style 相同；Canvas/raw composite frame0/120 完全相同。frame60 Canvas/raw composite 僅一個 channel 差1/255，比例 0.0000121%，符合 Phase 1 max1/255、changed channels<0.1% 容差。初次嚴格 Canvas PNG byte-equality 檢查因此失敗；進一步解碼定位為上述 Chromium rounding，未改 renderer 或放寬既有容差。Lossy H.264 outputs 不應要求 byte-identical。
+[比較證據](archive/milestone-evidence/home-benchmark-1791018092716/comparison.json)：snapshot 完全相同，selected audio vectors、lyrics DOM、正規化背景 transform/style 相同；Canvas/raw composite frame0/120 完全相同。frame60 Canvas/raw composite 僅一個 channel 差1/255，比例 0.0000121%，符合 Phase 1 max1/255、changed channels<0.1% 容差。初次嚴格 Canvas PNG byte-equality 檢查因此失敗；進一步解碼定位為上述 Chromium rounding，未改 renderer 或放寬既有容差。Lossy H.264 outputs 不應要求 byte-identical。
 
 ## Output sizes
 
@@ -141,8 +143,8 @@ Company→Home pure capture 38.564→31.747 ms，下降 17.678%（約 1.215× th
 
 ## Artifacts / rerun / source protection
 
-- [libx264 aggregate](../tests/artifacts/home-benchmark-1791017938374/aggregate.json)、[full video](../tests/artifacts/home-benchmark-1791017938374/libx264.mp4)、[ffprobe](../tests/artifacts/home-benchmark-1791017938374/ffprobe.json)
-- [NVENC aggregate](../tests/artifacts/home-benchmark-1791018092716/aggregate.json)、[full video](../tests/artifacts/home-benchmark-1791018092716/nvenc.mp4)、[ffprobe](../tests/artifacts/home-benchmark-1791018092716/ffprobe.json)
+- [libx264 aggregate](archive/milestone-evidence/home-benchmark-1791017938374/aggregate.json)、full video（歷史 generated output 已清除）、[ffprobe](archive/milestone-evidence/home-benchmark-1791017938374/ffprobe.json)
+- [NVENC aggregate](archive/milestone-evidence/home-benchmark-1791018092716/aggregate.json)、full video（歷史 generated output 已清除）、[ffprobe](archive/milestone-evidence/home-benchmark-1791018092716/ffprobe.json)
 - 每個資料夾含 benchmark.json（每幀計時及selected states）、gpu-samples.csv、process-samples.jsonl、utilization.json、raw/decoded/canvas frame0/60/120、results.json。
 - 兩次真實來源全目錄 SHA256/size/mtime 前後相同；沒有寫入或搬動 Untitled project/media。
 - Re-run：順序執行 node dev/tools/home-gpu-benchmark.cjs，再加 --nvenc；執行 summarize-home-benchmark.cjs、compare-home-benchmark.cjs。NVENC probe 失敗即停止該run並保存錯誤，不冒充可用。
@@ -150,4 +152,4 @@ Company→Home pure capture 38.564→31.747 ms，下降 17.678%（約 1.215× th
 
 ## Final production verification
 
-診斷結束後重建 dist/win-unpacked/WaveCanvas.exe，allowlist 77 entries / 569.95 MiB 通過；最終 Node 95/95、packaged Electron 48/48、packaged 正式 libx264 short export 7/7 通過。診斷未啟用的 production path 維持 300 frames / H.264 / 1080p60 / AAC。證據：dev/tests/artifacts/electron-packaged/results.json、dev/tests/artifacts/export-packaged-1791018392738/results.json；真實來源 hash/size/mtime 再次不變。
+診斷結束後重建 dist/win-unpacked/WaveCanvas.exe，allowlist 77 entries / 569.95 MiB 通過；最終 Node 95/95、packaged Electron 48/48、packaged 正式 libx264 short export 7/7 通過。診斷未啟用的 production path 維持 300 frames / H.264 / 1080p60 / AAC。證據：dev/reports/archive/milestone-evidence/electron-packaged/results.json、dev/reports/archive/milestone-evidence/export-packaged-1791018392738/results.json；真實來源 hash/size/mtime 再次不變。
