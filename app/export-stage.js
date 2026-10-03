@@ -1,8 +1,20 @@
 (function () {
     'use strict';
-    let cache, frameIndex = -1, worker, context;
+    let cache, frameIndex = -1, worker, context, captureMarker;
     const urls = [];
     window.WaveCanvasExportStage = Object.freeze({
+        configureCapture() {
+            // One metadata row sits outside the 1920x1080 Stage and is never encoded.
+            document.documentElement.style.height = document.body.style.height = '1081px';
+            captureMarker = document.createElement('div');
+            captureMarker.style.cssText = 'position:fixed;left:0;top:1080px;width:2px;height:1px;z-index:2147483647;display:flex;pointer-events:none';
+            for (let i = 0; i < 2; i++) {
+                const pixel = document.createElement('span');
+                pixel.style.cssText = 'display:block;width:1px;height:1px;flex:none';
+                captureMarker.append(pixel);
+            }
+            document.body.append(captureMarker);
+        },
         async prepare(payload) {
             const started = window.exportNativeNow();
             const runtime = window.VisualizerRuntime;
@@ -35,7 +47,7 @@
             return { duration: buffer.duration, analysisMs: window.exportNativeNow() - started, cacheBytes: cache.byteLength };
         },
         // Production leaves diagnostic false; native time never advances the virtual clock.
-        async renderAtFrame(index, diagnostic = false) {
+        async renderAtFrame(index, diagnostic = false, rafCount = 2) {
             const marks = {}, now = window.exportNativeNow; let tick = diagnostic ? now() : 0;
             if (index !== frameIndex + 1) throw new Error('Export frames 必須依序 render。');
             frameIndex = index;
@@ -45,9 +57,14 @@
             if (diagnostic) { marks.updateMs = now() - tick; tick = now(); }
             await window.WaveCanvasExportClock.settle();
             if (diagnostic) { marks.animationMs = now() - tick; tick = now(); }
+            if (captureMarker) {
+                const value = index + 1, rgb = [value & 255, (value >>> 8) & 255, (value >>> 16) & 255];
+                captureMarker.children[0].style.backgroundColor = 'rgb(' + rgb.join(',') + ')';
+                captureMarker.children[1].style.backgroundColor = 'rgb(' + rgb.map(v => 255 - v).join(',') + ')';
+            }
             // Force style resolution before Main requests Chromium compositor capture.
             document.querySelector('#stage').getBoundingClientRect();
-            await window.WaveCanvasExportClock.paintBarrier();
+            await window.WaveCanvasExportClock.paintBarrier(rafCount);
             if (diagnostic) marks.barrierMs = now() - tick;
             return { index, timeSec: index / 60, ...(diagnostic ? { marks } : {}) };
         },

@@ -82,6 +82,14 @@ node dev/tools/compare-home-benchmark.cjs
 
 本機環境與完整 A/B 結果見 [Home environment audit](dev/reports/HOME-DEV-ENVIRONMENT-AUDIT.md) 及 [Home GPU benchmark](dev/reports/VIDEO-EXPORT-HOME-GPU-BENCHMARK.md)。
 
+### Video Export Phase 2A capture
+
+正式 capture 在推進虛擬時間前訂閱 offscreen paint，以 Stage 外的一列 frame identity／反碼確認收到當前 compositor 幀；只把原本的 1920×1080 Stage 像素送 FFmpeg，metadata row 不進影片。保留 WAAPI ready/currentTime 同步；移除雙 native RAF 與固定兩次 invalidate/readback。Native repaint rate 為 240，內容時間與輸出仍為 frameIndex/60、60 FPS。
+
+`toBitmap()` 的獨立像素副本直接取 Stage Buffer view，省去額外 `Buffer.from()`；Windows surface width 多出邊界時使用有界 row buffer 裁邊，不縮放。Capture/write 維持逐幀 await、queue depth 1；收到舊 paint 會拒絕，10 秒逾時或 Renderer 停止則終止輸出，不拿舊幀補位。Preview、Project、FFT/listener、正式 libx264 medium CRF18 均維持。
+
+診斷工具：`node dev/tools/capture-benchmark.cjs --mode=production --full`；實驗 modes 僅存在 dev/tools。Browser regression：`node dev/tools/browser-smoke.cjs`。結果、原流程 stale-paint 調查及限制見 [Phase 2A capture report](dev/reports/VIDEO-EXPORT-PHASE2A-CAPTURE-OPTIMIZATION.md)。
+
 ### Desktop Project v1
 
 Electron 支援可讀 JSON `.waveproj` 專案：File → 開啟專案（Ctrl+O）、儲存（Ctrl+S）、另存新檔（Ctrl+Shift+S）、收集專案。Browser 中這些操作會停用；原 Preset 與 LRC 匯出保持可用。

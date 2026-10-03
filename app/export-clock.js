@@ -25,7 +25,12 @@
     }
     window.WaveCanvasExportClock = Object.freeze({
         configure(seconds) { duration = seconds; },
-        paintBarrier() { return new Promise(resolve => nativeRAF(() => nativeRAF(resolve))); },
+        paintBarrier(count = 2) {
+            return new Promise(resolve => {
+                const next = () => count-- > 0 ? nativeRAF(next) : resolve();
+                next();
+            });
+        },
         async settle() {
             await Promise.all([...animations.keys()].map(animation => animation.ready.catch(() => {})));
             for (const [animation, start] of animations) if (animation.playState !== 'idle') animation.currentTime = Math.max(0, time - start);

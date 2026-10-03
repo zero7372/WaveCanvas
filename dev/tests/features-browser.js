@@ -74,7 +74,7 @@ async function runFeatureTests(app, we, check) {
         const rapid = await Promise.all([app.VisualizerFiles.select('logoimage', [png]), app.VisualizerFiles.select('logoimage', [webp])]);
         check(rapid[0] === false && rapid[1] === true && app.VisualizerFiles.getName('logoimage') === 'cover.webp', 'Rapid changes commit only the latest Cover');
         const newest = runtime.getSettings().logoimage.value;
-        doc.querySelector('[data-property=logoimage] .quiet-button').click();
+        doc.querySelector('[data-media="cover"] footer .quiet-button').click();
         check(revoked.includes(newest) && runtime.getSettings().logoimage.value === '' && !app.VisualizerImages.getLogo(), 'Clear Cover revokes URL and clears visual cache');
         await app.VisualizerFiles.select('logoimage', [png]);
         await app.VisualizerFiles.select('backgroundimage', [jpg]);

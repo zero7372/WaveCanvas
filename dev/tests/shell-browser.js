@@ -50,7 +50,7 @@ async function runShellTests(app, check) {
     const imageBlob=await new Promise(resolve=>imageCanvas.toBlob(resolve,'image/png'));
     await app.VisualizerFiles.select('logoimage',[new app.File([imageBlob],'shell-cover.png',{type:'image/png'})]);
     check(doc.querySelector('#cover-name').textContent==='shell-cover.png' && doc.querySelector('#cover-meta').textContent==='160 × 90','Media displays cached Cover filename and dimensions');
-    doc.querySelector('#cover-controls .quiet-button').click();
+    doc.querySelector('[data-media="cover"] footer .quiet-button').click();
     check(doc.querySelector('#cover-name').textContent==='尚未載入封面','Media Cover clear updates filename');
     for(const [id,name] of [['lyrics-file','primary.lrc'],['lyrics-secondary-file','secondary.lrc']]) {
         const transfer=new app.DataTransfer();transfer.items.add(new app.File(['[00:01]A lyric'],name,{type:'text/plain'}));
