@@ -37,11 +37,11 @@ I plan to keep improving it over time, fixing awkward parts of the workflow and 
 
 ## Installation
 
-Download **WaveCanvas-Setup-1.0.0.exe** from [Releases](https://github.com/zero7372/WaveCanvas/releases). Version 1.0.0 targets Windows x64.
+Download **WaveCanvas-Setup-1.1.0.exe** from [Releases](https://github.com/zero7372/WaveCanvas/releases). Version 1.1.0 targets Windows x64.
 
 The assisted setup wizard lets you choose the installation directory and optionally create a desktop shortcut. It supports English and Traditional Chinese, creates a Start Menu shortcut, and associates `.waveproj` files with WaveCanvas. Uninstalling preserves projects and application settings.
 
-**The installer is currently unsigned.** Windows SmartScreen or an Unknown Publisher prompt may appear for this reason. Code signing is not configured for version 1.0.0.
+**The installer is currently unsigned.** Windows SmartScreen or an Unknown Publisher prompt may appear for this reason. Code signing is not configured for version 1.1.0.
 
 Installer languages are English / Traditional Chinese; application localization is currently incomplete, and the existing interface contains both languages.
 
@@ -96,9 +96,9 @@ npm run release:check
 npm run release:check -- --public
 ```
 
-The installer output is `release/WaveCanvas-Setup-1.0.0.exe`. Public checks also require the complete matching GPL source ZIP and source metadata; an installer build alone does not assemble all corresponding-source materials. See the [controlled FFmpeg build guide](dev/ffmpeg-build/README.md) and [GPL source checklist](RELEASE_GPL_SOURCE_CHECKLIST.md) for the existing scripts and source-delivery requirements.
+The installer output is `release/WaveCanvas-Setup-1.1.0.exe`. Public checks also require the complete matching GPL source ZIP and source metadata; an installer build alone does not assemble all corresponding-source materials. See the [controlled FFmpeg build guide](dev/ffmpeg-build/README.md) and [GPL source checklist](RELEASE_GPL_SOURCE_CHECKLIST.md) for the existing scripts and source-delivery requirements.
 
-Node regression tests run with `npm test`. The separate browser suite runs with `npm run browser:test`; its recorded baseline includes 10 pre-existing failures (589 passing checks). The supplied 1.0.0 artifacts passed Technical RC, GPL source gate, and the public release check according to the [controlled rebuild report](dev/reports/CONTROLLED-FFMPEG-REBUILD-REPORT.md). Rerunning the full release check requires the unpacked build outputs omitted from the portable publish package.
+Node regression tests run with `npm test`. The separate browser suite runs with `npm run browser:test`; all checks pass as of 1.1. The supplied 1.0.0 artifacts passed Technical RC, GPL source gate, and the public release check according to the [controlled rebuild report](dev/reports/CONTROLLED-FFMPEG-REBUILD-REPORT.md). Rerunning the full release check requires the unpacked build outputs omitted from the portable publish package.
 
 ## Licensing
 
@@ -106,7 +106,7 @@ The WaveCanvas repository uses the **MIT license**, including its original MIT-d
 
 The bundled standalone FFmpeg / ffprobe runtime has separate licensing: the controlled FFmpeg build with x264 is **GPL-3.0-or-later**. WaveCanvas invokes these executables as separate processes. Their licenses do not replace the repository's MIT notice.
 
-**WaveCanvas-1.0.0-GPL-Source.zip** is provided alongside the matching installer in the [same GitHub Release](https://github.com/zero7372/WaveCanvas/releases/tag/v1.0.0), with `RELEASE-HASHES.txt`. It contains the pinned FFmpeg, x264, and zlib sources, build recipes, manifests, hashes, and license texts. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution and runtime licensing details.
+**WaveCanvas-1.1.0-GPL-Source.zip** is provided alongside the matching installer in the [same GitHub Release](https://github.com/zero7372/WaveCanvas/releases/tag/v1.1.0), with `RELEASE-HASHES.txt`. It contains the pinned FFmpeg, x264, and zlib sources, build recipes, manifests, hashes, and license texts. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution and runtime licensing details.
 
 ## Known Limitations
 

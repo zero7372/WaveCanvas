@@ -10,9 +10,9 @@
   "deliveryMode": "alongside-installer",
   "deliveryURL": null,
   "publicationMetadata": "Official release URL has not been decided; publication has not been performed.",
-  "deliveryStatement": "Source package distributed alongside the WaveCanvas 1.0.0 installer: WaveCanvas-1.0.0-GPL-Source.zip",
-  "sourceArchive": "WaveCanvas-1.0.0-GPL-Source.zip",
-  "plannedCompleteArtifact": "WaveCanvas-1.0.0-GPL-Source.zip",
+  "deliveryStatement": "Source package distributed alongside the WaveCanvas 1.1.0 installer: WaveCanvas-1.1.0-GPL-Source.zip",
+  "sourceArchive": "WaveCanvas-1.1.0-GPL-Source.zip",
+  "plannedCompleteArtifact": "WaveCanvas-1.1.0-GPL-Source.zip",
   "ffmpegSource": {
     "tag": "n9.0.2",
     "commit": "946fcce07b6dcd0331c8cc609192aeff5e1924f8",
@@ -138,5 +138,5 @@
       "sha256": "95184847a8d81488180abc16178b52d12a93acb437f30d55a161b9dbfc8359d6"
     }
   },
-  "sourceArchiveSha256": "e33292b8e4dc2a8218aaf4289434fb0c8d3aa2c7d816c96bad1731e9bbb9b255"
+  "sourceArchiveSha256": "eeeac9717328644d2f3ac6043125dbc051d49ebe3be07c1b9dadd6108616f3e2"
 }

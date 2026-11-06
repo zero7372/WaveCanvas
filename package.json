@@ -1,7 +1,7 @@
 {
   "name": "wavecanvas",
   "productName": "WaveCanvas",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "WaveCanvas local audio visualizer and project editor for Windows",
   "license": "MIT",
   "private": true,
@@ -47,6 +47,7 @@
   },
   "build": {
     "appId": "com.wavecanvas.desktop",
+    "publish": null,
     "productName": "WaveCanvas",
     "directories": {
       "output": "dist"

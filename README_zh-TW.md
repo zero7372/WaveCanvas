@@ -35,11 +35,11 @@ WaveCanvas 一開始就是以「簡單、易用、我自己會願意打開來用
 
 ## 安裝
 
-請從 [Releases](https://github.com/zero7372/WaveCanvas/releases) 下載 **WaveCanvas-Setup-1.0.0.exe**。1.0.0 版本適用於 Windows x64。
+請從 [Releases](https://github.com/zero7372/WaveCanvas/releases) 下載 **WaveCanvas-Setup-1.1.0.exe**。1.1.0 版本適用於 Windows x64。
 
 安裝精靈可以選擇安裝資料夾，以及是否建立桌面捷徑。安裝介面支援英文與繁體中文，會建立開始功能表捷徑，並將 `.waveproj` 檔案關聯至 WaveCanvas。解除安裝會保留專案與應用程式設定。
 
-**目前安裝程式尚未簽章。** 因此 Windows 可能顯示 SmartScreen 或「未知的發行者」提示。1.0.0 版本尚未配置程式碼簽章。
+**目前安裝程式尚未簽章。** 因此 Windows 可能顯示 SmartScreen 或「未知的發行者」提示。1.1.0 版本尚未配置程式碼簽章。
 
 安裝程式支援英文／繁體中文；應用程式本身的在地化尚未完成，目前介面中仍有中英混用的內容。
 
@@ -94,9 +94,9 @@ npm run release:check
 npm run release:check -- --public
 ```
 
-安裝程式輸出為 `release/WaveCanvas-Setup-1.0.0.exe`。公開發布檢查也需要完整且相符的 GPL 原始碼 ZIP 與原始碼中繼資料；只建置安裝程式不會自動備妥所有對應原始碼。現有指令與原始碼交付要求請參考 [controlled FFmpeg 建置說明](dev/ffmpeg-build/README.md)及 [GPL 原始碼檢查表](RELEASE_GPL_SOURCE_CHECKLIST.md)。
+安裝程式輸出為 `release/WaveCanvas-Setup-1.1.0.exe`。公開發布檢查也需要完整且相符的 GPL 原始碼 ZIP 與原始碼中繼資料；只建置安裝程式不會自動備妥所有對應原始碼。現有指令與原始碼交付要求請參考 [controlled FFmpeg 建置說明](dev/ffmpeg-build/README.md)及 [GPL 原始碼檢查表](RELEASE_GPL_SOURCE_CHECKLIST.md)。
 
-Node 回歸測試使用 `npm test`。獨立的瀏覽器測試使用 `npm run browser:test`；既有紀錄包含 10 項已知失敗（589 項通過）。依照 [controlled rebuild report](dev/reports/CONTROLLED-FFMPEG-REBUILD-REPORT.md)，隨附的 1.0.0 發布檔案已通過 Technical RC、GPL source gate 與公開發布檢查。可攜發布套件未包含未封裝的建置輸出，重新執行完整發布檢查時需要這些檔案。
+Node 回歸測試使用 `npm test`。獨立的瀏覽器測試使用 `npm run browser:test`；1.1 起全部通過。依照 [controlled rebuild report](dev/reports/CONTROLLED-FFMPEG-REBUILD-REPORT.md)，隨附的 1.0.0 發布檔案已通過 Technical RC、GPL source gate 與公開發布檢查。可攜發布套件未包含未封裝的建置輸出，重新執行完整發布檢查時需要這些檔案。
 
 ## 授權
 
@@ -104,7 +104,7 @@ WaveCanvas repository 採用 **MIT 授權**，包括原先衍生自 MIT 專案�
 
 隨附的獨立 FFmpeg／ffprobe 執行階段另有授權：包含 x264 的 controlled FFmpeg build 採用 **GPL-3.0-or-later**。WaveCanvas 透過獨立程序呼叫這些執行檔。它們的授權不會取代 repository 的 MIT 聲明。
 
-**WaveCanvas-1.0.0-GPL-Source.zip** 與相符的安裝程式會在 [同一個 GitHub Release](https://github.com/zero7372/WaveCanvas/releases/tag/v1.0.0) 提供，並附上 `RELEASE-HASHES.txt`。ZIP 包含固定版本的 FFmpeg、x264、zlib 原始碼、建置流程、manifests、hashes 與授權全文。第三方 attribution 與執行階段授權細節請參考 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+**WaveCanvas-1.1.0-GPL-Source.zip** 與相符的安裝程式會在 [同一個 GitHub Release](https://github.com/zero7372/WaveCanvas/releases/tag/v1.1.0) 提供，並附上 `RELEASE-HASHES.txt`。ZIP 包含固定版本的 FFmpeg、x264、zlib 原始碼、建置流程、manifests、hashes 與授權全文。第三方 attribution 與執行階段授權細節請參考 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
 ## 已知限制
 
