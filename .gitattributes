@@ -17,6 +17,7 @@ app/** -text
 electron/** -text
 dev/notes/** -text
 dev/tests/** -text
+dev/fixtures/** -text
 License.txt text eol=crlf
 dev/tests/fixtures/baselines/inspector-protected-hashes.json text eol=crlf
 dev/tests/fixtures/baselines/srt-protected-hashes.json text eol=crlf
