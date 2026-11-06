@@ -12,3 +12,12 @@ dev/ffmpeg-build/manifests/* text eol=lf
 # Preserve captured evidence and installed upstream runtime license bytes.
 licenses/FFmpeg/toolchain/* -text -whitespace
 dev/reports/archive/controlled-ffmpeg-2026-10-04/* -text -whitespace
+# 雜湊測試比對位元組，固定換行方式，乾淨 clone 在任何 autocrlf 設定下都要能通過。
+app/** -text
+electron/** -text
+dev/notes/** -text
+dev/tests/** -text
+License.txt text eol=crlf
+dev/tests/fixtures/baselines/inspector-protected-hashes.json text eol=crlf
+dev/tests/fixtures/baselines/srt-protected-hashes.json text eol=crlf
+dev/tests/fixtures/baselines/template-protected-hashes.json text eol=crlf
