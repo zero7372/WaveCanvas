@@ -14,7 +14,7 @@
         window.dispatchEvent(new Event('wavecanvas-view-change'));
         if (next === 'EDITOR') {
             if (!entered && $('#settings-panel').hidden && window.innerWidth > 900) $('#settings-toggle').click();
-            entered = true; $('#new-project').firstChild.textContent = '↗ 繼續編輯 '; $('#new-project small').textContent = '保留目前工作階段';
+            entered = true; $('#new-project').firstChild.textContent = '繼續編輯 '; $('#new-project small').textContent = '回到目前的專案';
         }
         else audio.pause(); // Home retains every loaded resource and setting.
         fit();
@@ -71,59 +71,106 @@
     }
     const primaryStatus = $('#lyrics-file-status'); primaryStatus.classList.add('media-note');
     $('[data-media="primary"]').insertBefore(primaryStatus, $('[data-media="primary"] footer'));
-    const tabs = [['visualizer', '視覺'], ['lyrics', '歌詞'], ['song', '歌曲資訊'], ['background', '背景'], ['audio', '音訊']];
-    const panels = new Map();
-    const root = $('#settings-groups');
-    for (const [id, label] of tabs) {
-        const button = document.createElement('button'); button.id = 'tab-' + id; button.type = 'button'; button.setAttribute('role', 'tab'); button.setAttribute('aria-controls', 'inspector-' + id); button.textContent = label; button.dataset.tab = id;
-        $('#settings-tabs').append(button);
-        const pane = document.createElement('section'); pane.id = 'inspector-' + id; pane.className = 'inspector-tab'; pane.setAttribute('role', 'tabpanel'); pane.setAttribute('aria-labelledby', button.id); pane.hidden = true; panels.set(id, pane);
-        button.addEventListener('click', () => selectTab(id));
+    $('#lyrics-clear').textContent = '移除'; $('#lyrics-secondary-clear').textContent = '移除'; $('[data-media="cover"] .danger-button').textContent = '移除';
+    // 圖層清單同時取代原本的素材面板與設定分頁；所有控制項都沿用既有節點與事件。
+    const structure = window.WaveCanvasLayerStructure, layers = structure.layers;
+    const panels = new Map(), root = $('#settings-groups'), list = $('#layer-list');
+    const legacyGroups = Array.from(root.children), summaries = new Map();
+    for (const layer of layers) {
+        const button = document.createElement('button'); button.id = 'layer-' + layer.id; button.type = 'button'; button.className = 'layer-item'; button.setAttribute('role', 'tab');
+        button.setAttribute('aria-controls', 'inspector-' + layer.id); button.dataset.layer = layer.id; if (layer.separated) button.dataset.separated = 'true';
+        const icon = document.createElement('span'); icon.className = 'layer-icon'; icon.innerHTML = layer.icon;
+        const name = document.createElement('span'); name.className = 'layer-name'; name.textContent = layer.name;
+        const detail = document.createElement('small'); detail.className = 'layer-detail'; summaries.set(layer.id, detail);
+        const words = document.createElement('span'); words.className = 'layer-words'; words.append(name, detail);
+        button.append(icon, words); list.append(button);
+        const pane = document.createElement('section'); pane.id = 'inspector-' + layer.id; pane.className = 'inspector-tab'; pane.setAttribute('role', 'tabpanel'); pane.setAttribute('aria-labelledby', button.id); pane.hidden = true; panels.set(layer.id, pane);
+        button.addEventListener('click', () => selectLayer(layer.id));
         button.addEventListener('keydown', event => {
-            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-            event.preventDefault(); const index = tabs.findIndex(tab => tab[0] === id);
-            const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-            selectTab(tabs[next][0]); $('#tab-' + tabs[next][0]).focus();
+            if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault(); const index = layers.indexOf(layer);
+            const next = event.key === 'Home' ? 0 : event.key === 'End' ? layers.length - 1 : (index + (event.key === 'ArrowDown' ? 1 : -1) + layers.length) % layers.length;
+            selectLayer(layers[next].id); $('#layer-' + layers[next].id).focus();
         });
     }
-    for (const group of Array.from(root.children)) {
-        const name = group.dataset.group;
-        const target = name === 'Audio' ? 'audio' : ['Background', 'Overlay'].includes(name) ? 'background' : name === 'Lyrics' ? 'lyrics' : name === 'Song Info' ? 'song' : 'visualizer';
-        panels.get(target).append(group);
-    }
     root.append(...panels.values());
-    function section(parent, title, rows) {
+    // 舊群組保留為隱藏的整合節點，內容全部移到圖層。
+    for (const group of legacyGroups) group.hidden = true;
+    function positionProxy(name, label) {
+        const { scope, key, canvas } = structure.proxies[name];
+        const read = () => scope === 'properties' ? runtime.getSettings()[key].value : runtime.getStandalone()[scope][key];
+        const write = value => scope === 'properties' ? runtime.updateProperties({ [key]: { value } }) : runtime.updateStandalone({ [scope]: { [key]: value } });
+        const original = $(structure.selector(scope === 'properties' ? 'p' : 'b', key)); original.dataset.proxied = 'true';
+        const source = original.querySelector('input[type=range]'), toPercent = pixels => 50 + pixels / canvas * 100;
+        const row = document.createElement('div'); row.className = 'setting-row'; row.dataset.positionProxy = name;
+        const title = document.createElement('label'); title.textContent = label; title.htmlFor = 'position-' + name;
+        const range = document.createElement('input'); range.type = 'range'; range.id = title.htmlFor;
+        const number = document.createElement('input'); number.type = 'number'; number.setAttribute('aria-label', label + '數值');
+        for (const input of [range, number]) {
+            input.min = Math.round(toPercent(Number(source.min)) * 10) / 10; input.max = Math.round(toPercent(Number(source.max)) * 10) / 10; input.step = .1;
+            input.addEventListener('input', () => { if (input.value !== '') write(Math.min(Number(source.max), Math.max(Number(source.min), Math.round((Number(input.value) - 50) / 100 * canvas)))); });
+        }
+        const pair = document.createElement('div'); pair.className = 'numeric-pair has-restore'; pair.append(range, number); row.append(title, pair);
+        runtime.subscribe(() => {
+            const value = Math.round(toPercent(read()) * 10) / 10;
+            row.hidden = original.hidden;
+            if (document.activeElement !== number) number.value = value;
+            range.value = value;
+        });
+        return { row, original };
+    }
+    function section(parent, definition) {
         const details = document.createElement('details'); details.className = 'settings-group'; details.open = true;
-        const summary = document.createElement('summary'); summary.textContent = title;
-        const content = document.createElement('div'); content.className = 'group-content'; content.append(...rows); details.append(summary, content); parent.append(details);
+        const summary = document.createElement('summary'); summary.textContent = definition.title;
+        const content = document.createElement('div'); content.className = 'group-content'; details.append(summary, content); parent.append(details);
+        for (const media of definition.media || []) content.append($('[data-media="' + media + '"]'));
+        for (const [kind, key, label] of definition.rows || []) {
+            if (kind === 'proxy') { const { row, original } = positionProxy(key, label); content.append(row, original); continue; }
+            const node = $(structure.selector(kind, key)); const row = kind === 'input' ? node.closest('.setting-row') : node;
+            if (kind !== 'end') {
+                row.querySelector('label').textContent = label;
+                const number = row.querySelector('input[type=number]'); if (number) number.setAttribute('aria-label', label + '數值');
+            }
+            content.append(row);
+        }
     }
-    // Existing fieldsets become collapsible sections without rebuilding any controls.
-    const lyricsGroup = $('[data-group="Lyrics"]');
-    for (const fieldset of Array.from(lyricsGroup.querySelectorAll('fieldset'))) {
-        section(panels.get('lyrics'), fieldset.querySelector('legend').textContent, Array.from(fieldset.children).filter(node => node.tagName !== 'LEGEND'));
+    for (const layer of layers) for (const definition of layer.sections) section(panels.get(layer.id), definition);
+    // 次要、進階的區段預設收合，減少第一眼要讀的項目。
+    for (const [layer, title] of [['background', '疊加圖片'], ['lyrics', '切換動畫'], ['lyrics', '上下句'], ['lyrics', '次要歌詞'], ['song', '外框'], ['audio', '預覽']]) {
+        for (const details of panels.get(layer).querySelectorAll('.settings-group')) if (details.querySelector('summary').textContent === title) details.open = false;
     }
-    lyricsGroup.hidden = true;
-    const songGroup = $('[data-group="Song Info"]');
-    const songSections = { '內容': ['enabled','title','artist'], '字體與顏色': ['fontFamily','titleSizeRatio','artistSizeRatio','color'], '對齊與位置': ['alignment','positionX','positionY','scale','lineGap'], '邊框／外發光': ['borderEnabled','borderColor','borderWidth','borderBlur'], '低頻反應': ['bassReaction','bassStrength'] };
-    for (const [label, keys] of Object.entries(songSections)) section(panels.get('song'), label, keys.map(key => $('[data-text-property="' + key + '"]')));
-    // Keep the original metadata wrapper for existing integration hooks, without a duplicate UI.
-    songGroup.hidden = true;
-    function selectTab(id) {
-        for (const [key, pane] of panels) { pane.hidden = key !== id; const button = $('#tab-' + key); button.setAttribute('aria-selected', String(key === id)); button.tabIndex = key === id ? 0 : -1; }
+    function selectLayer(id) {
+        for (const [key, pane] of panels) { pane.hidden = key !== id; const button = $('#layer-' + key); button.setAttribute('aria-selected', String(key === id)); button.tabIndex = key === id ? 0 : -1; }
+        $('#layer-title').textContent = $('#layer-' + id + ' .layer-name').textContent;
+        $('#settings-panel .panel-scroll').scrollTop = 0;
     }
-    selectTab('visualizer');
-    $('[data-group="Geometry / Layout"]').open = true;
+    const layoutNames = { circle: '放射圓形', square: '方形', linear: '直線' };
+    const style = { 1: '樣式一', 2: '樣式二' };
+    function summarize() {
+        const properties = runtime.getSettings(), standalone = runtime.getStandalone(), files = window.VisualizerFiles;
+        const source = properties.backgroundsource.value;
+        text(summaries.get('audio'), window.VisualizerLocalAudio.getName() || '未載入');
+        text(summaries.get('background'), source === 2 ? (files.getName('backgroundimage') || '未選圖片') : source === 1 ? '純色' : '無');
+        text(summaries.get('spectrum'), layoutNames[standalone.visualizer.layout]);
+        text(summaries.get('center'), files.getName('logoimage') || '未載入');
+        text(summaries.get('particles'), style[properties.particlestyle.value] || '');
+        const lyrics = window.VisualizerLyrics.getState();
+        text(summaries.get('lyrics'), !standalone.lyrics.enabled ? '已隱藏' : lyrics.name || '未載入');
+        text(summaries.get('song'), !standalone.text.enabled ? '已隱藏' : standalone.text.title || '未填寫');
+    }
+    runtime.subscribe(summarize); window.VisualizerFiles.subscribe(summarize); window.VisualizerLyrics.subscribe(summarize); window.addEventListener('local-audio-change', summarize);
+    selectLayer('spectrum');
 
     function audioInfo() {
         text($('#audio-name'), window.VisualizerLocalAudio.getName() || '尚未載入音訊');
-        text($('#audio-meta'), Number.isFinite(audio.duration) ? time(audio.duration) : 'WAV / MP3 / FLAC');
+        text($('#audio-meta'), Number.isFinite(audio.duration) ? time(audio.duration) : 'WAV、MP3 或 FLAC');
         $('#audio-clear').disabled = !audio.getAttribute('src');
     }
     $('#audio-clear').addEventListener('click', () => window.VisualizerLocalAudio.clear());
     window.addEventListener('local-audio-change', () => { audioInfo(); transport(); if (audio.getAttribute('src')) showView('EDITOR'); });
     window.VisualizerFiles.subscribe(() => {
         const name = window.VisualizerFiles.getName('logoimage'), url = runtime.getSettings().logoimage.value;
-        text($('#cover-name'), name || '尚未載入封面'); text($('#cover-meta'), 'PNG / JPG / WEBP');
+        text($('#cover-name'), name || '尚未載入圖片'); text($('#cover-meta'), 'PNG、JPG 或 WEBP');
         // Read the already decoded cache; the drawing reference commits asynchronously.
         if (name && url) window.VisualizerImages.load(url).then(image => {
             if (runtime.getSettings().logoimage.value === url) text($('#cover-meta'), image.naturalWidth + ' × ' + image.naturalHeight);
@@ -132,13 +179,13 @@
     window.VisualizerLyrics.subscribe((state, reason) => {
         if (!['initial','load','clear','audio-change'].includes(reason)) return;
         primaryStatus.dataset.warning = String(Boolean(state.warnings));
-        text($('#primary-name'), state.name || '尚未載入主要歌詞'); text($('#primary-meta'), state.name ? (state.sourceFormat || 'lrc').toUpperCase() + ' · ' + state.count + ' 句 · offset ' + state.fileOffsetMs + ' ms' : 'LRC / SRT · 可含雙語');
-        text($('#secondary-name'), state.secondaryName || '尚未載入次要歌詞'); text($('#secondary-meta'), state.secondaryName ? (state.secondarySourceFormat || 'lrc').toUpperCase() + ' · 已載入 · 依時間戳配對' : 'LRC / SRT · 選用，依時間戳配對');
+        text($('#primary-name'), state.name || '尚未載入主要歌詞'); text($('#primary-meta'), state.name ? (state.sourceFormat || 'lrc').toUpperCase() + '，' + state.count + ' 句' : 'LRC 或 SRT，可含雙語');
+        text($('#secondary-name'), state.secondaryName || '尚未載入次要歌詞'); text($('#secondary-meta'), state.secondaryName ? (state.secondarySourceFormat || 'lrc').toUpperCase() + '，依時間配對' : '選用，依時間與主要歌詞配對');
     });
     function transport() {
         const ready = !!audio.getAttribute('src') && Number.isFinite(audio.duration) && !audio.error;
         $('#play-pause').disabled = !ready; $('#rewind').disabled = !ready; $('#transport-seek').disabled = !ready;
-        text($('#play-pause'), audio.paused ? '▶' : 'Ⅱ'); $('#play-pause').setAttribute('aria-label', audio.paused ? '播放' : '暫停');
+        $('#play-pause').dataset.state = audio.paused ? 'play' : 'pause'; $('#play-pause').setAttribute('aria-label', audio.paused ? '播放' : '暫停');
         text($('#current-time'), time(audio.currentTime)); text($('#duration'), time(audio.duration));
         $('#transport-seek').max = ready ? audio.duration : 1; $('#transport-seek').value = audio.currentTime || 0;
         $('#transport-volume').value = audio.volume;
@@ -158,5 +205,5 @@
     // Narrow layouts stack the panels beneath the preview; no overlay or Stage distortion.
     panel('media', window.innerWidth > 900);
     transport(); audioInfo(); showView('HOME');
-    window.WaveCanvasShell = Object.freeze({ showView, selectTab, getView: () => view, hasSession: () => entered });
+    window.WaveCanvasShell = Object.freeze({ showView, selectLayer, getView: () => view, hasSession: () => entered });
 }());

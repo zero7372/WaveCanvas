@@ -43,7 +43,7 @@ test('Factory snapshots are deeply frozen and clone-on-use; runtime and presets 
     assert.equal(runtime.getStandalone().visualizer.coverX,50); assert.equal(runtime.getStandalone().visualizer.coverY,81);
     assert.equal(JSON.stringify(factory.get('linear')),original);
 });
-test('Layout switching preserves independent geometry, spectrum, center, and song-info positions; shared assets stay', () => {
+test('Layout switching keeps geometry and positions per layout while style settings are shared', () => {
     const app = environment(), r = app.VisualizerRuntime;
     r.updateProperties({circleradius:{value:189},logoimage:{value:'blob:user-cover'},particlenum:{value:7},resposive:{value:44}});
     r.updateStandalone({text:{positionY:87,title:'User song'},visualizer:{positionX:61}});
@@ -52,11 +52,12 @@ test('Layout switching preserves independent geometry, spectrum, center, and son
     r.updateStandalone({visualizer:{layout:'linear',width:1600,positionY:96,coverX:73}});
     r.updateProperties({circleopacity:{value:80}});
     r.updateStandalone({visualizer:{layout:'circle'}});
-    assert.equal(r.getSettings().circleradius.value,189); assert.equal(r.getSettings().circleopacity.value,100);
+    assert.equal(r.getSettings().circleradius.value,189); assert.equal(r.getSettings().circleopacity.value,80,'Center opacity is shared');
+    assert.equal(r.getSettings().barcolor.value,'0 1 0','Spectrum color is shared');
     assert.equal(r.getStandalone().visualizer.positionX,61); assert.equal(r.getStandalone().text.positionY,87);
     r.updateStandalone({visualizer:{layout:'square'}});
     assert.equal(r.getStandalone().visualizer.squareSize,350); assert.equal(r.getStandalone().text.positionY,84);
-    assert.equal(r.getSettings().circleopacity.value,62); assert.equal(r.getSettings().barcolor.value,'0 1 0');
+    assert.equal(r.getSettings().circleopacity.value,80); assert.equal(r.getSettings().barcolor.value,'0 1 0');
     r.updateStandalone({visualizer:{layout:'linear'}});
     assert.equal(r.getStandalone().visualizer.width,1600); assert.equal(r.getStandalone().visualizer.coverX,73);
     assert.equal(r.getSettings().circleopacity.value,80);

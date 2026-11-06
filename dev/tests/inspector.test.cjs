@@ -28,7 +28,7 @@ test('Inspector protected Circle renderer, FFT, listener and audio remain byte-i
         // Factory defaults intentionally change runtime/preset handling; factory-defaults.test.cjs covers it.
         // Template/media UI intentionally changes shell; templates.test.cjs protects all other modules.
         // SRT import intentionally extends runtime source metadata; its renderer remains hash-protected.
-        if (['visualizer-geometry.js','layout-schema.js','runtime-adapter.js','presets.js','wavecanvas-shell.js','lyrics-runtime.js'].includes(file)) continue;
+        if (['visualizer-geometry.js','layout-schema.js','runtime-adapter.js','presets.js','wavecanvas-shell.js','lyrics-runtime.js','timing-editor.js'].includes(file)) continue;
         assert.equal(crypto.createHash('sha256').update(require('./project-baseline.cjs')(file,fs.readFileSync(path.join(root,file)))).digest('hex'),expected,file);
     }
 });

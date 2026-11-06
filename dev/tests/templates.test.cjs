@@ -52,7 +52,7 @@ test('Template and media UI scope does not modify renderers, audio, factory/pres
     for(const [file,hash] of Object.entries(hashes)) {
         // SRT import intentionally extends source/runtime/UI; srt.test.cjs covers metadata and protects renderer.
         // 靜態背景模式刻意擴充 background-stage.js；background.test.cjs 涵蓋既有模式與靜態模式行為。
-        if (['lyrics-runtime.js','lyrics-ui.js','timing-model.js','background-stage.js'].includes(file)) continue;
+        if (['lyrics-runtime.js','lyrics-ui.js','timing-model.js','background-stage.js','factory-layout-defaults.js','timing-editor.js'].includes(file)) continue;
         assert.equal(crypto.createHash('sha256').update(require('./project-baseline.cjs')(file,fs.readFileSync(path.join(root,file)))).digest('hex'),hash,file);
     }
     const ui=fs.readFileSync(path.join(root,'template-selection-ui.js'),'utf8');

@@ -8,7 +8,7 @@
     const canvas = $('#timing-waveform'), head = $('#timing-playhead'), status = $('#timing-status');
     const docs = { primary: null, secondary: null }, nodes = new Map(), downloads = new Map();
     let scale = 50, map = model.mapping(scale), width = 1, extent = 30, selected = null, drag = null;
-    let revision = -1, settings = runtime.getStandalone().lyrics, peaks = null, waveVersion = 0, waveState = '尚未載入音訊，仍可校時 LRC。';
+    let revision = -1, settings = runtime.getStandalone().lyrics, peaks = null, waveVersion = 0, waveState = '尚未載入音訊，仍可校時歌詞。';
     let frame = null, resizeFrame = null, manualUntil = 0, lastActive = { primary: null, secondary: null };
     const editableTarget = target => target.closest('input,textarea,select,[contenteditable=true]');
     const visible = () => panel.open && !$('#editor-view').hidden;
@@ -16,7 +16,7 @@
     function duration() { return Number.isFinite(audio.duration) && audio.getAttribute('src') ? audio.duration : Infinity; }
     function eventFor(selection = selected) { return selection && docs[selection.source]?.events.find(event => event.id === selection.id); }
     function offsets(source) { return (docs[source]?.fileOffsetMs || 0) + settings.globalOffsetMs + (source === 'secondary' ? settings.secondaryOffsetMs : 0); }
-    function offsetUI() { $('#timing-offsets').textContent = 'Raw LRC · offsets 另計：Primary ' + offsets('primary') + ' ms / Secondary ' + offsets('secondary') + ' ms'; }
+    function offsetUI() { $('#timing-offsets').textContent = '時間偏移另計：主要 ' + offsets('primary') + ' 毫秒，次要 ' + offsets('secondary') + ' 毫秒'; }
     function xTime(event) { return map.timeToX(event.timeMs / 1000); }
     function seek(seconds) {
         if (!Number.isFinite(duration())) { message('請先載入音訊以使用 Seek。'); return; }
@@ -49,7 +49,7 @@
         const to = model.bounded(ms, duration(), snapMs);
         if (to === from) { selectionUI(); return false; }
         lyrics.retime(selection.source, selection.id, to);
-        history.record({ ...selection, documentId, from, to }); selectionUI(); message('已更新 Raw 時間：' + model.format(to)); return true;
+        history.record({ ...selection, documentId, from, to }); selectionUI(); message('已更新時間：' + model.format(to)); return true;
     }
     function adjust(delta) { const event = eventFor(); if (event) edit(event.timeMs + delta); }
     function undo() { if (history.undo()) { historyUI(); message('已復原校時。'); } }
@@ -130,16 +130,16 @@
         if (canvas.width !== backingWidth || canvas.height !== backingHeight) { canvas.width = backingWidth; canvas.height = backingHeight; }
         canvas.style.width = width + 'px'; canvas.style.left = scrollLeft + 'px';
         const ctx = canvas.getContext('2d'); ctx.setTransform(ratio, 0, 0, ratio, 0, 0); ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = '#222934'; ctx.fillRect(0, 0, width, 24); ctx.font = '10px system-ui';
+        ctx.fillStyle = '#2b2a28'; ctx.fillRect(0, 0, width, 24); ctx.font = '10px system-ui';
         const interval = tickInterval(), start = map.xToTime(scrollLeft), end = map.xToTime(scrollLeft + width);
         for (let second = Math.ceil(start / interval) * interval; second <= end; second += interval) {
             const x = map.timeToX(second) - scrollLeft;
-            ctx.strokeStyle = '#465264'; ctx.beginPath(); ctx.moveTo(x, 16); ctx.lineTo(x, 24); ctx.stroke();
-            ctx.fillStyle = '#a0adc0'; ctx.fillText(rulerLabel(second, interval), x + 4, 12);
+            ctx.strokeStyle = '#5d594f'; ctx.beginPath(); ctx.moveTo(x, 16); ctx.lineTo(x, 24); ctx.stroke();
+            ctx.fillStyle = '#a09b91'; ctx.fillText(rulerLabel(second, interval), x + 4, 12);
         }
-        ctx.strokeStyle = '#3b4554'; ctx.beginPath(); ctx.moveTo(0, 48); ctx.lineTo(width, 48); ctx.stroke();
-        if (!peaks) { ctx.fillStyle = '#7d8ba0'; ctx.fillText(waveState, 12, 55); return; }
-        const level = waveform.level(peaks, 1 / scale); ctx.strokeStyle = '#829bbb'; ctx.beginPath();
+        ctx.strokeStyle = '#3f3c38'; ctx.beginPath(); ctx.moveTo(0, 48); ctx.lineTo(width, 48); ctx.stroke();
+        if (!peaks) { ctx.fillStyle = '#a09b91'; ctx.fillText(waveState, 12, 55); return; }
+        const level = waveform.level(peaks, 1 / scale); ctx.strokeStyle = '#8d887e'; ctx.beginPath();
         for (let x = 0; x < width; x++) {
             const first = Math.floor(map.xToTime(scrollLeft + x) * peaks.sampleRate / level.stride);
             const last = Math.min(level.min.length - 1, Math.ceil(map.xToTime(scrollLeft + x + 1) * peaks.sampleRate / level.stride));
@@ -262,7 +262,7 @@
     for (const source of ['primary','secondary']) $('#timing-export-' + source).addEventListener('click', () => exportLRC(source));
     async function loadWaveform() {
         const version = ++waveVersion, file = window.VisualizerLocalAudio.getFile(); peaks = null;
-        waveState = file ? 'Waveform 解碼中…' : '尚未載入音訊，仍可校時 LRC。'; message(waveState); draw();
+        waveState = file ? '正在分析波形…' : '尚未載入音訊，仍可校時歌詞。'; message(waveState); draw();
         if (!file) return;
         try {
             if (file.size > 512 * 1024 * 1024) throw new Error('音訊超過 512 MB，略過 waveform；仍可播放與校時。');
@@ -273,8 +273,8 @@
             if (version !== waveVersion) return;
             const cache = await waveform.build(buffer, () => version !== waveVersion);
             if (version !== waveVersion || !cache) return;
-            peaks = cache; waveState = 'Waveform 已快取 · Ctrl+滾輪縮放 / Alt+滾輪水平捲動'; message(waveState); draw();
-        } catch (error) { if (version === waveVersion) { waveState = 'Waveform 無法建立；播放與 LRC 校時仍可使用。'; message(error.message, true); draw(); } }
+            peaks = cache; waveState = 'Ctrl+滾輪縮放，Alt+滾輪水平捲動'; message(waveState); draw();
+        } catch (error) { if (version === waveVersion) { waveState = '無法分析波形；播放與歌詞校時仍可使用。'; message(error.message, true); draw(); } }
     }
     window.addEventListener('local-audio-change', loadWaveform);
     window.addEventListener('pagehide', event => { if (!event.persisted) { waveVersion++; if (frame !== null) window.cancelAnimationFrame(frame); if (resizeFrame !== null) window.cancelAnimationFrame(resizeFrame); for (const url of downloads.values()) URL.revokeObjectURL(url); } });

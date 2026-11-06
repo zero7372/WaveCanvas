@@ -2,11 +2,11 @@ async function runShellTests(app, check) {
     const doc = app.document, shell = app.WaveCanvasShell, runtime = app.VisualizerRuntime;
     const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
     check(shell.getView() === 'EDITOR' && doc.title === 'WaveCanvas', 'WaveCanvas Editor and brand title');
-    check(doc.querySelectorAll('#settings-tabs [role=tab]').length === 5 && doc.querySelectorAll('[data-media]').length === 4, 'Five Inspector tabs and four Media items');
+    check(doc.querySelectorAll('#layer-list [role=tab]').length === 7 && doc.querySelectorAll('[data-media]').length === 4, 'Seven layers and four media items');
     check(doc.querySelector('#recent-projects') === null && doc.querySelector('.recent-projects').textContent.includes('專案功能需使用 Desktop App'), 'Home has truthful empty Recent Projects');
-    for (const id of ['visualizer','lyrics','song','background','audio']) {
-        doc.querySelector('#tab-' + id).click();
-        check(doc.querySelector('#tab-' + id).getAttribute('aria-selected') === 'true' && !doc.querySelector('#inspector-' + id).hidden, 'Inspector tab: ' + id);
+    for (const id of ['audio','background','spectrum','center','particles','lyrics','song']) {
+        doc.querySelector('#layer-' + id).click();
+        check(doc.querySelector('#layer-' + id).getAttribute('aria-selected') === 'true' && !doc.querySelector('#inspector-' + id).hidden && doc.querySelector('#layer-title').textContent === doc.querySelector('#layer-' + id + ' .layer-name').textContent, 'Layer selects its properties: ' + id);
     }
     check(doc.querySelector('#cover-controls #setting-logoimage') && doc.querySelector('#primary-controls #lyrics-file') && doc.querySelector('#secondary-controls #lyrics-secondary-file'), 'Existing media inputs moved out of Inspector');
     check(doc.querySelector('#inspector-song [data-text-property=title]') && doc.querySelector('#inspector-lyrics [data-lyrics-property=fontFamily]'), 'Collapsible sections preserve existing setting controls');
@@ -51,7 +51,7 @@ async function runShellTests(app, check) {
     await app.VisualizerFiles.select('logoimage',[new app.File([imageBlob],'shell-cover.png',{type:'image/png'})]);
     check(doc.querySelector('#cover-name').textContent==='shell-cover.png' && doc.querySelector('#cover-meta').textContent==='160 × 90','Media displays cached Cover filename and dimensions');
     doc.querySelector('[data-media="cover"] footer .quiet-button').click();
-    check(doc.querySelector('#cover-name').textContent==='尚未載入封面','Media Cover clear updates filename');
+    check(doc.querySelector('#cover-name').textContent==='尚未載入圖片','Media Cover clear updates filename');
     for(const [id,name] of [['lyrics-file','primary.lrc'],['lyrics-secondary-file','secondary.lrc']]) {
         const transfer=new app.DataTransfer();transfer.items.add(new app.File(['[00:01]A lyric'],name,{type:'text/plain'}));
         const input=doc.querySelector('#'+id);input.files=transfer.files;input.dispatchEvent(new app.Event('change'));await wait(60);
@@ -59,5 +59,5 @@ async function runShellTests(app, check) {
     check(doc.querySelector('#primary-name').textContent==='primary.lrc' && doc.querySelector('#secondary-name').textContent==='secondary.lrc','Media displays Primary and Secondary LRC filenames');
     doc.querySelector('#lyrics-secondary-clear').click();check(doc.querySelector('#secondary-name').textContent==='尚未載入次要歌詞','Media Secondary clear updates filename');
     doc.querySelector('#lyrics-clear').click();check(doc.querySelector('#primary-name').textContent==='尚未載入主要歌詞','Media Primary clear updates filename');
-    runtime.updateStandalone({text:{title:'Song Title'}}); shell.selectTab('visualizer');
+    runtime.updateStandalone({text:{title:'Song Title'}}); shell.selectLayer('spectrum');
 }

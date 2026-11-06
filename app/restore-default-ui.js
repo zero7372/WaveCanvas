@@ -7,7 +7,8 @@
     for (const pair of document.querySelectorAll('#settings-panel .numeric-pair')) {
         const row = pair.closest('.setting-row');
         let scope, key;
-        if (row.dataset.property) { scope = 'properties'; key = row.dataset.property; }
+        if (row.dataset.positionProxy) ({ scope, key } = window.WaveCanvasLayerStructure.proxies[row.dataset.positionProxy]);
+        else if (row.dataset.property) { scope = 'properties'; key = row.dataset.property; }
         else if (row.dataset.layoutProperty) { scope = 'visualizer'; key = row.dataset.layoutProperty; }
         else if (row.dataset.backgroundProperty) { scope = 'background'; key = row.dataset.backgroundProperty; }
         else if (row.dataset.textProperty) { scope = 'text'; key = row.dataset.textProperty; }

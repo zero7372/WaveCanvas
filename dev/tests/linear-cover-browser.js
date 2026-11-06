@@ -20,7 +20,7 @@ document.querySelector('#run').addEventListener('click',async function () {
         const input=(key,value)=>{const node=doc.querySelector('#layout-'+key);node.value=String(value);node.dispatchEvent(new app.Event(node.type==='range'?'input':'change'));};
         await load();input('layout','linear');input('coverShape','square');
         check(Boolean(app.VisualizerImages.getLogo()),'Linear uses the decoded local Cover');
-        check(['coverX','coverY','coverSize','coverShape','coverRotationSpeed'].every(key=>doc.querySelector('#layout-'+key).closest('[data-linear-cover]')),'Cover controls belong to the Linear Cover group');
+        check(['coverX','coverY','coverSize','coverShape','coverRotationSpeed'].every(key=>doc.querySelector('#layout-'+key).closest('#inspector-center')),'Cover controls belong to the center image layer');
         input('coverX',62);input('coverY',54);input('coverSize',38);
         const image=app.VisualizerImages.getLogo(),scratch=doc.createElement('canvas');scratch.width=1920;scratch.height=1080;const ctx=scratch.getContext('2d');
         function draw(bass=0,shakeX=0,shakeY=0) {

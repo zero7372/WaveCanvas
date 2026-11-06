@@ -80,7 +80,7 @@
         }
         check(errors.length===0,'Background modes have no page errors: '+errors.join(';'));
         if(doc.querySelector('#settings-panel').hidden)doc.querySelector('#settings-toggle').click();
-        doc.querySelector('#tab-background').click();
+        doc.querySelector('#layer-background').click();
         const group=doc.querySelector('[data-group="Background"]');if(group)group.open=true;
     }));
     document.querySelector('#micro').addEventListener('click',event=>action(event.target,async()=>{
@@ -121,7 +121,7 @@
         report.cycles=[];
         for(let i=0;i<30;i++) {
             await loadAudio();await app.VisualizerFiles.select('logoimage',[cover]);await app.VisualizerFiles.select('logoimage',[cover]);loadLyrics();loadLyrics();
-            doc.querySelector('#future-timing').open=!!(i%2);app.WaveCanvasShell.selectTab(i%2?'visualizer':'lyrics');
+            doc.querySelector('#future-timing').open=!!(i%2);app.WaveCanvasShell.selectLayer(i%2?'spectrum':'lyrics');
             app.WaveCanvasShell.showView('HOME');app.WaveCanvasShell.showView('EDITOR');
             app.VisualizerPresets.import(JSON.stringify(app.VisualizerPresets.create('Cycle')));
             app.VisualizerLocalAudio.clear();app.VisualizerFiles.clear('logoimage');app.VisualizerFiles.clear('backgroundimage');app.VisualizerLyrics.clear();app.VisualizerLyrics.clearSecondary();

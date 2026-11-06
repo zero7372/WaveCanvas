@@ -44,7 +44,7 @@
         status.dataset.error = String(error);
     }
     function update(key, value) {
-        try { runtime.updateProperties({ [key]: { value } }); report('已更新設定'); }
+        try { runtime.updateProperties({ [key]: { value } }); report(''); }
         catch (error) { report(error.message, true); synchronize(runtime.getSettings(), runtime.getStandalone()); }
     }
     function toHex(value) {
@@ -116,7 +116,6 @@
         number.addEventListener('change', () => commit(number, true));
         pair.append(range, number);
         row.append(label, pair);
-        if (standaloneOnly) row.append(element('small', 'setting-note', '僅限獨立模式 · 0.25×–4.0×'));
         parent.append(row);
         return { row, inputs: [range, number], sync: value => { range.value = value; number.value = value; } };
     }
@@ -229,7 +228,7 @@
     function setOpen(open) {
         panel.hidden = !open;
         toggle.setAttribute('aria-expanded', String(open));
-        toggle.textContent = open ? '收合設定' : '設定';
+        toggle.textContent = '屬性';
         window.dispatchEvent(new Event('resize'));
     }
     toggle.addEventListener('click', () => setOpen(panel.hidden));

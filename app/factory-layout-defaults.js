@@ -4,7 +4,9 @@
     const schema = window.VisualizerPropertySchema.properties;
     const sources = window.VisualizerFactorySources;
     const policy = window.VisualizerInspectorPolicy;
-    const propertyKeys = Object.keys(policy.propertySections).filter(key => !['particles', 'other'].includes(policy.propertySections[key]));
+    // 只有會隨排列改變的形狀與位置各存一份；顏色、低頻反應與旋轉在排列之間共用。
+    const propertyKeys = Object.freeze(['circleradius', 'circlearc', 'circlerotate', 'barwidth', 'barheight', 'barsarc', 'audiocount', 'userspectrumrotation', 'reverseright',
+        'barsrotate', 'barcircledistance', 'secondcircle', 'secondcircleradius', 'eqpositionx', 'eqpositiony']);
     const textKeys = ['positionX', 'positionY'];
     const defaults = {};
     function freeze(value) {

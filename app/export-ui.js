@@ -1,8 +1,7 @@
 (function () {
     'use strict';
     const api = window.waveCanvas?.export, audio = document.querySelector('#local-audio');
-    const button = [...document.querySelectorAll('.toolbar-actions button')].find(node => node.textContent.trim() === 'Export');
-    button.id = 'export-video'; button.textContent = '輸出影片…';
+    const button = document.querySelector('#export-video');
     const menu = document.querySelector('.app-menu>div');
     const command = document.createElement('button'); command.textContent = '輸出影片…'; menu.append(command);
     let busy = false, canceled = false;
@@ -41,7 +40,8 @@
             if (playing) audio.play().catch(() => {});
         }
     }
-    button.addEventListener('click', start); command.addEventListener('click', start);
+    function request() { if (!api || busy || !window.VisualizerLocalAudio.getFile()) return; window.WaveCanvasExportDialog.open(start); }
+    button.addEventListener('click', request); command.addEventListener('click', request);
     cancel.addEventListener('click', () => { canceled = true; label.textContent = '取消中…'; cancel.disabled = true; api.cancel().catch(error => { label.textContent = error.message; }); });
     document.addEventListener('keydown', event => { if (busy && (event.ctrlKey || event.metaKey)) { event.preventDefault(); event.stopImmediatePropagation(); } }, true);
     reveal.addEventListener('click', () => api.reveal().catch(error => { label.textContent = error.message; }));

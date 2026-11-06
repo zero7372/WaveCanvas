@@ -38,7 +38,7 @@ async function run() {
         check(await session.renderer('VisualizerRuntime.getStandalone().text.fontFamily==="Bahnschrift"'),'Shell loader restores installed font family');
         check((await session.renderer('waveCanvas.project.getRecent()')).some(item=>item.path===target),'Shell open updates Recent Projects');
         const metadata=await session.renderer('waveCanvas.release.read()');check(metadata.version===require('../../package.json').version && metadata.documents.length===4 && metadata.documents.some(d=>d.name==='FFmpeg/SOURCE_INFO.txt'&&d.text.includes('readiness: PASS')&&d.text.includes('Published: false')),'Packaged canonical About version and narrow license resources');
-        await session.renderer('Array.from(document.querySelectorAll(".app-menu button")).find(b=>b.textContent==="Open Source Licenses").click();true'); await wait(250);
+        await session.renderer('Array.from(document.querySelectorAll(".app-menu button")).find(b=>b.textContent==="開放原始碼授權").click();true'); await wait(250);
         check(await session.renderer('!!document.querySelector("#release-dialog[open]")&&document.querySelector("#release-dialog").textContent.includes("libx264")'),'Help Open Source Licenses UI opens with GPL/source status');
         await session.renderer('document.querySelector("#release-dialog").close();true');
         const longDirectory=path.join(artifacts,...Array.from({length:6},(_,i)=>'Unicode 長路徑 Ω '+i+' '+ 'x'.repeat(35)));await fs.mkdir(longDirectory,{recursive:true});

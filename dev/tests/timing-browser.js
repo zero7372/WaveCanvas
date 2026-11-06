@@ -21,13 +21,13 @@ async function runTimingTests(app, check) {
     sendLRC('primary','[ar:歌手]\n[offset:250]\n[00:08]Last '+ 'long lyric '.repeat(25)+'\n[00:02]Open the gate\n[00:02]敞開大門\n[00:02]Extra line\n[00:00]Start\n[00:04]...','primary-edit.lrc');
     sendLRC('secondary','[00:00]開始\n[00:02]翻譯\n[00:04]...\n[00:08]最後一句','secondary-edit.lrc');await wait(100);
     check(doc.querySelectorAll('#timing-primary .timing-block').length===4 && doc.querySelectorAll('#timing-secondary .timing-block').length===4,'Unordered bilingual/multiple same-time lines form one stable Primary event block');
-    check(doc.querySelector('#timing-offsets').textContent.includes('Primary 250 ms'),'Loading LRC refreshes file offset label before any setting update');
+    check(doc.querySelector('#timing-offsets').textContent.includes('主要 250 毫秒'),'Loading LRC refreshes file offset label before any setting update');
     let primary=lyrics.getDocument('primary'),secondary=lyrics.getDocument('secondary'),event=primary.events[1],id=event.id;
     check(node(primary.events[2].id).dataset.type==='interlude' && node(secondary.events[2].id).dataset.type==='interlude','Primary and Secondary ellipsis preserve independent interlude markers');
     node(id).click();check(timing.getState().selected.id===id && doc.querySelector('#timing-selected-text').textContent.includes('敞開大門'),'Selection shows full bilingual text and stable identity');
     runtime.updateStandalone({lyrics:{globalOffsetMs:100,secondaryOffsetMs:-50,mergeToleranceMs:100}});
     const rawTime=lyrics.getDocument('primary').events[1].timeMs;
-    check(rawTime===2000 && doc.querySelector('#timing-offsets').textContent.includes('Primary 350 ms'),'Offsets labelled separately without baking into Raw timestamps');
+    check(rawTime===2000 && doc.querySelector('#timing-offsets').textContent.includes('主要 350 毫秒'),'Offsets labelled separately without baking into Raw timestamps');
     // Native pointer event path: draft during movement, commit only on release.
     const rect=node(id).getBoundingClientRect(), x=rect.left+8,y=rect.top+12,scale=timing.getState().scale;
     emit(node(id),'pointerdown',{clientX:x,clientY:y});emit(doc,'pointermove',{clientX:x+3.234*scale,clientY:y});

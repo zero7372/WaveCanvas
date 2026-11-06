@@ -12,7 +12,7 @@ const check=(value,label)=>{checks.push({pass:!!value,label});console.log((value
         const source=info.documents.find(d=>d.name==='FFmpeg/SOURCE_INFO.txt');
         check(info.version===version&&!!source,'Installed release API exposes canonical version / source info');
         check(source.text.includes(sourceZip)&&source.text.includes('distributed alongside')&&source.text.includes('Published: false')&&source.text.includes('readiness: PASS')&&!source.text.includes('<OFFICIAL_RELEASE_URL>'),'Installed source info states controlled co-delivery readiness and unpublished status');
-        await session.renderer('Array.from(document.querySelectorAll(".app-menu button")).find(b=>b.textContent==="Open Source Licenses").click();true');
+        await session.renderer('Array.from(document.querySelectorAll(".app-menu button")).find(b=>b.textContent==="開放原始碼授權").click();true');
         let visible=false;
         for(let attempt=0;attempt<50&&!visible;attempt++){
             visible=await session.renderer('!!document.querySelector("#release-dialog[open]")&&document.querySelector("#release-dialog").textContent.includes("'+sourceZip+'")');

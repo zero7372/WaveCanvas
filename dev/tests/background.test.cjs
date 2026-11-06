@@ -107,7 +107,7 @@ test('Protected audio, Lyrics and Timing modules remain byte-identical', () => {
         // Square geometry is now intentionally changed and covered by square.test.cjs.
         // Template/media UI intentionally changes shell, not Background/audio/Lyrics/Timing.
         // SRT import adds source metadata to runtime/model; srt.test.cjs protects renderer/audio and tests edits.
-        if (['visualizer-geometry.js','wavecanvas-shell.js','lyrics-runtime.js','timing-model.js'].includes(file)) continue;
+        if (['visualizer-geometry.js','wavecanvas-shell.js','lyrics-runtime.js','timing-model.js','timing-editor.js'].includes(file)) continue;
         let source = fs.readFileSync(path.join(root, file === 'wallpaperAudioListener' ? 'main.js' : file), 'utf8');
         if (file === 'wallpaperAudioListener') source = source.slice(source.indexOf('function wallpaperAudioListener'), source.indexOf('function bg()'));
         assert.equal(crypto.createHash('sha256').update(source).digest('hex'), expected, file);

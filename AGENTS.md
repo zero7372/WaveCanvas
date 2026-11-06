@@ -13,6 +13,11 @@
 | `npm run export:test:real` | 完整 1080p60 真實匯出 | 同上，耗時較久 |
 | `npm run release:build`、`npm run release:check -- --public` | 打包與公開發布閘門 | 完整 GPL 原始碼 ZIP |
 
+## 介面結構
+- 設定的分組、順序和顯示名稱集中在 `app/layer-structure.js`；既有控制項由各 `*-ui.js` 建立後，`app/wavecanvas-shell.js` 依這份清單移到圖層。新增設定時要加進清單，否則使用者看不到。
+- 只在部分排列有效的列，用 `data-layout-hidden` 隱藏（`app/inspector-ui.js`），不要動 `hidden`，那是條件顯示在用的。
+- 排列之間各存一份的設定列在 `app/factory-layout-defaults.js` 的 `propertyKeys`，其餘共用。
+
 ## 容易踩到的地方
 - **原始碼雜湊測試：** `dev/tests/fixtures/baselines/*-protected-hashes.json` 用 SHA256 鎖住部分模組（`main.js`、音訊、歌詞繪製、Timing Editor 等）。真的需要修改時，把檔案加進對應測試的略過清單，註明原因，並補上行為測試；不要直接更新雜湊。
 - **版本號：** 一律讀 `package.json`，發布文件名稱跟著版本走（`RELEASE-NOTES-<version>.md`、`WaveCanvas-<version>-GPL-Source.zip`）。

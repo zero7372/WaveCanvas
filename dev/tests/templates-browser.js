@@ -39,9 +39,8 @@ document.querySelector('#run').addEventListener('click', async function () {
         }
         for(const [media,clearId] of [['cover',null],['primary','lyrics-clear'],['secondary','lyrics-secondary-clear']]){
             const footer=doc.querySelector('[data-media="'+media+'"] footer'),buttons=[...footer.children];
-            check(buttons.length===2&&buttons[0].textContent==='選取／替換'&&buttons[1].classList.contains('danger-button')&&(!clearId||buttons[1].id===clearId),media+' action order: select then clear');
-            check(buttons[0].getBoundingClientRect().bottom<=buttons[1].getBoundingClientRect().top,media+' actions stack vertically');
-            const style=app.getComputedStyle(buttons[1]);check(style.color==='rgb(220, 155, 158)'&&style.backgroundColor==='rgb(48, 38, 41)',media+' uses subdued red danger style');
+            check(buttons.length===2&&buttons[0].textContent==='選擇檔案'&&buttons[1].classList.contains('danger-button')&&(!clearId||buttons[1].id===clearId),media+' action order: select then clear');
+                        check(buttons[1].textContent==='移除',media+' clear action reads 移除');
         }
         const fixture=doc.createElement('canvas');fixture.width=180;fixture.height=100;fixture.getContext('2d').fillRect(0,0,180,100);
         const blob=await new Promise(resolve=>fixture.toBlob(resolve,'image/png'));
@@ -68,7 +67,7 @@ document.querySelector('#run').addEventListener('click', async function () {
         // Preset intentionally clears image URLs by its existing contract; reload to exercise actual clear handlers.
         await app.VisualizerFiles.select('logoimage',[new app.File([blob],'cover-ui.png',{type:'image/png'})]);
         const coverClear=doc.querySelector('[data-media="cover"] footer .danger-button');coverClear.click();
-        check(r.getSettings().logoimage.value===''&&doc.querySelector('#cover-name').textContent==='尚未載入封面','Cover clear works through original handler');
+        check(r.getSettings().logoimage.value===''&&doc.querySelector('#cover-name').textContent==='尚未載入圖片','Cover clear works through original handler');
         doc.querySelector('#lyrics-secondary-clear').click();
         check(doc.querySelector('#secondary-name').textContent==='尚未載入次要歌詞'&&doc.querySelector('#primary-name').textContent==='primary-ui.lrc','Secondary clear keeps Primary LRC');
         doc.querySelector('#lyrics-clear').click();

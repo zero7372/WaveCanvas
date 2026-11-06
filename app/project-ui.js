@@ -33,24 +33,24 @@
         });
         const status = document.createElement('output'); status.id = 'project-status'; status.setAttribute('role', 'status'); $('.editor-strip > span').append(status);
         controller.subscribe(state => {
-            status.textContent = state.name + ' · ' + (state.saving ? '儲存中…' : state.dirty ? '未儲存' : '已儲存');
+            status.textContent = state.name + '，' + (state.saving ? '儲存中' : state.dirty ? '未儲存' : '已儲存');
             status.dataset.dirty = String(state.dirty); status.title = state.projectPath || '尚未建立專案檔';
-            if (!state.projectPath && !state.dirty && !state.saving) status.textContent = state.name + ' · 尚未建立檔案';
+            if (!state.projectPath && !state.dirty && !state.saving) status.textContent = state.name + '，尚未存檔';
             $('#shell-status').textContent = state.failure || (Object.keys(state.missingMedia).length ? 'Missing Media：\n' + Object.entries(state.missingMedia).map(([slot, ref]) => slot + ': ' + ref.path).join('\n') : '');
             for (const [slot, ref] of Object.entries(state.missingMedia)) {
                 const label = $('#' + slot + '-name'); if (label) label.textContent = 'Missing · ' + ref.name;
             }
             for (const button of document.querySelectorAll('[data-project-command]')) button.disabled = state.busy;
             $('#editor-view').inert = state.busy; $('#home-view').inert = state.busy;
-            $('#new-project').firstChild.textContent = '＋ 新增專案 '; $('#new-project small').textContent = '清除目前素材，使用原廠預設';
+            $('#new-project').firstChild.textContent = '新增專案 '; $('#new-project small').textContent = '從原廠預設開始';
         });
     }
     const recentRoot = $('.recent-projects');
     async function renderRecent() {
-        const heading = document.createElement('h2'); heading.textContent = '最近使用的專案';
+        const heading = document.createElement('h2'); heading.textContent = '最近使用';
         const list = controller ? await api.getRecent() : [];
         const nodes = [heading];
-        if (!list.length) { const empty = document.createElement('p'); empty.textContent = controller ? '尚無最近使用的專案。' : '專案功能需使用 Desktop App。'; nodes.push(empty); }
+        if (!list.length) { const empty = document.createElement('p'); empty.textContent = controller ? '還沒有最近使用的專案。' : '專案功能需使用 Desktop App。'; nodes.push(empty); }
         for (const item of list) {
             const card = document.createElement('article'); card.className = 'recent-project-card';
             const image = document.createElement('img'); image.src = 'assets/templates/builtin_' + item.layout + '_default.png'; image.alt = item.layout;

@@ -60,7 +60,7 @@ document.querySelector('#run').addEventListener('click',async function(){
         check(lyrics.getState().warnings>0&&doc.querySelector('#lyrics-file-status').textContent.includes('警告'),'Partially valid SRT imports and exposes parser warnings');
         const endInput=doc.querySelector('#lyrics-end-time'),endNote=doc.querySelector('[data-lyrics-end] .setting-note');
         const setEnd=value=>{endInput.value=value;endInput.dispatchEvent(new app.Event('change'));};
-        doc.querySelector('#tab-lyrics').click();check(endInput.value==='00:09.000'&&endInput.offsetParent!==null,'SRT final cue end fills a visible lyric end time');
+        doc.querySelector('#layer-lyrics').click();check(endInput.value==='00:09.000'&&endInput.offsetParent!==null,'SRT final cue end fills a visible lyric end time');
         setEnd('00:05.000');check(endNote.dataset.error==='true'&&endInput.value==='00:09.000'&&lyrics.getDocumentEnd()===9000,'End before the last line is rejected with the previous value kept');
         setEnd('bad');check(endNote.dataset.error==='true'&&lyrics.getDocumentEnd()===9000,'Malformed end time is rejected');
         setEnd('00:10.500');check(endNote.dataset.error==='false'&&lyrics.getDocumentEnd()===10500&&endInput.value==='00:10.500','Manual end time is applied');

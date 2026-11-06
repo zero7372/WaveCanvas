@@ -1,6 +1,7 @@
 async function runInspectorTests(app, check) {
-    const doc=app.document,runtime=app.VisualizerRuntime,pane=doc.querySelector('#inspector-visualizer');
-    const row=key=>doc.querySelector('[data-property="'+key+'"]'),section=key=>pane.querySelector('[data-inspector-section="'+key+'"]');
+    const doc=app.document,runtime=app.VisualizerRuntime,pane=doc.querySelector('#settings-groups');
+    const row=key=>doc.querySelector('[data-property="'+key+'"]'),visible=node=>!node.hidden&&node.dataset.layoutHidden!=='true';
+    const collapsible=doc.querySelector('#inspector-spectrum .settings-group');
     const saved=JSON.stringify(app.VisualizerPresets.create('Inspector restore'));
     const nodes=new Map(Array.from(pane.querySelectorAll('[data-property],[data-layout-property]')).map(node=>[node.dataset.property||node.dataset.layoutProperty,node]));
     const setLayout=value=>{const input=doc.querySelector('#layout-layout');input.value=value;input.dispatchEvent(new app.Event('change'));};
@@ -14,15 +15,13 @@ async function runInspectorTests(app, check) {
     try {
         for(const layout of ['circle','square','linear']) {
             setLayout(layout);
-            check(['circle','square','linear'].every(key=>section(key).hidden===(key!==layout)), 'Inspector shows only active layout section: '+layout);
-            check(Array.from(pane.children).filter(node=>!node.hidden).map(node=>node.dataset.inspectorSection).join(',')==='layout,spectrum,'+layout+',position,bass,particles,other', 'Inspector section order: '+layout);
-            check(['audiocount','barwidth','barheight','barsarc','circleradius','circlearc','userspectrumrotation','reverseright'].every(key=>row(key).hidden===(layout!=='circle')), 'Inspector Circle-only controls scoped: '+layout);
-            check(['audiocount','barwidth','barheight','circleradius'].every(key=>row(key).closest('[data-inspector-section]').dataset.inspectorSection==='circle'), 'Circle-only controls remain in Circle section: '+layout);
-            check(['secondcircle','cbassmultiplier','bbassmultiplier','barcircledistance'].every(key=>row(key).hidden===(layout==='linear')), 'Inspector center shapes/bass shared by Circle and Square: '+layout);
+            check(['audiocount','barwidth','barheight','barsarc','circleradius','circlearc','userspectrumrotation','reverseright'].every(key=>visible(row(key))===(layout==='circle')), 'Inspector Circle-only controls scoped: '+layout);
+            check(['secondcircle','bbassmultiplier','barcircledistance'].every(key=>visible(row(key))===(layout!=='linear')), 'Inspector center shapes/bass shared by Circle and Square: '+layout);
+            check(visible(doc.querySelector('[data-position-proxy=spectrumX]'))===(layout==='circle')&&!doc.querySelector('[data-layout-property=positionX]').hidden===(layout!=='circle'), 'Exactly one spectrum position pair per layout: '+layout);
             check(doc.querySelector('[data-layout-property=squareSpectrumLayout]').hidden===(layout!=='square'), 'Inspector Square spectrum selector scoped: '+layout);
             check(doc.querySelector('[data-layout-property=orientation]').hidden===(layout!=='linear'), 'Inspector Linear controls scoped: '+layout);
             check(Array.from(pane.querySelectorAll('[data-property],[data-layout-property]')).every(node=>nodes.get(node.dataset.property||node.dataset.layoutProperty)===node), 'Inspector retains original control nodes: '+layout);
-            check(Array.from(section('spectrum').querySelectorAll('[data-property]')).map(node=>node.dataset.property).sort().join(',')==='barcolor,barcolortype,baropacity,beattolerance,userrainbowrotate', 'Common Spectrum contains only effective color controls: '+layout);
+            check(['barcolor','barcolortype','baropacity','beattolerance','userrainbowrotate'].every(key=>row(key).closest('.settings-group').querySelector('summary').textContent==='外觀'&&row(key).closest('#inspector-spectrum')), 'Spectrum appearance section holds the color controls: '+layout);
             app.audioSample.fill(.5);
             runtime.updateProperties({barcolortype:{value:1},barcolor:{value:'0.2 0.4 0.6'},baropacity:{value:100}});
             const normal=trace();runtime.updateProperties({baropacity:{value:40}});const faded=trace();
@@ -39,18 +38,28 @@ async function runInspectorTests(app, check) {
         // 每個 Layout 有獨立設定庫，切回原 Layout 才能驗證保留結果。
         const originLayout=runtime.getStandalone().visualizer.layout;runtime.updateProperties({barheight:{value:233},circleradius:{value:83}});
         setLayout('square');runtime.updateStandalone({visualizer:{squareSize:350,squareSpectrumLayout:'foldedDiagonal'}});
-        section('square').open=false;setLayout('linear');runtime.updateStandalone({visualizer:{orientation:'vertical',mirror:'dual'}});const linearRetained=runtime.getStandalone().visualizer.orientation==='vertical';setLayout(originLayout);const originRetained=runtime.getSettings().barheight.value===233&&runtime.getSettings().circleradius.value===83;setLayout('square');
+        collapsible.open=false;setLayout('linear');runtime.updateStandalone({visualizer:{orientation:'vertical',mirror:'dual'}});const linearRetained=runtime.getStandalone().visualizer.orientation==='vertical';setLayout(originLayout);const originRetained=runtime.getSettings().barheight.value===233&&runtime.getSettings().circleradius.value===83;setLayout('square');
         check(originRetained&&linearRetained&&runtime.getStandalone().visualizer.squareSize===350, 'Layout switches retain Circle/Square/Linear settings');
-        check(!section('square').open, 'Layout switches retain per-section collapse state');
+        check(!collapsible.open, 'Layout switches retain per-section collapse state');collapsible.open=true;
         runtime.updateProperties({circleradius:{value:91}});const preset=JSON.stringify(app.VisualizerPresets.create('Inspector UX'));
         app.VisualizerPresets.reset();app.VisualizerPresets.import(preset);
-        check(!section('square').hidden&&doc.querySelector('#layout-squareSpectrumLayout').value==='foldedDiagonal'&&runtime.getSettings().circleradius.value===91, 'Inspector preset roundtrip preserves keys and Square layout');
+        check(doc.querySelector('#layout-squareSpectrumLayout').value==='foldedDiagonal'&&runtime.getSettings().circleradius.value===91, 'Inspector preset roundtrip preserves keys and Square layout');
         const legacy=JSON.parse(preset);delete legacy.standalone.visualizer.squareSpectrumLayout;app.VisualizerPresets.import(JSON.stringify(legacy));
         check(runtime.getStandalone().visualizer.squareSpectrumLayout==='foldedDiagonal', 'Inspector old preset uses official Square spectrum without format change');
         runtime.updateProperties({particlestyle:{value:2},particlerainbow:{value:true}});
         check(!row('particlecolor').hidden&&row('particleopacity').hidden&&row('twinkling').hidden, 'Style 2 exposes effective color and hides Style 1-only controls');
         app.VisualizerPresets.reset();
-        check(!section('square').hidden&&JSON.stringify(runtime.getStandalone())===JSON.stringify(runtime.getStandaloneDefaults()), 'Inspector Reset synchronizes current layout defaults and section');
+        check(JSON.stringify(runtime.getStandalone())===JSON.stringify(runtime.getStandaloneDefaults()), 'Inspector Reset synchronizes current layout defaults and section');
         check(!pane.querySelector('[data-property] input:disabled')&&!pane.querySelector('[data-layout-property] input:disabled'), 'Inspector contains no disabled debug controls');
+        // 共用設定與位置換算
+        setLayout('circle');runtime.updateProperties({barcolor:{value:'0 1 0'},bbassmultiplier:{value:33}});setLayout('square');
+        check(runtime.getSettings().barcolor.value==='0 1 0'&&runtime.getSettings().bbassmultiplier.value===33, 'Spectrum color and bass reaction carry across layouts');
+        setLayout('circle');const proxy=doc.querySelector('#position-spectrumX');proxy.value=75;proxy.dispatchEvent(new app.Event('input'));
+        check(runtime.getSettings().eqpositionx.value===480, 'Circle position percent writes the stored pixel offset');
+        const proxyRow=proxy.closest('.setting-row');check(proxyRow.querySelector('.restore-default')&&!proxyRow.querySelector('.restore-default').disabled, 'Position percent row offers restore');
+        proxyRow.querySelector('.restore-default').click();check(runtime.getSettings().eqpositionx.value===0, 'Position percent restore resets the pixel offset');
+        const panes=Array.from(doc.querySelectorAll('#settings-groups > .inspector-tab'));
+        check(Array.from(doc.querySelectorAll('#settings-groups .setting-row')).every(node=>node.closest('.inspector-tab')), 'Every control belongs to a layer');
+        check(panes.length===7, 'Seven layer panes');
     } finally {app.VisualizerPresets.import(saved);}
 }

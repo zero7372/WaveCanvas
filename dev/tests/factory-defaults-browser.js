@@ -66,7 +66,7 @@ document.querySelector('#run').addEventListener('click', async function () {
         for (const value of ['circle','square','linear']) { layout(value); await new Promise(resolve => setTimeout(resolve,120)); }
         check(errors.length === 0, 'All three render paths execute without browser errors');
         layout('linear');
-        doc.querySelector('[data-inspector-section="linear"]').open = true;
+        doc.querySelector('#layer-center').click();
     } catch (error) { check(false, error.stack || error.message); }
     output.textContent += '\nDONE ' + passes + ' passed / ' + failures + ' failed';
     this.disabled = false;

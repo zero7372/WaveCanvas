@@ -3,15 +3,16 @@
     if (window.VisualizerRuntime.mode !== 'standalone') return;
     const preferences = window.WaveCanvasPreferences, schema = window.WaveCanvasAppSettings, ui = window.WaveCanvasDialogs, api = window.waveCanvas?.settings;
     let active = false;
-    const entry = ui.button('Preferences…'); entry.id = 'preferences-menu'; entry.disabled = !preferences.available; entry.title = preferences.available ? '' : 'Desktop App 功能';
+    const entry = ui.button('偏好設定…'); entry.id = 'preferences-menu'; entry.disabled = !preferences.available; entry.title = preferences.available ? '' : 'Desktop App 功能';
     document.querySelector('.app-menu div').append(entry);
     async function show() {
         if (active || !preferences.available) return; active = true; await preferences.ready;
-        const dialog = ui.create('Preferences'); dialog.id = 'preferences-dialog';
+        const dialog = ui.create('偏好設定'); dialog.id = 'preferences-dialog';
         const body = document.createElement('div'), navigation = document.createElement('nav'), panels = document.createElement('div'); body.className = 'preferences-body'; panels.className = 'preferences-panels'; navigation.setAttribute('aria-label', 'Preferences 分類'); body.append(navigation, panels); dialog.append(body);
         const sections = {}, controls = {}; let first;
         for (const group of ['General','Project','Playback','Interface','Export','Advanced']) {
-            const button = ui.button(group), section = document.createElement('section'), heading = document.createElement('h3'); section.id = 'preferences-' + group.toLowerCase(); heading.textContent = group; section.append(heading); sections[group] = section; panels.append(section); navigation.append(button);
+            const name = { General: '一般', Project: '專案', Playback: '播放', Interface: '介面', Export: '輸出', Advanced: '進階' }[group];
+            const button = ui.button(name), section = document.createElement('section'), heading = document.createElement('h3'); section.id = 'preferences-' + group.toLowerCase(); heading.textContent = name; section.append(heading); sections[group] = section; panels.append(section); navigation.append(button);
             button.onclick = () => { for (const node of Object.values(sections)) node.hidden = node !== section; for (const node of navigation.children) node.setAttribute('aria-current', String(node === button)); };
             if (!first) first = button;
         }
@@ -24,30 +25,30 @@
             if (input.type !== 'checkbox') label.append(input);
             sections[group].append(label); controls[group.toLowerCase() + '.' + key] = input; return input;
         }
-        field('General','startupMode','preference-startup','啟動時', [['home','Home'],['reopen-last','Reopen Last Project']]);
+        field('General','startupMode','preference-startup','啟動時', [['home','顯示首頁'],['reopen-last','開啟上次的專案']]);
         field('General','rememberWindowBounds','preference-window-bounds','記住視窗大小與位置');
         field('General','confirmUnsavedClose','preference-close-confirm','關閉未儲存專案前確認');
         field('Project','askNameOnCreate','preference-ask-name','建立新專案時要求輸入名稱');
         const enabled = field('Project','autosaveEnabled','preference-autosave','自動儲存');
         const interval = field('Project','autosaveIntervalMinutes','preference-interval','自動儲存間隔', schema.intervals.map(v => [v,v + ' 分鐘']));
-        field('Project','recentProjectsLimit','preference-recent-limit','Recent Projects 數量', schema.recentLimits.map(v => [v,v]));
+        field('Project','recentProjectsLimit','preference-recent-limit','最近使用的專案數量', schema.recentLimits.map(v => [v,v]));
         const note = document.createElement('p'); note.className = 'dialog-note'; note.textContent = '只有已建立專案檔的專案才會自動儲存；每個專案保留最多 10 份備份。'; sections.Project.append(note);
-        const volume = field('Playback','defaultVolume','preference-volume','新播放工作階段的預設音量'), volumeValue = document.createElement('output'); volume.after(volumeValue); volume.oninput = () => volumeValue.textContent = volume.value + '%';
-        field('Playback','autoPlayOnLoad','preference-autoplay','使用者載入音訊／專案後自動播放');
-        const playbackNote = document.createElement('p'); playbackNote.className = 'dialog-note'; playbackNote.textContent = '啟動重開專案保持靜音；變更預設音量不覆蓋目前工作階段。'; sections.Playback.append(playbackNote);
+        const volume = field('Playback','defaultVolume','preference-volume','預設音量'), volumeValue = document.createElement('output'); volume.after(volumeValue); volume.oninput = () => volumeValue.textContent = volume.value + '%';
+        field('Playback','autoPlayOnLoad','preference-autoplay','載入音訊或專案後自動播放');
+        const playbackNote = document.createElement('p'); playbackNote.className = 'dialog-note'; playbackNote.textContent = '啟動時重新開啟專案不會自動播放；變更預設音量不影響正在播放的內容。'; sections.Playback.append(playbackNote);
         field('Interface','uiScale','preference-ui-scale','介面大小', schema.scales.map(v => [v,Math.round(v * 100) + '%']));
-        field('Export','defaultDirectoryMode','preference-export-mode','預設輸出位置', [['last-used','Last used folder'],['project-folder','Project folder'],['custom','Custom folder']]);
-        const folder = field('Export','customDirectory','preference-export-directory','自訂資料夾'), choose = ui.button('Choose Folder'); choose.id = 'preference-choose-directory'; sections.Export.append(choose);
-        const data = ui.button('Open WaveCanvas Data Folder'); data.id = 'preference-open-data'; sections.Advanced.append(data);
-        const advancedNote = document.createElement('p'); advancedNote.className = 'dialog-note'; advancedNote.textContent = 'Restore Defaults 只恢復偏好設定；保留 Recent Projects、視窗與匯出位置紀錄及備份。'; sections.Advanced.append(advancedNote);
+        field('Export','defaultDirectoryMode','preference-export-mode','預設輸出位置', [['last-used','上次使用的資料夾'],['project-folder','專案所在資料夾'],['custom','自訂資料夾']]);
+        const folder = field('Export','customDirectory','preference-export-directory','自訂資料夾'), choose = ui.button('選擇資料夾'); choose.id = 'preference-choose-directory'; sections.Export.append(choose);
+        const data = ui.button('開啟資料資料夾'); data.id = 'preference-open-data'; sections.Advanced.append(data);
+        const advancedNote = document.createElement('p'); advancedNote.className = 'dialog-note'; advancedNote.textContent = '恢復預設值只影響偏好設定；最近使用的專案、視窗與輸出位置紀錄、備份都會保留。'; sections.Advanced.append(advancedNote);
         const status = document.createElement('p'); status.className = 'dialog-message'; status.setAttribute('role','status');
-        const actions = document.createElement('footer'), reset = ui.button('Restore Defaults'), cancel = ui.button('取消'), save = ui.button('儲存','primary-button'); save.id = 'preferences-save'; reset.id = 'preferences-reset'; actions.append(reset,cancel,save); dialog.append(status,actions);
+        const actions = document.createElement('footer'), reset = ui.button('恢復預設值'), cancel = ui.button('取消'), save = ui.button('儲存','primary-button'); save.id = 'preferences-save'; reset.id = 'preferences-reset'; actions.append(reset,cancel,save); dialog.append(status,actions);
         function display(value) { for (const [name,input] of Object.entries(controls)) { const [group,key] = name.split('.'), v = value[group][key]; if (input.type === 'checkbox') input.checked = v; else input.value = key === 'defaultVolume' ? Math.round(v * 100) : v ?? ''; } interval.disabled = !enabled.checked; volume.oninput(); }
         display(preferences.get()); enabled.onchange = () => interval.disabled = !enabled.checked;
         let saving = false, restoringDefaults = false;
         function lock(value) { saving = value; for (const input of [save,cancel,reset,choose,data]) input.disabled = value; }
         dialog.addEventListener('cancel', event => { if (saving) event.preventDefault(); }); cancel.onclick = () => dialog.close();
-        reset.onclick = async () => { if (await ui.confirm('恢復 Preferences 預設值','只恢復應用程式偏好設定。按儲存後才會套用。')) { display(schema.defaults); restoringDefaults = true; } };
+        reset.onclick = async () => { if (await ui.confirm('恢復偏好設定預設值','只恢復應用程式偏好設定。按儲存後才會套用。')) { display(schema.defaults); restoringDefaults = true; } };
         choose.onclick = async () => { lock(true); try { const selected = await api.chooseDirectory(); if (selected) folder.value = selected; } catch (error) { status.textContent = error.message; } finally { lock(false); } };
         data.onclick = async () => { lock(true); try { await api.openDataFolder(); } catch (error) { status.textContent = error.message; } finally { lock(false); } };
         save.onclick = async () => {
