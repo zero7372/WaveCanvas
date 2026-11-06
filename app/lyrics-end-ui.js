@@ -3,7 +3,8 @@
     const runtime = window.VisualizerRuntime;
     if (runtime.mode !== 'standalone') return;
     const lyrics = window.VisualizerLyrics, model = window.VisualizerTimingModel;
-    const content = document.querySelector('[data-group="Lyrics"] .group-content');
+    // 放進時間相關的 fieldset；Shell 會把它移到歌詞分頁，整個 Lyrics 群組本身則是隱藏的。
+    const content = document.querySelector('[data-lyrics-property="globalOffsetMs"]').parentElement;
     const row = document.createElement('div'); row.className = 'setting-row'; row.dataset.lyricsEnd = '';
     const label = document.createElement('label'); label.htmlFor = 'lyrics-end-time'; label.textContent = '歌詞結束時間（mm:ss.xxx）';
     const input = document.createElement('input'); input.id = label.htmlFor; input.type = 'text'; input.placeholder = '未設定：音訊結束時退場'; input.spellcheck = false;
