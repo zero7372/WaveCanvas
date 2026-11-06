@@ -131,7 +131,10 @@ await fs.writeFile(path.join(artifacts,'tail-lyrics.json'),JSON.stringify({lastL
 check(differs(299)&&lastLyricFrame>=300&&lastLyricFrame<300+Math.ceil(1.6*60),'Final lyric exits after the audio ends and leaves no pixels: last lyric frame '+lastLyricFrame);
 const silent=[];for(let i=420;i<480;i++)silent.push(withoutLyrics.allFrameHashes[i]);
 check(silent.length===60,'Tail keeps rendering frames after the audio ends');
-await session.renderer('VisualizerRuntime.updateStandalone({lyrics:{enabled:true},background:{mode:"static",offsetX:30,offsetY:-10}});true');
+await session.renderer('VisualizerRuntime.updateStandalone({lyrics:{enabled:true}});VisualizerLyrics.setDocumentEnd(4500);true');
+const earlyEnd=await exportRun('lyric-end');let lastEarly=-1;for(let i=0;i<480;i++)if(earlyEnd.allFrameHashes[i]!==withoutLyrics.allFrameHashes[i])lastEarly=i;
+check(lastEarly>=270&&lastEarly<270+Math.ceil(1.6*60),'Lyric end time exits before the audio ends: last lyric frame '+lastEarly);
+await session.renderer('VisualizerLyrics.setDocumentEnd(null);VisualizerRuntime.updateStandalone({lyrics:{enabled:true},background:{mode:"static",offsetX:30,offsetY:-10}});true');
 const fixed=await exportRun('static',{startTime:0,endTime:2.1});
 const backgrounds=[0,60,120].map(index=>fixed.diagnosticStates[index].background);
 check(backgrounds[0].includes('translate3d(30px, -10px')&&backgrounds.every(value=>value===backgrounds[0]),'Static background transform never changes during export');

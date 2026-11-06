@@ -39,6 +39,8 @@
                 || event.sourceCue.rawLines.some(line => typeof line !== 'string'))) throw new Error('SRT sourceCue 無效。');
         }
         if (value.sourceWarnings && !Array.isArray(value.sourceWarnings)) throw new Error('歌詞 warnings 無效。');
+        // 舊專案沒有 endTimeMs，維持在音訊結束時退場。
+        if (value.endTimeMs !== undefined && value.endTimeMs !== null && (!Number.isFinite(value.endTimeMs) || value.endTimeMs < 0 || value.endTimeMs > 599999999)) throw new Error('歌詞結束時間無效。');
     }
     function exportSettings(value) {
         if (value === undefined) return;

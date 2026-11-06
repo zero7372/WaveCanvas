@@ -19,7 +19,10 @@
         const handlers = new Map();
         function timeMs() { return (Number.isFinite(audio.currentTime) ? audio.currentTime : 0) * 1000 + fileOffsetMs + getOffset(); }
         function endTimeMs() {
-            return Number.isFinite(audio.duration) ? audio.duration * 1000 + fileOffsetMs + getOffset() : Infinity;
+            const audioEnd = Number.isFinite(audio.duration) ? audio.duration * 1000 + fileOffsetMs + getOffset() : Infinity;
+            // 結束時間不晚於最後一句就不採用，否則最後一句永遠不會顯示。
+            const documentEnd = primaryDocument?.endTimeMs, lastEvent = events.at(-1)?.timeMs ?? -1;
+            return Number.isFinite(documentEnd) && documentEnd > lastEvent ? Math.min(audioEnd, documentEnd) : audioEnd;
         }
         function state() { return { activeIndex: active, phase, endTimeMs: endTimeMs(), count: events.length, fileOffsetMs, name, secondaryName, documentRevision,
             interlude: phase === 'ACTIVE' && isInterlude(events[active]) ? interludeTiming(events[active], events[active + 1], timeMs()) : null,
@@ -51,6 +54,14 @@
                 primary = model.toParsed(primaryDocument); secondary = secondaryDocument ? model.toParsed(secondaryDocument) : null;
                 name = primaryDocument?.name || ''; secondaryName = secondaryDocument?.name || '';
                 documentRevision++; active = -1; rebuild();
+            },
+            getDocumentEnd: () => (Number.isFinite(primaryDocument?.endTimeMs) ? primaryDocument.endTimeMs : null),
+            setDocumentEnd(ms) {
+                if (!primaryDocument) throw new Error('請先載入主要歌詞。');
+                if (ms === null) { primaryDocument.endTimeMs = null; documentRevision++; update('settings', true); return null; }
+                const value = model.bounded(ms, audio.duration);
+                if (value <= (primaryDocument.events.at(-1)?.timeMs ?? -1)) throw new Error('結束時間必須晚於最後一句歌詞。');
+                primaryDocument.endTimeMs = value; documentRevision++; update('settings', true); return value;
             },
             retime(source, id, ms, snapMs = 0) {
                 if (!['primary', 'secondary'].includes(source)) throw new Error('未知的歌詞軌道。');

@@ -25,7 +25,8 @@
         const parsed = window.VisualizerLyricsImport ? window.VisualizerLyricsImport.parse(text, name) : window.VisualizerLRC.parse(text);
         const id = source + '-' + (++serial);
         if (parsed.sourceFormat === 'srt') {
-            return { id, source, name, sourceFormat: 'srt', fileOffsetMs: 0, metadata: [], sourceWarnings: parsed.warnings.map(warning => ({ ...warning })),
+            return { id, source, name, sourceFormat: 'srt', fileOffsetMs: 0, metadata: [],
+                endTimeMs: parsed.cues.length ? Math.max(...parsed.cues.map(cue => cue.endTimeMs)) : null, sourceWarnings: parsed.warnings.map(warning => ({ ...warning })),
                 events: parsed.cues.map(cue => ({ id: source + '-srt:' + cue.order, source, timeMs: cue.startTimeMs,
                     lines: [cue.text], rawText: cue.text, type: cue.text === '...' ? 'interlude' : 'lyric',
                     sourceCue: { sourceFormat: 'srt', sequence: cue.sequence, sequenceRaw: cue.sequenceRaw, order: cue.order,
@@ -53,8 +54,11 @@
     function retime(doc, id, ms, duration = Infinity, snapMs = 0) {
         const event = doc?.events.find(event => event.id === id);
         if (!event) throw new Error('歌詞事件已不存在。');
+        const previous = event.timeMs, wasLast = doc.events.at(-1) === event;
         event.timeMs = bounded(ms, duration, snapMs);
         doc.events.sort((a, b) => a.timeMs - b.timeMs || a.id.localeCompare(b.id, 'en', { numeric: true }));
+        // 移動最後一句時，結束時間跟著移動，保留最後一句的顯示長度。
+        if (Number.isFinite(doc.endTimeMs) && wasLast && doc.events.at(-1) === event) doc.endTimeMs = bounded(doc.endTimeMs + event.timeMs - previous, duration);
         return event.timeMs;
     }
     function toParsed(doc) {
@@ -78,6 +82,8 @@
             lines.splice(0, lines.length, ...withoutOffset, '[offset:' + doc.fileOffsetMs + ']');
         }
         for (const event of doc.events) for (const text of event.lines) lines.push('[' + format(event.timeMs) + ']' + text);
+        // LRC 沒有結束時間語法；結尾的空白時間行會讓最後一句在該時間退場。
+        if (Number.isFinite(doc.endTimeMs) && doc.endTimeMs > (doc.events.at(-1)?.timeMs ?? -1)) lines.push('[' + format(doc.endTimeMs) + ']');
         return lines.join('\r\n') + (lines.length ? '\r\n' : '');
     }
     function mapping(scale) {

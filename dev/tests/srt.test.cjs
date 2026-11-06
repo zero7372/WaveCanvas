@@ -62,7 +62,7 @@ test('SRT edits, numeric/manual timing, undo/redo and LRC export retain metadata
     const edit={source:'primary',id,from:1500,to:m.parseTime('00:02.250')};api.retime('primary',id,edit.to);history.record(edit);
     assert.equal(api.getDocument('primary').events[0].timeMs,2250);history.undo();assert.equal(api.getDocument('primary').events[0].timeMs,1500);history.redo();
     assert.equal(api.getDocument('primary').events[0].sourceCue.endTimeMs,3000);
-    const exported=m.serialize(api.getDocument('primary'));assert.equal(exported,'[00:02.250]中 English\r\n');assert.equal(app.VisualizerLRC.parse(exported).events[0].timeMs,2250);
+    const exported=m.serialize(api.getDocument('primary'));assert.equal(exported,'[00:02.250]中 English\r\n[00:03.750]\r\n');assert.equal(app.VisualizerLRC.parse(exported).events[0].timeMs,2250);
     const before=JSON.stringify(api.getDocument('primary'));assert.throws(()=>api.load('broken','bad.srt'));assert.equal(JSON.stringify(api.getDocument('primary')),before);
     assert.equal(m.fromText('[00:01.00]Legacy','primary','Untitled').sourceFormat,'lrc');
 });

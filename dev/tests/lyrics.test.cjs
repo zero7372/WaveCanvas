@@ -167,3 +167,26 @@ test('Bilingual runtime merges on settings changes and keeps a single seek timel
     runtime.clearSecondary(); assert.equal(runtime.getEvent(1).secondary,'');
     assert.equal(runtime.getState().secondaryName,'');
 });
+test('Document end time drives the final exit, survives edits and never hides the last line', () => {
+    const app = modules(), audio = media(); audio.duration = 120;
+    const runtime = app.VisualizerLyricsRuntime.create(audio, () => 0), model = app.VisualizerTimingModel;
+    const srt = '1\n00:00:01,000 --> 00:00:02,000\nFirst\n\n2\n00:00:05,000 --> 00:00:06,500\nLast\n';
+    runtime.load(srt, 'song.srt'); assert.equal(runtime.getDocumentEnd(), 6500); assert.equal(runtime.getState().endTimeMs, 6500);
+    const at = seconds => { audio.currentTime = seconds; audio.fire('seeking'); return runtime.getState().phase; };
+    assert.equal(at(6.4), 'ACTIVE'); assert.equal(at(6.5), 'POST_LYRICS'); assert.equal(at(5), 'ACTIVE', 'Seeking back restores the last line');
+    const id = runtime.getDocument('primary').events[1].id;
+    runtime.retime('primary', id, 7000); assert.equal(runtime.getDocumentEnd(), 8500, 'Moving the last line keeps its length');
+    runtime.retime('primary', id, 5000); assert.equal(runtime.getDocumentEnd(), 6500, 'Undo restores the end time');
+    assert.throws(() => runtime.setDocumentEnd(5000), /晚於/); assert.equal(runtime.getDocumentEnd(), 6500);
+    assert.equal(runtime.setDocumentEnd(500000), 120000, 'End time stays inside the audio');
+    assert.equal(runtime.setDocumentEnd(null), null); assert.equal(runtime.getState().endTimeMs, 120000); assert.equal(at(100), 'ACTIVE');
+    assert.equal(at(120), 'POST_LYRICS');
+    const stale = runtime.getDocument('primary'); stale.endTimeMs = 100; runtime.restoreDocuments({ primary: stale, secondary: null });
+    assert.equal(runtime.getState().endTimeMs, 120000, 'An end before the last line is ignored');
+    const old = runtime.getDocument('primary'); delete old.endTimeMs; runtime.restoreDocuments({ primary: old, secondary: null });
+    assert.equal(runtime.getDocumentEnd(), null, 'Old projects keep ending with the audio'); assert.equal(runtime.getState().endTimeMs, 120000);
+    runtime.load('[00:01.00]Only\n', 'song.lrc'); assert.equal(runtime.getDocumentEnd(), null); assert.equal(runtime.setDocumentEnd(3000), 3000);
+    const exported = model.serialize(runtime.getDocument('primary')); assert.equal(exported, '[00:01.000]Only\r\n[00:03.000]\r\n');
+    runtime.load(exported, 'again.lrc'); assert.equal(runtime.getEvent(1).timeMs, 3000); assert.equal(runtime.getEvent(1).primary, '');
+    assert.throws(() => { runtime.clear(); runtime.setDocumentEnd(1000); }, /請先載入/);
+});

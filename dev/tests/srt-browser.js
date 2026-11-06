@@ -40,7 +40,7 @@ document.querySelector('#run').addEventListener('click',async function(){
         check(lyrics.getDocument('primary').events.find(event=>event.id===eventId).timeMs!==2250,'Existing drag handler retimes SRT event');
         editor.undo();check(lyrics.getDocument('primary').events.find(event=>event.id===eventId).timeMs===2250,'Drag undo retains event identity');
         const exported=app.VisualizerTimingModel.serialize(lyrics.getDocument('primary'));
-        check(exported.startsWith('[00:02.250]Open the gate let us in')&&app.VisualizerLRC.parse(exported).events.length===3,'SRT edits serialize into ordinary LRC');
+        check(exported.startsWith('[00:02.250]Open the gate let us in')&&app.VisualizerLRC.parse(exported).events.length===4&&app.VisualizerLRC.parse(exported).events[3].primary==='','SRT edits serialize into ordinary LRC with an end marker');
         editor.exportLRC('primary');const download=doc.querySelector('#timing-download-primary');
         check(download.download.endsWith('.lrc')&&download.href.startsWith('blob:'),'Existing export action generates a .lrc download');
         editor.zoom(1.2);editor.fitSong();check(editor.getState().scale>0,'Existing zoom and fit operate with SRT sources');
@@ -58,6 +58,13 @@ document.querySelector('#run').addEventListener('click',async function(){
         check(JSON.stringify(lyrics.getDocument('secondary'))===secondaryBefore,'Invalid secondary import preserves previous document');
         await file('#lyrics-file',primary+'\n\n22\n00:99:99,000 --> 00:99:99,900\nbad','warnings.srt');
         check(lyrics.getState().warnings>0&&doc.querySelector('#lyrics-file-status').textContent.includes('警告'),'Partially valid SRT imports and exposes parser warnings');
+        const endInput=doc.querySelector('#lyrics-end-time'),endNote=doc.querySelector('[data-lyrics-end] .setting-note');
+        const setEnd=value=>{endInput.value=value;endInput.dispatchEvent(new app.Event('change'));};
+        check(endInput.value==='00:09.000'&&!endInput.closest('[data-lyrics-end]').hidden,'SRT final cue end fills the lyric end time');
+        setEnd('00:05.000');check(endNote.dataset.error==='true'&&endInput.value==='00:09.000'&&lyrics.getDocumentEnd()===9000,'End before the last line is rejected with the previous value kept');
+        setEnd('bad');check(endNote.dataset.error==='true'&&lyrics.getDocumentEnd()===9000,'Malformed end time is rejected');
+        setEnd('00:10.500');check(endNote.dataset.error==='false'&&lyrics.getDocumentEnd()===10500&&endInput.value==='00:10.500','Manual end time is applied');
+        doc.querySelector('#lyrics-end-clear').click();check(lyrics.getDocumentEnd()===null&&endInput.value==='','Clearing returns to the audio end');
         const preset=app.VisualizerPresets.create('Style');check(!JSON.stringify(preset).includes('sourceCue')&&!JSON.stringify(preset).includes('Open the gate'),'Style preset still excludes subtitle source data');
         check(errors.length===0,'No browser errors/unhandled promises: '+JSON.stringify(errors));
         await file('#lyrics-file',primary,'song.srt');await file('#lyrics-secondary-file',secondary,'translation.srt');audio.currentTime=1.5;lyrics.update('seek');editor.select('primary',lyrics.getDocument('primary').events[0].id);await wait(200);
