@@ -11,7 +11,8 @@
         }
         return model.validate({ ...metadata, format: 'wavecanvas-project', version: 1, state: { settings,
             media: Object.fromEntries(model.slots.map(slot => [slot, media[slot] || null])),
-            lyrics: { primary: window.VisualizerLyrics.getDocument('primary'), secondary: window.VisualizerLyrics.getDocument('secondary') } } });
+            lyrics: { primary: window.VisualizerLyrics.getDocument('primary'), secondary: window.VisualizerLyrics.getDocument('secondary') },
+            ...(window.WaveCanvasExportSettings ? { export: window.WaveCanvasExportSettings.capture() } : {}) } });
     }
     function prepare(project) {
         const value = model.validate(project);

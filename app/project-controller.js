@@ -45,6 +45,7 @@
         }).catch(error => { failure = error.message; dirty = true; notify(); }).finally(() => { if (file) pendingFiles.delete(file); });
     }
     runtime.subscribe(() => { if (lastSavedHash) markProjectDirty(); });
+    window.WaveCanvasExportSettings.subscribe(() => { if (lastSavedHash) markProjectDirty(); });
     window.VisualizerFiles.subscribe(() => {
         for (const [slot, key] of [['cover', 'logoimage'], ['background', 'backgroundimage']]) {
             const file = window.VisualizerFiles.getFile(key);
@@ -114,6 +115,7 @@
         restoring = true;
         try {
             clearMedia(); runtime.restoreProjectSettings(value.state.settings);
+            window.WaveCanvasExportSettings.restore(value.state.export);
             if (files.audio) {
                 knownFiles.set(files.audio, value.state.media.audio);
                 await new Promise(resolve => {
@@ -149,6 +151,7 @@
             }
         } catch (error) {
             clearMedia(); runtime.restoreProjectSettings(old.project.state.settings);
+            window.WaveCanvasExportSettings.restore(old.project.state.export);
             if (old.files.audio) window.VisualizerLocalAudio.load(old.files.audio);
             for (const [slot, key] of [['cover', 'logoimage'], ['background', 'backgroundimage']]) if (old.files[slot]) await window.VisualizerFiles.select(key, [old.files[slot]]);
             window.VisualizerLyrics.restoreDocuments(old.project.state.lyrics);
@@ -177,6 +180,7 @@
                 layouts: Object.fromEntries(window.VisualizerFactoryDefaults.layouts.map(layout => {
                     const defaults = window.VisualizerFactoryDefaults.get(layout); return [layout, { visualizer: defaults.standalone.visualizer, properties: defaults.properties, text: defaults.standalone.text }];
                 })) });
+            window.WaveCanvasExportSettings.reset();
             initialize(name); projectPath = null; dirty = false; failure = ''; lastSavedHash = hash(snapshot()); window.WaveCanvasShell.showView('EDITOR');
             audio.volume = preferences.get().playback.defaultVolume;
         } finally { restoring = false; notify(); }

@@ -9,6 +9,15 @@ test('FFmpeg args constrain CPU H.264, canonical BGRA, AAC, ordering and exact f
     for (const [key, value] of [['-pixel_format', 'bgra'], ['-video_size', '1920x1080'], ['-framerate', '60'], ['-c:v', 'libx264'], ['-c:a', 'aac'], ['-pix_fmt', 'yuv420p'], ['-frames:v', '300'], ['-b:a', '320k']]) assert.equal(args[args.indexOf(key) + 1], value);
     assert.equal(args.at(-1), 'output.mp4'); assert.ok(args.includes('中文 source.mp3')); assert.equal(args.filter(value => value === '-i').length, 2);
 });
+test('Export tail extends frames and pads audio only when requested', () => {
+    assert.equal(runner.frames(5, 0), 300); assert.equal(runner.frames(5, 2), 420); assert.equal(runner.frames(60.1861041667, 0), 3612);
+    assert.equal(runner.frames(21600, 10), 21610 * 60, 'Tail does not trip the source duration limit');
+    assert.throws(() => runner.frames(21601, 0));
+    assert.deepEqual(runner.args('a.wav', 'o.mp4', 300), runner.args('a.wav', 'o.mp4', 300, 0, false), 'No tail keeps 1.0 arguments');
+    assert.ok(!runner.args('a.wav', 'o.mp4', 300).includes('-af'));
+    const padded = runner.args('a.wav', 'o.mp4', 420, 0, true);
+    assert.equal(padded[padded.indexOf('-af') + 1], 'apad'); assert.equal(padded[padded.indexOf('-t') + 1], '7'); assert.ok(padded.indexOf('-af') < padded.indexOf('o.mp4'));
+});
 test('Atomic temporary outputs stay beside target and never equal the final path', () => {
     const output = path.resolve('test.mp4'), a = runner.temporary(output), b = runner.temporary(output);
     assert.equal(path.dirname(a), path.dirname(output)); assert.notEqual(a, b); assert.notEqual(a, output); assert.match(a, /\.partial\.mp4$/);

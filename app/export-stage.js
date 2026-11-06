@@ -41,7 +41,7 @@
                 worker = new Worker('export-audio-worker.js');
                 worker.onerror = event => reject(new Error(event.message));
                 worker.onmessage = ({ data }) => { if (data.error) reject(new Error(data.error)); else if (data.cache) resolve(data.cache); };
-                worker.postMessage({ pcm, sampleRate: buffer.sampleRate, count: Math.ceil(buffer.duration * 30) + 1 }, [pcm.buffer]);
+                worker.postMessage({ pcm, sampleRate: buffer.sampleRate, count: Math.ceil((buffer.duration + (payload.snapshot.state.export?.tailSeconds ?? 0)) * 30) + 1 }, [pcm.buffer]);
             });
             worker.terminate(); worker = null; await context.close(); context = null;
             return { duration: buffer.duration, analysisMs: window.exportNativeNow() - started, cacheBytes: cache.byteLength };

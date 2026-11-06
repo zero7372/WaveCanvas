@@ -4,13 +4,26 @@ const model = require('../../app/project-model.js'), { create, atomicWrite } = r
 const appRoot = path.resolve(__dirname, '../../app');
 function renderer() {
     const app = { console, window: null }; app.window = app; vm.createContext(app);
-    for (const file of ['property-schema.js','layout-schema.js','system-fonts.js','property-compatibility.js','song-info-schema.js','lyrics-schema.js','background-schema.js','inspector-policy.js','factory-defaults-data.js','factory-layout-defaults.js','runtime-adapter.js','lrc-parser.js','srt-parser.js','lyrics-import.js','timing-model.js','lyrics-runtime.js','project-model.js']) vm.runInContext(require('node:fs').readFileSync(path.join(appRoot, file), 'utf8'), app);
+    for (const file of ['property-schema.js','layout-schema.js','system-fonts.js','property-compatibility.js','song-info-schema.js','lyrics-schema.js','background-schema.js','inspector-policy.js','factory-defaults-data.js','factory-layout-defaults.js','runtime-adapter.js','lrc-parser.js','srt-parser.js','lyrics-import.js','timing-model.js','lyrics-runtime.js','project-model.js','export-settings.js']) vm.runInContext(require('node:fs').readFileSync(path.join(appRoot, file), 'utf8'), app);
     const audio = { duration: 120, currentTime: 0, ended: false, addEventListener() {}, removeEventListener() {} };
     app.VisualizerLyrics = app.VisualizerLyricsRuntime.create(audio, () => app.VisualizerRuntime.getStandalone().lyrics.globalOffsetMs);
     vm.runInContext(require('node:fs').readFileSync(path.join(appRoot, 'project-serializer.js'), 'utf8'), app); return app;
 }
 function project(app = renderer()) { return app.WaveCanvasProjectSerializer.capture({ projectId: crypto.randomUUID(), name: '測試 專案', appVersion: '0.1.0', createdAt: new Date().toISOString(), modifiedAt: null }, Object.fromEntries(model.slots.map(slot => [slot, null]))); }
 async function folder(t) { const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'wavecanvas-project-test-')); t.after(() => fs.rm(directory, { recursive: true, force: true })); return directory; }
+test('Export tail is optional, clamped and old projects keep their length', () => {
+    const app = renderer(), settings = app.WaveCanvasExportSettings, value = project(app);
+    assert.equal(value.state.export.tailSeconds, 2, 'New sessions default to two seconds');
+    for (const [input, expected] of [[-3, 0], [99, model.MAX_TAIL_SECONDS], [1.26, 1.5], [4, 4]]) {
+        const copy = model.validate({ ...value, state: { ...value.state, export: { tailSeconds: input } } }); assert.equal(copy.state.export.tailSeconds, expected);
+    }
+    for (const bad of [{ tailSeconds: 'x' }, { tailSeconds: NaN }, {}, 3]) assert.throws(() => model.validate({ ...value, state: { ...value.state, export: bad } }));
+    const old = JSON.parse(JSON.stringify(value)); delete old.state.export;
+    assert.equal(model.validate(old).state.export, undefined, 'Validation does not invent a tail for old projects');
+    settings.restore(old.state.export); assert.equal(settings.get(), 0); assert.equal(project(app).state.export.tailSeconds, 0);
+    let notified = 0; settings.subscribe(() => notified++); settings.set(3.2); assert.equal(settings.get(), 3); assert.equal(notified, 2);
+    settings.set(NaN); assert.equal(settings.get(), 3); settings.reset(); assert.equal(settings.get(), 2);
+});
 test('Project format validates version, finite numbers, stable IDs and rejects unsafe media URLs/prototype keys', () => {
     const value = project(); assert.equal(model.parse(model.serialize(value)).format, 'wavecanvas-project');
     assert.throws(() => model.parse('{bad'), /JSON/);

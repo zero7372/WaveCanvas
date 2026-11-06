@@ -48,6 +48,7 @@ try{const profile=path.join(artifacts,'profile');await fs.mkdir(profile);session
 await session.evaluate('projectQA.window.exportTestDiagnostics=true;true');
 const real=path.resolve(root,'../Untitled/Untitled.waveproj');await session.evaluate('projectQA.openPaths.push('+JSON.stringify(real)+');true');await session.renderer('WaveCanvasProject.open()');
 const source=path.join(artifacts,'synthetic-five.wav');await fs.writeFile(source,wav(5));await session.select('#audio-file',source);
+await session.renderer('WaveCanvasExportSettings.set(0);true');
 const lrc = '[00:00.00]Deterministic Primary\n[00:00.00]雙語測試\n[00:02.00]...\n[00:04.00]Final line';
 await session.renderer('VisualizerLyrics.load('+JSON.stringify(lrc)+',"synthetic.lrc");VisualizerRuntime.updateStandalone({background:{mode:"infinity"},lyrics:{enabled:true}});true');
 if (!process.argv.includes('--layouts')) {
@@ -111,5 +112,29 @@ await session.evaluate('(async()=>{const payload=await projectQA.window.webConte
 const result=await session.evaluate('({result:projectQA.layoutResult,error:projectQA.layoutError})');await fs.writeFile(path.join(artifacts,'layout-'+layout+'.json'),JSON.stringify(result,null,2));check(!result.error&&result.result?.frames===126,'Export '+layout+' / Particle Style '+particle+' / Bass Pulse');if(result.error)throw Error(result.error);
 check(result.result.rawFrameHashes['0']!==result.result.rawFrameHashes['60'],'Animated '+layout+' frame evolves');
 }
+// 1.1：片尾延長、歌詞退場與靜態背景。
+async function exportRun(name,range){const output=path.join(artifacts,name+'.mp4');
+await session.evaluate('(async()=>{const payload=await projectQA.window.webContents.executeJavaScript("WaveCanvasExport.payload()",true);projectQA.tailDone=false;projectQA.tailResult=projectQA.tailError=null;projectQA.window.waveCanvasExportController.startTest(payload,'+JSON.stringify(output)+','+JSON.stringify(range||null)+'||undefined).then(r=>{projectQA.tailResult=r;projectQA.tailDone=true},e=>{projectQA.tailError=e.stack;projectQA.tailDone=true});return true})()');
+for(let i=0;i<2400&&!await session.evaluate('projectQA.tailDone');i++)await wait(250);
+const result=await session.evaluate('({result:projectQA.tailResult,error:projectQA.tailError})');if(result.error)throw Error(result.error);return {output,...result.result};}
+await session.renderer('VisualizerLyrics.load('+JSON.stringify(lrc)+',"synthetic.lrc");VisualizerRuntime.updateStandalone({visualizer:{layout:"circle"},background:{mode:"infinity"},lyrics:{enabled:true}});WaveCanvasExportSettings.set(3);true');
+const withLyrics=await exportRun('tail-lyrics');
+check(withLyrics.frames===480&&withLyrics.tailSeconds===3,'Tail 3 s extends a 5 s song to 480 frames');
+const streams=JSON.parse(execFileSync(path.join(root,'vendor/ffmpeg/ffprobe.exe'),['-v','error','-show_entries','stream=codec_type,duration,nb_frames','-of','json',withLyrics.output],{encoding:'utf8'})).streams;
+const video=streams.find(s=>s.codec_type==='video'),sound=streams.find(s=>s.codec_type==='audio');
+check(Number(video.nb_frames)===480&&Math.abs(video.duration-8)<.02&&Math.abs(sound.duration-8)<.05,'Tail video and padded audio are both 8 s: '+video.duration+' / '+sound.duration);
+await session.renderer('VisualizerRuntime.updateStandalone({lyrics:{enabled:false}});true');
+const withoutLyrics=await exportRun('tail-no-lyrics');
+const differs=index=>withLyrics.allFrameHashes[index]!==withoutLyrics.allFrameHashes[index];
+let lastLyricFrame=-1;for(let i=0;i<480;i++)if(differs(i))lastLyricFrame=i;
+await fs.writeFile(path.join(artifacts,'tail-lyrics.json'),JSON.stringify({lastLyricFrame},null,2));
+check(differs(299)&&lastLyricFrame>=300&&lastLyricFrame<300+Math.ceil(1.6*60),'Final lyric exits after the audio ends and leaves no pixels: last lyric frame '+lastLyricFrame);
+const silent=[];for(let i=420;i<480;i++)silent.push(withoutLyrics.allFrameHashes[i]);
+check(silent.length===60,'Tail keeps rendering frames after the audio ends');
+await session.renderer('VisualizerRuntime.updateStandalone({lyrics:{enabled:true},background:{mode:"static",offsetX:30,offsetY:-10}});true');
+const fixed=await exportRun('static',{startTime:0,endTime:2.1});
+const backgrounds=[0,60,120].map(index=>fixed.diagnosticStates[index].background);
+check(backgrounds[0].includes('translate3d(30px, -10px')&&backgrounds.every(value=>value===backgrounds[0]),'Static background transform never changes during export');
+await session.renderer('VisualizerRuntime.updateStandalone({background:{mode:"infinity",offsetX:0,offsetY:0}});WaveCanvasExportSettings.set(0);true');
 }catch(e){check(false,e.stack||String(e));}finally{if(session)await session.finish();await fs.writeFile(path.join(artifacts,'results.json'),JSON.stringify({checks},null,2));}console.log(artifacts);process.exitCode=checks.some(c=>!c.pass)?1:0;
 }run().catch(e=>{console.error(e);process.exitCode=1});

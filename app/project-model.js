@@ -6,6 +6,7 @@
 }(typeof window === 'object' ? window : globalThis, function () {
     'use strict';
     const slots = ['audio', 'cover', 'background', 'primary', 'secondary'];
+    const MAX_TAIL_SECONDS = 10;
     function object(value) { return value && typeof value === 'object' && !Array.isArray(value); }
     function stable(value) {
         if (Array.isArray(value)) return value.map(stable);
@@ -39,6 +40,12 @@
         }
         if (value.sourceWarnings && !Array.isArray(value.sourceWarnings)) throw new Error('歌詞 warnings 無效。');
     }
+    function exportSettings(value) {
+        if (value === undefined) return;
+        // 舊專案沒有這個欄位，視為沒有片尾，輸出維持原樣。
+        if (!object(value) || !Number.isFinite(value.tailSeconds)) throw new Error('專案輸出設定無效。');
+        value.tailSeconds = Math.round(Math.min(MAX_TAIL_SECONDS, Math.max(0, value.tailSeconds)) * 2) / 2;
+    }
     function validate(project, fallbackName = 'Untitled') {
         safe(project);
         if (!object(project) || project.format !== 'wavecanvas-project') throw new Error('不是 WaveCanvas 專案。');
@@ -58,6 +65,7 @@
             if (ref !== null && (typeof ref !== 'string' || !ref || ref.length > 32768 || /^(?:blob:|data:|https?:|file:)/i.test(ref))) throw new Error('媒體路徑無效：' + slot);
         }
         document(project.state.lyrics.primary, 'primary'); document(project.state.lyrics.secondary, 'secondary');
+        exportSettings(project.state.export);
         return JSON.parse(JSON.stringify(project));
     }
     function parse(text, fallbackName) {
@@ -68,5 +76,5 @@
     // Name is mutable project metadata; identity and timestamps do not affect dirty state.
     function comparison(project) { return JSON.stringify(stable({ name: project.name, state: project.state })); }
     function serialize(project) { return JSON.stringify(stable(validate(project)), null, 2) + '\n'; }
-    return Object.freeze({ slots, validate, parse, comparison, serialize, document });
+    return Object.freeze({ slots, MAX_TAIL_SECONDS, validate, parse, comparison, serialize, document });
 }));

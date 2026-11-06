@@ -47,8 +47,10 @@ function install(editor) {
             const info = await waiting(state.renderer.prepare()); check();
             const from = range?.startTime ?? 0, until = range?.endTime ?? info.duration;
             if (!Number.isFinite(from) || !Number.isFinite(until) || from < 0 || until <= from || until > info.duration) throw Error('測試 range 無效。');
-            const first = Math.round(from * 60), count = ffmpeg.frames(until - from);
-            state.runner = ffmpeg.run(ffmpeg.resolver(app), ffmpeg.args(audio, state.temp, count, from));
+            // 測試 range 不套用片尾；片尾期間的音訊由 FFmpeg 補靜音，影音軌才會等長。
+            const tail = range ? 0 : snapshot.state.export?.tailSeconds ?? 0;
+            const first = Math.round(from * 60), count = ffmpeg.frames(until - from, tail);
+            state.runner = ffmpeg.run(ffmpeg.resolver(app), ffmpeg.args(audio, state.temp, count, from, tail > 0));
             let sumMs = 0, slowestMs = 0;
             const rawFrameHashes = {};
             const diagnosticStates = {};
@@ -77,10 +79,10 @@ function install(editor) {
             send({ phase: 'finalizing', progress: 98 }); await fs.rename(state.temp, state.output);
             completedPath = state.output;
             await editor.waveCanvasApplicationState().update({ lastExportDirectory: path.dirname(state.output) }).catch(error => console.error('Export directory state:', error.message));
-            const result = { output: state.output, duration: info.duration, exportedDuration: count / 60, frames: count, averageCaptureMs: sumMs / count,
+            const result = { output: state.output, duration: info.duration, exportedDuration: count / 60, tailSeconds: tail, frames: count, averageCaptureMs: sumMs / count,
                 slowestCaptureMs: slowestMs, analysisMs: info.analysisMs, cacheBytes: info.cacheBytes, encodingMs: performance.now() - encodeStarted,
                 renderingMs, encoderDrainMs: performance.now() - finalEncodeStarted, peakWorkingSetBytes,
-                totalMs: performance.now() - started, droppedFrames: 0, peakQueueDepth: 1, rawFrameHashes, allFrameHashes, diagnosticStates, bytes: (await fs.stat(state.output)).size };
+                totalMs: performance.now() - started, rawFrameHashes, allFrameHashes, diagnosticStates, bytes: (await fs.stat(state.output)).size };
             send({ phase: 'complete', progress: 100, result }); return result;
         } catch (error) { send({ phase: state.canceled ? 'canceled' : 'error', error: state.canceled ? '已取消影片輸出。' : '影片輸出失敗：' + error.message }); throw error; }
         finally {
