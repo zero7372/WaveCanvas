@@ -8,6 +8,9 @@
     const propertyKeys = Object.freeze(['circleradius', 'circlearc', 'circlerotate', 'barwidth', 'barheight', 'barsarc', 'audiocount', 'userspectrumrotation', 'reverseright',
         'barsrotate', 'barcircledistance', 'secondcircle', 'secondcircleradius', 'eqpositionx', 'eqpositiony']);
     const textKeys = ['positionX', 'positionY'];
+    // 原廠快照不可變動，但快照裡的歌曲資訊與歌詞（75%）會疊在一起，所以在這裡覆寫。
+    // 7% 的文字下緣約在畫布 y=128，高於圓形頻譜滿振幅時的頂端（y=134）。
+    const songInfoPositionY = 7;
     const defaults = {};
     function freeze(value) {
         if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); }
@@ -26,7 +29,7 @@
                 visualizer: window.VisualizerLayoutSettings.normalize(preset.standalone.visualizer),
                 lyrics: window.VisualizerLyricsSettings.normalize(preset.standalone.lyrics),
                 background: window.VisualizerBackgroundSettings.normalize(preset.standalone.background),
-                text: window.VisualizerSongInfoSettings.normalize(preset.standalone.text)
+                text: window.VisualizerSongInfoSettings.normalize({ ...preset.standalone.text, positionY: songInfoPositionY })
             }
         };
     }

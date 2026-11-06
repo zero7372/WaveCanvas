@@ -10,7 +10,7 @@ async function freePort() { const server = net.createServer(); await new Promise
 async function launch(profile) {
     const port = await freePort(), exe = packaged ? (process.env.WAVECANVAS_QA_EXE || path.join(root, 'dist/win-unpacked/WaveCanvas.exe')) : require('electron');
     const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
-    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, '--user-data-dir=' + profile, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
+    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, '--force-prefers-reduced-motion', '--user-data-dir=' + profile, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
     let output = '', exited = false; child.stdout.on('data', data => output += data); child.stderr.on('data', data => output += data); child.on('exit', () => exited = true);
     let target; for (let i = 0; i < 200 && !target && !exited; i++) { try { target = (await (await fetch('http://127.0.0.1:' + port + '/json/list')).json())[0]; } catch {} await wait(50); }
     if (!target) { child.kill(); throw Error('Inspector unavailable: ' + output); }
@@ -44,7 +44,7 @@ async function launch(profile) {
 const {execFileSync}=require('child_process'),crypto=require('crypto');
 function wav(seconds){const rate=48000,n=Math.round(rate*seconds),b=Buffer.alloc(44+n*2);b.write('RIFF');b.writeUInt32LE(b.length-8,4);b.write('WAVEfmt ',8);b.writeUInt32LE(16,16);b.writeUInt16LE(1,20);b.writeUInt16LE(1,22);b.writeUInt32LE(rate,24);b.writeUInt32LE(rate*2,28);b.writeUInt16LE(2,32);b.writeUInt16LE(16,34);b.write('data',36);b.writeUInt32LE(n*2,40);for(let i=0;i<n;i++)b.writeInt16LE(Math.round(11000*Math.sin(2*Math.PI*96*i/rate)*(1+Math.sin(2*Math.PI*2*i/rate))/2),44+i*2);return b;}
 async function run(){await fs.mkdir(artifacts,{recursive:true});const checks=[],check=(p,label)=>{checks.push({pass:!!p,label});console.log((p?'PASS ':'FAIL ')+label);};let session;
-try{const profile=path.join(artifacts,'profile');await fs.mkdir(profile);session=await launch(profile);
+try{const profile=path.join(artifacts,'profile');await fs.mkdir(profile);session=await launch(profile);check(await session.renderer("matchMedia('(prefers-reduced-motion: reduce)').matches"),'QA runs with reduced motion on, so export must ignore it');
 await session.evaluate('projectQA.window.exportTestDiagnostics=true;true');
 const real=path.resolve(root,'../Untitled/Untitled.waveproj');await session.evaluate('projectQA.openPaths.push('+JSON.stringify(real)+');true');await session.renderer('WaveCanvasProject.open()');
 const source=path.join(artifacts,'synthetic-five.wav');await fs.writeFile(source,wav(5));await session.select('#audio-file',source);

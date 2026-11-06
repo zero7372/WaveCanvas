@@ -21,7 +21,11 @@ test('All supplied factory fields and provenance are retained exactly; missing f
         for (const [key, value] of Object.entries(source.properties)) assert.deepEqual(plain(baseline.properties[key]),value,key);
         for (const [section, values] of Object.entries(source.standalone)) {
             if (typeof values === 'number') assert.equal(baseline.standalone[section],values);
-            else for (const [key,value] of Object.entries(values)) assert.equal(baseline.standalone[section][key],value,layout + ':' + section + ':' + key);
+            else for (const [key,value] of Object.entries(values)) {
+                // 唯一刻意的覆寫：歌曲資訊預設移到上方，避免與歌詞重疊。
+                if (section === 'text' && key === 'positionY') continue;
+                assert.equal(baseline.standalone[section][key],value,layout + ':' + section + ':' + key);
+            }
         }
         runtime.updateStandalone({visualizer:{layout}});
         assert.deepEqual(plain(runtime.getStandalone().visualizer),plain(baseline.standalone.visualizer));
@@ -74,7 +78,8 @@ test('Single-value restores are context-aware and do not change neighbouring fie
             assert.deepEqual(plain(r.getStandalone()),plain(before));
         }
         r.updateStandalone({text:{positionY:92}}); r.restoreDefault('text','positionY');
-        assert.equal(r.getStandalone().text.positionY,{circle:78,square:80,linear:75}[layout]);
+        assert.equal(r.getStandalone().text.positionY,7,'歌曲資訊預設在上方，不與歌詞重疊');
+        assert.ok(Math.abs(r.getStandalone().text.positionY-r.getStandalone().lyrics.positionY)>=50,'歌曲資訊與歌詞的預設位置分開');
         r.updateProperties({barheight:{value:295}}); r.restoreDefault('properties','barheight');
         assert.equal(r.getSettings().barheight.value,layout==='circle'?230:100);
     }

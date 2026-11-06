@@ -41,6 +41,11 @@ test('Offline FFT uses causal Blackman, existing 64-band mapper and duplicated i
     assert.deepEqual(cache, analysis(pcm, rate, 31));
 });
 test('Offline silence is finite zero without NaN', () => assert.ok(analysis(new Float32Array(48000), 48000, 31).every(value => value === 0)));
+test('Export ignores the reduced motion setting before the lyric stage reads it', () => {
+    const html = fs.readFileSync(path.join(root, 'app/export.html'), 'utf8'), clock = fs.readFileSync(path.join(root, 'app/export-clock.js'), 'utf8');
+    assert.ok(html.indexOf('src="export-clock.js"') < html.indexOf('src="lyrics-stage.js"'));
+    assert.match(clock, /window\.matchMedia = /);
+});
 test('Export stage reuses preview modules without Project controller or Editor UI', () => {
     const html = fs.readFileSync(path.join(root, 'app/export.html'), 'utf8');
     for (const file of ['main.js', 'lyrics-stage.js', 'background-stage.js', 'song-info-stage.js', 'linear-cover.js', 'audio-adapter.js']) assert.ok(html.includes('src="' + file + '"'));

@@ -13,6 +13,9 @@
     Object.defineProperty(performance, 'now', { value: () => time });
     Date.now = () => 946684800000 + time;
     Math.random = () => { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; return (seed >>> 0) / 4294967296; };
+    // 減少動態只影響預覽；影片內容不可隨輸出那台電腦的系統設定（例如 RDP 關閉動畫）改變。
+    const nativeMatchMedia = window.matchMedia.bind(window);
+    window.matchMedia = query => nativeMatchMedia(/prefers-reduced-motion:\s*reduce/.test(query) ? 'not all' : query);
     Element.prototype.animate = function (...args) {
         const animation = nativeAnimate.apply(this, args);
         animation.pause(); animation.currentTime = 0; animations.set(animation, time); return animation;
