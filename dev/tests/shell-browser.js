@@ -3,7 +3,7 @@ async function runShellTests(app, check) {
     const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
     check(shell.getView() === 'EDITOR' && doc.title === 'WaveCanvas', 'WaveCanvas Editor and brand title');
     check(doc.querySelectorAll('#settings-tabs [role=tab]').length === 5 && doc.querySelectorAll('[data-media]').length === 4, 'Five Inspector tabs and four Media items');
-    check(doc.querySelector('#recent-projects') === null && doc.querySelector('.recent-projects').textContent.includes('沒有近期專案'), 'Home has truthful empty Recent Projects');
+    check(doc.querySelector('#recent-projects') === null && doc.querySelector('.recent-projects').textContent.includes('專案功能需使用 Desktop App'), 'Home has truthful empty Recent Projects');
     for (const id of ['visualizer','lyrics','song','background','audio']) {
         doc.querySelector('#tab-' + id).click();
         check(doc.querySelector('#tab-' + id).getAttribute('aria-selected') === 'true' && !doc.querySelector('#inspector-' + id).hidden, 'Inspector tab: ' + id);

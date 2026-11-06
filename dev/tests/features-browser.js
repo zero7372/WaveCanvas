@@ -116,7 +116,7 @@ async function runFeatureTests(app, we, check) {
         check(app.VisualizerFiles.getName('logoimage') === '' && !app.VisualizerImages.getLogo(), 'Preset import clears and revokes selected image resources');
         const partial = { format: 'audio-visualizer-preset', version: 1, properties: { barheight: 90000, noise: false, unknown: 12 }, standalone: { inputGain: 90 } };
         app.VisualizerPresets.import(JSON.stringify(partial));
-        check(runtime.getSettings().barheight.value === 3000 && runtime.getStandalone().inputGain === 4 && runtime.getSettings().circleradius.value === 64, 'Preset missing fields default; numeric values clamp; unknown fields ignored');
+        check(runtime.getSettings().barheight.value === 3000 && runtime.getStandalone().inputGain === 4 && runtime.getSettings().circleradius.value === runtime.getDefaults('circle').circleradius.value, 'Preset missing fields default; numeric values clamp; unknown fields ignored');
         check(doc.querySelector('#setting-barheight').value === '3000' && doc.querySelector('#setting-inputGain').value === '4', 'Imported preset synchronizes UI');
         const before = JSON.stringify(runtime.getSettings());
         let rejected = false;
@@ -134,7 +134,7 @@ async function runFeatureTests(app, we, check) {
         await until(() => doc.querySelector('#settings-status').textContent.includes('損壞'));
         check(runtime.getStandalone().inputGain === 2, 'Import file UI reports corrupt JSON without changing current settings');
         doc.querySelector('#reset-defaults').click();
-        check(JSON.stringify(runtime.getSettings()) === JSON.stringify(runtime.getDefaults()) && runtime.getStandalone().inputGain === 1, 'Reset restores all current defaults and Input Gain 1');
+        check(JSON.stringify(runtime.getSettings()) === JSON.stringify(runtime.getDefaults()) && runtime.getStandalone().inputGain === runtime.getStandaloneDefaults().inputGain, 'Reset restores all current defaults and factory Input Gain');
         check(doc.querySelector('#setting-noise').checked && doc.querySelector('#setting-resposive').value === '33', 'Reset UI matches runtime state');
         check(new Set(revoked).size === revoked.length, 'Owned image URLs are revoked exactly once');
         runtime.updateProperties({backgroundsource:{value:2}});

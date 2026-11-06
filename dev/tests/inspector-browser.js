@@ -36,20 +36,21 @@ async function runInspectorTests(app, check) {
             runtime.updateProperties({beattolerance:{value:50},barcolor:{value:'0.2 0.4 0.6'}});
             check(JSON.stringify(trace())!==JSON.stringify(beat), 'Common Spectrum beat threshold affects renderer: '+layout);
         }
-        runtime.updateProperties({barheight:{value:233},circleradius:{value:83}});
+        // 每個 Layout 有獨立設定庫，切回原 Layout 才能驗證保留結果。
+        const originLayout=runtime.getStandalone().visualizer.layout;runtime.updateProperties({barheight:{value:233},circleradius:{value:83}});
         setLayout('square');runtime.updateStandalone({visualizer:{squareSize:350,squareSpectrumLayout:'foldedDiagonal'}});
-        section('square').open=false;setLayout('linear');runtime.updateStandalone({visualizer:{orientation:'vertical',mirror:'dual'}});setLayout('square');
-        check(runtime.getSettings().barheight.value===233&&runtime.getStandalone().visualizer.squareSize===350&&runtime.getStandalone().visualizer.orientation==='vertical', 'Layout switches retain Circle/Square/Linear settings');
+        section('square').open=false;setLayout('linear');runtime.updateStandalone({visualizer:{orientation:'vertical',mirror:'dual'}});const linearRetained=runtime.getStandalone().visualizer.orientation==='vertical';setLayout(originLayout);const originRetained=runtime.getSettings().barheight.value===233&&runtime.getSettings().circleradius.value===83;setLayout('square');
+        check(originRetained&&linearRetained&&runtime.getStandalone().visualizer.squareSize===350, 'Layout switches retain Circle/Square/Linear settings');
         check(!section('square').open, 'Layout switches retain per-section collapse state');
-        const preset=JSON.stringify(app.VisualizerPresets.create('Inspector UX'));
+        runtime.updateProperties({circleradius:{value:91}});const preset=JSON.stringify(app.VisualizerPresets.create('Inspector UX'));
         app.VisualizerPresets.reset();app.VisualizerPresets.import(preset);
-        check(!section('square').hidden&&doc.querySelector('#layout-squareSpectrumLayout').value==='foldedDiagonal'&&runtime.getSettings().circleradius.value===83, 'Inspector preset roundtrip preserves keys and Square layout');
+        check(!section('square').hidden&&doc.querySelector('#layout-squareSpectrumLayout').value==='foldedDiagonal'&&runtime.getSettings().circleradius.value===91, 'Inspector preset roundtrip preserves keys and Square layout');
         const legacy=JSON.parse(preset);delete legacy.standalone.visualizer.squareSpectrumLayout;app.VisualizerPresets.import(JSON.stringify(legacy));
-        check(runtime.getStandalone().visualizer.squareSpectrumLayout==='symmetric', 'Inspector old preset defaults Square spectrum without format change');
+        check(runtime.getStandalone().visualizer.squareSpectrumLayout==='foldedDiagonal', 'Inspector old preset uses official Square spectrum without format change');
         runtime.updateProperties({particlestyle:{value:2},particlerainbow:{value:true}});
         check(!row('particlecolor').hidden&&row('particleopacity').hidden&&row('twinkling').hidden, 'Style 2 exposes effective color and hides Style 1-only controls');
         app.VisualizerPresets.reset();
-        check(!section('circle').hidden&&JSON.stringify(runtime.getStandalone())===JSON.stringify(runtime.getStandaloneDefaults()), 'Inspector Reset synchronizes defaults and Circle section');
+        check(!section('square').hidden&&JSON.stringify(runtime.getStandalone())===JSON.stringify(runtime.getStandaloneDefaults()), 'Inspector Reset synchronizes current layout defaults and section');
         check(!pane.querySelector('[data-property] input:disabled')&&!pane.querySelector('[data-layout-property] input:disabled'), 'Inspector contains no disabled debug controls');
     } finally {app.VisualizerPresets.import(saved);}
 }

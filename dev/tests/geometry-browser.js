@@ -30,7 +30,8 @@ async function runGeometryTests(app, we, check) {
         input('layout', 'square'); input('squareSize', '310'); input('rotation', '25');
         check(runtime.getStandalone().visualizer.layout === 'square' && runtime.getStandalone().visualizer.squareSize === 310 && app.VisualizerGeometry.active(), 'Square UI -> unified Standalone settings');
         app.audioSample.fill(0.1); app.run();
-        const squareConfig = runtime.getStandalone().visualizer;
+        // 原廠 Square 預設已改為 foldedDiagonal；這裡明確驗證 symmetric 排列的幾何。
+        const squareConfig = { ...runtime.getStandalone().visualizer, squareSpectrumLayout: 'symmetric' };
         const probe = Array(128).fill(0); probe[1] = .7; probe[13] = .3; probe[45] = .1;
         const squareGeometry = app.VisualizerGeometry.build(probe, squareConfig);
         const n = squareGeometry.perSide;
@@ -64,7 +65,7 @@ async function runGeometryTests(app, we, check) {
         const legacyPreset = app.VisualizerPresets.create('Legacy square');
         delete legacyPreset.standalone.visualizer.squareSpectrumLayout;
         app.VisualizerPresets.import(JSON.stringify(legacyPreset));
-        check(runtime.getStandalone().visualizer.squareSpectrumLayout==='symmetric', 'Legacy Square preset defaults missing spectrum layout to Symmetric');
+        check(runtime.getStandalone().visualizer.squareSpectrumLayout==='foldedDiagonal', 'Legacy Square preset falls back to official Square spectrum layout');
         input('layout', 'linear'); input('orientation', 'horizontal'); input('barCount', '16');
         check(doc.querySelector('[data-layout-property=squareSpectrumLayout]').hidden, 'Linear hides Square spectrum selector');
         app.run(); const horizontalImage = app.canvas.toDataURL();
