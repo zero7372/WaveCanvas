@@ -11,6 +11,8 @@
         if (settings.mode === 'infinity') {
             motion.drift(phase, settings.driftAmount, point);
             x = settings.offsetX + point.x; y = settings.offsetY + point.y;
+        } else if (settings.mode === 'static') {
+            x = settings.offsetX; y = settings.offsetY;
         } else size *= 1 + settings.bassScaleAmount * pulse;
         image.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) scale(' + size + ')';
     }
@@ -19,7 +21,7 @@
         frame = null; previous = 0; image.style.willChange = '';
     }
     function schedule() {
-        if (!disposed && active && visible() && frame === null) {
+        if (!disposed && active && visible() && frame === null && settings.mode !== 'static') {
             image.style.willChange = 'transform'; frame = requestAnimationFrame(backgroundFrame);
         }
     }
@@ -49,7 +51,8 @@
         image.style.opacity = settings.opacity; image.style.filter = 'blur(' + settings.blur + 'px)';
         stage.style.backgroundColor = properties.backgroundsource.value === 2 ? settings.backingColor : '';
         draw();
-        if (!active) stop(); else schedule();
+        // 靜態模式只在設定變更時繪製一次，不佔用動畫迴圈。
+        if (!active || settings.mode === 'static') stop(); else schedule();
     });
     function refresh() { if (!visible()) stop(); else schedule(); }
     document.addEventListener('visibilitychange', refresh);

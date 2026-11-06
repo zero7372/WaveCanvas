@@ -44,7 +44,7 @@
         for (const [key, { inputs, row }] of controls) {
             const field = window.VisualizerBackgroundSettings.properties[key];
             row.dataset.active = String(enabled);
-            row.hidden = key !== 'enabled' && (!enabled || !settings.enabled || field.mode && field.mode !== settings.mode);
+            row.hidden = key !== 'enabled' && (!enabled || !settings.enabled || field.mode && ![].concat(field.mode).includes(settings.mode));
             for (const input of inputs) {
                 if (input.tagName === 'OUTPUT') input.textContent = settings[key].toUpperCase();
                 else if (field.type === 'bool') input.checked = settings[key];

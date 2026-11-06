@@ -8,9 +8,9 @@
         return output;
     }
     function coverage(settings) {
-        const moving = settings.mode === 'infinity';
-        const x = moving ? Math.abs(settings.offsetX) + settings.driftAmount : 0;
-        const y = moving ? Math.abs(settings.offsetY) + settings.driftAmount * 0.45 : 0;
+        const drifting = settings.mode === 'infinity', positioned = drifting || settings.mode === 'static';
+        const x = positioned ? Math.abs(settings.offsetX) + (drifting ? settings.driftAmount : 0) : 0;
+        const y = positioned ? Math.abs(settings.offsetY) + (drifting ? settings.driftAmount * 0.45 : 0) : 0;
         // Three blur radii keep the filtered edge outside the canonical stage.
         const padding = settings.blur * 3;
         return Math.max(settings.baseScale, 1 + (x + padding) * 2 / 1920, 1 + (y + padding) * 2 / 1080);

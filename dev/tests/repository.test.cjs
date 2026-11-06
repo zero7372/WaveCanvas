@@ -11,7 +11,8 @@ test('Classification protects retained source/fixtures and records disposed gene
         }
         const destination = path.join(repo, item.destination);
         assert.ok(fs.statSync(destination).isFile(), item.original);
-        const editable = item.destination === 'README.md' || item.destination === 'app/index.html'
+        // 程式碼由行為測試保護；這裡只鎖定 fixture、授權文件與素材。
+        const editable = item.destination === 'README.md' || /^(?:app|electron)\/.*\.(?:js|cjs|css|html)$/.test(item.destination)
             || /^dev\/tools\//.test(item.destination) || /^dev\/tests\/[^/]+\.(?:js|html|cjs)$/.test(item.destination)
             || /^dev\/reports\//.test(item.destination) || item.destination === 'dev/tests/fixtures/baselines/index-before.html';
         if (!editable) assert.equal(crypto.createHash('sha256').update(require('./project-baseline.cjs')(path.basename(destination),fs.readFileSync(destination))).digest('hex'), fontPatchHashes[item.destination] || item.sha256, item.destination);

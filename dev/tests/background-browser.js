@@ -31,6 +31,11 @@ async function runBackgroundTests(app, we, check) {
         runtime.updateStandalone({background:{mode:'bassPulse',offsetX:400,offsetY:-200,bassAttack:20,bassRelease:100}});
         check(new app.DOMMatrix(image.style.transform).m41 === 0 && new app.DOMMatrix(image.style.transform).m42 === 0, 'Bass is fixed at center even with stored drift offsets');
         check(doc.querySelector('[data-background-property=driftAmount]').hidden && !doc.querySelector('[data-background-property=bassAttack]').hidden && doc.querySelector('[data-background-property=offsetX]').hidden, 'Bass shows only pulse controls and hides positional offsets');
+        runtime.updateStandalone({background:{mode:'static',offsetX:40,offsetY:-20}});
+        check(doc.querySelector('[data-background-property=driftAmount]').hidden && doc.querySelector('[data-background-property=bassAttack]').hidden && !doc.querySelector('[data-background-property=offsetX]').hidden && !doc.querySelector('[data-background-property=baseScale]').hidden, 'Static hides motion controls and keeps position and scale');
+        const staticStart = image.style.transform; await wait(180);
+        check(image.style.transform === staticStart && new app.DOMMatrix(staticStart).m41 === 40 && !image.style.willChange, 'Static keeps a fixed transform without animation');
+        runtime.updateStandalone({background:{mode:'bassPulse',offsetX:400,offsetY:-200,bassAttack:20,bassRelease:100}});
         const audio = doc.querySelector('#local-audio');
         // Synthetic processed input, not a second analyser or any change to the accepted mapping.
         const bytes = new ArrayBuffer(44 + 16000), view = new DataView(bytes);
@@ -48,6 +53,9 @@ async function runBackgroundTests(app, we, check) {
         const preset = app.VisualizerPresets.create('New Background');
         app.VisualizerPresets.reset(); app.VisualizerPresets.import(JSON.stringify(preset));
         check(runtime.getStandalone().background.mode === 'bassPulse' && doc.querySelector('#background-mode').value === 'bassPulse', 'New modes and appearance roundtrip through preset and UI');
+        runtime.updateStandalone({background:{mode:'static'}}); const staticPreset = app.VisualizerPresets.create('Static');
+        app.VisualizerPresets.reset(); app.VisualizerPresets.import(JSON.stringify(staticPreset));
+        check(runtime.getStandalone().background.mode === 'static' && doc.querySelector('#background-mode').value === 'static', 'Static survives Preset roundtrip');
         const old = {format:'audio-visualizer-preset',version:1,properties:{backgroundsource:3,customrandomdirectory:'old',slideshowInterval:2,imageoptions:3},standalone:{background:{mode:'slideshow',opacity:.5}}};
         const migrated = app.VisualizerPresets.import(JSON.stringify(old));
         check(runtime.getSettings().backgroundsource.value === 2 && runtime.getStandalone().background.mode === 'infinity' && migrated.warnings.length >= 4, 'Old slideshow preset safely migrates and ignores removed settings');

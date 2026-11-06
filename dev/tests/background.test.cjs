@@ -34,6 +34,13 @@ test('Coverage accounts for offsets, blur and movement; centered bass ignores of
     }
     assert.equal(motion.coverage({...defaults,mode:'bassPulse',offsetX:1920,offsetY:1080}), 1.08);
 });
+test('Static keeps user offsets inside coverage but ignores stored drift', () => {
+    const app = modules(), motion = app.VisualizerBackgroundMotion, defaults = app.VisualizerBackgroundSettings.defaults();
+    assert.equal(app.VisualizerBackgroundSettings.normalize({mode:'static'}).mode,'static');
+    assert.equal(motion.coverage({...defaults,mode:'static',offsetX:0,offsetY:0,driftAmount:60}), defaults.baseScale);
+    const scale = motion.coverage({...defaults,mode:'static',offsetX:400,offsetY:-200,blur:10,driftAmount:60});
+    assert.ok((scale - 1) * 960 >= 430 - 1e-8 && (scale - 1) * 540 >= 230 - 1e-8);
+});
 test('Bass uses processed low bins only, bounds impulses and releases monotonically', () => {
     const app = modules(), motion = app.VisualizerBackgroundMotion, smooth = app.VisualizerLyricsRuntime.envelope;
     const samples = Array(128).fill(0); samples[20] = 100;
@@ -88,6 +95,11 @@ test('Infinity stage advances while paused and restarts after idle Bass, disable
     tick(50000);const afterHome=image.style.transform;tick(50100);assert.notEqual(image.style.transform,afterHome);
     app.document.hidden=true;events.get('document.visibilitychange')();assert.equal(frames.size,0);
     app.document.hidden=false;events.get('document.visibilitychange')();assert.equal(frames.size,1);
+    update({mode:'static',offsetX:12,offsetY:-7,baseScale:1.2,driftAmount:0}); assert.equal(frames.size,0,'Static never schedules a frame');
+    assert.equal(image.style.willChange,''); const still=image.style.transform; assert.match(still,/translate3d\(12px,-7px,0\) scale\(1\.2\)/);
+    app.audioSample.fill(1); audio.paused=false; events.get('audio.play')(); events.get('wavecanvas-view-change')(); events.get('document.visibilitychange')();
+    assert.equal(frames.size,0,'Play, view and visibility events keep Static idle'); assert.equal(image.style.transform,still,'Static ignores audio');
+    update({mode:'infinity'}); assert.equal(frames.size,1,'Leaving Static restarts motion');
 });
 test('Protected audio, Lyrics and Timing modules remain byte-identical', () => {
     const hashes = JSON.parse(fs.readFileSync(path.join(root, '../dev/tests/fixtures/baselines/background-protected-hashes.json')));

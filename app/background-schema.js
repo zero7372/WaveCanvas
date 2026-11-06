@@ -5,7 +5,8 @@
         enabled: { type: 'bool', text: '啟用背景圖片', value: true },
         mode: { type: 'combo', text: '背景動作模式', value: 'infinity', options: [
             { value: 'infinity', label: '無限漂移 · Infinity Drift' },
-            { value: 'bassPulse', label: '低頻脈動 · Bass Pulse' }
+            { value: 'bassPulse', label: '低頻脈動 · Bass Pulse' },
+            { value: 'static', label: '靜態圖片 · Static' }
         ] },
         baseScale: slider('基礎縮放', 1.08, 1, 2, 0.01),
         driftAmount: { ...slider('漂移幅度（畫布像素）', 18, 0, 60), mode: 'infinity' },
@@ -19,7 +20,7 @@
         blur: slider('圖片模糊（畫布像素）', 0, 0, 80),
         backingColor: { type: 'color', text: '圖片後方底色', value: '#000000' }
     };
-    properties.offsetX.mode = properties.offsetY.mode = 'infinity';
+    properties.offsetX.mode = properties.offsetY.mode = ['infinity', 'static'];
     function defaults() { return Object.fromEntries(Object.entries(properties).map(([key, field]) => [key, field.value])); }
     function normalize(patch, base = defaults()) {
         if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new TypeError('圖片背景設定必須是物件。');
