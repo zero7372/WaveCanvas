@@ -9,6 +9,8 @@ root = pathlib.Path(__file__).resolve().parents[3]
 base = root / 'dev/ffmpeg-build'
 out = root / 'release'
 out.mkdir(exist_ok=True)
+version = json.loads((root / 'package.json').read_text(encoding='utf-8'))['version']
+source_zip = f'WaveCanvas-{version}-GPL-Source.zip'
 build = json.loads((base / 'manifests/BUILD-MANIFEST.json').read_text())
 closure = json.loads((base / 'manifests/CLOSURE-REVIEW.json').read_text())
 sha = lambda data: hashlib.sha256(data).hexdigest()
@@ -53,16 +55,16 @@ source = lambda s: dict(tag=s.get('tag'), commit=s['commit'], file=s['archive'],
 m = dict(schemaVersion=2, provider=build['provider'], status='PASS', staticClosureStatus='PASS', licenseClosureStatus='PASS',
          deliveryStatus='PASS', artifactReady=True, published=False, deliveryMode='alongside-installer', deliveryURL=None,
          publicationMetadata='Official release URL has not been decided; publication has not been performed.',
-         deliveryStatement='Source package distributed alongside the WaveCanvas 1.0.0 installer: WaveCanvas-1.0.0-GPL-Source.zip',
-         sourceArchive='WaveCanvas-1.0.0-GPL-Source.zip', plannedCompleteArtifact='WaveCanvas-1.0.0-GPL-Source.zip',
+         deliveryStatement=f'Source package distributed alongside the WaveCanvas {version} installer: {source_zip}',
+         sourceArchive=source_zip, plannedCompleteArtifact=source_zip,
          ffmpegSource=source(build['sources']['ffmpeg']), libx264Source=source(build['sources']['x264']), dependencies=deps,
          buildRecipe=dict(status='PASS', providerScripts=['build-scripts/' + s for s in scripts]),
          patches=dict(status='PASS', provider=[], evidence='patches/PATCHES.md'),
          buildManifest='manifests/BUILD-MANIFEST.json', closureReview='manifests/CLOSURE-REVIEW.json', output=build['output'])
 files['SOURCE-MANIFEST.json'] = jsonbytes(m)
-files['README.md'] = ('''# WaveCanvas 1.0.0 corresponding source
+files['README.md'] = ('''# WaveCanvas @VERSION@ corresponding source
 
-This complete source package accompanies WaveCanvas-Setup-1.0.0.exe. Publication has not been performed; no official release URL is invented. Always distribute this ZIP alongside the installer. The manifest binds the exact installed ffmpeg/ffprobe hashes to the source inputs and recipes.
+This complete source package accompanies WaveCanvas-Setup-@VERSION@.exe. Publication has not been performed; no official release URL is invented. Always distribute this ZIP alongside the installer. The manifest binds the exact installed ffmpeg/ffprobe hashes to the source inputs and recipes.
 
 Full FFmpeg, x264 and zlib source snapshots and their original hash-verified archives are included offline. Zero WaveCanvas source patches. Standard compiler runtimes and Windows interfaces are reviewed individually in manifests/CLOSURE-REVIEW.json, including statically linked winpthreads/libatomic, with complete license notices. These exclusions do not claim exact MSYS2 source patch provenance; general purpose compiler tools are not redistributed here.
 
@@ -76,7 +78,7 @@ Requirements: Windows x64, PowerShell, Python 3.10+, an ASCII workspace path wit
 Outputs are written to output/. Exact tool versions/packages, configure flags, source hashes, file hashes and output hashes are recorded under manifests/ and build-evidence/. No manually entered configure command is required. Byte identity across machines is not promised. x264 snapshot display version 0.165.x is not a revision counter; its exact upstream commit is in the manifest.
 
 WaveCanvas launches standalone GPL executables through processes/pipes; it does not link their libraries into its MIT application. GPLv3-or-later applies to the FFmpeg executables. All original source/license files and WaveCanvas MIT attribution are retained. This is an engineering provenance review, not legal certification.
-''').encode()
+''').replace('@VERSION@', version).encode()
 files['FILE-HASHES.json'] = jsonbytes({name: sha(data) for name, data in sorted(files.items())})
 archive = out / m['sourceArchive']
 with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:

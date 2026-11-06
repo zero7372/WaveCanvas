@@ -1,7 +1,8 @@
 $ErrorActionPreference = 'Stop'
 $taskRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$taskVersion = (Get-Content -Raw -Encoding utf8 (Join-Path $taskRoot 'package.json') | ConvertFrom-Json).version
 $taskEvidence = Join-Path $taskRoot 'dev/tests/artifacts/installer-qa.json'
-$taskFinalInstaller = Join-Path $taskRoot 'release/WaveCanvas-Setup-1.0.0.exe'
+$taskFinalInstaller = Join-Path $taskRoot "release/WaveCanvas-Setup-$taskVersion.exe"
 $taskUpgradeInstaller = Join-Path $taskRoot 'dist/upgrade-rc/WaveCanvas-Setup-1.0.0-rc.1.exe'
 $taskInstallPath = Join-Path $env:LOCALAPPDATA 'Programs/WaveCanvas'
 $taskStartLink = Join-Path $env:APPDATA 'Microsoft/Windows/Start Menu/Programs/WaveCanvas.lnk'
@@ -53,10 +54,10 @@ Invoke-Uninstall
 Test-ReleaseCheck ((Get-PreservationHashes) -eq $taskBefore) 'Uninstall preserves original AppData, isolated business data / ten backups and project / media hashes'
 $taskRcGuid = Invoke-Install $taskUpgradeInstaller '1.0.0-rc.1'
 Test-ReleaseCheck ((Get-PreservationHashes) -eq $taskBefore) 'Internal RC install preserves data'
-$taskFinalGuid = Invoke-Install $taskFinalInstaller '1.0.0'
+$taskFinalGuid = Invoke-Install $taskFinalInstaller $taskVersion
 Test-ReleaseCheck ($taskInitialGuid -eq $taskRcGuid[-1] -and $taskInitialGuid -eq $taskFinalGuid[-1]) 'Upgrade uses same GUID / appId and does not duplicate installation'
 Test-ReleaseCheck ((Get-PreservationHashes) -eq $taskBefore) 'Upgrade preserves business data and projects'
 Invoke-Uninstall
 Test-ReleaseCheck ((Get-PreservationHashes) -eq $taskBefore) 'Final uninstall preserves settings, recents, remembered state, backups, projects and media'
-$null=Invoke-Install $taskFinalInstaller '1.0.0'
+$null=Invoke-Install $taskFinalInstaller $taskVersion
 Test-ReleaseCheck ((Get-PreservationHashes) -eq $taskBefore) 'Reinstall preserves all recorded business hashes'

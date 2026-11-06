@@ -9,7 +9,7 @@ test('Shell argv uses parsed absolute project paths without executing or splitti
 });
 test('Stable per-user installer identity, preservation and association configuration', () => {
     const p = require('../../package.json');
-    assert.equal(p.version, '1.0.0'); assert.equal(p.build.appId, 'com.wavecanvas.desktop');
+    assert.match(p.version, /^\d+\.\d+\.\d+$/); assert.equal(p.build.appId, 'com.wavecanvas.desktop');
     assert.equal(p.build.nsis.perMachine, false); assert.equal(p.build.nsis.allowElevation, false);
     assert.equal(p.build.nsis.deleteAppDataOnUninstall, false); assert.equal(p.build.fileAssociations[0].ext, 'waveproj');
 });

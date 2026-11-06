@@ -1,5 +1,6 @@
 $ErrorActionPreference = 'Stop'
 $taskRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$taskVersion = (Get-Content -Raw -Encoding utf8 (Join-Path $taskRoot 'package.json') | ConvertFrom-Json).version
 $taskInstall = Join-Path $env:LOCALAPPDATA 'Programs/WaveCanvas'
 $taskEvidence = Join-Path $taskRoot 'dev/reports/archive/controlled-ffmpeg-2026-10-04'
 $taskChecks = [Collections.Generic.List[object]]::new()
@@ -17,7 +18,7 @@ try {
     Test-GplInstalled (@(Get-Process WaveCanvas -ErrorAction SilentlyContinue).Count -eq 0) 'No running WaveCanvas process before installer'
     $taskBefore=Get-UserBusinessHashes
     $taskBefore | Set-Content -Encoding utf8 (Join-Path $taskEvidence 'userdata-before.txt')
-    $taskProcess=Start-Process -FilePath (Join-Path $taskRoot 'release/WaveCanvas-Setup-1.0.0.exe') -ArgumentList '/S','/currentuser' -WindowStyle Hidden -PassThru -Wait
+    $taskProcess=Start-Process -FilePath (Join-Path $taskRoot "release/WaveCanvas-Setup-$taskVersion.exe") -ArgumentList '/S','/currentuser' -WindowStyle Hidden -PassThru -Wait
     Test-GplInstalled ($taskProcess.ExitCode -eq 0) 'Controlled runtime installer completes per-user install'
     Test-GplInstalled ((Get-UserBusinessHashes) -eq $taskBefore) 'Existing normal user business files unchanged'
     $taskFiles = (& node -e "console.log(JSON.stringify(require('./dev/tools/license-resources.cjs')))" | ConvertFrom-Json)
@@ -32,7 +33,7 @@ try {
     Test-GplInstalled ((Get-AuthenticodeSignature (Join-Path $taskInstall 'WaveCanvas.exe')).Status -eq 'NotSigned') 'Installed app remains unsigned'
     Test-GplInstalled ((Get-Item 'HKCU:/Software/Classes/WaveCanvas.Project/shell/open/command').GetValue('') -eq ('"'+(Join-Path $taskInstall 'WaveCanvas.exe')+'" "%1"')) 'Quoted project association unchanged'
     $taskEntries=@(Get-ChildItem 'HKCU:/Software/Microsoft/Windows/CurrentVersion/Uninstall' | ForEach-Object {Get-ItemProperty $_.PSPath} | Where-Object DisplayName -like 'WaveCanvas*')
-    Test-GplInstalled ($taskEntries.Count -eq 1 -and $taskEntries[0].DisplayVersion -eq '1.0.0') 'Single Installed Apps version 1.0.0'
+    Test-GplInstalled ($taskEntries.Count -eq 1 -and $taskEntries[0].DisplayVersion -eq $taskVersion) "Single Installed Apps version $taskVersion"
     Test-GplInstalled (Test-Path -LiteralPath (Join-Path $env:APPDATA 'Microsoft/Windows/Start Menu/Programs/WaveCanvas.lnk')) 'Start Menu shortcut retained'
     Test-GplInstalled (!(Test-Path -LiteralPath (Join-Path $taskInstall 'resources/gpl-source')) -and @(Get-ChildItem -LiteralPath (Join-Path $taskInstall 'resources') -Recurse -Filter '*GPL-Source*.zip').Count -eq 0) 'Source ZIP excluded from installer resources'
 } finally {

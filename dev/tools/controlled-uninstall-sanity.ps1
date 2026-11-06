@@ -1,5 +1,6 @@
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$taskVersion = (Get-Content -Raw -Encoding utf8 (Join-Path $taskRoot 'package.json') | ConvertFrom-Json).version
 $taskInstall=Join-Path $env:LOCALAPPDATA 'Programs/WaveCanvas'
 $taskEvidence=Join-Path $taskRoot 'dev/reports/archive/controlled-ffmpeg-2026-10-04/uninstall-sanity.json'
 $taskChecks=[Collections.Generic.List[object]]::new()
@@ -40,7 +41,7 @@ try {
     Test-Controlled (!(Test-Path -LiteralPath (Join-Path $env:APPDATA 'Microsoft/Windows/Start Menu/Programs/WaveCanvas.lnk')) -and !(Test-Path -LiteralPath (Join-Path ([Environment]::GetFolderPath('Desktop')) 'WaveCanvas.lnk'))) 'Uninstall removes shortcuts'
     Test-Controlled ((Get-ControlledBusinessHashes) -eq $taskBefore) 'Uninstall preserves normal user business files and real project/media'
     # Restore the pre-task installed-app state, using the verified new installer.
-    $taskProcess=Start-Process -FilePath (Join-Path $taskRoot 'release/WaveCanvas-Setup-1.0.0.exe') -ArgumentList '/S','/currentuser' -WindowStyle Hidden -PassThru -Wait
+    $taskProcess=Start-Process -FilePath (Join-Path $taskRoot "release/WaveCanvas-Setup-$taskVersion.exe") -ArgumentList '/S','/currentuser' -WindowStyle Hidden -PassThru -Wait
     Test-Controlled ($taskProcess.ExitCode -eq 0 -and @(Get-ControlledEntries).Count -eq 1) 'Verified controlled installer restores installed app'
     Test-Controlled ((Get-ControlledBusinessHashes) -eq $taskBefore) 'Reinstall preserves business/project files'
     foreach($taskName in @('ffmpeg.exe','ffprobe.exe')){

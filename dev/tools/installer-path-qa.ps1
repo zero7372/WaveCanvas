@@ -6,6 +6,7 @@
 )
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..')).TrimEnd('\')
+$taskVersion = (Get-Content -Raw -Encoding utf8 (Join-Path $taskRoot 'package.json') | ConvertFrom-Json).version
 $taskInstall=[IO.Path]::GetFullPath($InstallPath)
 $taskAllowed=@((Join-Path $env:LOCALAPPDATA 'Programs/WaveCanvas'),'D:\Apps\WaveCanvas','D:\應用程式\WaveCanvas 測試')
 if($taskInstall -notin $taskAllowed){throw 'Install path outside the explicit installer QA targets'}
@@ -35,7 +36,7 @@ try {
     if($Mode -eq 'Install'){
         # /D is last and consumes the entire remaining command line, including spaces.
         $taskNoDesktop=if($Desktop){''}else{' --no-desktop-shortcut'}
-        $taskProcess=Start-Process -FilePath (Join-Path $taskRoot 'release/WaveCanvas-Setup-1.0.0.exe') -ArgumentList ('/S /currentuser'+$taskNoDesktop+' /D='+$taskInstall) -WindowStyle Hidden -PassThru -Wait
+        $taskProcess=Start-Process -FilePath (Join-Path $taskRoot "release/WaveCanvas-Setup-$taskVersion.exe") -ArgumentList ('/S /currentuser'+$taskNoDesktop+' /D='+$taskInstall) -WindowStyle Hidden -PassThru -Wait
         Test-Installer ($taskProcess.ExitCode -eq 0) 'Per-user installation succeeds'
     }
     if($Mode -eq 'Uninstall'){
@@ -56,7 +57,7 @@ try {
         $taskFiles=(& node -e "console.log(JSON.stringify(require('./dev/tools/license-resources.cjs')))" | ConvertFrom-Json)
         foreach($taskFile in $taskFiles){Test-Installer ((Get-FileHash -LiteralPath (Join-Path $taskInstall ('resources/licenses/'+$taskFile))).Hash -eq (Get-FileHash -LiteralPath (Join-Path $taskRoot ('licenses/'+$taskFile))).Hash) ('Installed license '+$taskFile)}
         $taskEntries=@(Get-Entries)
-        Test-Installer ($taskEntries.Count -eq 1 -and $taskEntries[0].DisplayVersion -eq '1.0.0' -and $taskEntries[0].PSChildName -eq '6c2bb522-748e-5bcd-a5ee-9a31dfd50b64') 'Single unchanged app GUID / version'
+        Test-Installer ($taskEntries.Count -eq 1 -and $taskEntries[0].DisplayVersion -eq $taskVersion -and $taskEntries[0].PSChildName -eq '6c2bb522-748e-5bcd-a5ee-9a31dfd50b64') 'Single unchanged app GUID / version'
         Test-Installer ((Get-Item 'HKCU:/Software/Classes/WaveCanvas.Project/shell/open/command').GetValue('') -eq ('"'+(Join-Path $taskInstall 'WaveCanvas.exe')+'" "%1"')) 'Association quotes executable and project'
         Test-Installer (Test-Path -LiteralPath $taskStart) 'Start Menu shortcut exists'
         Test-Installer ((Test-Path -LiteralPath $taskDesktop) -eq $Desktop) 'Desktop shortcut matches selected task'

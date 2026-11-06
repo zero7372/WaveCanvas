@@ -1,5 +1,6 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const {version}=require('../../package.json'),sourceZip='WaveCanvas-'+version+'-GPL-Source.zip';
 const hash=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 function evaluate(root) {
     const reasons=[], output=path.join(root,'release');
@@ -22,7 +23,7 @@ function evaluate(root) {
         requireValue((m.dependencies||[]).filter(d=>d.sourceStatus==='PASS').every(d=>d.patchStatus==='PASS'),'Included source patch evidence incomplete');
         requireValue(m.artifactReady===true&&m.deliveryMode==='alongside-installer'&&m.deliveryStatement?.includes(m.sourceArchive),'Source co-delivery declaration missing');
         requireValue(m.published===false||(/^https:\/\//.test(m.deliveryURL||'')&&!/[<>]|placeholder|unresolved/i.test(m.deliveryURL)),'Published source delivery URL unresolved');
-        requireValue(m.sourceArchive===m.plannedCompleteArtifact&&m.sourceArchive==='WaveCanvas-1.0.0-GPL-Source.zip','Complete source artifact not declared');
+        requireValue(m.sourceArchive===m.plannedCompleteArtifact&&m.sourceArchive===sourceZip,'Complete source artifact not declared');
         const file=m.sourceArchive&&path.resolve(output,m.sourceArchive);
         requireValue(file&&file.startsWith(output+path.sep)&&fs.existsSync(file),'Complete source ZIP missing');
         if(file&&file.startsWith(output+path.sep)&&fs.existsSync(file)) {
@@ -36,7 +37,7 @@ function evaluate(root) {
         for(const file of ['THIRD_PARTY_NOTICES.md','win-unpacked/resources/licenses/FFmpeg/SOURCE_INFO.txt']) {
             const text=fs.readFileSync(path.join(output,file),'utf8');
             requireValue(!/<OFFICIAL_RELEASE_URL>|PENDING|NOT DELIVERED|BLOCKED/i.test(text),file+' contains unfinished source metadata');
-            requireValue(text.includes('WaveCanvas-1.0.0-GPL-Source.zip')&&/distributed alongside/i.test(text),file+' lacks exact artifact / co-delivery statement');
+            requireValue(text.includes(sourceZip)&&/distributed alongside/i.test(text),file+' lacks exact artifact / co-delivery statement');
         }
         const vendor=read(path.join(root,'vendor/ffmpeg/BUILD.json'));
         for(const [name,item] of Object.entries(m.output||{}))requireValue(vendor.sha256[name]===item.sha256&&hash(path.join(output,'win-unpacked/resources/ffmpeg',name))===item.sha256,'Controlled source binary binding mismatch: '+name);
