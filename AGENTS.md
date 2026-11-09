@@ -13,6 +13,7 @@
 | `npm run recovery:test`、`npm run update:test` | 崩潰復原與更新檢查 QA（更新檢查用模擬回應，不連網） | Electron |
 | `npm run export:test:real` | 完整 1080p60 真實匯出 | 同上，耗時較久 |
 | `npm run release:build`、`npm run release:check -- --public` | 打包與公開發布閘門 | 完整 GPL 原始碼 ZIP |
+| `npm run release:upload` | 檢查並列出要附在 GitHub Release 的檔案；加 `-- --publish` 才用 `gh` 建立草稿 Release | `gh` 已登入 |
 
 ## 介面結構
 - 設定的分組、順序和顯示名稱集中在 `app/layer-structure.js`；既有控制項由各 `*-ui.js` 建立後，`app/wavecanvas-shell.js` 依這份清單移到圖層。新增設定時要加進清單，否則使用者看不到。
@@ -28,6 +29,7 @@
 
 ## 容易踩到的地方
 - **原始碼雜湊測試：** `dev/tests/fixtures/baselines/*-protected-hashes.json` 用 SHA256 鎖住部分模組（`main.js`、音訊、歌詞繪製、Timing Editor 等）。真的需要修改時，把檔案加進對應測試的略過清單，註明原因，並補上行為測試；不要直接更新雜湊。
+- **GPL 原始碼提供方式：** 每個 GitHub Release 都必須同時附上安裝檔與同版本的 `WaveCanvas-<version>-GPL-Source.zip`，舊 Release 不刪除。`release:upload` 缺 ZIP 或雜湊不符時會拒絕。
 - **版本號：** 一律讀 `package.json`，發布文件名稱跟著版本走（`RELEASE-NOTES-<version>.md`、`WaveCanvas-<version>-GPL-Source.zip`）。
 - **匯出時間軸：** 匯出使用虛擬時鐘（`app/export-clock.js`），不能依賴 `requestAnimationFrame` 的實際時間或動畫事件。
 - **相容性：** `.waveproj` 與 Preset 都是 v1。新增欄位必須可省略，舊檔案讀取後的輸出要維持不變。

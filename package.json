@@ -41,6 +41,7 @@
     "fonts:test:build": "node dev/tools/fonts-smoke.cjs --packaged",
     "release:build": "node dev/tools/electron-run.cjs release",
     "release:check": "node dev/tools/release-check.cjs",
+    "release:upload": "node dev/tools/release-upload.cjs",
     "postrelease:build": "node dev/tools/release-check.cjs --generate"
   },
   "devDependencies": {

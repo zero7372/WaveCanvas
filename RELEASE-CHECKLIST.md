@@ -20,7 +20,7 @@ WaveCanvas 1.1.0 unsigned release artifacts. Source and installer are co-deliver
 | QA | PASS | Full regression, 3612 frames; browser all PASS |
 | Signing | N/A | Explicit unsigned release; no certificate configured |
 | Distribution artifacts | PASS | Complete source ZIP beside matching installer; RELEASE-HASHES.txt |
-| Publication | N/A | Not performed; official URL to be decided when publishing |
+| Publication | N/A | Not performed. Publish as a GitHub Release with the installer and its GPL source ZIP attached to the same release (`npm run release:upload`, draft first); never delete older releases or their source ZIPs |
 
 technicalReleaseCandidate=true
 signed=false
