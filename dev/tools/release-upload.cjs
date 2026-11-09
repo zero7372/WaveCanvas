@@ -19,7 +19,13 @@ function assets(output, version) {
 function main() {
     const version = require(path.join(root, 'package.json')).version, output = path.join(root, 'release'), tag = 'v' + version;
     const files = assets(output, version), notes = path.join(root, 'RELEASE-NOTES-' + version + '.md');
-    const args = ['release', 'create', tag, ...files, '--draft', '--title', 'WaveCanvas ' + version, '--notes-file', notes];
+    // 標籤要指向打包用的這個 commit；沒有 --target 時 GitHub 會把新標籤打在預設分支上，可能是舊程式碼。
+    const git = (...parts) => require('node:child_process').execFileSync('git', parts, { cwd: root, encoding: 'utf8' }).trim();
+    const commit = git('rev-parse', 'HEAD');
+    if (git('status', '--porcelain', '--untracked-files=no')) throw Error('工作目錄有未提交的變更，請先提交再發布。');
+    if (!git('branch', '-r', '--contains', commit)) throw Error('目前的 commit ' + commit.slice(0, 7) + ' 還沒推送到 GitHub，請先推送。');
+    const args = ['release', 'create', tag, ...files, '--draft', '--target', commit, '--title', 'WaveCanvas ' + version, '--notes-file', notes];
+    console.log('標籤 ' + tag + ' 會指向 ' + commit.slice(0, 7) + '。');
     console.log('將附在 ' + tag + ' 的檔案：'); for (const file of files) console.log('  ' + path.relative(root, file));
     if (!process.argv.includes('--publish')) { console.log('\n確認後執行：npm run release:upload -- --publish（建立草稿 Release）'); return; }
     require('node:child_process').execFileSync('gh', args, { cwd: root, stdio: 'inherit' });
