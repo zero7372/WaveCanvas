@@ -1,10 +1,11 @@
 'use strict';
+const { t } = require('../app/i18n.js');
 const WIDTH = 1920, HEIGHT = 1080, FRAME_BYTES = WIDTH * HEIGHT * 4;
 
 function validate(bitmap, width, height) {
     if (!Buffer.isBuffer(bitmap) || !Number.isInteger(width) || !Number.isInteger(height) ||
         width < WIDTH || height < HEIGHT + 1 || bitmap.length !== width * height * 4) {
-        throw Error('Stage compositor pixel buffer 尺寸不正確。');
+        throw Error(t('Stage compositor pixel buffer 尺寸不正確。'));
     }
 }
 
@@ -19,7 +20,7 @@ function stage(bitmap, width, reusable) {
     // toBitmap() owns its copy. A view keeps it alive without a second allocation.
     if (width === WIDTH) return bitmap.subarray(0, FRAME_BYTES);
     const buffer = reusable || Buffer.allocUnsafe(FRAME_BYTES);
-    if (buffer.length !== FRAME_BYTES) throw Error('Stage row buffer 長度不正確。');
+    if (buffer.length !== FRAME_BYTES) throw Error(t('Stage row buffer 長度不正確。'));
     for (let y = 0; y < HEIGHT; y++) bitmap.copy(buffer, y * WIDTH * 4, y * width * 4, y * width * 4 + WIDTH * 4);
     return buffer;
 }

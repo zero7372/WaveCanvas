@@ -19,7 +19,7 @@
     };
     const text = {
         Audio: '音訊', Background: '背景', Circle: '圓形', 'Center / Position': '中心／位置', Bars: '頻譜柱', Particles: '粒子', Overlay: '疊加圖層', Bass: '低頻', Other: '其他',
-        Color: '純色', Image: '圖片', Normal: '一般', Rainbow: '彩虹', Style1: '樣式一', Style2: '樣式二',
+        Color: '純色', Image: '圖片', Normal: '單色', Rainbow: '彩虹', Style1: '樣式一', Style2: '樣式二',
         Initial: '原始尺寸', Cover: '填滿並裁切', Contain: '完整顯示', seconds: '秒', minutes: '分鐘', hour: '小時', 'Short Hand': '縮寫', UserDefined: '自訂',
         Layout: '排列模式', 'Radial Circle': '放射圓形', 'Radial Square': '方形頻譜', Linear: '直線', Orientation: '排列方向', Horizontal: '水平', Vertical: '垂直',
         'Square Spectrum Layout': '方形頻譜排列', Symmetric: '對稱', 'Top Bass Mirror': '頂邊低頻鏡像', 'Folded Diagonal': '對角折疊',

@@ -9,7 +9,7 @@ async function freePort() { const server = net.createServer(); await new Promise
 async function launch(profile) {
     const port = await freePort(), exe = packaged ? (process.env.WAVECANVAS_QA_EXE || path.join(root, 'dist/win-unpacked/WaveCanvas.exe')) : require('electron');
     const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
-    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, '--user-data-dir=' + profile, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
+    const child = spawn(exe, ['--inspect=127.0.0.1:' + port, '--lang=zh-TW', '--user-data-dir=' + profile, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
     let output = '', exited = false; child.stdout.on('data', data => output += data); child.stderr.on('data', data => output += data); child.on('exit', () => exited = true);
     let target; for (let i = 0; i < 200 && !target && !exited; i++) { try { target = (await (await fetch('http://127.0.0.1:' + port + '/json/list')).json())[0]; } catch {} await wait(50); }
     if (!target) { child.kill(); throw Error('Inspector unavailable: ' + output); }
@@ -119,7 +119,7 @@ async function run() {
         const missingProject=JSON.parse(await fs.readFile(projectFile,'utf8'));missingProject.state.media.cover=path.join(artifacts,'missing-cover.png');missingProject.state.media.audio=path.join(artifacts,'missing-audio.wav');
         const missingPath=path.join(artifacts,'missing-media.waveproj');await fs.writeFile(missingPath,JSON.stringify(missingProject));
         await session.evaluate(`projectQA.openPaths.push(${JSON.stringify(missingPath)});true`);check(await session.renderer('WaveCanvasProject.open()'),'Missing Media project opens gracefully');
-        check(await session.renderer('WaveCanvasProject.getState().failure.includes("Missing Media")&&document.querySelector("#cover-name").textContent.includes("Missing")'),'Missing Media list and media slot indicators');
+        check(await session.renderer('WaveCanvasProject.getState().failure.includes("找不到素材")&&document.querySelector("#cover-name").textContent.includes("找不到檔案")'),'Missing Media list and media slot indicators');
         await session.renderer('VisualizerRuntime.updateStandalone({inputGain:1.7});true');
         check(await session.renderer('WaveCanvasProject.snapshot().state.media.cover.endsWith("missing-cover.png")'),'Changing settings preserves missing media references');
         await session.evaluate(`projectQA.openPaths.push(${JSON.stringify(collectParent)});true`);check(!await session.renderer('WaveCanvasProject.collect()'),'Collect missing media aborts visibly');

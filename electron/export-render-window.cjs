@@ -1,4 +1,5 @@
 'use strict';
+const { t } = require('../app/i18n.js');
 const { BrowserWindow } = require('electron'), path = require('node:path');
 const pixels = require('./export-pixels.cjs');
 
@@ -14,8 +15,8 @@ async function create() {
     let failed, rejectFailure, pendingCancel, rowBuffer, capturing = false;
     const failure = new Promise((_, reject) => { rejectFailure = reject; }); failure.catch(() => {});
     const fail = error => { failed ||= error; pendingCancel?.(failed); rejectFailure(failed); };
-    contents.on('render-process-gone', (_event, details) => fail(Error('輸出 Renderer 停止：' + details.reason)));
-    contents.on('destroyed', () => fail(Error('輸出 Renderer 已關閉。')));
+    contents.on('render-process-gone', (_event, details) => fail(Error(t('輸出 Renderer 停止：{reason}', { reason: details.reason }))));
+    contents.on('destroyed', () => fail(Error(t('輸出 Renderer 已關閉。'))));
     contents.on('console-message', details => { if (details.level === 'error') console.error('[Export Renderer]', details.message); });
     try { await window.loadFile(path.resolve(__dirname, '../app/export.html')); }
     catch (error) { window.destroy(); throw error; }
@@ -32,7 +33,7 @@ async function create() {
         return info;
     }, async capture(index, marks) {
         if (failed) throw failed;
-        if (capturing) throw Error('Export capture 必須逐幀等待。');
+        if (capturing) throw Error(t('Export capture 必須逐幀等待。'));
         capturing = true;
         if (marks) Object.assign(marks, { paintWaitMs: 0, cropMs: 0, bitmapMs: 0, copyMs: 0, rejectedPaints: 0 });
         let received, renderFinished;
@@ -60,7 +61,7 @@ async function create() {
                     cleanup(); resolve(frame);
                 } catch (error) { cleanup(); reject(error); }
             };
-            const timer = setTimeout(() => pendingCancel?.(Error('等待當前 Stage compositor frame 逾時。')), 10000);
+            const timer = setTimeout(() => pendingCancel?.(Error(t('等待當前 Stage compositor frame 逾時。'))), 10000);
             // Subscribe before advance. The changing metadata row always dirties the frame.
             contents.on('paint', painted);
         });
@@ -75,7 +76,7 @@ async function create() {
         } catch (error) { pendingCancel?.(error); throw error; }
         finally { capturing = false; }
     }, dispose() {
-        pendingCancel?.(Error('已停止 Stage capture。'));
+        pendingCancel?.(Error(t('已停止 Stage capture。')));
         rowBuffer = null;
         if (!window.isDestroyed()) window.destroy();
     } };

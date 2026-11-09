@@ -16,7 +16,7 @@
     function duration() { return Number.isFinite(audio.duration) && audio.getAttribute('src') ? audio.duration : Infinity; }
     function eventFor(selection = selected) { return selection && docs[selection.source]?.events.find(event => event.id === selection.id); }
     function offsets(source) { return (docs[source]?.fileOffsetMs || 0) + settings.globalOffsetMs + (source === 'secondary' ? settings.secondaryOffsetMs : 0); }
-    function offsetUI() { $('#timing-offsets').textContent = '時間偏移另計：主要 ' + offsets('primary') + ' 毫秒，次要 ' + offsets('secondary') + ' 毫秒'; }
+    function offsetUI() { window.WaveCanvasI18nDom.text($('#timing-offsets'), '時間偏移另計：主要 {primary} 毫秒，次要 {secondary} 毫秒', { primary: offsets('primary'), secondary: offsets('secondary') }); }
     function xTime(event) { return map.timeToX(event.timeMs / 1000); }
     function seek(seconds) {
         if (!Number.isFinite(duration())) { message('請先載入音訊以使用 Seek。'); return; }
@@ -49,7 +49,7 @@
         const to = model.bounded(ms, duration(), snapMs);
         if (to === from) { selectionUI(); return false; }
         lyrics.retime(selection.source, selection.id, to);
-        history.record({ ...selection, documentId, from, to }); selectionUI(); message('已更新時間：' + model.format(to)); return true;
+        history.record({ ...selection, documentId, from, to }); selectionUI(); message(window.WaveCanvasI18n.t('已更新時間：{time}', { time: model.format(to) })); return true;
     }
     function adjust(delta) { const event = eventFor(); if (event) edit(event.timeMs + delta); }
     function undo() { if (history.undo()) { historyUI(); message('已復原校時。'); } }
@@ -138,7 +138,7 @@
             ctx.fillStyle = '#a09b91'; ctx.fillText(rulerLabel(second, interval), x + 4, 12);
         }
         ctx.strokeStyle = '#3f3c38'; ctx.beginPath(); ctx.moveTo(0, 48); ctx.lineTo(width, 48); ctx.stroke();
-        if (!peaks) { ctx.fillStyle = '#a09b91'; ctx.fillText(waveState, 12, 55); return; }
+        if (!peaks) { ctx.fillStyle = '#a09b91'; ctx.fillText(window.WaveCanvasI18n.t(waveState), 12, 55); return; }
         const level = waveform.level(peaks, 1 / scale); ctx.strokeStyle = '#8d887e'; ctx.beginPath();
         for (let x = 0; x < width; x++) {
             const first = Math.floor(map.xToTime(scrollLeft + x) * peaks.sampleRate / level.stride);

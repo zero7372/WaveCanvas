@@ -52,7 +52,7 @@
             if (versions.get(key) !== version) return false;
             pending.delete(key);
             releaseList(candidates);
-            throw new Error('圖片無法載入：' + error.message);
+            throw new Error(window.WaveCanvasI18n.t('圖片無法載入：{message}', { message: error.message }));
         }
     }
 

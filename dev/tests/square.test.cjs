@@ -144,7 +144,7 @@ test('All Square layouts retain reverse, inward, bass, rotation and cached cover
 });
 test('Square spectrum schema defaults legacy presets to Symmetric and validates enums', () => {
     const app=environment();assert.equal(app.defaults.squareSpectrumLayout,'symmetric');
-    const env={window:null};env.window=env;vm.createContext(env);vm.runInContext(fs.readFileSync(path.join(root,'layout-schema.js'),'utf8'),env);
+    const env={window:null};env.window=env;vm.createContext(env);vm.runInContext(fs.readFileSync(path.join(root,'i18n.js'),'utf8'),env);vm.runInContext(fs.readFileSync(path.join(root,'layout-schema.js'),'utf8'),env);
     assert.equal(env.VisualizerLayoutSettings.normalize({layout:'square'}).squareSpectrumLayout,'symmetric');
     for(const squareSpectrumLayout of ['symmetric','topBassMirror','foldedDiagonal'])assert.equal(env.VisualizerLayoutSettings.normalize({squareSpectrumLayout}).squareSpectrumLayout,squareSpectrumLayout);
     assert.throws(()=>env.VisualizerLayoutSettings.normalize({squareSpectrumLayout:'unknown'}),/選項無效/);

@@ -36,22 +36,22 @@
             if (value !== rawValue) warnings.push('Migrated: ' + key);
             switch (definition.type) {
                 case 'slider':
-                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(key + ' 必須是有限數值。');
+                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(window.WaveCanvasI18n.t('{key} 必須是有限數值。', { key }));
                     properties[key] = { value: Math.round(Math.min(definition.max, Math.max(definition.min, value))) };
                     break;
                 case 'combo':
-                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(key + ' 必須是有限數值。');
+                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(window.WaveCanvasI18n.t('{key} 必須是有限數值。', { key }));
                     if (definition.options.some(option => option.value === value)) properties[key] = { value };
                     else warnings.push('Defaulted: ' + key);
                     break;
                 case 'bool':
-                    if (typeof value !== 'boolean') throw new Error(key + ' 必須是布林值。');
+                    if (typeof value !== 'boolean') throw new Error(window.WaveCanvasI18n.t('{key} 必須是布林值。', { key }));
                     properties[key] = { value };
                     break;
                 case 'color': {
-                    if (typeof value !== 'string') throw new Error(key + ' 顏色格式無效。');
+                    if (typeof value !== 'string') throw new Error(window.WaveCanvasI18n.t('{key} 顏色格式無效。', { key }));
                     const components = value.trim().split(/\s+/);
-                    if (components.length !== 3 || components.some(part => part === '' || !Number.isFinite(Number(part)))) throw new Error(key + ' 顏色格式無效。');
+                    if (components.length !== 3 || components.some(part => part === '' || !Number.isFinite(Number(part)))) throw new Error(window.WaveCanvasI18n.t('{key} 顏色格式無效。', { key }));
                     properties[key] = { value: components.map(part => Math.min(1, Math.max(0, Number(part)))).join(' ') };
                     break;
                 }

@@ -30,13 +30,17 @@
         field('General','confirmUnsavedClose','preference-close-confirm','關閉未儲存專案前確認');
         field('Project','askNameOnCreate','preference-ask-name','建立新專案時要求輸入名稱');
         const enabled = field('Project','autosaveEnabled','preference-autosave','自動儲存');
-        const interval = field('Project','autosaveIntervalMinutes','preference-interval','自動儲存間隔', schema.intervals.map(v => [v,v + ' 分鐘']));
+        const interval = field('Project','autosaveIntervalMinutes','preference-interval','自動儲存間隔', schema.intervals.map(v => [v,window.WaveCanvasI18n.t('{count} 分鐘', { count: v })]));
         field('Project','recentProjectsLimit','preference-recent-limit','最近使用的專案數量', schema.recentLimits.map(v => [v,v]));
         const note = document.createElement('p'); note.className = 'dialog-note'; note.textContent = '只有已建立專案檔的專案才會自動儲存；每個專案保留最多 10 份備份。'; sections.Project.append(note);
         const volume = field('Playback','defaultVolume','preference-volume','預設音量'), volumeValue = document.createElement('output'); volume.after(volumeValue); volume.oninput = () => volumeValue.textContent = volume.value + '%';
         field('Playback','autoPlayOnLoad','preference-autoplay','載入音訊或專案後自動播放');
         const playbackNote = document.createElement('p'); playbackNote.className = 'dialog-note'; playbackNote.textContent = '啟動時重新開啟專案不會自動播放；變更預設音量不影響正在播放的內容。'; sections.Playback.append(playbackNote);
         field('Interface','uiScale','preference-ui-scale','介面大小', schema.scales.map(v => [v,Math.round(v * 100) + '%']));
+        // 語言名稱一律用該語言本身書寫，不跟著介面翻譯。
+        const languageSelect = field('Interface','language','preference-language','語言', [['system','跟隨系統'],['zh-TW','繁體中文'],['en','English'],['ja','日本語']]);
+        for (const option of languageSelect.options) if (option.value !== 'system') option.dataset.i18nSkip = '';
+        const languageNote = document.createElement('p'); languageNote.className = 'dialog-note'; languageNote.textContent = 'English 與日本語為翻譯草稿。切換語言不影響專案內容與輸出結果。'; sections.Interface.append(languageNote);
         field('Export','defaultDirectoryMode','preference-export-mode','預設輸出位置', [['last-used','上次使用的資料夾'],['project-folder','專案所在資料夾'],['custom','自訂資料夾']]);
         const folder = field('Export','customDirectory','preference-export-directory','自訂資料夾'), choose = ui.button('選擇資料夾'); choose.id = 'preference-choose-directory'; sections.Export.append(choose);
         const data = ui.button('開啟資料資料夾'); data.id = 'preference-open-data'; sections.Advanced.append(data);
@@ -54,7 +58,7 @@
         save.onclick = async () => {
             lock(true); status.textContent = ''; const changes = {};
             for (const [name,input] of Object.entries(controls)) { const [group,key] = name.split('.'); changes[group] ||= {}; changes[group][key] = input.type === 'checkbox' ? input.checked : ['autosaveIntervalMinutes','recentProjectsLimit','uiScale'].includes(key) ? Number(input.value) : key === 'defaultVolume' ? Number(input.value) / 100 : key === 'customDirectory' ? input.value || null : input.value; }
-            try { await preferences.update(changes, restoringDefaults); dialog.close(); } catch (error) { status.textContent = '無法儲存：' + error.message; } finally { lock(false); }
+            try { await preferences.update(changes, restoringDefaults); dialog.close(); } catch (error) { status.textContent = window.WaveCanvasI18n.t('無法儲存：{message}', { message: error.message }); } finally { lock(false); }
         };
         dialog.addEventListener('close', () => { dialog.remove(); active = false; }, { once:true }); first.click(); dialog.showModal(); first.focus();
     }

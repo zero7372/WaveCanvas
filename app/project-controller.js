@@ -83,7 +83,7 @@
         if (applicationVersion) value.appVersion = applicationVersion;
         if (kind === 'autosave' && before === lastSavedHash) { dirty = false; notify(); return false; }
         for (const [slot, file] of [['audio', window.VisualizerLocalAudio.getFile()], ['cover', window.VisualizerFiles.getFile('logoimage')], ['background', window.VisualizerFiles.getFile('backgroundimage')]]) {
-            if (file && !media[slot]) throw new Error('無法取得 ' + slot + ' 的本地路徑；請用桌面檔案選擇器重新匯入。');
+            if (file && !media[slot]) throw new Error(window.WaveCanvasI18n.t('無法取得 {slot} 的本地路徑；請用桌面檔案選擇器重新匯入。', { slot }));
         }
         saving = true; failure = ''; notify();
         try {
@@ -92,7 +92,7 @@
             projectPath = result.path; metadata = { ...metadata, appVersion: result.project.appVersion, modifiedAt: result.project.modifiedAt };
             for (const slot of model.slots) if (media[slot] === value.state.media[slot]) media[slot] = result.project.state.media[slot];
             lastSavedHash = hash(result.project); check(); window.dispatchEvent(new Event('wavecanvas-recent-change')); return !dirty;
-        } catch (error) { failure = (kind === 'autosave' ? '自動儲存失敗：' : '儲存失敗：') + error.message; dirty = true; console.error(failure); return false; }
+        } catch (error) { failure = window.WaveCanvasI18n.t(kind === 'autosave' ? '自動儲存失敗：{message}' : '儲存失敗：{message}', { message: error.message }); dirty = true; console.error(failure); return false; }
         finally { saving = false; notify(); }
     }
     function clearMedia() {
@@ -123,7 +123,7 @@
                     const timer = setTimeout(done, 10000); audio.addEventListener('loadedmetadata', done, { once: true }); audio.addEventListener('error', done, { once: true });
                     window.VisualizerLocalAudio.load(files.audio);
                 });
-                if (audio.error) missing.push('audio: 無法解碼 ' + files.audio.name);
+                if (audio.error) missing.push(window.WaveCanvasI18n.t('audio: 無法解碼 {name}', { name: files.audio.name }));
             } else await new Promise(resolve => setTimeout(resolve, 0));
             for (const [slot, key] of [['cover', 'logoimage'], ['background', 'backgroundimage']]) if (files[slot]) {
                 knownFiles.set(files[slot], value.state.media[slot]);
@@ -136,13 +136,13 @@
             window.VisualizerLyrics.restoreDocuments(value.state.lyrics);
             await api.activate(loaded.token);
             metadata = { projectId: value.projectId, name: value.name, appVersion: value.appVersion, createdAt: value.createdAt, modifiedAt: value.modifiedAt };
-            media = { ...value.state.media }; projectPath = loaded.path; failure = missing.length ? 'Missing Media：\n' + missing.join('\n') : '';
+            media = { ...value.state.media }; projectPath = loaded.path; failure = missing.length ? window.WaveCanvasI18n.t('找不到素材：\n{list}', { list: missing.join('\n') }) : '';
             missingMedia = Object.fromEntries(Object.entries(loaded.media).filter(([, ref]) => ref?.missing).map(([slot, ref]) => [slot, { name: ref.name, path: ref.path }]));
             // Compare to the normalized state actually restored, preserving missing references.
             lastSavedHash = hash(snapshot()); dirty = false;
             for (const slot of model.slots) {
                 const node = document.querySelector('#' + (slot === 'audio' ? 'audio' : slot === 'cover' ? 'cover' : slot) + '-name');
-                if (node && loaded.media[slot]?.missing) node.textContent = 'Missing · ' + loaded.media[slot].name;
+                if (node && loaded.media[slot]?.missing) window.WaveCanvasI18nDom.text(node, '找不到檔案 · {name}', { name: loaded.media[slot].name });
             }
             window.WaveCanvasShell.showView('EDITOR'); window.dispatchEvent(new Event('wavecanvas-recent-change'));
             if (userInitiated && !missing.length && files.audio && preferences.get().playback.autoPlayOnLoad) {
@@ -192,7 +192,7 @@
         if (name !== metadata.name) { metadata.name = name; markProjectDirty(); }
         return true;
     }); }
-    async function collect() { return operation(async () => { await tracking; const result = await api.collect(snapshot()); if (!result) return false; if (result.switch) await restore(result.loaded); else { failure = '專案已收集完成：' + result.path; notify(); } return true; }); }
+    async function collect() { return operation(async () => { await tracking; const result = await api.collect(snapshot()); if (!result) return false; if (result.switch) await restore(result.loaded); else { failure = window.WaveCanvasI18n.t('專案已收集完成：{path}', { path: result.path }); notify(); } return true; }); }
     lastSavedHash = hash(snapshot());
     // One scheduler for the lifetime of this controller, independent of Open/New.
     const scheduler = window.WaveCanvasAutosaveScheduler(() => { if (!window.WaveCanvasExport?.getState().busy && !busy && !saving && projectPath && dirty) operation(() => save('autosave')); });

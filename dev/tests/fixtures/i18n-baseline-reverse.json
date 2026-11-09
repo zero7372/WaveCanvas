@@ -1,0 +1,118 @@
+{
+ "layout-schema.js": [
+  [
+   "                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(window.WaveCanvasI18n.t('{key} 必須是有限數值', { key }));",
+   "                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(key + ' 必須是有限數值');"
+  ],
+  [
+   "                if (typeof value !== 'boolean') throw new TypeError(window.WaveCanvasI18n.t('{key} 必須是布林值', { key }));",
+   "                if (typeof value !== 'boolean') throw new TypeError(key + ' 必須是布林值');"
+  ],
+  [
+   "            } else if (!field.options.some(option => option.value === value)) throw new TypeError(window.WaveCanvasI18n.t('{key} 選項無效', { key }));",
+   "            } else if (!field.options.some(option => option.value === value)) throw new TypeError(key + ' 選項無效');"
+  ]
+ ],
+ "local-audio.js": [
+  [
+   "            window.WaveCanvasI18nDom.text(status, '載入中：{name}', { name: file.name });",
+   "            status.textContent = '載入中：' + file.name;"
+  ],
+  [
+   "            if (currentSelection === selection) showError(window.WaveCanvasI18n.t('無法啟動音訊：{message}', { message: error.message }));",
+   "            if (currentSelection === selection) showError('無法啟動音訊：' + error.message);"
+  ]
+ ],
+ "lyrics-ui.js": [
+  [
+   "    // 切換語言時重組狀態列；正在顯示錯誤訊息時保留原訊息。\n    window.addEventListener('wavecanvas-language-change', () => { if (status.dataset.error !== 'true') render(lyrics.getState(), 'initial'); });\n    lyrics.subscribe(render);\n    function render(state, reason) {",
+   "    lyrics.subscribe((state, reason) => {"
+  ],
+  [
+   "            // 狀態列由數段組成，每段各自翻譯；檔名是使用者內容，只當參數帶入。\n            const t = window.WaveCanvasI18n.t;\n            status.textContent = state.count ? [t('{name} · {count} 句 · 檔案偏移 {offset} 毫秒', { name: state.name, count: state.count, offset: state.fileOffsetMs }),\n                state.secondaryName ? t('次要：{name}（偏移 {offset} 毫秒）', { name: state.secondaryName, offset: state.secondaryFileOffsetMs }) : '',\n                state.warnings ? t('{count} 筆匯入警告／忽略項目', { count: state.warnings }) : ''].filter(Boolean).join(' · ')\n                : state.name ? '此檔案沒有有效的逐行歌詞。'\n                    : state.secondaryName ? t('已載入次要：{name}；請選擇主要 LRC 建立時間線。', { name: state.secondaryName }) : '尚未載入歌詞';",
+   "            status.textContent = state.count ? state.name + ' · ' + state.count + ' 句 · 檔案偏移 ' + state.fileOffsetMs + ' 毫秒'\n                + (state.secondaryName ? ' · 次要：' + state.secondaryName + '（偏移 ' + state.secondaryFileOffsetMs + ' 毫秒）' : '')\n                + (state.warnings ? ' · ' + state.warnings + ' 筆匯入警告／忽略項目' : '') : state.name ? '此檔案沒有有效的逐行歌詞。'\n                    : state.secondaryName ? '已載入次要：' + state.secondaryName + '；請選擇主要 LRC 建立時間線。' : '尚未載入歌詞';"
+  ],
+  [
+   "    }",
+   "    });"
+  ],
+  [
+   "            input.type = 'range'; const numeric = element('input'); numeric.type = 'number'; window.WaveCanvasI18nDom.attr(numeric, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(definition.text) }); inputs.push(numeric);",
+   "            input.type = 'range'; const numeric = element('input'); numeric.type = 'number'; numeric.setAttribute('aria-label', definition.text + '數值'); inputs.push(numeric);"
+  ]
+ ],
+ "presets.js": [
+  [
+   "                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(window.WaveCanvasI18n.t('{key} 必須是有限數值。', { key }));",
+   "                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(key + ' 必須是有限數值。');"
+  ],
+  [
+   "                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(window.WaveCanvasI18n.t('{key} 必須是有限數值。', { key }));",
+   "                    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(key + ' 必須是有限數值。');"
+  ],
+  [
+   "                    if (typeof value !== 'boolean') throw new Error(window.WaveCanvasI18n.t('{key} 必須是布林值。', { key }));",
+   "                    if (typeof value !== 'boolean') throw new Error(key + ' 必須是布林值。');"
+  ],
+  [
+   "                    if (typeof value !== 'string') throw new Error(window.WaveCanvasI18n.t('{key} 顏色格式無效。', { key }));",
+   "                    if (typeof value !== 'string') throw new Error(key + ' 顏色格式無效。');"
+  ],
+  [
+   "                    if (components.length !== 3 || components.some(part => part === '' || !Number.isFinite(Number(part)))) throw new Error(window.WaveCanvasI18n.t('{key} 顏色格式無效。', { key }));",
+   "                    if (components.length !== 3 || components.some(part => part === '' || !Number.isFinite(Number(part)))) throw new Error(key + ' 顏色格式無效。');"
+  ]
+ ],
+ "runtime-adapter.js": [
+  [
+   "                if (!bank || bank.visualizer.layout !== layout) throw new Error(window.WaveCanvasI18n.t('Layout bank 無效：{layout}', { layout }));",
+   "                if (!bank || bank.visualizer.layout !== layout) throw new Error('Layout bank 無效：' + layout);"
+  ]
+ ],
+ "template-selection-ui.js": [
+  [
+   "        window.WaveCanvasI18nDom.attr(image, 'alt', '{name} 模板靜態預覽', { name: definition.name }); image.decoding = 'async';",
+   "        image.alt = definition.name + ' 模板靜態預覽'; image.decoding = 'async';"
+  ],
+  [
+   "        window.WaveCanvasI18nDom.attr(button, 'aria-label', '{name}：使用此模板', { name: definition.name });",
+   "        button.setAttribute('aria-label', definition.name + '：使用此模板');"
+  ],
+  [
+   "            window.WaveCanvasI18nDom.text(document.querySelector('#settings-status'), '已套用 {name} 模板；保留目前素材。', { name: definition.name });",
+   "            document.querySelector('#settings-status').textContent = '已套用 ' + definition.name + ' 模板；保留目前素材。';"
+  ]
+ ],
+ "timing-editor.js": [
+  [
+   "    function offsetUI() { window.WaveCanvasI18nDom.text($('#timing-offsets'), '時間偏移另計：主要 {primary} 毫秒，次要 {secondary} 毫秒', { primary: offsets('primary'), secondary: offsets('secondary') }); }",
+   "    function offsetUI() { $('#timing-offsets').textContent = '時間偏移另計：主要 ' + offsets('primary') + ' 毫秒，次要 ' + offsets('secondary') + ' 毫秒'; }"
+  ],
+  [
+   "        history.record({ ...selection, documentId, from, to }); selectionUI(); message(window.WaveCanvasI18n.t('已更新時間：{time}', { time: model.format(to) })); return true;",
+   "        history.record({ ...selection, documentId, from, to }); selectionUI(); message('已更新時間：' + model.format(to)); return true;"
+  ],
+  [
+   "        if (!peaks) { ctx.fillStyle = '#a09b91'; ctx.fillText(window.WaveCanvasI18n.t(waveState), 12, 55); return; }",
+   "        if (!peaks) { ctx.fillStyle = '#a09b91'; ctx.fillText(waveState, 12, 55); return; }"
+  ]
+ ],
+ "wavecanvas-shell.js": [
+  [
+   "        const number = document.createElement('input'); number.type = 'number'; window.WaveCanvasI18nDom.attr(number, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(label) });",
+   "        const number = document.createElement('input'); number.type = 'number'; number.setAttribute('aria-label', label + '數值');"
+  ],
+  [
+   "                const number = row.querySelector('input[type=number]'); if (number) window.WaveCanvasI18nDom.attr(number, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(label) });",
+   "                const number = row.querySelector('input[type=number]'); if (number) number.setAttribute('aria-label', label + '數值');"
+  ],
+  [
+   "        text($('#primary-name'), state.name || '尚未載入主要歌詞'); if (state.name) window.WaveCanvasI18nDom.text($('#primary-meta'), '{format}，{count} 句', { format: (state.sourceFormat || 'lrc').toUpperCase(), count: state.count }); else window.WaveCanvasI18nDom.text($('#primary-meta'), 'LRC 或 SRT，可含雙語');",
+   "        text($('#primary-name'), state.name || '尚未載入主要歌詞'); text($('#primary-meta'), state.name ? (state.sourceFormat || 'lrc').toUpperCase() + '，' + state.count + ' 句' : 'LRC 或 SRT，可含雙語');"
+  ],
+  [
+   "        text($('#secondary-name'), state.secondaryName || '尚未載入次要歌詞'); if (state.secondaryName) window.WaveCanvasI18nDom.text($('#secondary-meta'), '{format}，依時間配對', { format: (state.secondarySourceFormat || 'lrc').toUpperCase() }); else window.WaveCanvasI18nDom.text($('#secondary-meta'), '選用，依時間與主要歌詞配對');",
+   "        text($('#secondary-name'), state.secondaryName || '尚未載入次要歌詞'); text($('#secondary-meta'), state.secondaryName ? (state.secondarySourceFormat || 'lrc').toUpperCase() + '，依時間配對' : '選用，依時間與主要歌詞配對');"
+  ]
+ ]
+}

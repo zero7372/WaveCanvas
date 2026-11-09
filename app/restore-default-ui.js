@@ -18,7 +18,7 @@
         const button = document.createElement('button');
         button.type = 'button'; button.className = 'restore-default'; button.textContent = '↺';
         button.title = '恢復預設值'; button.dataset.restoreScope = scope; button.dataset.restoreKey = key;
-        button.setAttribute('aria-label', (row.querySelector('label')?.textContent || key) + '：恢復預設值');
+        window.WaveCanvasI18nDom.attr(button, 'aria-label', '{field}：恢復預設值', { field: window.WaveCanvasI18n.msg(row.querySelector('label')?.textContent || key) });
         button.addEventListener('click', () => runtime.restoreDefault(scope, key));
         pair.classList.add('has-restore'); pair.append(button);
         controls.push({ scope, key, button, row });
@@ -30,7 +30,7 @@
             const current = scope === 'properties' ? properties[key].value : scope === 'inputGain' ? standalone.inputGain : standalone[scope][key];
             const baseline = scope === 'properties' ? propertyDefaults[key].value : scope === 'inputGain' ? defaults.inputGain : defaults[scope][key];
             button.disabled = window.VisualizerFactoryDefaults.equal(current, baseline);
-            button.setAttribute('aria-label', (row.querySelector('label')?.textContent || key) + '：恢復預設值');
+            window.WaveCanvasI18nDom.attr(button, 'aria-label', '{field}：恢復預設值', { field: window.WaveCanvasI18n.msg(row.querySelector('label')?.textContent || key) });
         }
     });
 }());

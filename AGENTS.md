@@ -18,6 +18,12 @@
 - 只在部分排列有效的列，用 `data-layout-hidden` 隱藏（`app/inspector-ui.js`），不要動 `hidden`，那是條件顯示在用的。
 - 排列之間各存一份的設定列在 `app/factory-layout-defaults.js` 的 `propertyKeys`，其餘共用。
 
+## 介面語言
+- 程式中的繁體中文原文就是訊息 ID，英文與日文譯文在 `app/locales/*.js`，固定譯法見 `dev/i18n-glossary.md`。
+- 固定文字直接寫繁中即可，`app/i18n-dom.js` 會套用譯文；含變數的文字用 `WaveCanvasI18n.t('…{name}…', { name })` 或 `WaveCanvasI18nDom.text()`，不要用 `+` 拼接中文。
+- 新增字串後跑 `npm test`，`dev/tests/i18n.test.cjs` 會列出缺少的翻譯。畫布 `#stage` 與使用者內容不翻譯。
+- Electron 測試啟動時都帶 `--lang=zh-TW`，結果才不會隨系統語言改變。
+
 ## 容易踩到的地方
 - **原始碼雜湊測試：** `dev/tests/fixtures/baselines/*-protected-hashes.json` 用 SHA256 鎖住部分模組（`main.js`、音訊、歌詞繪製、Timing Editor 等）。真的需要修改時，把檔案加進對應測試的略過清單，註明原因，並補上行為測試；不要直接更新雜湊。
 - **版本號：** 一律讀 `package.json`，發布文件名稱跟著版本走（`RELEASE-NOTES-<version>.md`、`WaveCanvas-<version>-GPL-Source.zip`）。

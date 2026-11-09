@@ -30,7 +30,7 @@
     const clock = seconds => Math.floor(seconds / 60).toString().padStart(2, '0') + ':' + Math.floor(seconds % 60).toString().padStart(2, '0');
     function describe() {
         const music = Number.isFinite(audio.duration) ? audio.duration : 0, seconds = settings.get();
-        summary.textContent = '1920 × 1080，60 fps，H.264。影片總長 ' + clock(music + seconds) + '，音樂 ' + clock(music) + '。';
+        window.WaveCanvasI18nDom.text(summary, '1920 × 1080，60 fps，H.264。影片總長 {total}，音樂 {music}。', { total: clock(music + seconds), music: clock(music) });
     }
     settings.subscribe(describe);
     window.WaveCanvasExportDialog = Object.freeze({ open(start) { describe(); confirm.onclick = () => { dialog.close(); start(); }; dialog.showModal(); confirm.focus(); } });

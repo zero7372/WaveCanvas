@@ -1,4 +1,5 @@
 'use strict';
+const { t } = require('../app/i18n.js');
 const { app, BrowserWindow, screen, dialog, session } = require('electron');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
@@ -20,13 +21,14 @@ function fatal(label, error) {
     if (app.isReady()) dialog.showErrorBox('WaveCanvas', label + '\n' + String(error?.message || error));
     app.exit(1);
 }
-process.on('uncaughtException', error => fatal('Main Process 發生錯誤', error));
-process.on('unhandledRejection', error => fatal('Main Process 非同步錯誤', error));
+process.on('uncaughtException', error => fatal(t('Main Process 發生錯誤'), error));
+process.on('unhandledRejection', error => fatal(t('Main Process 非同步錯誤'), error));
 const preferences = { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false,
     sandbox: true, webSecurity: true, allowRunningInsecureContent: false, devTools: true, webviewTag: false };
 async function createWindow() {
     const stateModule = require('./application-state.cjs');
     const initialSettings = await require('./settings-store.cjs').create(app.getPath('userData')).get();
+    require('./language.cjs').apply(initialSettings);
     const initialState = await stateModule.create(app.getPath('userData')).get();
     const bounds = stateModule.windowBounds(initialState.window, screen.getAllDisplays(), initialSettings.general.rememberWindowBounds);
     const area = screen.getPrimaryDisplay().workAreaSize;
@@ -54,7 +56,7 @@ async function createWindow() {
     window.webContents.setWindowOpenHandler(({ url }) => {
         // The existing Help link can read the bundled README, without granting Node access.
         if (url === pathToFileURL(path.join(root, 'README.md')).href) return { action: 'allow',
-            overrideBrowserWindowOptions: { title: 'WaveCanvas — 使用說明', width: 900, height: 700, webPreferences: preferences } };
+            overrideBrowserWindowOptions: { title: t('WaveCanvas — 使用說明'), width: 900, height: 700, webPreferences: preferences } };
         return { action: 'deny' };
     });
     window.webContents.on('did-create-window', child => {
@@ -65,11 +67,11 @@ async function createWindow() {
         const { level, message } = details;
         if (dev || level === 'error') console.error('[Renderer ' + level + '] ' + message);
     });
-    window.webContents.on('render-process-gone', (_event, details) => fatal('Renderer 意外停止', details.reason));
+    window.webContents.on('render-process-gone', (_event, details) => fatal(t('Renderer 意外停止'), details.reason));
     window.webContents.on('did-fail-load', (_event, code, description, url, isMainFrame) => {
-        if (isMainFrame && code !== -3) fatal('無法載入 WaveCanvas', description + ' (' + url + ')');
+        if (isMainFrame && code !== -3) fatal(t('無法載入 WaveCanvas'), description + ' (' + url + ')');
     });
-    window.loadFile(entry).catch(error => fatal('無法載入 WaveCanvas', error));
+    window.loadFile(entry).catch(error => fatal(t('無法載入 WaveCanvas'), error));
     return window;
 }
 const locked = app.requestSingleInstanceLock();
@@ -87,7 +89,7 @@ else {
         // This local-only app has no runtime network dependency.
         session.defaultSession.webRequest.onBeforeRequest({ urls: ['http://*/*', 'https://*/*', 'ws://*/*', 'wss://*/*'] }, (_details, callback) => callback({ cancel: true }));
         await createWindow();
-        app.on('activate', () => { if (!mainWindow) createWindow().catch(error => fatal('無法建立視窗', error)); else mainWindow.focus(); });
-    }).catch(error => fatal('無法啟動 WaveCanvas', error));
+        app.on('activate', () => { if (!mainWindow) createWindow().catch(error => fatal(t('無法建立視窗'), error)); else mainWindow.focus(); });
+    }).catch(error => fatal(t('無法啟動 WaveCanvas'), error));
     app.on('window-all-closed', () => app.quit());
 }

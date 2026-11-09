@@ -13,7 +13,7 @@
     function setLabel(selector, text) {
         const row = document.querySelector(selector), node = row?.querySelector('label');
         if (node && node.textContent !== text) node.textContent = text;
-        const number = row?.querySelector('input[type=number]'); if (number) number.setAttribute('aria-label', text + '數值');
+        const number = row?.querySelector('input[type=number]'); if (number) window.WaveCanvasI18nDom.attr(number, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(text) });
     }
     function sync(_, standalone) {
         const layout = standalone.visualizer.layout;

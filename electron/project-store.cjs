@@ -1,4 +1,5 @@
 'use strict';
+const { t } = require('../app/i18n.js');
 const fs = require('node:fs/promises'), path = require('node:path'), crypto = require('node:crypto');
 const model = require('../app/project-model.js');
 const { sanitizeProjectFilename } = require('../app/project-names.js');
@@ -25,7 +26,7 @@ function create(userData, options = {}) {
             const data = JSON.parse(await io.readFile(recentFile, 'utf8'));
             return Array.isArray(data) ? data.filter(item => item && typeof item.path === 'string' && typeof item.name === 'string'
                 && typeof item.lastOpenedAt === 'string' && ['circle', 'square', 'linear'].includes(item.layout)).slice(0, await recentLimit()) : [];
-        } catch (error) { if (error.code !== 'ENOENT') log.warn('Recent Projects 無法讀取', error.message); return []; }
+        } catch (error) { if (error.code !== 'ENOENT') log.warn(t('Recent Projects 無法讀取'), error.message); return []; }
     }
     async function recentLimit() { const value = await options.getRecentLimit?.(); return [5,10,15,20].includes(value) ? value : 10; }
     function recentMutation(change) {
@@ -34,7 +35,7 @@ function create(userData, options = {}) {
     }
     async function remember(file, project) {
         try { const limit = await recentLimit(); await recentMutation(list => [{ path: path.resolve(file), name: project.name, lastOpenedAt: new Date().toISOString(), layout: project.state.settings.standalone.visualizer.layout }, ...list.filter(item => identity(item.path) !== identity(file))].slice(0, limit)); }
-        catch (error) { log.warn('Recent Projects 無法更新', error.message); }
+        catch (error) { log.warn(t('Recent Projects 無法更新'), error.message); }
     }
     async function media(project, projectPath) {
         const result = {};
@@ -42,7 +43,7 @@ function create(userData, options = {}) {
             const reference = project.state.media[slot];
             if (!reference) { result[slot] = null; continue; }
             const file = path.resolve(path.dirname(projectPath), reference);
-            if (!extensions[slot].test(file)) throw new Error('不支援的媒體格式：' + slot);
+            if (!extensions[slot].test(file)) throw new Error(t('不支援的媒體格式：{slot}', { slot }));
             let missing = false;
             try { missing = !(await io.stat(file)).isFile(); } catch (error) { if (['ENOENT', 'ENOTDIR', 'EACCES'].includes(error.code)) missing = true; else throw error; }
             result[slot] = { path: file, reference, name: path.basename(file), missing };
@@ -50,13 +51,13 @@ function create(userData, options = {}) {
         return result;
     }
     async function open(file) {
-        if (!/\.waveproj$/i.test(file)) throw new Error('請選擇 .waveproj 專案。');
-        if ((await io.stat(file)).size > 16 * 1024 * 1024) throw new Error('專案檔案過大。');
+        if (!/\.waveproj$/i.test(file)) throw new Error(t('請選擇 .waveproj 專案。'));
+        if ((await io.stat(file)).size > 16 * 1024 * 1024) throw new Error(t('專案檔案過大。'));
         const project = model.parse(await io.readFile(file, 'utf8'), path.basename(file, path.extname(file)) || 'Untitled');
         return { project, path: path.resolve(file), media: await media(project, file) };
     }
     async function backup(file, projectId) {
-        if (!/^[a-f0-9-]{36}$/i.test(projectId)) throw new Error('Backup identity 無效。');
+        if (!/^[a-f0-9-]{36}$/i.test(projectId)) throw new Error(t('Backup identity 無效。'));
         const directory = path.join(userData, 'Backups', projectId);
         await io.mkdir(directory, { recursive: true });
         lastBackupTime = Math.max(Date.now(), lastBackupTime + 1);
@@ -68,11 +69,11 @@ function create(userData, options = {}) {
         try {
             const files = (await io.readdir(directory)).filter(name => /^\d{4}-\d{2}-\d{2}T.*\.waveproj$/.test(name)).sort();
             for (const old of files.slice(0, Math.max(0, files.length - 10))) await io.unlink(path.join(directory, old));
-        } catch (error) { log.warn('Backup cleanup 失敗', error.message); }
+        } catch (error) { log.warn(t('Backup cleanup 失敗'), error.message); }
     }
     async function save(file, project, autosave = false) {
         project = model.validate(project);
-        if (!/\.waveproj$/i.test(file)) throw new Error('專案副檔名必須是 .waveproj。');
+        if (!/\.waveproj$/i.test(file)) throw new Error(t('專案副檔名必須是 .waveproj。'));
         if (autosave) await backup(file, project.projectId); // Failure aborts before replacing the project.
         project.modifiedAt = new Date().toISOString();
         await atomicWrite(file, model.serialize(project), io); await remember(file, project);
@@ -82,7 +83,7 @@ function create(userData, options = {}) {
         project = model.validate(project);
         const sources = await media(project, currentPath || path.join(process.cwd(), 'Untitled.waveproj'));
         const missing = Object.entries(sources).filter(([, entry]) => entry?.missing);
-        if (missing.length) throw new Error('收集已中止，找不到媒體：\n' + missing.map(([slot, entry]) => slot + ': ' + entry.path).join('\n'));
+        if (missing.length) throw new Error(t('收集已中止，找不到媒體：\n{list}', { list: missing.map(([slot, entry]) => slot + ': ' + entry.path).join('\n') }));
         const name = sanitizeProjectFilename(project.name); let directory;
         for (let suffix = 0; suffix < 1000; suffix++) {
             directory = path.join(parent, name + (suffix ? '_' + (suffix + 1) : ''));
@@ -113,7 +114,7 @@ function create(userData, options = {}) {
             // Remove only the new folder exclusively created by this operation, never a user's existing folder.
             const relative = path.relative(path.resolve(parent), path.resolve(directory));
             if (relative && !relative.startsWith('..') && !path.isAbsolute(relative)) {
-                await io.rm(path.resolve(directory), { recursive: true, force: true }).catch(cleanup => log.warn('收集失敗的新增資料夾無法清理', cleanup.message));
+                await io.rm(path.resolve(directory), { recursive: true, force: true }).catch(cleanup => log.warn(t('收集失敗的新增資料夾無法清理'), cleanup.message));
             }
             throw error;
         }

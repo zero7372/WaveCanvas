@@ -256,3 +256,6 @@ body[data-view=HOME] .editor-strip>div { display:none; }
 .setting-row[data-background-property=enabled][data-active=false] { display:none; }
 .app-dialog .setting-row { grid-template-columns:118px minmax(0,1fr); }
 .app-dialog .setting-row>label { margin:0; }
+/* 介面字型依語言選字形，避免日文漢字用到繁中字形。畫布 #stage 固定 lang="zh-Hant"，預覽與輸出不受介面語言影響。 */
+:root:lang(ja) { --ui:"Segoe UI Variable","Segoe UI","Yu Gothic UI","Meiryo UI","Noto Sans JP",sans-serif; }
+#stage { font-family:"Segoe UI Variable","Segoe UI","Microsoft JhengHei UI","Noto Sans TC",sans-serif; }

@@ -105,7 +105,7 @@
         const row = document.createElement('div'); row.className = 'setting-row'; row.dataset.positionProxy = name;
         const title = document.createElement('label'); title.textContent = label; title.htmlFor = 'position-' + name;
         const range = document.createElement('input'); range.type = 'range'; range.id = title.htmlFor;
-        const number = document.createElement('input'); number.type = 'number'; number.setAttribute('aria-label', label + '數值');
+        const number = document.createElement('input'); number.type = 'number'; window.WaveCanvasI18nDom.attr(number, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(label) });
         for (const input of [range, number]) {
             input.min = Math.round(toPercent(Number(source.min)) * 10) / 10; input.max = Math.round(toPercent(Number(source.max)) * 10) / 10; input.step = .1;
             input.addEventListener('input', () => { if (input.value !== '') write(Math.min(Number(source.max), Math.max(Number(source.min), Math.round((Number(input.value) - 50) / 100 * canvas)))); });
@@ -129,7 +129,7 @@
             const node = $(structure.selector(kind, key)); const row = kind === 'input' ? node.closest('.setting-row') : node;
             if (kind !== 'end') {
                 row.querySelector('label').textContent = label;
-                const number = row.querySelector('input[type=number]'); if (number) number.setAttribute('aria-label', label + '數值');
+                const number = row.querySelector('input[type=number]'); if (number) window.WaveCanvasI18nDom.attr(number, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(label) });
             }
             content.append(row);
         }
@@ -179,8 +179,8 @@
     window.VisualizerLyrics.subscribe((state, reason) => {
         if (!['initial','load','clear','audio-change'].includes(reason)) return;
         primaryStatus.dataset.warning = String(Boolean(state.warnings));
-        text($('#primary-name'), state.name || '尚未載入主要歌詞'); text($('#primary-meta'), state.name ? (state.sourceFormat || 'lrc').toUpperCase() + '，' + state.count + ' 句' : 'LRC 或 SRT，可含雙語');
-        text($('#secondary-name'), state.secondaryName || '尚未載入次要歌詞'); text($('#secondary-meta'), state.secondaryName ? (state.secondarySourceFormat || 'lrc').toUpperCase() + '，依時間配對' : '選用，依時間與主要歌詞配對');
+        text($('#primary-name'), state.name || '尚未載入主要歌詞'); if (state.name) window.WaveCanvasI18nDom.text($('#primary-meta'), '{format}，{count} 句', { format: (state.sourceFormat || 'lrc').toUpperCase(), count: state.count }); else window.WaveCanvasI18nDom.text($('#primary-meta'), 'LRC 或 SRT，可含雙語');
+        text($('#secondary-name'), state.secondaryName || '尚未載入次要歌詞'); if (state.secondaryName) window.WaveCanvasI18nDom.text($('#secondary-meta'), '{format}，依時間配對', { format: (state.secondarySourceFormat || 'lrc').toUpperCase() }); else window.WaveCanvasI18nDom.text($('#secondary-meta'), '選用，依時間與主要歌詞配對');
     });
     function transport() {
         const ready = !!audio.getAttribute('src') && Number.isFinite(audio.duration) && !audio.error;

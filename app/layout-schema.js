@@ -35,12 +35,12 @@
             if (!Object.prototype.hasOwnProperty.call(patch, key)) continue;
             let value = patch[key];
             if (field.type === 'slider') {
-                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(key + ' 必須是有限數值');
+                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(window.WaveCanvasI18n.t('{key} 必須是有限數值', { key }));
                 value = Math.min(field.max, Math.max(field.min, value));
                 if (field.step === 1) value = Math.round(value);
             } else if (field.type === 'bool') {
-                if (typeof value !== 'boolean') throw new TypeError(key + ' 必須是布林值');
-            } else if (!field.options.some(option => option.value === value)) throw new TypeError(key + ' 選項無效');
+                if (typeof value !== 'boolean') throw new TypeError(window.WaveCanvasI18n.t('{key} 必須是布林值', { key }));
+            } else if (!field.options.some(option => option.value === value)) throw new TypeError(window.WaveCanvasI18n.t('{key} 選項無效', { key }));
             result[key] = value;
         }
         return result;

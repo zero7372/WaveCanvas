@@ -95,7 +95,7 @@
         label.htmlFor = 'setting-' + key;
         const pair = element('div', 'numeric-pair');
         const range = element('input'); range.type = 'range'; range.id = label.htmlFor;
-        const number = element('input'); number.type = 'number'; number.setAttribute('aria-label', definition.text + '數值');
+        const number = element('input'); number.type = 'number'; window.WaveCanvasI18nDom.attr(number, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(definition.text) });
         for (const input of [range, number]) {
             input.min = definition.min; input.max = definition.max; input.step = standaloneOnly ? '0.05' : '1';
         }
@@ -140,7 +140,7 @@
             control = numericRow(key, { ...definition, text: title }, parent);
         } else {
             const row = element('div', 'setting-row');
-            const label = element('label', '', key === 'logoimage' ? '封面／' + title : title);
+            const label = element('label', '', title); if (key === 'logoimage') window.WaveCanvasI18nDom.text(label, '封面／{field}', { field: window.WaveCanvasI18n.msg(title) });
             label.htmlFor = 'setting-' + key;
             const input = element(definition.type === 'combo' ? 'select' : 'input');
             input.id = label.htmlFor;
@@ -172,14 +172,14 @@
                 case 'directory': {
                     input.type = 'file'; input.accept = '.png,.jpg,.jpeg,.webp'; input.multiple = false;
                     const fileName = element('small', 'file-name', '尚未選取');
-                    const clear = element('button', 'quiet-button', '清除'); clear.type = 'button'; clear.setAttribute('aria-label', '清除' + title);
+                    const clear = element('button', 'quiet-button', '清除'); clear.type = 'button'; window.WaveCanvasI18nDom.attr(clear, 'aria-label', '清除{field}', { field: window.WaveCanvasI18n.msg(title) });
                     input.addEventListener('change', async () => {
                         const files = Array.from(input.files);
                         input.value = '';
                         try {
                             if (await window.VisualizerFiles.select(key, files)) {
                                 report('圖片已更新');
-                                if (key === 'logoimage') coverStatus.textContent = '封面：' + window.VisualizerFiles.getName(key);
+                                if (key === 'logoimage') window.WaveCanvasI18nDom.text(coverStatus, '封面：{name}', { name: window.VisualizerFiles.getName(key) });
                             }
                         } catch (error) {
                             report(error.message, true);
@@ -222,7 +222,7 @@
     runtime.subscribe(synchronize);
     window.VisualizerFiles.subscribe(() => {
         synchronize(runtime.getSettings(), runtime.getStandalone());
-        coverStatus.textContent = window.VisualizerFiles.getName('logoimage') ? '封面：' + window.VisualizerFiles.getName('logoimage') : '';
+        window.WaveCanvasI18nDom.text(coverStatus, window.VisualizerFiles.getName('logoimage') ? '封面：{name}' : '', { name: window.VisualizerFiles.getName('logoimage') });
     });
     document.querySelector('#cover-open').addEventListener('click', () => document.querySelector('#setting-logoimage').click());
     function setOpen(open) {
@@ -270,12 +270,12 @@
             if (version !== importVersion) return;
             const result = window.VisualizerPresets.import(text);
             presetName.value = result.name;
-            report('預設組已載入。圖片來源已清除，請重新選取。' + (result.warnings.length ? ' 已忽略／還原 ' + result.warnings.length + ' 個項目。' : ''));
+            report(result.warnings.length ? window.WaveCanvasI18n.t('預設組已載入。圖片來源已清除，請重新選取。已忽略／還原 {count} 個項目。', { count: result.warnings.length }) : window.WaveCanvasI18n.t('預設組已載入。圖片來源已清除，請重新選取。'));
         } catch (error) { if (version === importVersion) report(error.message, true); }
     });
     document.querySelector('#reset-defaults').addEventListener('click', () => {
         importVersion++;
-        window.VisualizerPresets.reset(); presetName.value = '未命名'; report('已恢復目前排列的原廠預設值；輸入增益 ' + runtime.getStandalone().inputGain + '×。');
+        window.VisualizerPresets.reset(); presetName.value = '未命名'; report(window.WaveCanvasI18n.t('已恢復目前排列的原廠預設值；輸入增益 {gain}×。', { gain: runtime.getStandalone().inputGain }));
     });
     chrome.hidden = false;
     panel.hidden = true;

@@ -20,16 +20,22 @@
     const secondaryClear = element('button', 'quiet-button', '清除次要歌詞'); secondaryClear.type = 'button'; secondaryClear.id = 'lyrics-secondary-clear';
     const secondaryRow = element('div', 'setting-row'); secondaryRow.append(secondaryLabel, secondaryFile, secondaryClear); content.append(secondaryRow);
     let version = 0, secondaryVersion = 0;
-    lyrics.subscribe((state, reason) => {
+    // 切換語言時重組狀態列；正在顯示錯誤訊息時保留原訊息。
+    window.addEventListener('wavecanvas-language-change', () => { if (status.dataset.error !== 'true') render(lyrics.getState(), 'initial'); });
+    lyrics.subscribe(render);
+    function render(state, reason) {
         if (['load', 'clear', 'audio-change', 'initial'].includes(reason)) {
             if (reason === 'audio-change' || reason === 'clear') { version++; secondaryVersion++; }
             status.dataset.error = 'false';
-            status.textContent = state.count ? state.name + ' · ' + state.count + ' 句 · 檔案偏移 ' + state.fileOffsetMs + ' 毫秒'
-                + (state.secondaryName ? ' · 次要：' + state.secondaryName + '（偏移 ' + state.secondaryFileOffsetMs + ' 毫秒）' : '')
-                + (state.warnings ? ' · ' + state.warnings + ' 筆匯入警告／忽略項目' : '') : state.name ? '此檔案沒有有效的逐行歌詞。'
-                    : state.secondaryName ? '已載入次要：' + state.secondaryName + '；請選擇主要 LRC 建立時間線。' : '尚未載入歌詞';
+            // 狀態列由數段組成，每段各自翻譯；檔名是使用者內容，只當參數帶入。
+            const t = window.WaveCanvasI18n.t;
+            status.textContent = state.count ? [t('{name} · {count} 句 · 檔案偏移 {offset} 毫秒', { name: state.name, count: state.count, offset: state.fileOffsetMs }),
+                state.secondaryName ? t('次要：{name}（偏移 {offset} 毫秒）', { name: state.secondaryName, offset: state.secondaryFileOffsetMs }) : '',
+                state.warnings ? t('{count} 筆匯入警告／忽略項目', { count: state.warnings }) : ''].filter(Boolean).join(' · ')
+                : state.name ? '此檔案沒有有效的逐行歌詞。'
+                    : state.secondaryName ? t('已載入次要：{name}；請選擇主要 LRC 建立時間線。', { name: state.secondaryName }) : '尚未載入歌詞';
         }
-    });
+    }
     file.addEventListener('change', async () => {
         const selected = file.files[0]; file.value = ''; if (!selected) return;
         const selection = ++version;
@@ -63,7 +69,7 @@
         const input = element(definition.type === 'combo' ? 'select' : 'input'); input.id = label.htmlFor;
         const inputs = [input]; row.append(label);
         if (definition.type === 'slider') {
-            input.type = 'range'; const numeric = element('input'); numeric.type = 'number'; numeric.setAttribute('aria-label', definition.text + '數值'); inputs.push(numeric);
+            input.type = 'range'; const numeric = element('input'); numeric.type = 'number'; window.WaveCanvasI18nDom.attr(numeric, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(definition.text) }); inputs.push(numeric);
             for (const node of inputs) { node.min = definition.min; node.max = definition.max; node.step = definition.step; }
             const pair = element('div', 'numeric-pair'); pair.append(...inputs); row.append(pair);
         } else if (definition.type === 'combo') {

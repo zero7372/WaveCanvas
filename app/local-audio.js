@@ -69,7 +69,7 @@
             ensureGraph();
             objectURL = URL.createObjectURL(file);
             audio.src = objectURL;
-            status.textContent = '載入中：' + file.name;
+            window.WaveCanvasI18nDom.text(status, '載入中：{name}', { name: file.name });
             audio.load();
         } catch (error) {
             showError(error.message);
@@ -96,7 +96,7 @@
             await context.resume();
             if (currentSelection === selection && !audio.paused) status.textContent = '播放中';
         } catch (error) {
-            if (currentSelection === selection) showError('無法啟動音訊：' + error.message);
+            if (currentSelection === selection) showError(window.WaveCanvasI18n.t('無法啟動音訊：{message}', { message: error.message }));
         }
     });
     audio.addEventListener('pause', () => {

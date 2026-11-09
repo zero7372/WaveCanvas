@@ -29,15 +29,15 @@
             if (!Object.prototype.hasOwnProperty.call(patch, key)) continue;
             let value = patch[key];
             if (field.type === 'slider') {
-                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(field.text + '必須是有限數值。');
+                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(window.WaveCanvasI18n.t('{field}必須是有限數值。', { field: window.WaveCanvasI18n.msg(field.text) }));
                 value = Math.min(field.max, Math.max(field.min, value));
                 if (field.step === 1) value = Math.round(value);
             } else if (field.type === 'bool') {
-                if (typeof value !== 'boolean') throw new TypeError(field.text + '必須是布林值。');
+                if (typeof value !== 'boolean') throw new TypeError(window.WaveCanvasI18n.t('{field}必須是布林值。', { field: window.WaveCanvasI18n.msg(field.text) }));
             } else if (field.type === 'combo') {
                 // Historical modes never reactivate the removed image rotation system.
                 if (value === 'slideshow') value = field.value;
-                if (!field.options.some(option => option.value === value)) throw new TypeError(field.text + '選項無效。');
+                if (!field.options.some(option => option.value === value)) throw new TypeError(window.WaveCanvasI18n.t('{field}選項無效。', { field: window.WaveCanvasI18n.msg(field.text) }));
             } else if (typeof value !== 'string' || !/^#[0-9a-f]{6}$/i.test(value)) throw new TypeError('圖片後方底色格式無效。');
             result[key] = value;
         }

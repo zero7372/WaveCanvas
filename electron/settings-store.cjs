@@ -1,4 +1,5 @@
 'use strict';
+const { t } = require('../app/i18n.js');
 const fs = require('node:fs/promises'), path = require('node:path');
 const schema = require('../app/app-settings.js'), { atomicWrite } = require('./project-store.cjs');
 function create(userData, options = {}) {
@@ -7,9 +8,9 @@ function create(userData, options = {}) {
     async function read() {
         try {
             const value = JSON.parse(await io.readFile(file, 'utf8')), normalized = schema.normalize(value);
-            if (JSON.stringify(value) !== JSON.stringify(normalized)) log.warn('Preferences 無效或未知欄位已使用預設值。');
+            if (JSON.stringify(value) !== JSON.stringify(normalized)) log.warn(t('Preferences 無效或未知欄位已使用預設值。'));
             return normalized;
-        } catch (error) { if (error.code !== 'ENOENT') log.warn('Preferences 無法讀取，使用預設值：', error.message); return schema.normalize(null); }
+        } catch (error) { if (error.code !== 'ENOENT') log.warn(t('Preferences 無法讀取，使用預設值：'), error.message); return schema.normalize(null); }
     }
     function mutate(work) {
         const operation = queue.then(async () => { const value = work(await read()); await io.mkdir(userData, { recursive: true }); await atomicWrite(file, JSON.stringify(value, null, 2) + '\n', io); return value; });

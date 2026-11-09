@@ -64,7 +64,7 @@
             || !['circle', 'square', 'linear'].includes(settings.standalone.visualizer?.layout)) throw new Error('專案 settings 無效。');
         for (const slot of slots) {
             const ref = project.state.media[slot];
-            if (ref !== null && (typeof ref !== 'string' || !ref || ref.length > 32768 || /^(?:blob:|data:|https?:|file:)/i.test(ref))) throw new Error('媒體路徑無效：' + slot);
+            if (ref !== null && (typeof ref !== 'string' || !ref || ref.length > 32768 || /^(?:blob:|data:|https?:|file:)/i.test(ref))) throw new Error(window.WaveCanvasI18n.t('媒體路徑無效：{slot}', { slot }));
         }
         document(project.state.lyrics.primary, 'primary'); document(project.state.lyrics.secondary, 'secondary');
         exportSettings(project.state.export);

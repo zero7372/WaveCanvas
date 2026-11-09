@@ -43,19 +43,19 @@
             if (!Object.prototype.hasOwnProperty.call(patch, key)) continue;
             let value = patch[key];
             if (field.type === 'slider') {
-                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(field.text + '必須是有限數值。');
+                if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(window.WaveCanvasI18n.t('{field}必須是有限數值。', { field: window.WaveCanvasI18n.msg(field.text) }));
                 value = Math.min(field.max, Math.max(field.min, value));
                 if (field.step === 1) value = Math.round(value);
             } else if (field.type === 'color') {
-                if (typeof value !== 'string' || !/^#[\da-f]{6}$/i.test(value)) throw new TypeError(field.text + '必須是 HEX 顏色。');
+                if (typeof value !== 'string' || !/^#[\da-f]{6}$/i.test(value)) throw new TypeError(window.WaveCanvasI18n.t('{field}必須是 HEX 顏色。', { field: window.WaveCanvasI18n.msg(field.text) }));
                 value = value.toLowerCase();
             } else if (field.type === 'bool') {
-                if (typeof value !== 'boolean') throw new TypeError(field.text + '必須是布林值。');
+                if (typeof value !== 'boolean') throw new TypeError(window.WaveCanvasI18n.t('{field}必須是布林值。', { field: window.WaveCanvasI18n.msg(field.text) }));
             } else if (key === 'fontFamily' || key === 'secondaryFontFamily') {
                 if (typeof value !== 'string') throw new TypeError('字型必須是文字。');
                 value = window.VisualizerSystemFonts.normalize(value);
             }
-            else if (!field.options.some(option => option.value === value)) throw new TypeError(field.text + '選項無效。');
+            else if (!field.options.some(option => option.value === value)) throw new TypeError(window.WaveCanvasI18n.t('{field}選項無效。', { field: window.WaveCanvasI18n.msg(field.text) }));
             result[key] = value;
         }
         result.glowMaxOpacity = Math.max(result.glowBaseOpacity, result.glowMaxOpacity);

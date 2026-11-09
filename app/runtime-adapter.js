@@ -231,7 +231,7 @@
             result.standalone = normalize(result.standalone, result.standalone.visualizer.layout);
             for (const layout of factory.layouts) {
                 const bank = result.layouts[layout];
-                if (!bank || bank.visualizer.layout !== layout) throw new Error('Layout bank 無效：' + layout);
+                if (!bank || bank.visualizer.layout !== layout) throw new Error(window.WaveCanvasI18n.t('Layout bank 無效：{layout}', { layout }));
                 bank.visualizer = window.VisualizerLayoutSettings.normalize(bank.visualizer, getStandaloneDefaults(layout).visualizer);
                 bank.properties = Object.fromEntries(factory.propertyKeys.map(key => [key, { value: normalizeValue(key, bank.properties[key].value) }]));
                 bank.text = Object.fromEntries(factory.textKeys.map(key => [key, window.VisualizerSongInfoSettings.normalize(bank.text)[key]]));

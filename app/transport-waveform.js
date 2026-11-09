@@ -70,7 +70,7 @@
             ctx.fillStyle = COLORS.tail; ctx.fillRect(start, 0, width - start, height);
             if (width - start > 56 * ratio) {
                 ctx.fillStyle = COLORS.tailText; ctx.font = 11 * ratio + 'px "Segoe UI Variable","Segoe UI","Microsoft JhengHei UI",sans-serif';
-                ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('片尾 ' + seconds + ' 秒', start + (width - start) / 2, height / 2);
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(window.WaveCanvasI18n.t('片尾 {seconds} 秒', { seconds }), start + (width - start) / 2, height / 2);
             }
         }
         ticks(ctx, width, height, ratio, span);
@@ -90,6 +90,7 @@
     window.addEventListener('local-audio-change', () => analyse(window.VisualizerLocalAudio.getFile()));
     window.VisualizerLyrics?.subscribe(draw);
     window.WaveCanvasExportSettings?.subscribe(rebuild);
+    window.addEventListener('wavecanvas-language-change', draw);
     new ResizeObserver(rebuild).observe(wrap);
     rebuild();
 }());

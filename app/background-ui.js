@@ -12,7 +12,7 @@
         const input = document.createElement(field.type === 'combo' ? 'select' : 'input'); input.id = label.htmlFor;
         const inputs = [input]; row.append(label);
         if (field.type === 'slider') {
-            input.type = 'range'; const number = document.createElement('input'); number.type = 'number'; number.setAttribute('aria-label', field.text + '數值'); inputs.push(number);
+            input.type = 'range'; const number = document.createElement('input'); number.type = 'number'; window.WaveCanvasI18nDom.attr(number, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(field.text) }); inputs.push(number);
             for (const control of inputs) { control.min = field.min; control.max = field.max; control.step = field.step; }
             const pair = document.createElement('div'); pair.className = 'numeric-pair'; pair.append(...inputs); row.append(pair);
         } else if (field.type === 'bool') {

@@ -20,7 +20,7 @@
         } else if (definition.type === 'bool') { input.type = 'checkbox'; row.classList.add('bool-row'); row.append(input); }
         else {
             input.type = 'range'; const numeric = document.createElement('input'); numeric.type = 'number';
-            numeric.setAttribute('aria-label', label.textContent + '數值'); inputs.push(numeric);
+            window.WaveCanvasI18nDom.attr(numeric, 'aria-label', '{field}數值', { field: window.WaveCanvasI18n.msg(label.textContent) }); inputs.push(numeric);
             for (const node of inputs) { node.min = definition.min; node.max = definition.max; node.step = definition.step; }
             const pair = document.createElement('div'); pair.className = 'numeric-pair'; pair.append(...inputs); row.append(pair);
         }
@@ -47,8 +47,8 @@
     document.querySelector('#settings-groups').prepend(details);
     function sync(settings) {
         squareHelp.hidden = settings.layout !== 'square';
-        squareHelp.textContent = (squareDescriptions[settings.squareSpectrumLayout] || squareDescriptions.symmetric)
-            + '（反轉頻率順序會反轉低／高頻位置。）柱數取最接近的 4 倍數，64 = 每邊 16 條；角落留白，預設向外生長。鏡射選項只供直線模式。';
+        window.WaveCanvasI18nDom.text(squareHelp, '{description}（反轉頻率順序會反轉低／高頻位置。）柱數取最接近的 4 倍數，64 = 每邊 16 條；角落留白，預設向外生長。鏡射選項只供直線模式。',
+            { description: window.WaveCanvasI18n.msg(squareDescriptions[settings.squareSpectrumLayout] || squareDescriptions.symmetric) });
         for (const [key, { row, inputs, definition }] of controls) {
             const active = key === 'layout' || (settings.layout !== 'circle'
                 && (!['orientation', 'anchor', 'amplitudeDirection', 'width', 'gap'].includes(key) || settings.layout === 'linear' || key === 'gap')
