@@ -9,7 +9,8 @@ async function freePort() { const server = net.createServer(); await new Promise
 async function launch(profile, extraArguments = [], shellProject = null) {
     const port = await freePort(), exe = packaged ? (process.env.WAVECANVAS_QA_EXE || path.join(root, 'dist/win-unpacked/WaveCanvas.exe')) : require('electron');
     const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
-    const args = ['--inspect=127.0.0.1:' + port, '--user-data-dir=' + profile, ...(packaged ? [] : ['.']), ...extraArguments];
+    // 固定 100% 縮放：這些測試假設 devicePixelRatio 為 1，不應隨執行電腦的顯示縮放（例如 120%）而失敗。
+    const args = ['--inspect=127.0.0.1:' + port, '--force-device-scale-factor=1', '--user-data-dir=' + profile, ...(packaged ? [] : ['.']), ...extraArguments];
     const quotePS = value => "'" + value.replace(/'/g, "''") + "'";
     let restoreAssociation = () => {};
     if (shellProject) {
