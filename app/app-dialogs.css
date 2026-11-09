@@ -23,3 +23,4 @@
 .preferences-panels { flex:1; min-width:0; }
 .preferences-panels input[type=range] { width:100%; }
 @media(max-width:600px) { .preferences-body { flex-direction:column; gap:14px; } .preferences-body nav { flex-direction:row; flex-wrap:wrap; flex-basis:auto; } }
+.app-dialog details summary { padding: 4px 0; font-size: 13px; cursor: pointer; }

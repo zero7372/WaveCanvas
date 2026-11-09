@@ -11,7 +11,8 @@ const settingsInvoke = async (name, ...args) => {
 };
 contextBridge.exposeInMainWorld('waveCanvas', { release: {
     info: () => ipcRenderer.invoke('wavecanvas-release:info'),
-    read: () => ipcRenderer.invoke('wavecanvas-release:read'), openLicenses: () => ipcRenderer.invoke('wavecanvas-release:openLicenses')
+    read: () => ipcRenderer.invoke('wavecanvas-release:read'), openLicenses: () => ipcRenderer.invoke('wavecanvas-release:openLicenses'),
+    openChromiumNotices: () => ipcRenderer.invoke('wavecanvas-release:openChromiumNotices')
 }, settings: {
     get: () => settingsInvoke('get'), update: (changes, restoringDefaults = false) => settingsInvoke('update', changes, restoringDefaults), reset: () => settingsInvoke('reset'),
     chooseDirectory: () => settingsInvoke('chooseDirectory'), openDataFolder: () => settingsInvoke('openDataFolder'),
