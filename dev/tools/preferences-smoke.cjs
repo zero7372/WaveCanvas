@@ -30,6 +30,7 @@ async function launch(profile, extraArguments = [], shellProject = null) {
         }
     }
     // Shell UI QA must display the application: SW_HIDE suppresses Electron's first window.
+    /* 測試不連網：預先標記剛檢查過更新，讓自動檢查略過（QA 需要時可自行先寫入）。 */ { const fs_ = require('node:fs'), file_ = path.join(profile, 'update-check.json'); fs_.mkdirSync(profile, { recursive: true }); if (!fs_.existsSync(file_)) fs_.writeFileSync(file_, JSON.stringify({ lastCheckedAt: Date.now() })); }
     const child = shellProject ? spawn('powershell.exe',['-NoProfile','-Command',`Start-Process -FilePath ${quotePS(shellProject)} -WindowStyle Normal -Wait`],{cwd:root,env,windowsHide:true}) : spawn(exe, args, { cwd: root, env, windowsHide: false });
     let output = '', exited = false; child.stdout.on('data', data => output += data); child.stderr.on('data', data => output += data); child.on('exit', () => exited = true);
     let target; for (let i = 0; i < 200 && !target && !exited; i++) { try { target = (await (await fetch('http://127.0.0.1:' + port + '/json/list')).json())[0]; } catch {} await wait(50); }

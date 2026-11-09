@@ -11,6 +11,7 @@ async function run(){
  const profile=path.join(artifacts,'profile-'+Date.now());fs.mkdirSync(profile);
  const port=await freePort(),exe=packaged?(process.env.WAVECANVAS_QA_EXE || path.join(root, 'dist/win-unpacked/WaveCanvas.exe')):require('electron');
  const args=packaged?[]:['.',...(devToolsMode?['--dev']:[])],env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
+ /* 測試不連網：預先標記剛檢查過更新，讓自動檢查略過（QA 需要時可自行先寫入）。 */ { const fs_ = require('node:fs'), file_ = require('node:path').join(profile, 'update-check.json'); fs_.mkdirSync(profile, { recursive: true }); if (!fs_.existsSync(file_)) fs_.writeFileSync(file_, JSON.stringify({ lastCheckedAt: Date.now() })); }
  const child=spawn(exe,['--inspect=127.0.0.1:'+port,'--lang=zh-TW','--user-data-dir='+profile,...args],{cwd:root,env,windowsHide:false});let output='',exited=false;
  child.stdout.on('data',data=>output+=data);child.stderr.on('data',data=>output+=data);child.on('exit',()=>exited=true);
  const pending=new Map();let socket,serial=0;const report={tag,checks:[]};
@@ -40,6 +41,7 @@ async function run(){
   check(await evaluate(`wcQA.window.webContents.executeJavaScript("document.querySelector('#local-audio').readyState>=2 && VisualizerFiles.getName('logoimage')==='wavecanvas.png' && VisualizerLyrics.getEvent(0).secondary==='Open the gate'")`),'On-disk WAV / PNG / LRC / SRT import via unchanged HTML file inputs');
   await evaluate(`wcQA.window.webContents.executeJavaScript("document.querySelector('#local-audio').currentTime=1.5;VisualizerLyrics.update('seek');VisualizerTimingEditor.select('primary',VisualizerLyrics.getDocument('primary').events[0].id);true")`);
   await evaluate('wcQA.window.minimize();true');await wait(200);check(await evaluate('wcQA.window.isMinimized()'),'Minimize');
+  /* 測試不連網：預先標記剛檢查過更新，讓自動檢查略過（QA 需要時可自行先寫入）。 */ { const fs_ = require('node:fs'), file_ = require('node:path').join(profile, 'update-check.json'); fs_.mkdirSync(profile, { recursive: true }); if (!fs_.existsSync(file_)) fs_.writeFileSync(file_, JSON.stringify({ lastCheckedAt: Date.now() })); }
   const second=spawn(exe,['--lang=zh-TW','--user-data-dir='+profile,...args],{cwd:root,env,windowsHide:false});const secondCode=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>{second.kill();reject(Error('Second instance timeout'));},5000);second.on('exit',code=>{clearTimeout(timer);resolve(code);});});await wait(200);
   check(secondCode===0&&await evaluate("!wcQA.window.isMinimized() && wcQA.window.isFocused() && wcQA.electron.BrowserWindow.getAllWindows().filter(w=>w.webContents.getURL().includes('index.html')).length===1"),'Single instance restores and focuses first window');
   await evaluate('wcQA.window.maximize();true');await wait(250);check(await evaluate('wcQA.window.isMaximized()'),'Maximize');

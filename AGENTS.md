@@ -10,6 +10,7 @@
 | `npm test` | Node 單元測試，CI 會跑 | Node |
 | `npm run browser:test` | Electron 內的瀏覽器回歸測試 | Electron、視窗環境 |
 | `npm run export:test` | 匯出流程 QA | Electron、`vendor/ffmpeg` |
+| `npm run recovery:test`、`npm run update:test` | 崩潰復原與更新檢查 QA（更新檢查用模擬回應，不連網） | Electron |
 | `npm run export:test:real` | 完整 1080p60 真實匯出 | 同上，耗時較久 |
 | `npm run release:build`、`npm run release:check -- --public` | 打包與公開發布閘門 | 完整 GPL 原始碼 ZIP |
 
@@ -23,6 +24,7 @@
 - 固定文字直接寫繁中即可，`app/i18n-dom.js` 會套用譯文；含變數的文字用 `WaveCanvasI18n.t('…{name}…', { name })` 或 `WaveCanvasI18nDom.text()`，不要用 `+` 拼接中文。
 - 新增字串後跑 `npm test`，`dev/tests/i18n.test.cjs` 會列出缺少的翻譯。畫布 `#stage` 與使用者內容不翻譯。
 - Electron 測試啟動時都帶 `--lang=zh-TW`，結果才不會隨系統語言改變。
+- 測試啟動器會先在 profile 寫入 `update-check.json`（剛檢查過），避免測試時向 GitHub 發出請求。
 
 ## 容易踩到的地方
 - **原始碼雜湊測試：** `dev/tests/fixtures/baselines/*-protected-hashes.json` 用 SHA256 鎖住部分模組（`main.js`、音訊、歌詞繪製、Timing Editor 等）。真的需要修改時，把檔案加進對應測試的略過清單，註明原因，並補上行為測試；不要直接更新雜湊。

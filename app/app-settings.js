@@ -13,7 +13,7 @@
         return api ? api.t(source, params) : source.replace(/\{(\w+)\}/g, (match, name) => params?.[name] ?? match);
     };
     const defaults = Object.freeze({ format: 'wavecanvas-settings', version: 1,
-        general: Object.freeze({ startupMode: 'home', rememberWindowBounds: true, confirmUnsavedClose: true }),
+        general: Object.freeze({ startupMode: 'home', rememberWindowBounds: true, confirmUnsavedClose: true, checkForUpdates: true }),
         project: Object.freeze({ askNameOnCreate: true, autosaveEnabled: true, autosaveIntervalMinutes: 5, recentProjectsLimit: 10 }),
         playback: Object.freeze({ defaultVolume: 1, autoPlayOnLoad: false }),
         interface: Object.freeze({ uiScale: 1, language: 'system' }),

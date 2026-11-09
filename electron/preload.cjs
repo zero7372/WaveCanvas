@@ -17,6 +17,9 @@ contextBridge.exposeInMainWorld('waveCanvas', { release: {
     get: () => settingsInvoke('get'), update: (changes, restoringDefaults = false) => settingsInvoke('update', changes, restoringDefaults), reset: () => settingsInvoke('reset'),
     chooseDirectory: () => settingsInvoke('chooseDirectory'), openDataFolder: () => settingsInvoke('openDataFolder'),
     onChanged(callback) { const listener = (_event, value) => callback(value); ipcRenderer.on('wavecanvas-settings:changed', listener); return () => ipcRenderer.removeListener('wavecanvas-settings:changed', listener); }
+}, update: {
+    check: manual => ipcRenderer.invoke('wavecanvas-update:check', manual === true),
+    openRelease: () => ipcRenderer.invoke('wavecanvas-update:openRelease'), skip: version => ipcRenderer.invoke('wavecanvas-update:skip', version)
 }, project: {
     open: recentPath => invoke('open', recentPath),
     takeExternal: () => invoke('takeExternal'), openExternal: token => invoke('openExternal', token), discardExternal: token => invoke('discardExternal', token),

@@ -9,6 +9,7 @@ async function freePort() { const server = net.createServer(); await new Promise
 async function launch(profile) {
     const port = await freePort(), exe = packaged ? (process.env.WAVECANVAS_QA_EXE || path.join(root, 'dist/win-unpacked/WaveCanvas.exe')) : require('electron');
     const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
+    /* 測試不連網：預先標記剛檢查過更新，讓自動檢查略過（QA 需要時可自行先寫入）。 */ { const fs_ = require('node:fs'), file_ = require('node:path').join(profile, 'update-check.json'); fs_.mkdirSync(profile, { recursive: true }); if (!fs_.existsSync(file_)) fs_.writeFileSync(file_, JSON.stringify({ lastCheckedAt: Date.now() })); }
     const child = spawn(exe, ['--inspect=127.0.0.1:' + port, '--lang=zh-TW', '--user-data-dir=' + profile, ...(packaged ? [] : ['.'])], { cwd: root, env, windowsHide: false });
     let output = '', exited = false; child.stdout.on('data', data => output += data); child.stderr.on('data', data => output += data); child.on('exit', () => exited = true);
     let target; for (let i = 0; i < 200 && !target && !exited; i++) { try { target = (await (await fetch('http://127.0.0.1:' + port + '/json/list')).json())[0]; } catch {} await wait(50); }

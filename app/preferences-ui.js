@@ -28,6 +28,13 @@
         field('General','startupMode','preference-startup','啟動時', [['home','顯示首頁'],['reopen-last','開啟上次的專案']]);
         field('General','rememberWindowBounds','preference-window-bounds','記住視窗大小與位置');
         field('General','confirmUnsavedClose','preference-close-confirm','關閉未儲存專案前確認');
+        field('General','checkForUpdates','preference-check-updates','啟動時檢查更新');
+        const checkNow = ui.button('檢查更新'); checkNow.id = 'preference-check-now';
+        const updateStatus = document.createElement('p'); updateStatus.className = 'dialog-note'; updateStatus.id = 'preference-update-status'; updateStatus.setAttribute('role', 'status');
+        const updateNote = document.createElement('p'); updateNote.className = 'dialog-note'; updateNote.textContent = '只會向 GitHub 查詢最新正式版的版本號，一天最多自動檢查一次，不會傳送任何使用者資料，也不會自動下載或安裝。';
+        sections.General.append(checkNow, updateStatus, updateNote);
+        checkNow.onclick = async () => { checkNow.disabled = true; updateStatus.textContent = '正在檢查…'; try { await window.WaveCanvasUpdates?.check(true, updateStatus); } finally { checkNow.disabled = false; } };
+        if (!window.WaveCanvasUpdates) checkNow.disabled = true;
         field('Project','askNameOnCreate','preference-ask-name','建立新專案時要求輸入名稱');
         const enabled = field('Project','autosaveEnabled','preference-autosave','自動儲存');
         const interval = field('Project','autosaveIntervalMinutes','preference-interval','自動儲存間隔', schema.intervals.map(v => [v,window.WaveCanvasI18n.t('{count} 分鐘', { count: v })]));

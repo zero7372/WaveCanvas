@@ -43,6 +43,7 @@ async function createWindow() {
     require('./project-ipc.cjs').install(window);
     require('./settings-ipc.cjs').install(window);
     require('./release-ipc.cjs').install(window);
+    require('./update-ipc.cjs').install(window);
     for (const file of externalProjects.splice(0)) window.waveCanvasQueueExternalProject(file);
     window.waveCanvasSaveWindowState = async () => {
         try { if ((await window.waveCanvasSettings().get()).general.rememberWindowBounds && !window.isDestroyed()) await window.waveCanvasApplicationState().update({ window: { ...window.getNormalBounds(), maximized: window.isMaximized() } }); }

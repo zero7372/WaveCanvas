@@ -25,3 +25,10 @@
 .preferences-panels input[type=range] { width:100%; }
 @media(max-width:600px) { .preferences-body { flex-direction:column; gap:14px; } .preferences-body nav { flex-direction:row; flex-wrap:wrap; flex-basis:auto; } }
 .app-dialog details summary { padding: 4px 0; font-size: 13px; cursor: pointer; }
+/* 更新提示：右下角、不搶焦點，關閉後不再出現直到下次檢查。 */
+#update-notice { position:fixed; right:16px; bottom:16px; z-index:300; max-width:360px; padding:12px 14px; background:var(--raised,#383633); color:var(--text); border:1px solid var(--edge,#171614); border-radius:3px; box-shadow:0 6px 20px #0008; }
+#update-notice p { margin:0 0 10px; }
+#update-notice div { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+#update-notice button { padding:6px 10px; border:1px solid #171614; border-radius:2px; background:#3f3c38; color:inherit; font:inherit; cursor:pointer; }
+#update-notice .primary-button { background:#e2a73b; border-color:#e2a73b; color:#2a1e06; font-weight:600; }
+#preference-check-now { margin-top:4px; }
