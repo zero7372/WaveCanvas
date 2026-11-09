@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="WaveCanvas">
+  <!-- 16 px 版（工作列、檔案總管小圖示）：每條線都對齊整數像素，保留「已播放＋播放頭＋未播放」。 -->
+  <rect width="16" height="16" rx="3.5" fill="#201f1d"/>
+  <rect x="2" y="6" width="2" height="4" fill="#e2a73b"/>
+  <rect x="5" y="3" width="2" height="10" fill="#e2a73b"/>
+  <rect x="8" y="2" width="1" height="12" fill="#e8e4dc"/>
+  <rect x="10" y="4" width="2" height="8" fill="#6b665e"/>
+  <rect x="13" y="6" width="2" height="4" fill="#6b665e"/>
+</svg>

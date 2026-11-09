@@ -37,11 +37,7 @@ input[type=color] { width:30px; height:20px; background:transparent; border:1px 
 .app-toolbar { height:100%;display:flex;align-items:center;gap:12px;padding:0 10px; }
 .brand { display:flex;align-items:center;gap:7px;font-weight:600;background:none;border:0;padding:0;white-space:nowrap; }
 .brand:hover:not(:disabled) { background:none; color:var(--accent); }
-.wave-mark { display:inline-flex;align-items:center;justify-content:center;gap:2px;width:14px;height:16px;color:var(--accent); }
-.wave-mark i { width:2px;height:6px;background:currentColor; }
-.wave-mark i:nth-child(2),.wave-mark i:nth-child(4) { height:10px; }
-.wave-mark i:nth-child(3) { height:14px; }
-.wave-mark i:nth-child(1),.wave-mark i:nth-child(5) { display:none; }
+.brand-mark { width:18px;height:18px;flex:none; }
 .app-menus { display:flex;gap:0; }
 .app-menu { position:relative; }
 .app-menu summary { list-style:none;cursor:pointer;padding:4px 8px;color:var(--text);border-radius:2px; }

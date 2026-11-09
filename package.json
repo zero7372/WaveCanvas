@@ -28,6 +28,7 @@
     "export:test": "node dev/tools/export-qa.cjs",
     "export:test:real": "node dev/tools/export-smoke.cjs --full",
     "export:test:build": "node dev/tools/export-smoke.cjs --packaged",
+    "icon:build": "electron dev/tools/generate-app-icon.cjs",
     "recovery:test": "node dev/tools/recovery-qa.cjs",
     "update:test": "node dev/tools/update-qa.cjs",
     "preferences:test": "node dev/tools/preferences-smoke.cjs",
