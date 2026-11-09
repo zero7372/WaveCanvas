@@ -66,8 +66,25 @@ function install(window) {
     });
     bind('activate', async token => {
         const result = pending.get(token); if (!result) throw new Error(t('Project transaction 已失效。'));
-        current = result; pending.clear(); registered.clear(); await storage().remember(current.path, current.project); return current.path;
+        pending.clear(); registered.clear();
+        if (result.recovery) {
+            // 復原的專案仍是未存檔的新專案：不指向復原檔，也不加入最近使用。
+            // 原本就由使用者匯入的素材（含暫時找不到的）視為已授權，之後仍可存檔。
+            current = null;
+            for (const [slot, entry] of Object.entries(result.media)) if (entry) { if (!registered.has(slot)) registered.set(slot, new Set()); registered.get(slot).add(identity(entry.path)); }
+            return null;
+        }
+        current = result; await storage().remember(current.path, current.project); return current.path;
     });
+    bind('writeRecovery', project => exclusive(async () => {
+        if (current) return false; // 已有專案檔的專案由自動儲存與備份處理。
+        await checkReferences(project); return storage().writeRecovery(project);
+    }));
+    bind('clearRecovery', () => storage().clearRecovery());
+    bind('takeRecovery', () => exclusive(async () => {
+        const result = await storage().readRecovery(); if (!result) return null;
+        return grant({ ...result, path: null, recovery: true });
+    }));
     bind('save', (project, kind) => exclusive(async () => {
         if (!['save', 'saveAs', 'autosave'].includes(kind)) throw new Error(t('Save operation 無效。'));
         await checkReferences(project); let file = current?.path;
@@ -105,10 +122,11 @@ function install(window) {
         if (!status || typeof status.dirty !== 'boolean' || typeof status.name !== 'string') throw new Error(t('Project status 無效。'));
         projectReady = true; window.setTitle(status.name.slice(0, 256) + (status.dirty ? ' *' : '') + ' — WaveCanvas'); return true;
     });
-    bind('finishClose', async () => { await window.waveCanvasSaveWindowState?.(); closeAllowed = true; window.close(); return true; });
+    // 正常關閉（已存檔或選擇不存檔）一律清掉復原資料，下次啟動才不會誤跳提示。
+    bind('finishClose', async () => { await window.waveCanvasSaveWindowState?.(); await storage().clearRecovery().catch(error => console.error('[Recovery]', error.message)); closeAllowed = true; window.close(); return true; });
     // Ask the controller even for a reported-clean session: it drains pending media refs and
     // compares the latest snapshot, avoiding an IPC status/OS-close race after an edit.
     window.on('close', event => { if (!closeAllowed && projectReady) { event.preventDefault(); window.webContents.send(prefix + 'closeRequested'); } });
-    window.on('closed', () => { for (const name of ['registerMedia', 'open', 'readMedia', 'activate', 'save', 'collect', 'confirmUnsaved', 'getRecent', 'removeRecent', 'new', 'status', 'finishClose', 'takeExternal', 'openExternal', 'discardExternal']) ipcMain.removeHandler(prefix + name); });
+    window.on('closed', () => { for (const name of ['registerMedia', 'open', 'readMedia', 'activate', 'save', 'collect', 'confirmUnsaved', 'getRecent', 'removeRecent', 'new', 'status', 'finishClose', 'takeExternal', 'openExternal', 'discardExternal', 'writeRecovery', 'clearRecovery', 'takeRecovery']) ipcMain.removeHandler(prefix + name); });
 }
 module.exports = { install };

@@ -194,14 +194,49 @@
     }); }
     async function collect() { return operation(async () => { await tracking; const result = await api.collect(snapshot()); if (!result) return false; if (result.switch) await restore(result.loaded); else { failure = window.WaveCanvasI18n.t('專案已收集完成：{path}', { path: result.path }); notify(); } return true; }); }
     lastSavedHash = hash(snapshot());
+    // 崩潰復原：未存檔的新專案有變更時，每 30 秒寫一份到 App 資料目錄；
+    // 一旦存檔、開啟其他專案或變回未修改，就刪除那份資料。與自動儲存偏好無關。
+    const RECOVERY_INTERVAL_MS = 30000;
+    let recoveryWritten = false, recoveryHash = '';
+    async function syncRecovery() {
+        if (busy || saving || restoring || window.WaveCanvasExport?.getState().busy) return;
+        await tracking;
+        const needed = !projectPath && dirty;
+        try {
+            if (needed) {
+                const value = snapshot(), current = hash(value);
+                if (recoveryWritten && current === recoveryHash) return;
+                if (applicationVersion) value.appVersion = applicationVersion;
+                if (await api.writeRecovery(value)) { recoveryWritten = true; recoveryHash = current; }
+            } else if (recoveryWritten) { await api.clearRecovery(); recoveryWritten = false; recoveryHash = ''; }
+        } catch (error) { console.warn('Recovery:', error.message); }
+    }
+    const recoveryTimer = setInterval(() => { syncRecovery(); }, RECOVERY_INTERVAL_MS);
+    listeners.add(value => { if (recoveryWritten && (value.projectPath || !value.dirty)) syncRecovery(); });
+    async function offerRecovery() {
+        let loaded;
+        try { loaded = await api.takeRecovery(); } catch (error) { console.warn('Recovery:', error.message); return false; }
+        if (!loaded) return false;
+        const t = window.WaveCanvasI18n.t;
+        const accepted = await window.WaveCanvasDialogs.confirm(t('復原未存檔的專案？'),
+            t('WaveCanvas 上次沒有正常結束。可以復原未存檔的專案「{name}」（{time}）。', { name: loaded.project.name, time: new Date(loaded.project.modifiedAt || Date.now()).toLocaleString(window.WaveCanvasI18n.language()) }),
+            { accept: t('復原專案'), cancel: t('捨棄') });
+        if (!accepted) { await api.clearRecovery().catch(error => console.warn('Recovery:', error.message)); return false; }
+        return operation(async () => {
+            await restore(loaded, false);
+            // 復原後仍是未存檔的新專案，標記為有變更，關閉前會提醒存檔。
+            projectPath = null; lastSavedHash = ''; check(); recoveryWritten = true; recoveryHash = hash(snapshot());
+            return true;
+        });
+    }
     // One scheduler for the lifetime of this controller, independent of Open/New.
     const scheduler = window.WaveCanvasAutosaveScheduler(() => { if (!window.WaveCanvasExport?.getState().busy && !busy && !saving && projectPath && dirty) operation(() => save('autosave')); });
     const unsubscribeSettings = preferences.subscribe(value => scheduler.configure(value.project));
     const unsubscribeClose = api.onCloseRequested(() => operation(async () => { await preferences.ready; if (!preferences.get().general.confirmUnsavedClose || await guard()) await api.finishClose(); }));
-    window.addEventListener('pagehide', () => { scheduler.dispose(); unsubscribeSettings(); clearTimeout(checkTimer); unsubscribeClose(); });
+    window.addEventListener('pagehide', () => { scheduler.dispose(); unsubscribeSettings(); clearTimeout(checkTimer); clearInterval(recoveryTimer); unsubscribeClose(); });
     notify();
     window.WaveCanvasProject = Object.freeze({ getState: state, snapshot, markProjectDirty, check, open, newProject, collect, rename,
-        save: kind => operation(() => save(kind)), autosave: () => operation(() => save('autosave')),
+        save: kind => operation(() => save(kind)), autosave: () => operation(() => save('autosave')), syncRecovery,
         subscribe(callback) { listeners.add(callback); callback(state()); return () => listeners.delete(callback); } });
     // Serialize shell requests behind startup and ongoing operations; retain the normal dirty guard.
     let externalQueue = Promise.resolve(), startupComplete = false;
@@ -219,6 +254,8 @@
     }
     api.onExternalRequested(() => { if (startupComplete) externalQueue = externalQueue.then(drainExternal).catch(error => console.error('External open:', error)); });
     preferences.ready.then(async () => {
+        // 先處理崩潰復原，再處理外部開啟與「開啟上次的專案」。
+        if (await offerRecovery()) { startupComplete = true; await drainExternal(); return; }
         if (await drainExternal()) { startupComplete = true; return; }
         startupComplete = true;
         if (preferences.get().general.startupMode !== 'reopen-last') return;

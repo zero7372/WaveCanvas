@@ -7,9 +7,9 @@
         return dialog;
     }
     function button(label, className = '') { const element = document.createElement('button'); element.type = 'button'; element.textContent = label; element.className = className; return element; }
-    async function confirm(title, message) {
-        const dialog = create(title), text = document.createElement('p'), actions = document.createElement('footer'); text.textContent = message;
-        const cancel = button('取消'), accept = button('確認', 'primary-button'); actions.append(cancel, accept); dialog.append(text, actions);
+    async function confirm(title, message, labels = {}) {
+        const dialog = create(title), text = document.createElement('p'), actions = document.createElement('footer'); text.textContent = message; text.style.whiteSpace = 'pre-line';
+        const cancel = button(labels.cancel || '取消'), accept = button(labels.accept || '確認', 'primary-button'); actions.append(cancel, accept); dialog.append(text, actions);
         return new Promise(resolve => { dialog.addEventListener('close', () => { const result = dialog.returnValue === 'yes'; dialog.remove(); resolve(result); }, { once: true });
             cancel.onclick = () => dialog.close(); accept.onclick = () => dialog.close('yes'); dialog.showModal(); cancel.focus(); });
     }

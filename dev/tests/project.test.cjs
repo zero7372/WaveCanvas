@@ -60,7 +60,9 @@ test('Complete three-layout settings, edited bilingual SRT/LRC timing, stable ID
 test('Controller owns one configurable scheduler across New/Open, no unsaved writes, clean skip, Off/manual-save/re-enable and pagehide cleanup', async t => {
     const app = renderer(), events = new Map(), intervals = [], cleared = [], writes = [];
     app.crypto = crypto; app.setTimeout = setTimeout; app.clearTimeout = clearTimeout;
-    app.setInterval = (callback, ms) => { intervals.push({ callback, ms }); return intervals.length; };
+    // 崩潰復原的 30 秒計時器與自動儲存排程分開記錄；這個測試只檢查自動儲存排程。
+    const recoveryTimers = [];
+    app.setInterval = (callback, ms) => { if (ms === 30000) { recoveryTimers.push(callback); return 'recovery'; } intervals.push({ callback, ms }); return intervals.length; };
     app.clearInterval = id => cleared.push(id); app.Event = class {};
     app.addEventListener = (name, handler) => events.set(name, handler); app.dispatchEvent = () => {};
     app.document = { querySelector: () => ({ paused: true }), addEventListener() {} };
@@ -90,6 +92,7 @@ test('Controller owns one configurable scheduler across New/Open, no unsaved wri
     assert.equal(intervals.length, 2); assert.equal(intervals[1].ms, 60000);
     app.VisualizerRuntime.updateStandalone({ inputGain: 3 }); intervals[1].callback(); await new Promise(resolve => setTimeout(resolve, 10)); assert.deepEqual(writes, ['autosave','save','autosave']);
     events.get('pagehide')(); assert.equal(cleared[0], 1);
+    assert.equal(recoveryTimers.length, 1, 'One recovery timer for the controller lifetime'); assert.ok(cleared.includes('recovery'));
 });
 test('Canonical comparison ignores key order and save metadata, strips all temporary image URLs', () => {
     const app = renderer(); app.VisualizerRuntime.updateProperties({ logoimage: { value: 'blob:cover' }, backgroundimage: { value: 'blob:bg' } });

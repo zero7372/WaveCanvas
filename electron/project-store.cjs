@@ -119,7 +119,24 @@ function create(userData, options = {}) {
             throw error;
         }
     }
-    return { open, save, collect, remember, media, backup, getRecent: async () => {
+    // 未存檔新專案的崩潰復原資料。只有一份，存在 App 資料目錄；正常存檔或關閉時刪除，
+    // 所以啟動時檔案仍在就代表上次是異常結束。媒體一律存絕對路徑，復原時才能判斷是否遺失。
+    const recoveryFile = path.join(userData, 'Recovery', 'recovery.waveproj');
+    async function writeRecovery(project) {
+        project = model.validate(project);
+        for (const slot of model.slots) if (project.state.media[slot] && !path.isAbsolute(project.state.media[slot])) project.state.media[slot] = null;
+        await io.mkdir(path.dirname(recoveryFile), { recursive: true });
+        project.modifiedAt = new Date().toISOString();
+        await atomicWrite(recoveryFile, model.serialize(project), io);
+        return true;
+    }
+    async function readRecovery() {
+        if (!(await io.stat(recoveryFile).catch(() => null))?.isFile()) return null;
+        try { return await open(recoveryFile); }
+        catch (error) { log.warn('Recovery:', error.message); await clearRecovery(); return null; }
+    }
+    async function clearRecovery() { await io.unlink(recoveryFile).catch(error => { if (error.code !== 'ENOENT') throw error; }); return true; }
+    return { open, save, collect, remember, media, backup, writeRecovery, readRecovery, clearRecovery, recoveryFile, getRecent: async () => {
         await recentQueue; return Promise.all((await readRecent()).map(async item => ({ ...item, missing: !(await io.stat(item.path).catch(() => null))?.isFile() })));
     }, trimRecent: limit => recentMutation(list => list.slice(0, limit)), removeRecent: file => recentMutation(list => list.filter(item => identity(item.path) !== identity(file))) };
 }

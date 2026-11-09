@@ -29,6 +29,7 @@ contextBridge.exposeInMainWorld('waveCanvas', { release: {
     confirmUnsaved: () => invoke('confirmUnsaved'),
     getRecent: () => invoke('getRecent'), removeRecent: file => invoke('removeRecent', file),
     newProject: () => invoke('new'), status: status => invoke('status', status), finishClose: () => invoke('finishClose'),
+    writeRecovery: project => invoke('writeRecovery', project), clearRecovery: () => invoke('clearRecovery'), takeRecovery: () => invoke('takeRecovery'),
     onCloseRequested(callback) { const listener = () => callback(); ipcRenderer.on('wavecanvas-project:closeRequested', listener); return () => ipcRenderer.removeListener('wavecanvas-project:closeRequested', listener); }
 }, export: {
     selectOutput: name => ipcRenderer.invoke('wavecanvas-export:selectOutput', name),

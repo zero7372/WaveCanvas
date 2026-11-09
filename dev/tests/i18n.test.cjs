@@ -54,6 +54,11 @@ test('Catalogs agree on keys and placeholders and are marked as drafts', () => {
         assert.ok(value.trim() && ja.messages[key].trim(), 'empty translation: ' + key);
     }
     assert.ok(en.draft && ja.draft);
+    // 物件字面值的重複鍵會悄悄覆蓋前一個譯文（例如「復原」同時是 Undo 與 Recover）。
+    for (const [file, catalog] of [['en.js', en], ['ja.js', ja]]) {
+        const lines = fs.readFileSync(path.join(root, 'app/locales', file), 'utf8').split(/\r?\n/).filter(line => /^ {8}"/.test(line)).length;
+        assert.equal(lines, Object.keys(catalog.messages).length, file + ' has duplicate keys');
+    }
 });
 test('Language resolution follows the system and falls back to English', () => {
     assert.equal(i18n.resolve('system', ['zh-TW', 'en-US']), 'zh-TW');
