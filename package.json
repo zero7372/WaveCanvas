@@ -1,7 +1,7 @@
 {
   "name": "wavecanvas",
   "productName": "WaveCanvas",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "WaveCanvas local audio visualizer and project editor for Windows",
   "license": "MIT",
   "private": true,

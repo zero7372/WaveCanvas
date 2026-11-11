@@ -1,6 +1,6 @@
 # WaveCanvas release checklist
 
-WaveCanvas 1.1.0 unsigned release artifacts. Source and installer are co-delivered.
+WaveCanvas 1.2.0 unsigned release artifacts. Source and installer are co-delivered.
 
 | Area | Status | Evidence |
 |---|---|---|

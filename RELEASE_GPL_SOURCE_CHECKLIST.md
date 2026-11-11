@@ -1,4 +1,4 @@
-# WaveCanvas 1.1.0 controlled FFmpeg GPL artifact checklist
+# WaveCanvas 1.2.0 controlled FFmpeg GPL artifact checklist
 
 Status: engineering artifact readiness PASS; published=false. A source ZIP must always accompany the matching installer. Unpublished official URL metadata is separate from artifact readiness.
 
@@ -17,7 +17,7 @@ Status: engineering artifact readiness PASS; published=false. A source ZIP must 
 | License closure | PASS | licenses/FFmpeg/dependencies/ and toolchain/; original source file notices |
 | WaveCanvas attribution | PASS | License.txt byte-identical to licenses/WaveCanvas-LICENSE.txt |
 | Process boundary review | PASS | standalone subprocesses/pipes; no linking into MIT application |
-| Complete source artifact | PASS | release/WaveCanvas-1.1.0-GPL-Source.zip; FILE-HASHES.json |
+| Complete source artifact | PASS | release/WaveCanvas-1.2.0-GPL-Source.zip; FILE-HASHES.json |
 | Offline source snapshots | PASS | all three sources/ and upstream/ original archives included |
 | Build self-sufficiency | PASS | standalone script layout verified; pinned general tools separately bootstrapped |
 | Co-delivery readiness | PASS | source ZIP beside installer; RELEASE-HASHES.txt; SOURCE_INFO.txt |

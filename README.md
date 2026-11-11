@@ -32,16 +32,16 @@ I plan to keep improving it over time, fixing awkward parts of the workflow and 
 - `.waveproj` projects with Save / Save As, autosave, backups, and Recent Projects.
 - Collect Project to copy external assets into a portable project folder.
 - Installed system font enumeration.
-- Deterministic MP4 export: H.264 / AAC at 1920×1080, 60 fps.
+- Deterministic MP4 export: H.264 / AAC at 720p, 1080p or 4K, 30 or 60 fps.
 - Windows installer with English and Traditional Chinese setup languages.
 
 ## Installation
 
-Download **WaveCanvas-Setup-1.1.0.exe** from [Releases](https://github.com/zero7372/WaveCanvas/releases). Version 1.1.0 targets Windows x64.
+Download **WaveCanvas-Setup-1.2.0.exe** from [Releases](https://github.com/zero7372/WaveCanvas/releases). Version 1.2.0 targets Windows x64.
 
 The assisted setup wizard lets you choose the installation directory and optionally create a desktop shortcut. It supports English and Traditional Chinese, creates a Start Menu shortcut, and associates `.waveproj` files with WaveCanvas. Uninstalling preserves projects and application settings.
 
-**The installer is currently unsigned.** Windows SmartScreen or an Unknown Publisher prompt may appear for this reason. Code signing is not configured for version 1.1.0.
+**The installer is currently unsigned.** Windows SmartScreen or an Unknown Publisher prompt may appear for this reason. Code signing is not configured for version 1.2.0.
 
 Installer languages are English / Traditional Chinese; application localization is currently incomplete, and the existing interface contains both languages.
 
@@ -67,7 +67,9 @@ Projects reference media files. **Collect Project** copies external assets and u
 
 ## Export
 
-The current export target is **MP4 with H.264 video and AAC audio, 1920×1080 at 60 fps**.
+WaveCanvas exports **MP4 with H.264 video and AAC audio**. In the Export video dialog you can choose 720p, 1080p (default) or 4K, 30 or 60 fps (default), and the x264 encoding speed. These choices are saved with the project.
+
+The canvas is 1920×1080. 720p is scaled down from it. 4K redraws text and images at 4K, while the spectrum and particles are scaled up from 1080p.
 
 WaveCanvas exports from a dedicated deterministic render pipeline rather than recording the visible editor window. Export uses a fixed timeline and the CPU H.264 encoder.
 
@@ -96,7 +98,7 @@ npm run release:check
 npm run release:check -- --public
 ```
 
-The installer output is `release/WaveCanvas-Setup-1.1.0.exe`. Public checks also require the complete matching GPL source ZIP and source metadata; an installer build alone does not assemble all corresponding-source materials. See the [controlled FFmpeg build guide](dev/ffmpeg-build/README.md) and [GPL source checklist](RELEASE_GPL_SOURCE_CHECKLIST.md) for the existing scripts and source-delivery requirements.
+The installer output is `release/WaveCanvas-Setup-1.2.0.exe`. Public checks also require the complete matching GPL source ZIP and source metadata; an installer build alone does not assemble all corresponding-source materials. See the [controlled FFmpeg build guide](dev/ffmpeg-build/README.md) and [GPL source checklist](RELEASE_GPL_SOURCE_CHECKLIST.md) for the existing scripts and source-delivery requirements.
 
 Node regression tests run with `npm test`. The separate browser suite runs with `npm run browser:test`; all checks pass as of 1.1. The supplied 1.0.0 artifacts passed Technical RC, GPL source gate, and the public release check according to the [controlled rebuild report](dev/reports/CONTROLLED-FFMPEG-REBUILD-REPORT.md). Rerunning the full release check requires the unpacked build outputs omitted from the portable publish package.
 
@@ -106,13 +108,13 @@ The WaveCanvas repository uses the **MIT license**, including its original MIT-d
 
 The bundled standalone FFmpeg / ffprobe runtime has separate licensing: the controlled FFmpeg build with x264 is **GPL-3.0-or-later**. WaveCanvas invokes these executables as separate processes. Their licenses do not replace the repository's MIT notice.
 
-**WaveCanvas-1.1.0-GPL-Source.zip** is provided alongside the matching installer in the [same GitHub Release](https://github.com/zero7372/WaveCanvas/releases/tag/v1.1.0), with `RELEASE-HASHES.txt`. It contains the pinned FFmpeg, x264, and zlib sources, build recipes, manifests, hashes, and license texts. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution and runtime licensing details.
+**WaveCanvas-1.2.0-GPL-Source.zip** is provided alongside the matching installer in the [same GitHub Release](https://github.com/zero7372/WaveCanvas/releases/tag/v1.2.0), with `RELEASE-HASHES.txt`. It contains the pinned FFmpeg, x264, and zlib sources, build recipes, manifests, hashes, and license texts. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution and runtime licensing details.
 
 ## Known Limitations
 
 - The installer is unsigned; Windows may show SmartScreen or Unknown Publisher prompts.
 - Application localization is incomplete.
-- The current export target is 1080p60 H.264 / AAC. Version 1.0 does not offer 4K, HEVC, AV1, or production GPU / NVENC export.
+- Export is H.264 / AAC in landscape 16:9 only. Vertical video, HEVC, AV1 and GPU / NVENC encoding are not available.
 - Some workflow choices differ from conventional video editors.
 - Plugins and cloud sync are not available in version 1.0.
 
