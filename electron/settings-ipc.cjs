@@ -12,7 +12,7 @@ function install(window) {
             if (operation === 'openDataFolder') { const error = await shell.openPath(app.getPath('userData')); if (error) throw Error(error); return { ok: true, value: true }; }
             const value = await window.waveCanvasSettings()[operation](changes);
             if (operation === 'update' && !restoringDefaults) await window.waveCanvasTrimRecent?.(value.project.recentProjectsLimit).catch(error => console.error('Recent trim:', error.message));
-            if (operation !== 'get') { require('./language.cjs').apply(value); window.webContents.send('wavecanvas-settings:changed', value); }
+            if (operation !== 'get') { require('./language.cjs').apply(value); require('./window-chrome.cjs').apply(window, value); window.webContents.send('wavecanvas-settings:changed', value); }
             return { ok: true, value };
         } catch (error) { return { ok: false, error: error.message }; }
     });

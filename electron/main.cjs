@@ -43,6 +43,7 @@ async function createWindow() {
         show: false, frame: true, autoHideMenuBar: true,
         icon: path.join(root, 'app', 'assets', 'wavecanvas.png'), webPreferences: preferences });
     mainWindow.setMenu(null);
+    if (fluent) require('./window-chrome.cjs').apply(mainWindow, initialSettings);
     const window = mainWindow;
     let stateStore, stateDirectory;
     window.waveCanvasApplicationState = () => { const directory = app.getPath('userData'); if (directory !== stateDirectory) { stateDirectory = directory; stateStore = stateModule.create(directory); } return stateStore; };

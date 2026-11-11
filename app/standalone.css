@@ -73,7 +73,6 @@ body[data-view=HOME] .editor-strip>div { display:none; }
 /* 首頁：左側是動作與最近使用，右側是三種模板的實際畫面，點畫面就套用。 */
 #home-view { flex:1;min-height:0;display:grid;grid-template-columns:minmax(200px,250px) minmax(0,1fr);align-items:start;gap:56px;padding:48px clamp(20px,5vw,80px);overflow:auto;background:var(--well); }
 .home-actions h1 { display:flex;align-items:center;gap:10px;font-size:20px;font-weight:600;margin:0 0 22px;letter-spacing:.01em; }
-.home-actions h1::before { content:'';width:28px;height:28px;flex:none;background:url(assets/wavecanvas-small.svg) center/contain no-repeat; }
 .home-actions>button { display:flex;flex-wrap:wrap;width:100%;justify-content:space-between;align-items:baseline;gap:8px;margin:0 0 6px;padding:9px 11px;text-align:left; }
 .home-actions button small { color:var(--muted);font-size:11px; }
 .home-primary { background:var(--ink) !important;color:var(--on-ink);border-color:var(--ink);font-weight:600; }
@@ -274,7 +273,7 @@ body[data-view=HOME] .editor-strip>div { display:none; }
     --edge:rgba(0,0,0,.35); --line:rgba(255,255,255,.08); }
 :root[data-material=mica] body { background:transparent; }
 :root[data-material=mica] #standalone-chrome { background:transparent; border-bottom-color:transparent; -webkit-app-region:drag; }
-:root[data-material=mica] .app-toolbar { padding-right:calc(100vw - env(titlebar-area-x, 0px) - env(titlebar-area-width, 100vw) + 10px); }
+:root[data-material=mica] .app-toolbar { padding-right:calc((100vw - env(titlebar-area-x, 0px) - env(titlebar-area-width, 100vw)) / var(--ui-scale, 1) + 10px); }
 :root[data-material=mica] .app-toolbar button,:root[data-material=mica] .app-toolbar summary,:root[data-material=mica] .app-toolbar input,
 :root[data-material=mica] .app-toolbar select,:root[data-material=mica] .app-toolbar a,:root[data-material=mica] .app-menu>div { -webkit-app-region:no-drag; }
 /* Fluent 圓角：控制項 4px、浮層與對話框 8px；層次用淡淡的亮邊而不是黑線。 */
