@@ -6,12 +6,14 @@
 /* 全域的 input／select 固定 24px 高；對話框加大內距時要解除，否則文字會被切掉。底色沿用介面的暖灰。 */
 .app-dialog input[type=text], .app-dialog select { box-sizing: border-box; width: 100%; height: auto; min-height: 36px; padding: 8px 10px; border: 1px solid #171614; border-radius: 2px; color: inherit; background: var(--well, #201f1d); font: inherit; line-height: 1.4; }
 .app-dialog .preference-toggle { display: flex; gap: 10px; align-items: center; margin: 16px 0; }
-.app-dialog input[type=checkbox] { accent-color: var(--accent); }
+.app-dialog input[type=checkbox] { accent-color: var(--ink); }
 .app-dialog footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
 .app-dialog button { padding: 8px 14px; border: 1px solid #171614; border-radius: 2px; background: #383633; color: inherit; font: inherit; cursor: pointer; }
-.app-dialog .primary-button { background: #e2a73b; border-color: #e2a73b; color: #2a1e06; font-weight: 600; }
+.app-dialog .primary-button { background: var(--ink); border-color: var(--ink); color: var(--on-ink); font-weight: 600; }
+/* 只有「輸出影片」的確認按鈕用琥珀色，和工具列的輸出按鈕一致。 */
+#export-dialog .primary-button { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .app-dialog button:disabled, .app-dialog select:disabled { opacity: .45; cursor: default; }
-.app-dialog :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.app-dialog :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .app-dialog .dialog-note { color: var(--muted); font-size: 12px; }
 .app-dialog .dialog-message { color: #e8a08d; min-height: 1.5em; margin: 8px 0 0; }
 #preferences-reset { margin-right: auto; }
@@ -21,7 +23,7 @@
 .preferences-body nav { display:flex; flex-direction:column; gap:6px; flex:0 0 auto; min-width:110px; }
 .preferences-body nav button { white-space:nowrap; }
 .preferences-body nav button { text-align:left; }
-.preferences-body nav button[aria-current=true] { background:#3f3c38; border-color:#e2a73b; }
+.preferences-body nav button[aria-current=true] { background:#3f3c38; border-color:var(--ink); }
 .preferences-panels { flex:1; min-width:0; }
 .preferences-panels input[type=range] { width:100%; }
 @media(max-width:600px) { .preferences-body { flex-direction:column; gap:14px; } .preferences-body nav { flex-direction:row; flex-wrap:wrap; flex-basis:auto; } }
@@ -31,5 +33,5 @@
 #update-notice p { margin:0 0 10px; }
 #update-notice div { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
 #update-notice button { padding:6px 10px; border:1px solid #171614; border-radius:2px; background:#3f3c38; color:inherit; font:inherit; cursor:pointer; }
-#update-notice .primary-button { background:#e2a73b; border-color:#e2a73b; color:#2a1e06; font-weight:600; }
+#update-notice .primary-button { background:var(--ink); border-color:var(--ink); color:var(--on-ink); font-weight:600; }
 #preference-check-now { margin-top:4px; }

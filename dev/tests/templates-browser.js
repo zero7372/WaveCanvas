@@ -16,12 +16,13 @@ document.querySelector('#run').addEventListener('click', async function () {
             const card=cards[i],image=card.querySelector('img');
             if(!image.complete)await new Promise(resolve=>{image.addEventListener('load',resolve,{once:true});image.addEventListener('error',resolve,{once:true});});
             check(image.complete&&image.naturalWidth>0&&image.src.endsWith(definition.thumbnail),definition.name+' thumbnail resolves');
-            check(card.querySelector('h3').textContent===definition.name&&card.querySelector('.template-subtitle').textContent===definition.subtitle&&card.querySelector('.template-description').textContent===definition.description,definition.name+' exact supplied copy');
-            check(card.querySelector('button').textContent==='使用此模板',definition.name+' launcher label');
+            check(card.querySelector('.template-name').textContent===definition.name&&card.querySelector('.template-subtitle').textContent===definition.subtitle&&card.querySelector('.template-description').textContent===definition.description,definition.name+' exact supplied copy');
+            // 整張模板就是按鈕；名稱給輔助技術使用。
+            check(card.tagName==='BUTTON'&&card.getAttribute('aria-label')===definition.name+'：使用此模板',definition.name+' launcher label');
         }
         check(definitions.every(item=>item.previewVideo===null)&&!doc.querySelector('#template-gallery video'),'Null previewVideo renders no video element');
-        const buttonYs=cards.map(card=>card.querySelector('button').getBoundingClientRect().top);
-        check(Math.max(...buttonYs)-Math.min(...buttonYs)<1,'Desktop card buttons align in one row');
+        const imageYs=cards.map(card=>card.querySelector('img').getBoundingClientRect().top);
+        check(Math.max(...imageYs)-Math.min(...imageYs)<1,'Desktop template previews align in one row');
         for(const width of [1280,980,720,420]){
             frame.style.width=width+'px';await wait(100);
             const home=doc.querySelector('#home-view'),rect=home.getBoundingClientRect();
@@ -32,7 +33,7 @@ document.querySelector('#run').addEventListener('click', async function () {
         frame.style.width='1280px';await wait(60);
         for(const definition of definitions){
             shell.showView('HOME');r.updateStandalone({visualizer:{layout:definition.layout,rotation:45,coverX:81}});
-            doc.querySelector('[data-template-id="'+definition.id+'"] button').click();await wait(60);
+            doc.querySelector('[data-template-id="'+definition.id+'"]').click();await wait(60);
             check(shell.getView()==='EDITOR'&&!doc.querySelector('#editor-view').hidden,definition.name+' button enters Editor');
             check(same(r.getStandalone().visualizer,app.VisualizerFactoryDefaults.get(definition.layout).standalone.visualizer),definition.name+' button applies exact target factory geometry');
             check(!r.getSettings().logoimage.value&&!doc.querySelector('#local-audio').getAttribute('src'),definition.name+' works without importing media');
@@ -57,7 +58,7 @@ document.querySelector('#run').addEventListener('click', async function () {
         r.updateStandalone({inputGain:1.25,lyrics:{globalOffsetMs:91},text:{title:'Keep title',artist:'Keep artist'}});
         const urls={cover:r.getSettings().logoimage.value,background:r.getSettings().backgroundimage.value,audio:audio.getAttribute('src')};
         for(const definition of definitions){
-            shell.showView('HOME');doc.querySelector('[data-template-id="'+definition.id+'"] button').click();
+            shell.showView('HOME');doc.querySelector('[data-template-id="'+definition.id+'"]').click();
             check(r.getSettings().logoimage.value===urls.cover&&r.getSettings().backgroundimage.value===urls.background&&audio.getAttribute('src')===urls.audio,definition.name+' retains loaded audio, Cover and background URLs');
             check(doc.querySelector('#primary-name').textContent==='primary-ui.lrc'&&doc.querySelector('#secondary-name').textContent==='secondary-ui.lrc',definition.name+' retains both loaded LRCs');
             check(r.getStandalone().inputGain===1.25&&r.getStandalone().lyrics.globalOffsetMs===91&&r.getStandalone().text.title==='Keep title',definition.name+' preserves audio/Lyrics settings and song content');

@@ -142,7 +142,7 @@
             lastSavedHash = hash(snapshot()); dirty = false;
             for (const slot of model.slots) {
                 const node = document.querySelector('#' + (slot === 'audio' ? 'audio' : slot === 'cover' ? 'cover' : slot) + '-name');
-                if (node && loaded.media[slot]?.missing) window.WaveCanvasI18nDom.text(node, '找不到檔案 · {name}', { name: loaded.media[slot].name });
+                if (node && loaded.media[slot]?.missing) window.WaveCanvasI18nDom.text(node, '找不到檔案：{name}', { name: loaded.media[slot].name });
             }
             window.WaveCanvasShell.showView('EDITOR'); window.dispatchEvent(new Event('wavecanvas-recent-change'));
             if (userInitiated && !missing.length && files.audio && preferences.get().playback.autoPlayOnLoad) {

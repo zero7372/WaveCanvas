@@ -29,9 +29,9 @@
             status.dataset.error = 'false';
             // 狀態列由數段組成，每段各自翻譯；檔名是使用者內容，只當參數帶入。
             const t = window.WaveCanvasI18n.t;
-            status.textContent = state.count ? [t('{name} · {count} 句 · 檔案偏移 {offset} 毫秒', { name: state.name, count: state.count, offset: state.fileOffsetMs }),
+            status.textContent = state.count ? [t('{name}：{count} 句，檔案偏移 {offset} 毫秒', { name: state.name, count: state.count, offset: state.fileOffsetMs }),
                 state.secondaryName ? t('次要：{name}（偏移 {offset} 毫秒）', { name: state.secondaryName, offset: state.secondaryFileOffsetMs }) : '',
-                state.warnings ? t('{count} 筆匯入警告／忽略項目', { count: state.warnings }) : ''].filter(Boolean).join(' · ')
+                state.warnings ? t('{count} 筆匯入警告／忽略項目', { count: state.warnings }) : ''].filter(Boolean).join(window.WaveCanvasI18n.t('；'))
                 : state.name ? '此檔案沒有有效的逐行歌詞。'
                     : state.secondaryName ? t('已載入次要：{name}；請選擇主要 LRC 建立時間線。', { name: state.secondaryName }) : '尚未載入歌詞';
         }

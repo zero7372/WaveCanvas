@@ -7,7 +7,7 @@
     const summary = document.createElement('summary'); summary.textContent = '幾何／排列'; details.append(summary);
     const content = document.createElement('div'); content.className = 'group-content'; details.append(content);
     const note = document.createElement('p'); note.className = 'schema-note';
-    note.textContent = '16:9 · 1920×1080 畫布。圓形模式使用原圓形／頻譜柱／中心設定；以下幾何參數供方形／直線模式使用。位置為畫布百分比；寬高為畫布像素。'; content.append(note);
+    note.textContent = '16:9（1920×1080）畫布。圓形模式使用原圓形／頻譜柱／中心設定；以下幾何參數供方形／直線模式使用。位置為畫布百分比；寬高為畫布像素。'; content.append(note);
     const controls = new Map();
     for (const [key, definition] of Object.entries(window.VisualizerLayoutSettings.properties)) {
         const row = document.createElement('div'); row.className = 'setting-row'; row.dataset.layoutProperty = key;
