@@ -3,7 +3,8 @@
 .app-dialog h2 { margin: 0 0 20px; font-size: 15px; font-weight: 600; }
 .app-dialog h3 { margin: 0 0 14px; font-size: 15px; }
 .app-dialog label { display: block; margin: 12px 0 6px; }
-.app-dialog input[type=text], .app-dialog select { box-sizing: border-box; width: 100%; padding: 9px 10px; border: 1px solid #171614; border-radius: 2px; color: inherit; background: #171b22; font: inherit; }
+/* 全域的 input／select 固定 24px 高；對話框加大內距時要解除，否則文字會被切掉。底色沿用介面的暖灰。 */
+.app-dialog input[type=text], .app-dialog select { box-sizing: border-box; width: 100%; height: auto; min-height: 36px; padding: 8px 10px; border: 1px solid #171614; border-radius: 2px; color: inherit; background: var(--well, #201f1d); font: inherit; line-height: 1.4; }
 .app-dialog .preference-toggle { display: flex; gap: 10px; align-items: center; margin: 16px 0; }
 .app-dialog input[type=checkbox] { accent-color: var(--accent); }
 .app-dialog footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
