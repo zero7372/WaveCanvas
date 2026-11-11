@@ -5,8 +5,10 @@ const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).d
 const check = (condition, message) => { assert.ok(condition, message); console.log('PASS ' + message); };
 check(/^\d+\.\d+\.\d+$/.test(pkg.version) && pkg.productName === 'WaveCanvas' && pkg.build.win.executableName === 'WaveCanvas', 'Canonical version and product identity');
 const icon = fs.readFileSync(path.join(root, pkg.build.win.icon));
-check(icon.readUInt16LE(2) === 1 && icon.readUInt16LE(4) === 7, 'Seven-size Windows ICO');
-check([16,24,32,48,64,128,256].every(size => Array.from({length:7},(_,i)=>icon[6+i*16] || 256).includes(size)), 'ICO dimensions');
+// 1.2 起 ICO 由 SVG 產生，含 9 種尺寸；至少要有 Windows 用到的 7 種。
+const iconCount = icon.readUInt16LE(4);
+check(icon.readUInt16LE(2) === 1 && iconCount >= 7, 'Windows ICO with at least seven sizes');
+check([16,24,32,48,64,128,256].every(size => Array.from({length:iconCount},(_,i)=>icon[6+i*16] || 256).includes(size)), 'ICO dimensions');
 const metadata = require('../../vendor/ffmpeg/BUILD.json');
 for (const [name, digest] of Object.entries(metadata.sha256)) for (const directory of ['vendor/ffmpeg','release/win-unpacked/resources/ffmpeg']) check(hash(path.join(root,directory,name)) === digest, directory + '/' + name + ' pinned hash');
 const files = require('./license-resources.cjs');
