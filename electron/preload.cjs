@@ -9,7 +9,7 @@ const settingsInvoke = async (name, ...args) => {
     const result = await ipcRenderer.invoke('wavecanvas-settings:' + name, ...args);
     if (!result.ok) throw new Error(result.error); return result.value;
 };
-contextBridge.exposeInMainWorld('waveCanvas', { release: {
+contextBridge.exposeInMainWorld('waveCanvas', { shell: { material: process.platform === 'win32' ? 'mica' : null }, release: {
     info: () => ipcRenderer.invoke('wavecanvas-release:info'),
     read: () => ipcRenderer.invoke('wavecanvas-release:read'), openLicenses: () => ipcRenderer.invoke('wavecanvas-release:openLicenses'),
     openChromiumNotices: () => ipcRenderer.invoke('wavecanvas-release:openChromiumNotices')

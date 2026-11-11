@@ -265,3 +265,35 @@ body[data-view=HOME] .editor-strip>div { display:none; }
 /* 介面字型依語言選字形，避免日文漢字用到繁中字形。畫布 #stage 固定 lang="zh-Hant"，預覽與輸出不受介面語言影響。 */
 :root:lang(ja) { --ui:"Segoe UI Variable","Segoe UI","Yu Gothic UI","Meiryo UI","Noto Sans JP",sans-serif; }
 #stage { font-family:"Segoe UI Variable","Segoe UI","Microsoft JhengHei UI","Noto Sans TC",sans-serif; }
+
+/* ---------- Beta：Windows 11（Fluent）外觀 ----------
+   只在 Desktop App 的 Mica 視窗啟用（html[data-material=mica]）。
+   頂列兼作標題列：可拖曳，右側讓出原生的最小化／最大化／關閉按鈕。
+   各面板改為半透明，讓 Mica 透出；畫布周圍維持深色，預覽的對比不變。 */
+:root[data-material=mica] { --panel:rgba(40,39,37,.62); --raised:rgba(255,255,255,.06); --hover:rgba(255,255,255,.06); --selected:rgba(255,255,255,.09);
+    --edge:rgba(0,0,0,.35); --line:rgba(255,255,255,.08); }
+:root[data-material=mica] body { background:transparent; }
+:root[data-material=mica] #standalone-chrome { background:transparent; border-bottom-color:transparent; -webkit-app-region:drag; }
+:root[data-material=mica] .app-toolbar { padding-right:calc(100vw - env(titlebar-area-x, 0px) - env(titlebar-area-width, 100vw) + 10px); }
+:root[data-material=mica] .app-toolbar button,:root[data-material=mica] .app-toolbar summary,:root[data-material=mica] .app-toolbar input,
+:root[data-material=mica] .app-toolbar select,:root[data-material=mica] .app-toolbar a,:root[data-material=mica] .app-menu>div { -webkit-app-region:no-drag; }
+/* Fluent 圓角：控制項 4px、浮層與對話框 8px；層次用淡淡的亮邊而不是黑線。 */
+:root[data-material=mica] button,:root[data-material=mica] input[type=text],:root[data-material=mica] input[type=number],:root[data-material=mica] select { border-radius:4px; }
+:root[data-material=mica] button { border-color:rgba(255,255,255,.07); border-bottom-color:rgba(0,0,0,.25); }
+:root[data-material=mica] input[type=text],:root[data-material=mica] input[type=number],:root[data-material=mica] select { background:rgba(0,0,0,.22); border-color:rgba(255,255,255,.07); border-bottom-color:rgba(255,255,255,.22); }
+:root[data-material=mica] #media-panel,:root[data-material=mica] #settings-panel { border-color:transparent; }
+:root[data-material=mica] #preview-region,:root[data-material=mica] #preview-container { background:#141312; }
+:root[data-material=mica] #workspace { gap:6px; padding:0 6px; }
+:root[data-material=mica] #media-panel,:root[data-material=mica] #settings-panel { border-radius:8px; }
+:root[data-material=mica] .app-menu>div { border-radius:8px; background:rgba(44,43,41,.96); border-color:rgba(255,255,255,.08); padding:4px; }
+:root[data-material=mica] .app-menu>div>button { border-radius:4px; }
+:root[data-material=mica] .app-menu>div>button:hover { background:rgba(255,255,255,.07); }
+/* 圖層清單比照 WinUI 導覽列：選取項目是圓角底色加左側短指示條。 */
+:root[data-material=mica] .layer-item { margin:1px 4px; width:calc(100% - 8px); border-radius:4px; border-left-color:transparent; position:relative; }
+:root[data-material=mica] .layer-item[aria-selected=true] { border-left-color:transparent; }
+:root[data-material=mica] .layer-item[aria-selected=true]::before { content:''; position:absolute; left:0; top:30%; bottom:30%; width:3px; border-radius:2px; background:var(--ink); }
+:root[data-material=mica] .app-dialog { border-radius:8px; background:#2c2b29; border-color:rgba(255,255,255,.08); }
+:root[data-material=mica] .app-dialog button,:root[data-material=mica] .app-dialog input[type=text],:root[data-material=mica] .app-dialog select { border-radius:4px; }
+:root[data-material=mica] #home-view { background:transparent; }
+:root[data-material=mica] #transport { background:transparent; }
+

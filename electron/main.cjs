@@ -25,7 +25,10 @@ process.on('uncaughtException', error => fatal(t('Main Process 發生錯誤'), e
 process.on('unhandledRejection', error => fatal(t('Main Process 非同步錯誤'), error));
 const preferences = { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false,
     sandbox: true, webSecurity: true, allowRunningInsecureContent: false, devTools: true, webviewTag: false };
+// Beta：只在 Windows 啟用 Fluent 外觀；深色主題讓 Mica 呈現深色。
+const fluent = process.platform === 'win32';
 async function createWindow() {
+    if (fluent) require('electron').nativeTheme.themeSource = 'dark';
     const stateModule = require('./application-state.cjs');
     const initialSettings = await require('./settings-store.cjs').create(app.getPath('userData')).get();
     require('./language.cjs').apply(initialSettings);
@@ -34,7 +37,10 @@ async function createWindow() {
     const area = screen.getPrimaryDisplay().workAreaSize;
     mainWindow = new BrowserWindow({ title: 'WaveCanvas', ...(bounds ? { x: bounds.x, y: bounds.y } : {}), width: bounds?.width || Math.min(1560, area.width), height: bounds?.height || Math.min(960, area.height),
         minWidth: Math.min(1000, bounds?.width || area.width), minHeight: Math.min(680, bounds?.height || area.height),
-        backgroundColor: '#17191e', show: false, frame: true, autoHideMenuBar: true,
+        // Beta：Windows 11 外觀。Mica 背景加上原生標題列按鈕，頂列本身當作標題列（可拖曳）。
+        ...(fluent ? { backgroundMaterial: 'mica', backgroundColor: '#00000000', titleBarStyle: 'hidden',
+            titleBarOverlay: { color: '#00000000', symbolColor: '#e8e4dc', height: 38 } } : { backgroundColor: '#17191e' }),
+        show: false, frame: true, autoHideMenuBar: true,
         icon: path.join(root, 'app', 'assets', 'wavecanvas.png'), webPreferences: preferences });
     mainWindow.setMenu(null);
     const window = mainWindow;
