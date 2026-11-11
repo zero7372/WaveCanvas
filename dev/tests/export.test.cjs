@@ -18,6 +18,18 @@ test('Export tail extends frames and pads audio only when requested', () => {
     const padded = runner.args('a.wav', 'o.mp4', 420, 0, true);
     assert.equal(padded[padded.indexOf('-af') + 1], 'apad'); assert.equal(padded[padded.indexOf('-t') + 1], '7'); assert.ok(padded.indexOf('-af') < padded.indexOf('o.mp4'));
 });
+test('Export formats change only the requested FFmpeg arguments', () => {
+    const formats = require('../../app/export-format.js'), option = (args, key) => args[args.indexOf(key) + 1];
+    assert.deepEqual(runner.args('a.wav', 'o.mp4', 300, 0, false, formats.resolve()), runner.args('a.wav', 'o.mp4', 300), 'Default format keeps 1.1 arguments');
+    assert.deepEqual(formats.resolve({ resolution: 'bogus', fps: 24 }), formats.resolve(), 'Unknown values fall back to the default');
+    const small = runner.args('a.wav', 'o.mp4', 150, 0, false, formats.resolve({ resolution: '720p', fps: 30, preset: 'veryfast' }));
+    assert.equal(option(small, '-video_size'), '1920x1080'); assert.equal(option(small, '-framerate'), '30'); assert.equal(option(small, '-vf'), 'scale=1280:720:flags=lanczos');
+    assert.equal(option(small, '-preset'), 'veryfast'); assert.equal(option(small, '-t'), '5'); assert.ok(small.indexOf('-vf') > small.indexOf('-map') && small.indexOf('-vf') < small.indexOf('o.mp4'));
+    const large = runner.args('a.wav', 'o.mp4', 300, 0, false, formats.resolve({ resolution: '2160p' }));
+    assert.equal(option(large, '-video_size'), '3840x2160'); assert.ok(!large.includes('-vf'), '4K is rendered at full size, not scaled');
+    assert.equal(runner.frames(5, 0, 30), 150); assert.equal(runner.frames(5, 2, 30), 210); assert.equal(runner.frames(.001, 0, 30), 1);
+    assert.equal(formats.resolve({ fps: 30 }).step, 2); assert.equal(formats.resolve().step, 1);
+});
 test('Atomic temporary outputs stay beside target and never equal the final path', () => {
     const output = path.resolve('test.mp4'), a = runner.temporary(output), b = runner.temporary(output);
     assert.equal(path.dirname(a), path.dirname(output)); assert.notEqual(a, b); assert.notEqual(a, output); assert.match(a, /\.partial\.mp4$/);

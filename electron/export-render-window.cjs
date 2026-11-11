@@ -1,13 +1,15 @@
 'use strict';
 const { t } = require('../app/i18n.js');
 const { BrowserWindow } = require('electron'), path = require('node:path');
-const pixels = require('./export-pixels.cjs');
+const layouts = require('./export-pixels.cjs');
 
-async function create() {
+// scale 2 時視窗仍是 1920×1081 CSS 像素，以 2 倍像素繪製成 4K。
+async function create(scale = 1) {
+    const pixels = layouts.layout(scale);
     // The last row authenticates a compositor commit; only the 1080 Stage rows are encoded.
     const window = new BrowserWindow({ width: 1920, height: 1081, useContentSize: true, show: false, frame: false, backgroundColor: '#000000',
         webPreferences: { preload: path.join(__dirname, 'export-preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false,
-            backgroundThrottling: false, offscreen: { useSharedTexture: false, deviceScaleFactor: 1 } } });
+            backgroundThrottling: false, offscreen: { useSharedTexture: false, deviceScaleFactor: scale } } });
     const contents = window.webContents;
     window.setContentSize(1920, 1081);
     contents.setWindowOpenHandler(() => ({ action: 'deny' }));
@@ -28,7 +30,7 @@ async function create() {
         return Promise.race([contents.executeJavaScript(source), failure]);
     };
     return { window, execute, async prepare() {
-        const info = await execute('exportData.read().then(payload=>WaveCanvasExportStage.prepare(payload))');
+        const info = await execute('exportData.read().then(payload=>WaveCanvasExportStage.prepare(payload,' + scale + '))');
         await execute('WaveCanvasExportStage.configureCapture()');
         return info;
     }, async capture(index, marks) {
@@ -75,6 +77,10 @@ async function create() {
             return frame;
         } catch (error) { pendingCancel?.(error); throw error; }
         finally { capturing = false; }
+    }, async advance(index) {
+        // 30 fps 不編碼的格子：時鐘、音訊與動畫照常前進，不等 compositor 畫面。
+        if (capturing) throw Error(t('Export capture 必須逐幀等待。'));
+        await execute('WaveCanvasExportStage.renderAtFrame(' + index + ',false,0)');
     }, dispose() {
         pendingCancel?.(Error(t('已停止 Stage capture。')));
         rowBuffer = null;

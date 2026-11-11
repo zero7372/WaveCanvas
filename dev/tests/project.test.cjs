@@ -4,7 +4,7 @@ const model = require('../../app/project-model.js'), { create, atomicWrite } = r
 const appRoot = path.resolve(__dirname, '../../app');
 function renderer() {
     const app = { console, window: null }; app.window = app; vm.createContext(app);
-    for (const file of ['property-schema.js','layout-schema.js','system-fonts.js','property-compatibility.js','song-info-schema.js','lyrics-schema.js','background-schema.js','inspector-policy.js','factory-defaults-data.js','factory-layout-defaults.js','runtime-adapter.js','lrc-parser.js','srt-parser.js','lyrics-import.js','timing-model.js','lyrics-runtime.js','project-model.js','export-settings.js']) vm.runInContext(require('node:fs').readFileSync(path.join(appRoot, file), 'utf8'), app);
+    for (const file of ['property-schema.js','layout-schema.js','system-fonts.js','property-compatibility.js','song-info-schema.js','lyrics-schema.js','background-schema.js','inspector-policy.js','factory-defaults-data.js','factory-layout-defaults.js','runtime-adapter.js','lrc-parser.js','srt-parser.js','lyrics-import.js','timing-model.js','lyrics-runtime.js','export-format.js','project-model.js','export-settings.js']) vm.runInContext(require('node:fs').readFileSync(path.join(appRoot, file), 'utf8'), app);
     const audio = { duration: 120, currentTime: 0, ended: false, addEventListener() {}, removeEventListener() {} };
     app.VisualizerLyrics = app.VisualizerLyricsRuntime.create(audio, () => app.VisualizerRuntime.getStandalone().lyrics.globalOffsetMs);
     vm.runInContext(require('node:fs').readFileSync(path.join(appRoot, 'project-serializer.js'), 'utf8'), app); return app;
@@ -23,6 +23,19 @@ test('Export tail is optional, clamped and old projects keep their length', () =
     settings.restore(old.state.export); assert.equal(settings.get(), 0); assert.equal(project(app).state.export.tailSeconds, 0);
     let notified = 0; settings.subscribe(() => notified++); settings.set(3.2); assert.equal(settings.get(), 3); assert.equal(notified, 2);
     settings.set(NaN); assert.equal(settings.get(), 3); settings.reset(); assert.equal(settings.get(), 2);
+});
+test('Export format is optional, validated, and old projects keep 1080p 60 fps medium', () => {
+    const plain = item => JSON.parse(JSON.stringify(item)), app = renderer(), settings = app.WaveCanvasExportSettings, value = project(app);
+    assert.deepEqual(plain(Object.keys(value.state.export)), ['tailSeconds'], 'Default format is not written, so saved files match 1.1');
+    for (const format of [{ resolution: '720p' }, { resolution: '2160p', fps: 30 }, { preset: 'veryfast' }, { fps: 60, preset: 'slow' }]) {
+        assert.deepEqual(model.validate({ ...value, state: { ...value.state, export: { tailSeconds: 1, ...format } } }).state.export, { tailSeconds: 1, ...format });
+    }
+    for (const bad of [{ resolution: '1440p' }, { fps: 24 }, { fps: '60' }, { preset: 'placebo' }, { resolution: null }]) assert.throws(() => model.validate({ ...value, state: { ...value.state, export: { tailSeconds: 0, ...bad } } }));
+    settings.setFormat({ resolution: '2160p', fps: 30 }); assert.deepEqual(plain(project(app).state.export), { tailSeconds: 2, resolution: '2160p', fps: 30 });
+    settings.setFormat({ preset: 'bogus', fps: 24 }); assert.deepEqual(plain(settings.getFormat()), { resolution: '2160p', fps: 30, preset: 'medium' }, 'Invalid values are ignored');
+    let notified = 0; settings.subscribe(() => notified++); settings.setFormat({ resolution: '720p' }); settings.setFormat({ resolution: '720p' }); assert.equal(notified, 2, 'Only real changes notify');
+    settings.restore({ tailSeconds: 0 }); assert.deepEqual(plain(settings.getFormat()), { resolution: '1080p', fps: 60, preset: 'medium' }, 'Old projects restore the 1.1 format');
+    settings.setFormat({ fps: 30 }); settings.reset(); assert.deepEqual(plain(project(app).state.export), { tailSeconds: 2 });
 });
 test('Project format validates version, finite numbers, stable IDs and rejects unsafe media URLs/prototype keys', () => {
     const value = project(); assert.equal(model.parse(model.serialize(value)).format, 'wavecanvas-project');

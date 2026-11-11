@@ -10,7 +10,8 @@
     const label = document.createElement('div'), progress = document.createElement('progress'), cancel = document.createElement('button'), reveal = document.createElement('button');
     progress.max = 100; progress.style.cssText = 'width:100%;margin:12px 0;display:block'; cancel.textContent = '取消輸出'; reveal.textContent = '開啟所在資料夾'; reveal.hidden = true;
     box.append(label, progress, cancel, reveal); document.body.append(box);
-    function refresh() { button.disabled = command.disabled = !api || busy || !window.VisualizerLocalAudio?.getFile(); button.title = command.title = !api ? '僅 Desktop App 可用' : !window.VisualizerLocalAudio?.getFile() ? '請先載入音訊' : '1920×1080 · 60 FPS · H.264 / AAC'; }
+    function refresh() { button.disabled = command.disabled = !api || busy || !window.VisualizerLocalAudio?.getFile(); button.title = command.title = !api ? '僅 Desktop App 可用' : !window.VisualizerLocalAudio?.getFile() ? '請先載入音訊' : window.WaveCanvasI18n.t('輸出 {width}×{height}、{fps} fps 的 MP4', formatSize()); }
+    function formatSize() { const format = window.WaveCanvasExportFormat.resolve(window.WaveCanvasExportSettings.getFormat()); return { width: format.width, height: format.height, fps: format.fps }; }
     function lock(value) {
         for (const selector of ['#editor-view', '#home-view', '.app-menus', '#home-button', '.toolbar-actions']) {
             const node = document.querySelector(selector); if (node) node.inert = value;
@@ -53,6 +54,6 @@
         if (['complete', 'canceled', 'error'].includes(state.phase)) cancel.hidden = true;
         reveal.hidden = state.phase !== 'complete';
     });
-    window.addEventListener('local-audio-change', refresh); refresh();
+    window.addEventListener('local-audio-change', refresh); window.WaveCanvasExportSettings.subscribe(refresh); refresh();
     window.WaveCanvasExport = Object.freeze({ start, payload, getState: () => ({ busy }) });
 }());

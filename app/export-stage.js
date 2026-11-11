@@ -15,7 +15,7 @@
             }
             document.body.append(captureMarker);
         },
-        async prepare(payload) {
+        async prepare(payload, scale = 1) {
             const started = window.exportNativeNow();
             const runtime = window.VisualizerRuntime;
             runtime.restoreProjectSettings(payload.snapshot.state.settings);
@@ -36,7 +36,7 @@
             window.VisualizerLyrics.restoreDocuments(payload.snapshot.state.lyrics);
             await document.fonts.ready;
             const rect = document.querySelector('#stage').getBoundingClientRect();
-            if (devicePixelRatio !== 1 || rect.x !== 0 || rect.y !== 0 || rect.width !== 1920 || rect.height !== 1080) throw Error('Export Stage pixel mapping 不正確。');
+            if (devicePixelRatio !== scale || rect.x !== 0 || rect.y !== 0 || rect.width !== 1920 || rect.height !== 1080) throw Error('Export Stage pixel mapping 不正確。');
             cache = await new Promise((resolve, reject) => {
                 worker = new Worker('export-audio-worker.js');
                 worker.onerror = event => reject(new Error(event.message));

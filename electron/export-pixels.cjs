@@ -1,28 +1,35 @@
 'use strict';
 const { t } = require('../app/i18n.js');
-const WIDTH = 1920, HEIGHT = 1080, FRAME_BYTES = WIDTH * HEIGHT * 4;
 
-function validate(bitmap, width, height) {
-    if (!Buffer.isBuffer(bitmap) || !Number.isInteger(width) || !Number.isInteger(height) ||
-        width < WIDTH || height < HEIGHT + 1 || bitmap.length !== width * height * 4) {
-        throw Error(t('Stage compositor pixel buffer 尺寸不正確。'));
+// scale 是輸出視窗的像素倍率：1 為 1920×1080，2 為 3840×2160。
+// 中繼資料列在 Stage 下方一個 CSS 像素，兩個標記各佔 scale 個實體像素。
+function layout(scale = 1) {
+    const WIDTH = 1920 * scale, HEIGHT = 1080 * scale, FRAME_BYTES = WIDTH * HEIGHT * 4;
+
+    function validate(bitmap, width, height) {
+        if (!Buffer.isBuffer(bitmap) || !Number.isInteger(width) || !Number.isInteger(height) ||
+            width < WIDTH || height < HEIGHT + 1 || bitmap.length !== width * height * 4) {
+            throw Error(t('Stage compositor pixel buffer 尺寸不正確。'));
+        }
     }
+
+    function matchesFrame(bitmap, width, index) {
+        const offset = HEIGHT * width * 4, second = offset + scale * 4, value = index + 1;
+        const rgb = [value & 255, (value >>> 8) & 255, (value >>> 16) & 255];
+        return bitmap[offset + 3] === 255 && bitmap[second + 3] === 255 &&
+            rgb.every((v, channel) => bitmap[offset + 2 - channel] === v && bitmap[second + 2 - channel] === 255 - v);
+    }
+
+    function stage(bitmap, width, reusable) {
+        // toBitmap() owns its copy. A view keeps it alive without a second allocation.
+        if (width === WIDTH) return bitmap.subarray(0, FRAME_BYTES);
+        const buffer = reusable || Buffer.allocUnsafe(FRAME_BYTES);
+        if (buffer.length !== FRAME_BYTES) throw Error(t('Stage row buffer 長度不正確。'));
+        for (let y = 0; y < HEIGHT; y++) bitmap.copy(buffer, y * WIDTH * 4, y * width * 4, y * width * 4 + WIDTH * 4);
+        return buffer;
+    }
+
+    return Object.freeze({ scale, WIDTH, HEIGHT, FRAME_BYTES, validate, matchesFrame, stage });
 }
 
-function matchesFrame(bitmap, width, index) {
-    const offset = HEIGHT * width * 4, value = index + 1;
-    const rgb = [value & 255, (value >>> 8) & 255, (value >>> 16) & 255];
-    return bitmap[offset + 3] === 255 && bitmap[offset + 7] === 255 &&
-        rgb.every((v, channel) => bitmap[offset + 2 - channel] === v && bitmap[offset + 6 - channel] === 255 - v);
-}
-
-function stage(bitmap, width, reusable) {
-    // toBitmap() owns its copy. A view keeps it alive without a second allocation.
-    if (width === WIDTH) return bitmap.subarray(0, FRAME_BYTES);
-    const buffer = reusable || Buffer.allocUnsafe(FRAME_BYTES);
-    if (buffer.length !== FRAME_BYTES) throw Error(t('Stage row buffer 長度不正確。'));
-    for (let y = 0; y < HEIGHT; y++) bitmap.copy(buffer, y * WIDTH * 4, y * width * 4, y * width * 4 + WIDTH * 4);
-    return buffer;
-}
-
-module.exports = { WIDTH, HEIGHT, FRAME_BYTES, validate, matchesFrame, stage };
+module.exports = { ...layout(1), layout };

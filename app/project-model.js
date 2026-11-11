@@ -47,6 +47,9 @@
         // 舊專案沒有這個欄位，視為沒有片尾，輸出維持原樣。
         if (!object(value) || !Number.isFinite(value.tailSeconds)) throw new Error('專案輸出設定無效。');
         value.tailSeconds = Math.round(Math.min(MAX_TAIL_SECONDS, Math.max(0, value.tailSeconds)) * 2) / 2;
+        // 1.2 起可選的解析度、影格率與編碼速度；省略時是 1.1 的 1080p／60 fps／medium。
+        const format = typeof module === 'object' && module.exports ? require('./export-format.js') : globalThis.WaveCanvasExportFormat;
+        for (const key of Object.keys(format.defaults)) if (value[key] !== undefined && !format.valid(key, value[key])) throw new Error('專案輸出設定無效。');
     }
     function validate(project, fallbackName = 'Untitled') {
         safe(project);

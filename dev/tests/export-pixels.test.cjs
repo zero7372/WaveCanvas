@@ -48,3 +48,15 @@ test('Invalid compositor surfaces fail before encoding and transparent metadata 
     const bitmap = surface(1920, 0); bitmap[1080 * 1920 * 4 + 3] = 0;
     assert.equal(pixels.matchesFrame(bitmap, 1920, 0), false);
 });
+test('4K layout authenticates the doubled metadata row and crops the 3840 Stage', () => {
+    const four = pixels.layout(2), width = 3842, height = 2162, index = 70000;
+    const bitmap = Buffer.alloc(width * height * 4), offset = 2160 * width * 4, value = index + 1;
+    for (const [x, invert] of [[0, false], [1, false], [2, true], [3, true]]) for (let channel = 0; channel < 3; channel++) {
+        const byte = (value >>> (channel * 8)) & 255; bitmap[offset + x * 4 + 2 - channel] = invert ? 255 - byte : byte; bitmap[offset + x * 4 + 3] = 255;
+    }
+    four.validate(bitmap, width, height);
+    assert.equal(four.matchesFrame(bitmap, width, index), true); assert.equal(four.matchesFrame(bitmap, width, index - 1), false);
+    assert.equal(pixels.matchesFrame(bitmap, width, index), false, '1080p layout reads a different row');
+    assert.equal(four.stage(bitmap, width).length, 3840 * 2160 * 4);
+    assert.throws(() => four.validate(Buffer.alloc(1920 * 1081 * 4), 1920, 1081));
+});

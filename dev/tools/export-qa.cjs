@@ -139,6 +139,20 @@ await session.renderer('VisualizerLyrics.setDocumentEnd(null);VisualizerRuntime.
 const fixed=await exportRun('static',{startTime:0,endTime:2.1});
 const backgrounds=[0,60,120].map(index=>fixed.diagnosticStates[index].background);
 check(backgrounds[0].includes('translate3d(30px, -10px')&&backgrounds.every(value=>value===backgrounds[0]),'Static background transform never changes during export');
+// 1.2：解析度與影格率。30 fps 每兩格編碼一格，畫面狀態要和 60 fps 同一時間點完全相同。
+const probeVideo=file=>JSON.parse(execFileSync(path.join(root,'vendor/ffmpeg/ffprobe.exe'),['-v','error','-count_frames','-select_streams','v:0','-show_entries','stream=width,height,r_frame_rate,nb_read_frames','-of','json',file],{encoding:'utf8',windowsHide:true})).streams[0];
+await session.renderer('WaveCanvasExportSettings.setFormat({resolution:"720p",fps:30,preset:"veryfast"});true');
+check(JSON.stringify(await session.renderer('WaveCanvasProject.snapshot().state.export'))===JSON.stringify({tailSeconds:3,resolution:'720p',fps:30,preset:'veryfast'}),'Export format is stored in the project snapshot');
+const half=await exportRun('format-720p30',{startTime:0,endTime:2.1});const halfVideo=probeVideo(half.output);
+check(half.frames===63&&halfVideo.width===1280&&halfVideo.height===720&&halfVideo.r_frame_rate==='30/1'&&Number(halfVideo.nb_read_frames)===63,'720p 30 fps writes 63 frames at 1280x720: '+JSON.stringify(halfVideo));
+check([0,60,120].every(index=>JSON.stringify(half.diagnosticStates[index].samples)===JSON.stringify(fixed.diagnosticStates[index].samples)&&half.diagnosticStates[index].lyrics===fixed.diagnosticStates[index].lyrics&&half.diagnosticStates[index].background===fixed.diagnosticStates[index].background),'30 fps frames share audio, lyric and background state with the same 60 fps instants');
+await session.renderer('WaveCanvasExportSettings.setFormat({resolution:"2160p",fps:60,preset:"veryfast"});true');
+const large=await exportRun('format-2160p',{startTime:0,endTime:1});const largeVideo=probeVideo(large.output);
+check(large.frames===60&&largeVideo.width===3840&&largeVideo.height===2160&&Number(largeVideo.nb_read_frames)===60,'4K writes 60 frames at 3840x2160: '+JSON.stringify(largeVideo));
+check(large.rawFrameHashes['0']!==large.rawFrameHashes['60'],'4K frames evolve');
+await fs.writeFile(path.join(artifacts,'format-timing.json'),JSON.stringify({'720p30':half.renderingMs,'2160p60':large.renderingMs,'1080p60-static':fixed.renderingMs},null,2));
+await session.renderer('WaveCanvasExportSettings.setFormat({resolution:"1080p",fps:60,preset:"medium"});true');
+check(JSON.stringify(await session.renderer('WaveCanvasProject.snapshot().state.export'))===JSON.stringify({tailSeconds:3}),'Default format is not written to the project');
 await session.renderer('VisualizerRuntime.updateStandalone({background:{mode:"infinity",offsetX:0,offsetY:0}});WaveCanvasExportSettings.set(0);true');
 }catch(e){check(false,e.stack||String(e));}finally{if(session)await session.finish();await fs.writeFile(path.join(artifacts,'results.json'),JSON.stringify({checks},null,2));}console.log(artifacts);process.exitCode=checks.some(c=>!c.pass)?1:0;
 }run().catch(e=>{console.error(e);process.exitCode=1});

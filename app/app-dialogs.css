@@ -35,3 +35,5 @@
 #update-notice button { padding:6px 10px; border:1px solid #171614; border-radius:2px; background:#3f3c38; color:inherit; font:inherit; cursor:pointer; }
 #update-notice .primary-button { background:var(--ink); border-color:var(--ink); color:var(--on-ink); font-weight:600; }
 #preference-check-now { margin-top:4px; }
+/* 輸出格式：每個選項一列，和片尾延長同樣的「名稱｜控制項」排法。 */
+#export-dialog .export-format + .setting-note { margin-bottom:12px; }

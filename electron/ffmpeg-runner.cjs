@@ -4,10 +4,13 @@ const path = require('node:path'), { spawn } = require('node:child_process');
 const fs = require('node:fs/promises'), crypto = require('node:crypto');
 function resolver(app) { return path.join(app.isPackaged ? process.resourcesPath : path.resolve(__dirname, '../vendor'), 'ffmpeg', 'ffmpeg.exe'); }
 function temporary(output) { return path.join(path.dirname(output), '.' + path.basename(output) + '.' + crypto.randomUUID() + '.partial.mp4'); }
-function args(audio, output, count, start = 0, padAudio = false) {
-    return ['-hide_banner', '-nostdin', '-y', '-f', 'rawvideo', '-pixel_format', 'bgra', '-video_size', '1920x1080', '-framerate', '60', '-i', 'pipe:0',
-        '-ss', String(start), '-i', audio, '-map', '0:v:0', '-map', '1:a:0', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p',
-        '-frames:v', String(count), ...(padAudio ? ['-af', 'apad'] : []), '-c:a', 'aac', '-b:a', '320k', '-t', String(count / 60), '-movflags', '+faststart', output];
+const formats = require('../app/export-format.js');
+// format 省略時就是 1.1 的 1080p／60 fps／medium，參數與舊版完全相同。
+function args(audio, output, count, start = 0, padAudio = false, format = formats.resolve()) {
+    const scale = format.width === format.renderWidth ? [] : ['-vf', 'scale=' + format.width + ':' + format.height + ':flags=lanczos'];
+    return ['-hide_banner', '-nostdin', '-y', '-f', 'rawvideo', '-pixel_format', 'bgra', '-video_size', format.renderWidth + 'x' + format.renderHeight, '-framerate', String(format.fps), '-i', 'pipe:0',
+        '-ss', String(start), '-i', audio, '-map', '0:v:0', '-map', '1:a:0', ...scale, '-c:v', 'libx264', '-preset', format.preset, '-crf', '18', '-pix_fmt', 'yuv420p',
+        '-frames:v', String(count), ...(padAudio ? ['-af', 'apad'] : []), '-c:a', 'aac', '-b:a', '320k', '-t', String(count / format.fps), '-movflags', '+faststart', output];
 }
 function run(binary, arguments_) {
     const child = spawn(binary, arguments_, { windowsHide: true, stdio: ['pipe', 'ignore', 'pipe'] });
@@ -21,5 +24,5 @@ function run(binary, arguments_) {
         await new Promise((resolve, reject) => child.stdin.write(frame, error => error ? reject(error) : resolve()));
     }, end() { child.stdin.end(); }, async stop() { child.kill(); await completed.catch(() => {}); } };
 }
-function frames(duration, tail = 0) { if (!Number.isFinite(duration) || duration <= 0 || duration > 21600) throw Error(t('音訊長度無效或超過六小時。')); return Math.ceil((duration + tail) * 60); }
+function frames(duration, tail = 0, fps = 60) { if (!Number.isFinite(duration) || duration <= 0 || duration > 21600) throw Error(t('音訊長度無效或超過六小時。')); return Math.ceil((duration + tail) * fps); }
 module.exports = { resolver, temporary, args, run, frames };
